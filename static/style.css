@@ -1,0 +1,708 @@
+.bottom-nav {
+  position: fixed; /* atau relative */
+  /* Pastikan ada padding atau width yang jelas */
+}
+
+:root {
+  --indicator-clr: #0f3222;
+  --menu-clr: white;
+  --items-icons-clr: black;
+  --items-text-clr: #184D47;
+  --menu-padding-left: 1.6rem;
+  --menu-padding-right: var(--menu-padding-left, 1.6rem);
+  --menu-padding-top: 1rem;
+  --menu-padding-bottom: var(--menu-padding-top, 0);
+  /* --item-width: 4rem; */
+  --item: 0;
+  --item-width: 60px;
+  --gap: 1rem;
+ /* --menu-padding-left: 0px;*/
+
+  /* Warna khas One UI (Aksen Biru) */
+  --one-ui-primary: #184D47;
+  --one-ui-shadow: rgba(0, 0, 0, 0.15);
+  --bg-clr-bhind: #ffffff; /* Sesuaikan dengan bg navbar kamu */
+  --indicator-brdr-size: 0.25rem;
+}
+
+/*@font-face {
+  font-family: aksara;
+  src: url("/static/nykNgayogyanNew.woff2");
+} */
+@font-face {
+      font-family: aksara;
+      src: url("https://raw.githubusercontent.com/MasArMuttaqi/masjid-info/refs/heads/main/src/font/nyk Ngayogyan New Italic.ttf");
+}
+
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+
+html {
+    background: #F3F3F3;
+}
+
+body{
+    background-image:url("/static/img/page-cover.png");
+    background-position: center top;
+    background-repeat: repeat;
+    background-position: center bottom;
+    background-repeat: repeat;
+    background-size: auto;
+}
+
+/*@media (min-width: 768px) {
+      body {
+        max-width: 420px !important;
+        margin: 0 auto;
+      }
+      #navbar-atas {
+        max-width: 420px !important;
+        margin: 0 auto;
+      }
+      .bottom-nav {
+        max-width: 420px !important;
+        margin: 0 auto;
+      }
+      .offcanvas-bottom {
+        max-width: 420px !important;
+        margin: 0 auto;
+      }
+      .scout-card {
+        max-width: 420px !important;
+        margin: 0 auto;
+      }
+}*/
+
+/* Navbar awal transparan */
+#navbar-atas {
+  transition: all 0.3s ease;
+  background-color: transparent;
+  box-shadow: none;
+  color:#fff;
+  font-family: "Philosopher", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 2rem;
+}
+
+/* Navbar setelah discroll */
+#navbar-atas.scrolled {
+  background: linear-gradient(145deg, #0F3222, #184D47);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 0 0 20px 20px;
+  color:#fff;
+}
+
+        .branding-container {
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            padding: 20px;
+        }
+
+        .branding-container img {
+            width: 35px;
+            height: auto;
+            position: absolute;
+            top: 2px;
+            right: -5px;
+            filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.3));
+            /*opacity: 0.9;*/
+        }
+
+a {
+  color: inherit;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.bottom-nav {
+  position: absolute;
+  inset: auto 0 0 0;
+  /*max-width: 500px;*/
+  margin: 0 auto;
+  background-color: var(--menu-clr, white);
+  border-radius: 5px 5px 0 0;
+  isolation: isolate;
+  user-select: none;
+
+  --bg-clr-bhind: var(--background-color);
+}
+
+.menu {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--menu-padding-left);
+  list-style: none;
+  text-overflow: clip;
+}
+
+.bottom-nav-menu li a {
+  display: inline-block;
+  min-height: 100%;
+  width: var(--item-width);
+  padding: 1em;
+  position: relative;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-user-drag: none;
+}
+
+.bottom-nav-menu li a .icon {
+  display: block;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  color: var(--items-icons-clr, black);
+  font-size: 1.4em;
+  font-family: "Rajdhani", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  transition: transform 300ms ease;
+}
+
+.bottom-nav-menu li a.active .icon {
+  transform: translateY(calc(-50% - var(--menu-padding-top, 1em)));
+}
+
+.bottom-nav-menu li a .text {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 111%;
+  line-height: 1;
+  opacity: 0;
+  font-size: 0.7em;
+  color: var(--items-text-clr, black);
+  transition: opacity 300ms, transform 300ms ease;
+  transition-duration: 300ms;
+  transition-delay: 40ms;
+  /*font-family: "Quicksand", sans-serif;*/
+  font-family: "Rajdhani", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  /* color: aliceblue; */
+}
+
+.bottom-nav-menu li a.active .text {
+  opacity: 1;
+  transform: translateY(calc(-50% - var(--menu-padding-top, 1em)))
+    translateX(-50%);
+}
+
+.bottom-nav .indicator {
+  position: absolute;
+  height: 70%;
+  aspect-ratio: 1;
+
+  /* Gradasi khas Samsung: Lebih soft dan cerah */
+  background: linear-gradient(145deg, #0F3222, #184D47);
+
+  /* Border disesuaikan agar menyatu dengan background */
+  border: var(--indicator-brdr-size) solid var(--bg-clr-bhind);
+
+  /* One UI menggunakan radius besar yang hampir kotak tapi sangat bulat (Squircle) */
+  /* Gunakan 40% - 45% untuk look squircle, atau 50% untuk gaya jam tangan Galaxy */
+  border-radius: 42%;
+
+  /* Tambahkan Shadow agar terlihat "mengapung" (Depth effect) */
+  box-shadow: 0 4px 12px var(--one-ui-shadow);
+
+  left: var(--menu-padding-left);
+  top: -27%;
+
+  /* Logika transformasi tetap sama */
+  transform: translateX(
+    calc(
+      ((var(--item-width) - 100%) / 2) + (var(--gap, 1rem) + var(--item-width)) *
+        var(--item, 0)
+    )
+  );
+
+  /* Transisi One UI biasanya menggunakan cubic-bezier agar terasa lebih premium */
+  transition: all 400ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.bottom-nav .indicator::before,
+.bottom-nav .indicator::after {
+  --size: 1rem;
+  --shadow-y: calc(var(--size) / 2 * -1);
+
+  content: "";
+  position: absolute;
+  width: var(--size);
+  height: var(--size);
+  top: 50%;
+  background-color: transparent;
+  box-shadow: 0 var(--shadow-y) 0 var(--bg-clr-bhind);
+  z-index: -1;
+}
+
+.bottom-nav .indicator::before {
+  right: 100%;
+  border-top-right-radius: 100%;
+}
+
+.bottom-nav .indicator::after {
+  left: 100%;
+  border-top-left-radius: 100%;
+}
+
+.card{
+      border: none !important;
+}
+.nm-glow-card {
+    background: #ffffff;
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.1), 0 0 20px rgba(0, 156, 72, 0.05);
+    transition: transform 0.3s ease;
+}
+
+.nm-glow-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, #1b3a7c, #1d8757);
+}
+
+.card-footer{
+    font-size: 0.8rem;
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    line-height: 1;
+    color:#7A7A7A !important;
+}
+
+.nm-block-head {
+   border-bottom: 1px solid #eee;
+   margin-bottom: 10px;
+   position: relative;
+}
+
+.nm-block-title {
+   font-family: "Philosopher", sans-serif;
+   font-size: 1rem;
+   font-weight: 800;
+   margin: 0;
+   padding-bottom: 5px;
+   display: inline-block;
+   border-bottom: 3px solid #ff6b00;
+   margin-bottom: -1px;
+   letter-spacing: 0.5px;
+}
+
+.bg-header-calendar{
+   background: url('https://lh3.googleusercontent.com/d/1rAryIfNbGNWbaxKXgCpc1ZH_UrGD92UA=w800?authuser=1') left top / 25% no-repeat, url('https://lh3.googleusercontent.com/d/19omYQ9-yutMNjyaQ85c5X-3EauVBJ8S-=w800?authuser=1') right top / 25% no-repeat, #ecbe4a !important;
+}
+
+.offcanvas-title{
+   font-family: "Philosopher", sans-serif;
+   font-size: 1rem;
+   font-weight: 800;
+   letter-spacing: 0.5px;
+}
+.offcanvas-body{
+    font-family: "Montserrat", sans-serif;
+}
+
+.btn-credit{
+    width:100px;
+    height:40px;
+    font-size:12px;
+    display: flex;
+    white-space: nowrap;
+      justify-content: center;
+      align-items: center;
+      background:#FFF;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+}
+.btn-credit img{
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+}
+
+
+
+.calendar-container {
+         <!-- max-width: 800px; -->
+         <!-- width:400px; -->
+         margin: 0 auto;
+         overflow: hidden;
+         position: relative;
+        }
+        .calendar-container::before{
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background-color: #00796b;
+        }
+        .table-calendar thead th {
+        background-color: #f8f9fa;
+        text-align: center;
+        border: 1px solid #dee2e6;
+        }
+        .table-calendar td {
+        height: 100px; width: 14%; border: 1px solid #dee2e6; vertical-align: top; padding: 5px; position: relative; }
+
+        /* Warna teks khusus */
+        .text-red { color: #dc3545; font-weight: bold; } /* Hari Minggu & Libur */
+        .text-teal { color: #20c997; font-weight: bold; } /* Tanggal Hijriah tertentu */
+        .text-muted { color: #ced4da !important; } /* Tanggal luar bulan */
+
+        .table-calendar td.hari-ini{
+            background:rgba(0, 128, 128,0.2);
+            /*border: 2px solid #008080;
+            border-collapse: collapse;*/
+            border-radius: 6px;
+            box-shadow: inset 0 0 0 2px #008080;
+            font-weight: bold;
+        }
+
+        /* Elemen dalam sel */
+
+        .date-num {
+            font-family: "Philosopher", sans-serif;
+            font-size: 1.8rem;
+            font-weight:600;
+            text-align: center;
+            display: block;
+        }
+
+         .hijri-num {
+            /*font-family: "Philosopher", sans-serif;*/
+            font-family: "Amiri", serif;
+            font-weight: 700;
+            font-style: italic;
+            font-size: 0.75rem;
+            color: #6c757d;
+         }
+
+        .pasaran {
+            font-size: 0.75rem;
+            color: #6c757d;
+            display: block;
+            text-align: center;
+            /*margin-top: 5px; */
+        }
+
+        /* Responsif Mobile */
+        @media (max-width: 576px) {
+            .table-calendar td { height: 70px; padding: 2px; }
+            .date-num { font-size: 1.8rem; }
+            .pasaran { font-size: 0.65rem; }
+            .hijri-num { font-size: 0.7rem; }
+        }
+
+.list-group .list-group-item{
+    background:transparent;
+}
+
+.list-group .list-group-item i{
+    /* Mengatur latar belakang dengan gradasi linear */
+  background: linear-gradient(45deg, #00d2ff, #3a7bd5, #7058ff);
+
+  /* Teknik agar gradasi hanya muncul pada teks/ikon (masking) */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  /* Opsional: Menyesuaikan ukuran jika itu sebuah ikon */
+  font-size: 10px;
+  display: inline-block;
+}
+
+.aksara{
+    font-family: aksara;
+    font-size: 14px;
+    line-height: 2;
+}
+
+/* Menargetkan tombol di dalam list-group-item */
+.list-group-item .btn[data-bs-toggle="offcanvas"] {
+    padding: 0;
+    margin-left: 2px;     /* Memberi sedikit jarak dari teks utama */
+    vertical-align: super; /* Menaikkan posisi tombol */
+    font-size: 0.6rem;    /* Mengecilkan ukuran tombol jika ada teks */
+    line-height: 1;
+    display: inline-block;
+}
+
+/* Mengatur ukuran icon di dalamnya agar tetap proporsional */
+.list-group-item .btn[data-bs-toggle="offcanvas"] img {
+    width: 8px;           /* Ukuran icon sedikit diperkecil */
+    height: auto;
+    display: block;
+}
+
+/* Container utama tab */
+        .nav-custom-wrapper {
+            background-color: #f0f0f0; /* Warna abu-abu background sesuai gambar */
+            padding: 4px;
+            border-radius: 12px;
+            display: inline-flex;
+            width: 100%;
+            /*max-width: 400px;*/
+        }
+
+        .nav-custom-wrapper .nav-link {
+            flex: 1;
+            text-align: center;
+            color: #6c757d;
+            font-family: "Rajdhani", sans-serif;
+            font-style: normal;
+            font-weight: 500;
+            border: none;
+            padding: 10px 5px;
+            border-radius: 10px !important;
+            transition: all 0.3s ease;
+            background: transparent;
+        }
+
+        /* Styling saat tab aktif */
+        .nav-custom-wrapper .nav-link.active {
+            background-color: #ffffff !important;
+            color: #333 !important;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* Shadow halus agar menonjol */
+            margin: 0 4px;
+        }
+
+        .tab-content {
+            margin-top: 20px;
+            /*padding: 20px;
+            background: white;
+            border-radius: 10px;
+            border: 1px solid #eee;*/
+        }
+        .tab-content p{
+            font-size: 1rem !important;
+            font-family: "Rajdhani", sans-serif;
+        }
+
+tfoot td, tfoot th {
+    padding: 2px 4px;       /* kecilkan padding */
+    line-height: 1.2;       /* rapat sesuai teks */
+    height: auto !important;
+    vertical-align: middle;
+}
+
+tfoot tr {
+    height: auto !important;
+}
+
+/* opsional: biar beda dari body */
+tfoot {
+    background: #f8f9fa;
+    font-size: 12px;
+}
+
+.label {
+  display: inline-flex;
+  align-items: center;
+  /*font-family: sans-serif;
+  font-size: 16px;*/
+  margin-right: 20px;
+}
+
+.label i {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  margin-right: 8px;
+  border-radius: 50%;
+}
+
+/* Bagian atas berwarna hijau gelap */
+        .header-section {
+            background: linear-gradient(145deg, #0F3222, #184D47);
+            color: white;
+            padding-top: 100px;
+            padding-bottom: 150px; /* Padding bawah ekstra untuk ruang gambar */
+            width:90%;
+        }
+
+        .header-section h1 {
+            font-weight: 300;
+            margin-bottom: 10px;
+            font-family: "Rajdhani", sans-serif;
+        }
+
+        .header-section h2 {
+            letter-spacing: 1px;
+            color: #c5a059; /* Warna emas/cokelat muda */
+            /*text-transform: uppercase;*/
+            font-size: 1.1rem;
+        }
+        .aksara{
+            font-family: aksara;
+        }
+        .hijaiyah{
+            font-family: "Amiri", serif;
+        }
+
+        .hari-nasional{
+            font-family: 'Philosopher';
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        .hari-jawa{
+            font-family: 'Rajdhani';
+            font-size:12px;
+            color:gray;
+        }
+
+        /* Kontainer gambar dengan efek overlap */
+        .image-container {
+            margin-top: -100px;
+            /* Menarik gambar ke atas */
+
+        }
+
+        .main-image {
+            width: 100%;
+            min-height: 150px;
+            border-radius: 20px;
+            background-image: url("https://images.unsplash.com/photo-1707209856575-a80b9dff5524?fm=jpg&q=60&w=3000&auto=format&fit=crop");
+            background-size: cover;
+            background-color: #fafafa;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+
+        .content-section {
+            padding-top: 40px;
+            padding-bottom: 60px;
+            font-family: "Montserrat", sans-serif;
+            font-optical-sizing: auto;
+        }
+
+        .content-section h2 {
+            font-weight: 600;
+            color: #212529;
+            margin-bottom: 20px;
+        }
+
+       .content-section p {
+            line-height: 1.8;
+            color: #4a4a4a;
+            font-size: 1.1rem;
+        }
+
+        .content-section .list{
+            font-weight: 500;
+            font-size: 1.1rem;
+            font-family: "Rajdhani", sans-serif;
+        }
+
+        .content-section a {
+            font-size: 1rem;
+            color: #4a4a4a;
+            text-decoration: none;
+        }
+
+        .content-section i {
+            background: linear-gradient(45deg, #00d2ff, #3a7bd5, #7058ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 10px;
+            display: inline-block;
+        }
+
+        .main-image .search-container {
+            max-width: 500px;
+            margin: 0 auto;
+
+        }
+
+        /* Styling Input Group */
+        .main-image .custom-search-group {
+            display: flex;
+            gap: 12px; /* Jarak antara input dan tombol */
+        }
+
+        /* Styling Input Field */
+        .main-image .search-input-wrapper {
+            position: relative;
+            flex-grow: 1;
+        }
+
+        .main-image .search-input-wrapper i {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9e9e9e;
+            font-size: 1.2rem;
+        }
+
+        .main-image .custom-input {
+            height: 60px;
+            padding-left: 55px !important;
+            border-radius: 20px !important; /* Sangat bulat */
+            border: 1px solid #eee !important;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            font-size: 1rem;
+            color: #6c757d;
+        }
+
+        .main-image .custom-input:focus {
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            border-color: #ddd !important;
+            outline: none;
+        }
+
+        /* Styling Tombol Filter */
+        .main-image .btn-filter {
+            width: 60px;
+            height: 60px;
+            background-color: #c5a059;
+            border: none;
+            border-radius: 18px; /* Sudut membulat kotak */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.4rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+        }
+
+        .main-image .btn-filter:hover {
+            background-color: #c5a059;
+            color: #0d2e1f;
+            transform: translateY(-2px);
+        }
+
+        /* Custom Placeholder */
+        .main-image .custom-input::placeholder {
+            color: #bdbdbd;
+        }
+
+        .main-image p{
+            font-weight: 500;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            font-family: "Rajdhani", sans-serif;
+        }
+
+
