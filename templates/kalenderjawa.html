@@ -1,0 +1,241 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- kalender jawa -->
+<!-- header content -->
+<section class="header-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <h1>Kalender Jawa Sultan Agungan</h1>
+                    <h2 class="aksara">ꦥꦤꦁꦒꦭꦤ꧀ꦗꦮ</h2>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container image-container">
+        <div class="row">
+            <div class="col-12">
+                <div class="main-image">
+                <!-- pencarian -->
+                <div class="search-container">
+                    <form method="get" action="{{ url_for('kalenderjawa') }}">
+                    <div class="custom-search-group">
+
+                        <div class="search-input-wrapper">
+                            <i class="fi fi-br-calendar-day"></i>
+                            <input type="date" name="tanggal" value="{{ tanggal.strftime('%Y-%m-%d') if tanggal else '' }}" id="myDateInput" class="form-control custom-input" placeholder="cari tanggal...">
+                        </div>
+
+                        <button class="btn btn-filter" type="submit">
+                            <i class="fi fi-br-search"></i>
+                        </button>
+                    </div>
+                    </form>
+                </div>
+                <!-- pencarian -->
+                    <div class="d-flex justify-content-between mt-4">
+                         <p id="tgl_masehi">{{ masehi }}</p>
+                         <p id="tgl_jawa">{{ data.tanggal_jawa }}</p>
+                    </div>
+                </div>
+
+
+        <div class="row content-section" style="margin: 2px;">
+<!--test-->
+        <div class="card border-0 shadow-sm overflow-hidden" style="border-radius: 20px; padding: 0;">
+
+            <div class="card-header bg-gradient text-white p-4 border-0" style="background-color: #c5a059;">
+            <a href="" class="btn-detail" data-bs-toggle="offcanvas" data-bs-target="#kalenderjawa" aria-controls="offcanvasBottom" data-id="1">
+            <h6 class="mb-1 opacity-75 text-uppercase fw-bold small">Pasaran <i class="fi fi-br-info"></i></h6>
+            </a>
+                 <div class="d-flex justify-content-between align-items-center mb-2 text-muted fw-bold">
+                     <span style="color:#FFF;">{{ data.hari_jawa }}</span>
+                     <span style="color:#FFF;">{{ data.hari_caka }}</span>
+                 </div>
+            </div>
+
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item px-3 py-2 bg-light bg-opacity-50">
+                    <div class="row py-2 border-bottom border-light align-items-center">
+                        <div class="col-5 text-muted small">
+                            <a href="" class="btn-detail" data-bs-toggle="offcanvas" data-bs-target="#kalenderjawa" aria-controls="offcanvasBottom" data-id="3">
+                                <small class="text-muted d-block small">Warsa <i class="fi fi-br-info"></i></small>
+                            </a>
+                        </div>
+                        <div class="col-7 fw-bold">{{ data.tanggal_jawa.split()[2] }}</div>
+                    </div>
+                    <div class="row py-2 border-bottom border-light align-items-center">
+                        <div class="col-5 text-muted small">
+                            <a href="" class="btn-detail" data-bs-toggle="offcanvas" data-bs-target="#kalenderjawa" aria-controls="offcanvasBottom" data-id="2">
+                                <small class="text-muted d-block small">Windu, Lambang <i class="fi fi-br-info"></i></small>
+                            </a>
+                        </div>
+                        <div class="col-7 fw-medium text-primary">{{ data.windu }}</div>
+                    </div>
+
+                </li>
+                <li class="list-group-item p-3 border-light">
+                    <div class="row g-3">
+                        <div class="col-6 border-end">
+                            <a href="" class="btn-detail" data-bs-toggle="offcanvas" data-bs-target="#kalenderjawa" aria-controls="offcanvasBottom" data-id="4">
+                                <small class="text-muted d-block small">Wuku <i class="fi fi-br-info"></i></small>
+                            </a>
+                            <span class="fw-bold">{{ data.wuku }}</span>
+                        </div>
+                        <div class="col-6 ps-3">
+                            <a href="" class="btn-detail" data-bs-toggle="offcanvas" data-bs-target="#kalenderjawa" aria-controls="offcanvasBottom" data-id="5">
+                               <small class="text-muted d-block small"> Sadwårå/Paringkêlan <i class="fi fi-br-info"></i></small>
+                            </a>
+                            <span class="fw-bold">{{ data.sadwara }}</span>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-group-item px-3 py-2 bg-light bg-opacity-50">
+                    <div class="row py-2 border-bottom border-light align-items-center">
+                        <div class="col-5 text-muted small">
+                            <a href="" class="btn-detail" data-bs-toggle="offcanvas" data-bs-target="#kalenderjawa" aria-controls="offcanvasBottom" data-id="6">
+                                <small>Pranôtômôngsô <i class="fi fi-br-info"></i></small>
+                            </a>
+                        </div>
+                        <div class="col-7 small">{{ data.pranatamangsa }}</div>
+                    </div>
+                </li>
+                <li class="list-group-item px-3 py-2 bg-light bg-opacity-50">
+
+                    <a href="" class="btn-detail" data-bs-toggle="offcanvas" data-bs-target="#kalenderjawa" aria-controls="offcanvasBottom" data-id="13">
+                        <small class="d-block mb-3"> Candranipun <i class="fi fi-br-info"></i></small>
+                    </a>
+                    <div class="text-center">
+                        <span class="aksara">{{ candranipun[0].candranipun_aksara }}</span><br>
+                        <span style="font-size:11px;">{{ candranipun[0].candranipun_latin }}</span>
+                    </div>
+
+                </li>
+                <li class="list-group-item p-3">
+                    <div class="row g-3">
+                        <div class="col-6 border-end">
+                            <a href="" class="btn-detail" data-bs-toggle="offcanvas" data-bs-target="#kalenderjawa" aria-controls="offcanvasBottom" data-id="8">
+                                <small class="text-muted d-block small">Haståwårå <i class="fi fi-br-info"></i></small>
+                            </a>
+                            <span class="fw-bold">{{ data.hastawara }}</span>
+                        </div>
+                        <div class="col-6 ps-3">
+                            <a href="" class="btn-detail" data-bs-toggle="offcanvas" data-bs-target="#kalenderjawa" aria-controls="offcanvasBottom" data-id="7">
+                                <small class="text-muted d-block small">Sångåwårå <i class="fi fi-br-info"></i></small>
+                            </a>
+                            <span class="fw-bold">{{ data.sangawara }}</span>
+                        </div>
+
+                    </div>
+                </li>
+                <li class="list-group-item p-3">
+                    <div class="d-flex justify-content-between align-items-center mb-2 text-muted fw-bold small">
+                        <span>Saptåwårå/Pancasuda</span>
+                    </div>
+                    <div class="row g-3">
+                        <div class="col-6 border-end">
+                            <a href="" class="btn-detail" data-bs-toggle="offcanvas" data-bs-target="#kalenderjawa" aria-controls="offcanvasBottom" data-id="10">
+                                <small class="text-muted d-block small">Saptåwårå <i class="fi fi-br-info"></i></small>
+
+                            </a>
+                          <span class="fw-bold">{{ data.pancasuda_biasa }}</span>
+                        </div>
+                        <div class="col-6 ps-3">
+                            <a href="" class="btn-detail" data-bs-toggle="offcanvas" data-bs-target="#kalenderjawa" aria-controls="offcanvasBottom" data-id="11">
+                                <small class="text-muted d-block small">Pawukon <i class="fi fi-br-info"></i></small>
+                            </a>
+                          <span class="fw-bold">{{ data.pawukon }}</span>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-group-item p-3">
+                    <div class="row g-3">
+                        <div class="col-6 border-end">
+                            <a href="" class="btn-detail" data-bs-toggle="offcanvas" data-bs-target="#kalenderjawa" aria-controls="offcanvasBottom" data-id="9">
+                                <small class="text-muted d-block small">Parerasan (çaka) <i class="fi fi-br-info"></i></small>
+                            </a>
+                          <span class="fw-bold">
+                              {% for item in data.parerasan %}
+                                    {{ item }}
+                              {% endfor %}
+                          </span>
+                        </div>
+                        <div class="col-6 ps-3">
+                            <a href="" class="btn-detail" data-bs-toggle="offcanvas" data-bs-target="#kalenderjawa" aria-controls="offcanvasBottom" data-id="12">
+                                <small class="text-muted d-block small">Rakam <i class="fi fi-br-info"></i></small>
+                            </a>
+                          <span class="fw-bold">{{ data.rakam }}</span>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+<!--test-->
+
+        </div>
+        </div>
+</div>
+    </section>
+<!-- header content -->
+    <!-- kalender jawa -->
+<!-- penjelasan kalender jawa -->
+<div class="offcanvas offcanvas-bottom" tabindex="-1" id="kalenderjawa" aria-labelledby="offcanvasBottomLabel" style="height: 80%;">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasTitle">Deskripsi</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body small">
+    <p id="offcanvasDesc"></p>
+  </div>
+</div>
+<!-- penjelasan kalender jawa -->
+  <!-- kalender -->
+<script>
+$(document).ready(function() {
+
+    // 1. Get the date from the URL (e.g., ?date=2026-04-15)
+    const urlParams = new URLSearchParams(window.location.search);
+    let dateValue = urlParams.get('tanggal');
+
+    // 2. If the param is missing, generate today's date in YYYY-MM-DD format
+    if (!dateValue) {
+        const today = new Date();
+        dateValue = today.toISOString().split('T')[0];
+    }
+    // 3. Set the input value
+    $('#myDateInput').val(dateValue);
+
+
+
+
+});
+
+
+
+const glosarium = {{ raw_glosarium | tojson }};
+
+$(document).ready(function() {
+
+    $('.btn-detail').on('click', function() {
+        const id = $(this).data('id');
+
+        // cari data
+        const item = glosarium.find(d => d.index == id);
+
+        if (item) {
+            $('#offcanvasTitle').text(item.nama);
+
+            // kalau deskripsi HTML
+            $('#offcanvasDesc').html(item.deskripsi);
+
+            // kalau mau text biasa pakai:
+            // $('#offcanvasDesc').text(item.deskripsi);
+        }
+    });
+
+});
+
+</script>
+{% endblock %}

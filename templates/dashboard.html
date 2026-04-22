@@ -1,0 +1,204 @@
+{% extends "base.html" %}
+{% block content %}
+    <section class="header-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <h1 style="text-wrap: nowrap;"></h1>
+                    <h2 class="hijaiyah"></h2>
+                </div>
+            </div>
+        </div>
+    </section>
+<section class="container image-container">
+        <div class="row">
+            <div class="col-12">
+<div class="container-fluid">
+<div class="card">
+    <div class="card-header bg-header-calendar">
+          <h5 class="card-title text-center mt-4 mb-4 date-num">{{ bulan }}</h5>
+          <div class="d-flex justify-content-around align-items-center" style="font-family: 'Rajdhani', sans-serif;">
+              <h6 class="card-subtitle mb-2 text-body-secondary">{{ periode_hijriah[0].bulan_hijriah }} - {{ periode_hijriah[-1].bulan_hijriah }}
+{{ periode_hijriah[0].tahun_hijriah }} H</h6>
+              <h6 class="card-subtitle mb-2 text-body-secondary text-end">{{ periode_jawa[0].bulan_tahun_jawa }} - {{ periode_jawa[-1].bulan_tahun_jawa }} J</h6>
+          </div>
+
+    </div>
+    <div class="card-body">
+<!--      kalender -->
+
+<!--        kalender alt-->
+        <div class="table-responsive">
+        <table class="table table-bordered table-calendar m-0">
+            <tbody>
+                {% set nama_hari = [
+                    {"umum": "Ahad",   "jawa": "Radite", "arab":"الأحد", "class": "text-danger"},
+                    {"umum": "Senin",  "jawa": "Soma", "arab":" الاثنين",   "class": ""},
+                    {"umum": "Selasa", "jawa": "Anggara", "arab":"الثلاثاء", "class": ""},
+                    {"umum": "Rabu",   "jawa": "Budha", "arab":"الأربعاء",  "class": ""},
+                    {"umum": "Kamis",  "jawa": "Respati", "arab":"الخميس", "class": ""},
+                    {"umum": "Jum'at", "jawa": "Sukra", "arab":"الجمعة",  "class": "text-success"},
+                    {"umum": "Sabtu",  "jawa": "Tumpak", "arab":"السبت", "class": ""}]
+                %}
+                {% for i in range(7) %}
+                <tr>
+                    <th style="width:100px; vertical-align:middle;" class="{{ nama_hari[i].class }}">
+                        <span class="hari-nasional">
+                            {{ nama_hari[i].umum }}
+                        </span>
+                        <span class="hijaiyah" style="color: gray; font-size: 0.8rem;"><br>
+                            {{ nama_hari[i].arab }}
+                        </span><br>
+                        <span class="hari-jawa">
+                            ({{ nama_hari[i].jawa }})
+                        </span>
+
+                    </th>
+
+                    {% for d in data[i] %}
+                    <td
+                            class="{% if i == 0 %}text-danger{% endif %}{% if i == 5 %}text-success {% endif %}{% if d and d.is_today %} hari-ini{% endif %}"
+                             {% if d %}
+                            data-bs-toggle="offcanvas"
+                            data-bs-target="#offcanvasBottom"
+                            data-tgl="{{ d.tanggal_id }}"
+
+                        {% endif %}
+                    >
+                        {% if d %}
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="pasaran">{{ d.tgl_jawa }}</span>
+                            <span class="hijri-num">{{ d.tgl_hijriah }}</span>
+                        </div>
+                        <span class="date-num">
+                            {{ d.tgl }}
+                        </span>
+                        <span class="pasaran mb-3">
+                            {{ d.pasaran.split()[-1] }}
+                        </span>
+<!--                        <span class="pasaran text-success">{{ d.wuku }}</span>-->
+                        <span class="pasaran text-primary">{{ d.sadwara }}</span>
+                        {% endif %}
+                    </td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <!-- WUKU -->
+                <tr>
+                    <th><span class="pasaran">Wuku</span></th>
+                    {% for col in range(6) %}
+                        <td class="text-center">
+                            {% if wuku[col] %}
+                                {% for seg in wuku[col] %}
+                                    <div>
+                                        {{ seg.wuku }}<br>
+                                        <small>({{ seg.awal }}-{{ seg.akhir }})</small>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                        </td>
+                    {% endfor %}
+                </tr>
+                    <th>
+                        <span class="pasaran"> Candraninpun</span>
+                    </th>
+                    <td colspan="7">
+                        <small class="aksara">{{ candranipun[0].candranipun_aksara }}</small><br>
+                        <small style="font-size:11px;">{{ candranipun[0].candranipun_latin }}</small>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="7">
+                        <span style="font-size:12px; color:gray;">
+                            Legenda :
+                        </span>
+<!--                            <span class="pasaran label">-->
+<!--                              <i class="bg-success"></i> Wuku-->
+<!--                            </span>-->
+                            <span class="pasaran label">
+                              <i class="bg-primary"></i> Sadwara/Paringkelan
+                            </span>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+<!--kalender alt-->
+    </div>
+    <div class="card-footer">
+        <strong>Catatan :</strong>
+        <ul>
+            <li>Kalender Hijriah: Menggunakan kombinasi metode hisab dan rukyah Lembaga Falakiyah PBNU dengan lokasi acuan di Kota Yogyakarta, DI Yogyakarta.</li>
+            <li>Kalender Jawa: Mengadopsi Kalender Jawa Sultan Agungan Karaton Ngayogyakarta Hadiningrat</li>
+        </ul>
+    </div>
+  </div>
+</div>
+    </div>
+
+</section>
+<!-- detail -->
+<div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasBottom" style="height:90%;">
+
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasTitle">Tanggal</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+  </div>
+
+  <div class="offcanvas-body small">
+    <ul class="list-group list-group-flush">
+
+      <li class="list-group-item d-flex justify-content-between">
+        Pasaran
+        <span id="oc-pasaran"></span>
+      </li>
+
+      <li class="list-group-item d-flex justify-content-between">
+        Hijriah
+        <div>
+          <span id="oc-hijriah"></span>
+            <a href="/kalenderhijriah">
+                <i class="fi fi-br-arrow-up-right-from-square"></i>
+            </a>
+        </div>
+      </li>
+
+      <li class="list-group-item d-flex justify-content-between">
+        Jawa
+        <div>
+          <span id="oc-jawa"></span>
+            <a href="/kalenderjawa">
+                <i class="fi fi-br-arrow-up-right-from-square"></i>
+            </a>
+        </div>
+      </li>
+
+    </ul>
+  </div>
+</div>
+<!-- detail -->
+</div>
+  <!-- kalender -->
+<script>
+$(document).on('click', 'td[data-tgl]', function () {
+    let tanggal = $(this).attr('data-tgl');
+
+    // console.log('tanggal:', tanggal);
+
+    $.get('/detail-kalender', { tanggal: tanggal }, function(res){
+        $('#offcanvasTitle').html(res.masehi);
+        $('#oc-jawa').html(res.jawa);
+        $('#oc-hijriah').text(res.hijriah);
+        $('#oc-pasaran').text(res.pasaran);
+        $('a[href="/kalenderhijriah"]').attr('href', function(i, val) {
+            return val + '?tanggal=' + tanggal;
+        });
+        $('a[href="/kalenderjawa"]').attr('href', function(i, val) {
+            return val + '?tanggal=' + tanggal;
+        });
+    });
+});
+</script>
+{% endblock %}

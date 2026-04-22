@@ -1,0 +1,128 @@
+{% extends "base-admin.html" %}
+{% block content %}
+<!--        <h1 class="display-4">Selamat Datang, Admin!</h1>-->
+<!--        <p class="lead">Anda berhasil login menggunakan PIN 6 digit.</p>-->
+<div class="card nm-glow-card">
+  <div class="card-body">
+    <div class="d-flex justify-content-between align-items-center">
+        <h5 class="card-title">Hasil Rukyatul Hilal</h5>
+        <button class="btn btn-sm btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasHilal" aria-controls="offcanvasHilal">Rekam data baru</button>
+    </div>
+
+    <table class="table mt-4">
+    <thead>
+          <tr>
+            <th>Awal Bulan Hijriah</th>
+            <th>Tanggal Masehi</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in datahilal %}
+            <tr>
+              <td>{{ item.nama_bulan }}</td>
+              <td>{{ item.tanggal_masehi }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+    </table>
+
+  </div>
+</div>
+
+<div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasHilal" aria-labelledby="offcanvasBottomLabel" style="height: 90%;">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasBottomLabel">Fomulir Tambah Data</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body small">
+    <form id="formHijriah" class="container mt-3">
+      <div class="row mb-3 align-items-center">
+        <label for="bulan_hijriah" class="col-sm-6 col-form-label fw-semibold text-nowrap">
+          Awal Bulan Hijriah:
+        </label>
+        <div class="col-sm-6 d-flex align-items-center gap-2 flex-wrap">
+          <select id="bulan_hijriah" name="bulan_hijriah" class="form-select form-select-sm w-auto">
+            <option value="" disabled selected>-- Pilih --</option>
+            <option value="1">Muharram</option>
+            <option value="2">Safar</option>
+            <option value="3">Rabi'ul Awal</option>
+            <option value="4">Rabi'ul Akhir</option>
+            <option value="5">Jumadil Awal</option>
+            <option value="6">Jumadil Akhir</option>
+            <option value="7">Rajab</option>
+            <option value="8">Sya'ban</option>
+            <option value="9">Ramadhan</option>
+            <option value="10">Syawwal</option>
+            <option value="11">Dzulqa'dah</option>
+            <option value="12">Dzulhijjah</option>
+          </select>
+          <input type="text" id="hijrYear" class="form-control form-control-sm w-auto" maxlength="4" placeholder="Tahun">
+        </div>
+      </div>
+
+      <div class="row mb-3 align-items-center">
+        <label for="tanggalmasehi" class="col-sm-3 col-form-label fw-semibold text-nowrap">
+          Tanggal Masehi:
+        </label>
+        <div class="col-sm-9">
+          <input type="text" id="tanggalmasehi" class="form-control form-control-sm" placeholder="yyyy-mm-dd">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="offset-sm-3 col-sm-9">
+          <button type="submit" class="btn btn-primary">Simpan Data</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<script>
+    // Get the current date
+    const m = moment();
+    m.locale('en');
+// Get the Hijri year as a string (e.g., "1447")
+const hijriYearString = m.format('iYYYY');
+$("#hijrYear").val(hijriYearString);
+console.log("Hijri Year (string):", hijriYearString);
+</script>
+<script>
+$(document).ready(function(){
+    $('#tanggalmasehi').datepicker({
+        format: 'yyyy-mm-dd'
+    });
+});
+</script>
+<script>
+    $('#formHijriah').on('submit', function(e) {
+  e.preventDefault(); // cegah reload halaman
+
+  const bulan = $('#bulan_hijriah').val();
+  const tahun = $('#hijrYear').val();
+  const tanggal = $('#tanggalmasehi').val();
+
+  // Gabungkan jadi "1447-03"
+  const hijriah = `${tahun}-${bulan.padStart(2, '0')}`;
+
+  // Data akhir yang dikirim ke Flask
+  const formData = {
+    hijriah: hijriah,
+    tanggalmasehi: tanggal
+  };
+
+  $.ajax({
+    url: '/simpan_rukyah',
+    type: 'POST',
+    contentType: 'application/json',
+    data: JSON.stringify(formData),
+    success: function(response) {
+      showToast("✅ " + response.message, "success");
+    },
+    error: function(xhr) {
+      showToast("❌ Gagal mengirim data ke server.", "error");
+    }
+  });
+});
+
+</script>
+{% endblock %}

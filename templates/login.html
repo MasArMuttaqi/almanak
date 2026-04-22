@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=375, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Pengelola - Alamanak</title>
+  <link rel="icon" type="image/x-icon" href="/static/img/1000307868.png">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+
+  <style>
+    @import url('https://fonts.cdnfonts.com/css/sf-pro-display');
+
+    @font-face {
+      font-family: number;
+      src: url("https://raw.githubusercontent.com/MasArMuttaqi/masjid-info/refs/heads/main/src/font/SF Pro - Semibold Rails.otf");
+    }
+
+    html { background: #ccc; }
+
+    body {
+      background: url('https://i.pinimg.com/736x/6c/4a/b5/6c4ab5f6b61b77da26c8bb6a9b718531.jpg') center/cover no-repeat;
+      max-width: 420px;
+      height: 100vh;
+      margin: 0 auto;
+      color: white;
+      font-family: 'SF Pro Display', sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+    }
+
+    /* Desktop constraint */
+    @media (min-width: 768px) {
+      .offcanvas { max-width: 420px !important; margin: 0 auto; }
+    }
+
+    .date { margin-top: 50px; font-size: 1.25rem; font-weight: 500; }
+
+    .time {
+      font-size: 6rem;
+      font-weight: 500;
+      line-height: 1;
+      font-family: number;
+      position: absolute;
+      top: 98px;
+    }
+
+    .icon-button {
+      background-color: rgba(0, 0, 0, 0.2);
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 7px;
+    }
+
+    .icon-button img {
+      width: 70%;
+      filter: invert(1) brightness(3);
+      mix-blend-mode: screen;
+    }
+
+    .offcanvas-bottom {
+      background-color: rgba(255, 255, 255, 0.7);
+      color: #000;
+    }
+
+    .pin-inputs { display: flex; gap: 15px; }
+
+    .pin-inputs input {
+      width: 40px;
+      height: 40px;
+      text-align: center;
+      font-size: 20px;
+      border: 0;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="date text-center" id="tanggal-indonesia">Tuesday, 25 February</div>
+  <div class="time text-center" id="clock">17:52</div>
+
+  <div class="d-flex justify-content-between w-100 px-4" style="margin-bottom: 40px;">
+    <div class="icon-button" role="button" data-bs-toggle="offcanvas" data-bs-target="#demoOffcanvas">
+      <img src="https://cdn-icons-png.flaticon.com/128/18292/18292198.png" alt="Settings">
+    </div>
+    <a href="{{ url_for('dashboard') }}" class="icon-button">
+      <img src="https://cdn-icons-png.flaticon.com/128/9187/9187555.png" alt="Dashboard">
+    </a>
+  </div>
+
+  <div class="offcanvas offcanvas-bottom rounded-top-4" id="demoOffcanvas" style="height: 75%;">
+    <div class="offcanvas-header">
+      <h1 class="offcanvas-title" style="font-size: 16pt;">Masuk Admin</h1>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+    </div>
+    <div class="offcanvas-body d-flex flex-column align-items-center">
+      <p>Silakan masukkan PIN Anda untuk masuk ke sistem.</p>
+      <form method="POST" onsubmit="joinPin(event)" class="d-flex flex-column align-items-center">
+          <div class="pin-inputs">
+              <input type="password" id="pin1" maxlength="1" oninput="moveNext(this,'pin2')" autofocus>
+              <input type="password" id="pin2" maxlength="1" oninput="moveNext(this,'pin3')">
+              <input type="password" id="pin3" maxlength="1" oninput="moveNext(this,'pin4')">
+              <input type="password" id="pin4" maxlength="1" oninput="moveNext(this,'pin5')">
+              <input type="password" id="pin5" maxlength="1" oninput="moveNext(this,'pin6')">
+              <input type="password" id="pin6" maxlength="1">
+          </div>
+          <input type="hidden" name="pin" id="pinHidden">
+          <br>
+          <button class="btn btn-primary w-100 rounded-pill" type="submit">
+            <i class="fi fi-rr-fingerprint"></i> Masuk
+          </button>
+      </form>
+    </div>
+  </div>
+
+  <div class="toast-container position-fixed bottom-0 end-0 p-3">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+        <div class="toast show align-items-center text-white bg-{{ category }} border-0" role="alert">
+          <div class="d-flex">
+            <div class="toast-body">{{ message }}</div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+          </div>
+        </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    function moveNext(current, nextFieldId) {
+      if (current.value.length === 1 && nextFieldId) {
+        document.getElementById(nextFieldId).focus();
+      }
+    }
+
+    function joinPin(event) {
+      event.preventDefault();
+      let pin = "";
+      for (let i = 1; i <= 6; i++) {
+        pin += document.getElementById("pin" + i).value;
+      }
+      document.getElementById("pinHidden").value = pin;
+      event.target.submit();
+    }
+
+    $(document).ready(function() {
+      const hari = ['Ahad', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jum\'at', 'Sabtu'];
+      const bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+
+      function updateClock() {
+        const today = new Date();
+        $('#tanggal-indonesia').text(`${hari[today.getDay()]}, ${today.getDate()} ${bulan[today.getMonth()]}`);
+
+        let h = today.getHours().toString().padStart(2, '0');
+        let m = today.getMinutes().toString().padStart(2, '0');
+        $('#clock').text(`${h}:${m}`);
+      }
+      updateClock();
+      setInterval(updateClock, 1000);
+    });
+  </script>
+</body>
+</html>
