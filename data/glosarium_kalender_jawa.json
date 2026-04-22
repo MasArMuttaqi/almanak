@@ -1,0 +1,67 @@
+[
+  {
+    "index": 1,
+    "nama": "Dina Pasaran",
+    "deskripsi": "<p><strong>Sistem Kalender Jawa</strong> adalah sistem penanggalan yang menggabungkan siklus mingguan (<em>saptawara</em>) dengan siklus lima harian (<em>pancawara/pasaran</em>). Sistem yang diciptakan oleh <strong>Sultan Agung</strong> ini memadukan kalender <em>Hijriyah</em>, <em>Saka</em>, dan <em>Julian</em>.</p><p><strong>Komponen utama Hari Jawa:</strong></p>\n<ul><li><strong>Pancawara (Hari Pasaran siklus 5 Hari):</strong> Terdiri dari <em>Legi</em>, <em>Pahing</em>, <em>Pon</em>, <em>Wage</em>, dan <em>Kliwon</em>.</li><li><strong>Saptawara (Padinan siklus 7 Hari):</strong> Siklus mingguan yang mirip Masehi dengan nama Jawa: <em>Radite</em> (Minggu), <em>Soma</em> (Senin), <em>Hanggara</em> (Selasa), <em>Buda</em> (Rabu), <em>Respati</em> (Kamis), <em>Sukra</em> (Jumat), dan <em>Tumpak</em> (Sabtu).\n</li><li> <strong>Weton:</strong> Kombinasi antara <em>Saptawara</em> dan <em>Pancawara</em> (misalnya: <strong>Senin Pon</strong> atau <strong>Jumat Kliwon</strong>).</li></ul>"
+  },
+  {
+    "index": 2,
+    "nama": "Windu & lambang",
+    "deskripsi": "<p><strong>Windu</strong> adalah satuan waktu dalam penanggalan Jawa yang lamanya <strong>8 tahun</strong>. \nSiklus besar ini terdiri dari 4 windu, yaitu: <em>Adi</em>, <em>Kuntara</em>, <em>Sengara</em>, dan <em>Sancaya</em> dengan total durasi <strong>32 tahun</strong>.</p><ul><li>Tiap windu tersebut memiliki lambang: <strong>Kulawu</strong> dan <strong>Langkir</strong>. </li><li>Masing-masing lambang berumur <em>8 tahun</em>, sehingga siklus total dari lambang tersebut berumur <em>16 tahun</em>.</li></ul>"
+  },
+  {
+    "index": 3,
+    "nama": "Warsa",
+    "deskripsi": "<p><strong>Tahun Jawa</strong> berputar dalam siklus delapan tahun, yaitu: <em>Alip</em>, <em>Ehe</em>, <em>Jimawal</em>, <em>Je</em>, <em>Dal</em>, <em>Be</em>, <em>Wawu</em>, dan <em>Jimakir</em>.</p><ul><li><strong>Taun Wuntu (Tahun Panjang):</strong> Memiliki umur <strong>355 hari</strong>. Pada tahun ini, bulan <em>Besar</em> sebagai bulan terakhir memiliki umur <strong>30 hari</strong>.</li><li><strong>Taun Wastu (Tahun Pendek):</strong> Memiliki umur <strong>354 hari</strong> (berlaku untuk tahun-tahun sisanya dalam siklus tersebut).</li></ul>"
+  },
+  {
+    "index": 4,
+    "nama": "Wuku",
+    "deskripsi": "<p>Dalam budaya Jawa dan Bali, <strong>Wuku</strong> adalah bagian dari siklus penanggalan tradisional (<em>Pawukon</em>) yang terdiri dari <strong>30 pekan</strong>. \n</p><ul><li>Setiap satu wuku berlangsung selama <strong>7 hari</strong> (sepekan), sehingga satu siklus penuh memakan waktu <strong>210 hari</strong>.</li><li>Siklus Wuku merupakan hasil perkalian antara siklus 7 hari (<em>saptawara</em>) dan 5 hari (<em>pancawara/pasaran</em>).</li></ul>"
+  },
+  {
+    "index": 5,
+    "nama": "Sadwara Paringkelan",
+    "deskripsi": "<p> <strong>Sadwara</strong> adalah sistem hitungan atau siklus 6 harian yang terdiri dari: <em>Tungle</em>, <em>Aryang</em>, <em>Wurukung</em>, <em>Paningron</em>, <em>Uwas</em>, dan <em>Mawulu</em>.</p><ul><li>Siklus ini dalam kalender Jawa dan Bali sering digunakan untuk menentukan <strong>keberuntungan</strong> atau <strong>watak hari</strong>.</li><li>Masing-masing hari memiliki <strong>ringkêl</strong> (<em>pantangan</em> atau <em>karakteristik</em>) tertentu yang diperhatikan dalam tradisi tersebut.</li></ul>"
+  },
+  {
+    "index": 6,
+    "nama": "Pranatamansa",
+    "deskripsi": "<p><strong>Pranatamangsa</strong> adalah sistem penanggalan yang mengikuti siklus <strong>12 musim</strong> berdasarkan tanda-tanda alam dan posisi matahari. Siklus ini dimulai setiap <em>22 Juni</em> (<strong>Mongso Kasa</strong>) dan berakhir pada <em>21 Juni</em> (<strong>Mongso Sadha</strong>).</p><ul><li>Kalender ini membagi 365 hari ke dalam 12 musim dengan durasi yang bervariasi, antara <em>23 hingga 43 hari</em>.</li><li>Sistem ini utamanya dikaitkan dengan <strong>aktivitas pertanian</strong>, seperti bercocok tanam atau penangkapan ikan.</li><li>Isinya memuat aspek <em>fenologi</em> dan gejala alam sebagai pedoman usaha tani serta persiapan menghadapi bencana seperti kekeringan, wabah penyakit, atau banjir.</li><li>Penanggalan serupa juga dikenal oleh etnik <strong>Sunda</strong> dan <strong>Bali</strong> (yang di Bali dikenal sebagai <em>Kerta Masa</em>).</li></ul>"
+  },
+  {
+    "index": 7,
+    "nama": "Sangawara",
+    "deskripsi": "<p>Dalam budaya Jawa dan Bali, <strong>Sangawara</strong> adalah nama dari sebuah pekan atau siklus <strong>sembilan hari</strong> yang merupakan bagian dari sistem <em>Pawukon</em> atau <em>Wewaran</em>.</p><p>Siklus ini sering disebut juga sebagai <strong>Padangon</strong> dalam masyarakat Jawa. Tiap hari memiliki <em>karakter</em> atau <em>watak</em> tertentu bagi orang yang lahir pada hari tersebut.</p>"
+  },
+  {
+    "index": 8,
+    "nama": "Hastawara",
+    "deskripsi": "<p><strong>Hastawara</strong> (atau <em>Astawara</em>) adalah sistem perhitungan hari dalam budaya Jawa dan Bali yang menggunakan siklus <strong>8 harian</strong>.\n</p><ul><li>Hastawara merupakan bagian dari <em>pawukon</em> (penanggalan tradisional) yang sering disebut sebagai <strong>padewan</strong> atau perwatakan.</li><li>Siklus ini digunakan untuk menentukan <em>watak</em> atau hari baik-buruk dalam berbagai kegiatan masyarakat.</li><li>Perhitungannya seringkali dikaitkan dengan aspek <strong>spiritual</strong> atau dewa tertentu.</li></ul>"
+  },
+  {
+    "index": 9,
+    "nama": "Parerasan & Pancasuda",
+    "deskripsi": "<p>Sistem ini merupakan bagian dari sistem <em>Wariga</em> (astrologi Bali) atau <em>Primbon</em> (tradisi Jawa) yang digunakan untuk membaca <strong>watak, nasib, dan kecenderungan sifat</strong> seseorang berdasarkan hari kelahirannya.</p><ul><li><strong>Parerasan (Paarasan):</strong> Mengelompokkan sifat manusia ke dalam sepuluh jenis <em>\"Laku\"</em> atau perilaku. Setiap orang memiliki satu jenis Laku berdasarkan perhitungan <strong>neptu</strong> (nilai angka).</li><li><strong>Panca Suda (Pancasuda):</strong> Memberikan gambaran lebih spesifik mengenai <strong>keberuntungan</strong> dan tantangan hidup seseorang.</li></ul>"
+  },
+  {
+    "index": 10,
+    "nama": "Pancasuda (biasa)",
+    "deskripsi": "<p>Pancasuda ini umumnya digunakan untuk melihat watak dasar atau nasib seseorang. <br> Penghitungannya Jumlah Neptu dibagi 5, sisanya adalah hasilnya atau dalam matematikan disebut mod. Jika tidak ada sisa (pas habis), maka dianggap sisa 5.</p>"
+  },
+  {
+    "index": 11,
+    "nama": "Pancasuda Pawukon",
+    "deskripsi": "<p>Pancasuda Pawukon biasanya digunakan untuk perhitungan yang lebih spesifik terkait kecocokan jodoh atau pindah rumah. <br>Angka pembaginya tetap 5, namun interpretasinya berbeda.</p>"
+  },
+  {
+    "index": 12,
+    "nama": "Rakam",
+    "deskripsi": "<p>Rakam digunakan untuk melihat pengaruh kepribadian seseorang terhadap lingkungan sosialnya untuk petung kelahiran, mendirikan rumah dan pernikahan. <br>Total Neptu dibagi 6, sisanya adalah hasilnya (jika habis, sisa 6).</p>"
+  },
+  {
+    "index": 13,
+    "nama": "Candranipun Pranatamangsa",
+    "deskripsi": "<p><strong>Candranipun Pranatamangsa</strong> adalah gambaran, tanda-tanda, atau fenomena alam yang khas terjadi pada setiap <strong>12 musim (mangsa)</strong> dalam penanggalan <em>Pranata Mangsa</em>.</p><p><em>Candranipun</em> (candrasengkala/sasmita) mencakup perilaku hewan, tumbuhnya tanaman, arah angin, dan cuaca yang menjadi panduan petani Jawa dalam bercocok tanam. </p><p><strong>Poin-poin penting mengenai candranipun pranatamangsa:</strong></p><ul><li><strong>Tanda Alam (Fenologi):</strong> Setiap mangsa memiliki candra khas, seperti <em>Kasa</em> (musim 1) yang ditandai dengan daun berguguran, atau <em>Kanem</em> (musim 6) yang ditandai dengan banyak hujan dan petir.</li><li><strong>Panduan Pertanian:</strong> <em>Candra</em> ini menjadi acuan utama untuk memulai menanam padi, memperbaiki saluran air, atau menentukan masa panen.</li><li><strong>Sistem Surya:</strong> Berbeda dengan kalender Jawa bulan, <em>Pranata Mangsa</em> berbasis peredaran <strong>matahari (solar)</strong> yang menjadi pedoman ekologis masyarakat.</li></ul>"
+  }
+]
