@@ -80,7 +80,7 @@ def detail_wuku():
 
 @app.route("/tentang")
 def tentang():
-    return render_template("tentang-2.html")
+    return render_template("tentang.html")
 
 @app.route("/kalenderjawa")
 def kalenderjawa():
