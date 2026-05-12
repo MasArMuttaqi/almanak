@@ -41,9 +41,35 @@ def detail_kalender():
 
         return jsonify({
             "masehi": format_tanggal_indonesia(tanggal),
-            "pasaran": f"{jawa.get('hari_jawa', '-')} / {jawa.get('hari_caka', '-')}",
+            "pasaran_jawa": f"{jawa.get('hari_jawa', '-')}",
+            "pasaran_caka": f"{jawa.get('hari_caka', '-')}",
             "hijriah": f"{hijriah.get('tanggal_hijriah', {}).get('full', '-')}",
             "jawa": jawa.get('tanggal_jawa', '-')
+        })
+
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/detail-wuku')
+def detail_wuku():
+
+    try:
+        wuku_index = request.args.get('wuku_index')
+
+        if not wuku_index:
+            return jsonify({"error": "Data kosong"}), 400
+
+        with open("data/wuku.json", "r") as list_wuku:
+            desc_wuku = json.load(list_wuku)
+
+            hasil = next((item for item in desc_wuku if item["index"] == wuku_index), None)
+
+        return jsonify({
+            "Wuku": f"{hasil.get('Wuku', '-')}",
+            "ilustrasi": f"{hasil.get('Ilustrasi', '-')}",
+            "interpretasi": f"{hasil.get('Interpretasi', '-')}",
         })
 
     except Exception as e:
@@ -179,4 +205,4 @@ def logout():
 
 if __name__ == "__main__":
     # app.run(debug=True)
-    app.run(host="127.0.0.1", port=5000, debug=True)
+    app.run(host="0.0.0.0", port=5001, debug=True)

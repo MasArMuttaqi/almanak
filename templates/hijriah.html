@@ -1,21 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
-<!-- header content -->
-    <section class="header-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8">
-                    <h1 style="text-wrap: nowrap;">Kalender Hijriyah</h1>
-                    <h2 class="hijaiyah">کاليندر هجرية</h2>
-                </div>
-            </div>
-        </div>
-    </section>
-
+<div class="pattern-square-1"></div>
+<section class="container" style="margin-top:100px;" >
+    <div class="heading-section">
+         <div class="txt">
+            <p class="subheading section-subheading arabic">کاليندر هجرية</p>
+            <h2 class="heading section-heading">Kalender Hijriah</h2>
+         </div>
+    </div>
     <section class="container image-container">
-        <div class="row">
-            <div class="col-12">
-    <div class="main-image">
     <!-- pencarian -->
     <div class="search-container">
         <form method="get" action="{{ url_for('kalenderhijriah') }}">
@@ -24,13 +17,15 @@
                 <i class="fi fi-br-calendar-day"></i>
                 <input type="date" name="tanggal" value="{{ tanggal.strftime('%Y-%m-%d') if tanggal else '' }}" id="myDateInput" class="form-control custom-input" placeholder="cari tanggal...">
             </div>
-
             <button class="btn btn-filter" type="submit">
                 <i class="fi fi-br-search"></i>
             </button>
         </div>
         </form>
-<!--        kategori kalender-->
+    </div>
+    <!-- pencarian -->
+
+    <!--        kategori kalender-->
         <div class="nav nav-pills nav-custom-wrapper mx-auto mt-4" id="tempTab" role="tablist">
             <button class="nav-link active" id="falakiyah-tab" data-bs-toggle="pill" data-bs-target="#falakiyah" type="button" role="tab">
                 Imkanur Rukyah
@@ -39,22 +34,14 @@
                 Hisab Wujudul Hilal
             </button>
             <button class="nav-link" id="kgth-tab" data-bs-toggle="pill" data-bs-target="#kgth" type="button" role="tab">
-                KGTH
+                KHGT
             </button>
         </div>
-<!--        kategori kalender-->
-    </div>
-    <!-- pencarian -->
+    <!--        kategori kalender-->
 
-            </div>
-        </div>
-        </div>
 
     <div class="tab-content mx-auto">
         <div class="tab-pane fade show active" id="falakiyah" role="tabpanel">
-
-            <div class="card nm-glow-card">
-              <div class="card-body">
 
                    <ul class="list-group list-group-flush">
                     <li class="list-group-item d-flex justify-content-between align-items-center py-3">
@@ -92,7 +79,7 @@
                         <span class="small text-muted">Azimut Bulan</span>
                         <span class="small">{{ data1.data_astronomi['azimut_bulan'] }}&deg;</span>
                     </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center py-2 bg-light">
+                    <li class="list-group-item d-flex justify-content-between align-items-center py-2">
                         <span class="small text-muted fw-bold">Status</span>
                         <div class="text-end">
                            <span class="badge rounded-pill text-bg-info px-3">{{ data1.kesimpulan['status'] }}, {{ data1.kesimpulan['informasi'] }}</span><br>
@@ -103,18 +90,10 @@
 
                 </ul>
 
-              </div>
-                <div class="card-footer">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <p class="text-muted">Menggunakan kombinasi metode hisab dan rukyah Lembaga Falakiyah PBNU dengan lokasi acuan Kota Yogyakarta (Lintang -7.7974565 dan Bujur 110.370697).</p>
+                    <div class="d-flex justify-content-between align-items-center gap-3 mt-3">
+                        <p class="text-justify text-muted">Menggunakan kombinasi metode hisab dan rukyah Lembaga Falakiyah PBNU dengan lokasi acuan Kota Yogyakarta (Lintang -7.7974565 dan Bujur 110.370697).</p>
                         <button type="button" class="btn btn-sm btn-outline-info me-3" data-bs-toggle="modal" data-bs-target="#ModalHilal">Riwayat Rukyatul Hilal</button>
                     </div>
-                </div>
-            </div>
-
-                <header class="nm-block-head mt-3">
-                    <h3 class="nm-block-title">Metodologi Imkanur Rukyah<br><small>(kriteria Kriteria MABIMS 3-6.4)</small></h3>
-                </header>
                 <p class="text-justify text-muted">
                   <strong>Kriteria Imkanur Rukyah Nahdlatul Ulama (IRNU):</strong><br>
                   Lembaga Falakiyah PBNU menetapkan awal bulan berdasarkan standar IRNU dengan parameter tinggi hilal mar'i minimal 3&deg;
@@ -134,9 +113,6 @@
 
         </div>
         <div class="tab-pane fade" id="hisab" role="tabpanel">
-
-            <div class="card nm-glow-card">
-              <div class="card-body">
 
                   <ul class="list-group list-group-flush">
                     <li class="list-group-item d-flex justify-content-between align-items-center py-3">
@@ -172,16 +148,9 @@
                     </li>
                 </ul>
 
-              </div>
-                <div class="card-footer">
-                    <p class="text-muted">Hasil hisab disesuaikan dengan standar waktu dan posisi wilayah Kota Yogyakarta (Lintang -7.7974565 dan Bujur 110.370697).</p>
-                </div>
-            </div>
 
+           <p class="text-muted">Hasil hisab disesuaikan dengan standar waktu dan posisi wilayah Kota Yogyakarta (Lintang -7.7974565 dan Bujur 110.370697).</p>
 
-            <header class="nm-block-head mt-3">
-                <h3 class="nm-block-title">Metodologi Hisab Wujudul Hilal</h3>
-             </header>
             <p class="text-muted">
               <strong>Kriteria Penetapan Awal Bulan:</strong><br>
               Awal bulan baru ditetapkan apabila pada hari ke-29 saat matahari terbenam, tiga syarat kumulatif terpenuhi:
@@ -199,8 +168,6 @@
         </div>
          <div class="tab-pane fade" id="kgth" role="tabpanel">
 
-             <div class="card nm-glow-card">
-              <div class="card-body">
                   <ul class="list-group list-group-flush">
                     <li class="list-group-item d-flex justify-content-between align-items-center py-3">
                         <span class="text-secondary fw-medium">Tanggal Masehi</span>
@@ -222,13 +189,8 @@
                         <span class="small">{{ data3.hijriah['elongasi'] }}</span>
                     </li>
                 </ul>
-              </div>
-            </div>
 
 
-              <header class="nm-block-head mt-3">
-                <h3 class="nm-block-title">Metodologi KHGT</h3>
-             </header>
             <p class="text-muted">
               <strong>Kriteria Kalender Hijriah Global Tunggal:</strong><br>
               Sistem ini mengadopsi prinsip kesatuan <em>mathla‘</em>, di mana seluruh dunia dianggap sebagai satu wilayah hukum.
@@ -246,7 +208,8 @@
     </div>
 
     </section>
-<!-- header content -->
+</section>
+
 <!-- Modal riwayat hilal -->
 <div class="modal fade" id="ModalHilal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -293,5 +256,4 @@
     $('#myDateInput').val(dateValue);
 });
 </script>
-
 {% endblock %}

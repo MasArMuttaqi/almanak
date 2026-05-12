@@ -58,6 +58,7 @@ def kalender_vertikal(tanggal=None):
         pasaran_j = j['hari_jawa']
         pasaran_c = j['hari_caka']
         wuku = j['wuku']
+        wuku_index = j['wuku_index']
         sadwara = j['sadwara']
 
         # =========================
@@ -71,6 +72,7 @@ def kalender_vertikal(tanggal=None):
             "pasaran_caka": pasaran_c,
             "hari": hari_index,
             "wuku": wuku,
+            "wuku_index": wuku_index,
             "sadwara": sadwara,
             "tgl_hijriah":konversi_ke_hijaiyah(tanggal_h),
             "tgl_bulan_tahun_h": h['tanggal_hijriah'],
@@ -83,6 +85,7 @@ def kalender_vertikal(tanggal=None):
             # entry pertama di minggu ini
             current_week.append({
                 "wuku": wuku,
+                "wuku_index": wuku_index,
                 "awal": tgl,
                 "akhir": tgl
             })
@@ -96,6 +99,7 @@ def kalender_vertikal(tanggal=None):
                 # 🔥 wuku berubah → buat segmen baru
                 current_week.append({
                     "wuku": wuku,
+                    "wuku_index": wuku_index,
                     "awal": tgl,
                     "akhir": tgl
                 })
