@@ -1,24 +1,15 @@
 {% extends "base.html" %}
 {% block content %}
-
-<!-- kalender jawa -->
-<!-- header content -->
-<section class="header-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8">
-                    <h1>Kalender Jawa Sultan Agungan</h1>
-                    <h2 class="aksara">ꦥꦤꦁꦒꦭꦤ꧀ꦗꦮ</h2>
-                </div>
-            </div>
-        </div>
-    </section>
-
+<div class="pattern-square-1"></div>
+<section class="container" style="margin-top:100px;" >
+    <div class="heading-section">
+         <div class="txt">
+            <p class="subheading section-subheading aksara">ꦥꦤꦁꦒꦭꦤ꧀ꦗꦮ</p>
+            <h2 class="heading section-heading">Kalender Jawa Sultan Agungan</h2>
+         </div>
+    </div>
     <section class="container image-container">
-        <div class="row">
-            <div class="col-12">
-                <div class="main-image">
-                <!-- pencarian -->
+        <!-- pencarian -->
                 <div class="search-container">
                     <form method="get" action="{{ url_for('kalenderjawa') }}">
                     <div class="custom-search-group">
@@ -35,85 +26,94 @@
                     </form>
                 </div>
                 <!-- pencarian -->
-                    <div class="d-flex justify-content-between mt-4">
-                         <p id="tgl_masehi">{{ masehi }}</p>
-                         <p id="tgl_jawa">{{ data.tanggal_jawa }}</p>
-                    </div>
-                </div>
+        <ul class="list-group list-group-flush">
+                    <li class="list-group-item d-flex justify-content-between align-items-center py-3">
 
+                            <span class="text-secondary fw-medium">Hari Pasaran
+                                <a href="" class="btn-detail" data-bs-toggle="offcanvas" data-bs-target="#kalenderjawa" aria-controls="offcanvasBottom" data-id="1">
+                                <i class="fi fi-br-info"></i></a>
+                            </span>
 
-        <div class="row content-section" style="margin: 2px;">
-<!--test-->
-        <div class="card border-0 shadow-sm overflow-hidden" style="border-radius: 20px; padding: 0;">
-
-            <div class="card-header bg-gradient text-white p-4 border-0" style="background-color: #c5a059;">
-            <a href="" class="btn-detail" data-bs-toggle="offcanvas" data-bs-target="#kalenderjawa" aria-controls="offcanvasBottom" data-id="1">
-            <h6 class="mb-1 opacity-75 text-uppercase fw-bold small">Pasaran <i class="fi fi-br-info"></i></h6>
-            </a>
-                 <div class="d-flex justify-content-between align-items-center mb-2 text-muted fw-bold">
-                     <span style="color:#FFF;">{{ data.hari_jawa }}</span>
-                     <span style="color:#FFF;">{{ data.hari_caka }}</span>
-                 </div>
-            </div>
-
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item px-3 py-2 bg-light bg-opacity-50">
-                    <div class="row py-2 border-bottom border-light align-items-center">
-                        <div class="col-5 text-muted small">
-                            <a href="" class="btn-detail" data-bs-toggle="offcanvas" data-bs-target="#kalenderjawa" aria-controls="offcanvasBottom" data-id="3">
-                                <small class="text-muted d-block small">Warsa <i class="fi fi-br-info"></i></small>
-                            </a>
-                        </div>
-                        <div class="col-7 fw-bold">{{ data.tanggal_jawa.split()[2] }}</div>
-                    </div>
-                    <div class="row py-2 border-bottom border-light align-items-center">
-                        <div class="col-5 text-muted small">
-                            <a href="" class="btn-detail" data-bs-toggle="offcanvas" data-bs-target="#kalenderjawa" aria-controls="offcanvasBottom" data-id="2">
-                                <small class="text-muted d-block small">Windu, Lambang <i class="fi fi-br-info"></i></small>
-                            </a>
-                        </div>
-                        <div class="col-7 fw-medium text-primary">{{ data.windu }}</div>
-                    </div>
-
-                </li>
-                <li class="list-group-item p-3 border-light">
+                        <div class="d-flex flex-column align-items-end mb-2 text-muted fw-bold">
+                             <span>{{ data.hari_jawa }}</span>
+                             <span>{{ data.hari_caka }}</span>
+                         </div>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center py-3">
+                        <span class="text-secondary fw-medium">Tanggal Masehi</span>
+                        <span class="fw-bold text-dark">{{ masehi }}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center py-3">
+                        <span class="text-secondary fw-medium">Tanggal Jawa</span>
+                        <span class="fw-bold text-success text-end">{{ data.tanggal_jawa }}</span>
+                    </li>
+                    <li class="list-group-item p-3 border-light">
                     <div class="row g-3">
                         <div class="col-6 border-end">
-                            <a href="" class="btn-detail" data-bs-toggle="offcanvas" data-bs-target="#kalenderjawa" aria-controls="offcanvasBottom" data-id="4">
-                                <small class="text-muted d-block small">Wuku <i class="fi fi-br-info"></i></small>
-                            </a>
+
+                                <small class="text-muted d-block small">Wuku
+                                    <a href="" class="btn-detail" data-bs-toggle="offcanvas" data-bs-target="#kalenderjawa" aria-controls="offcanvasBottom" data-id="4">
+                                    <i class="fi fi-br-info"></i>
+                                    </a>
+                                </small>
+
                             <span class="fw-bold">{{ data.wuku }}</span>
+                            <a href="" class="btn-wuku" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWuku" aria-controls="offcanvasBottom" data-id="{{ data.wuku_index }}"><i class="fi fi-br-arrow-up-right-from-square"></i></a>
                         </div>
                         <div class="col-6 ps-3">
-                            <a href="" class="btn-detail" data-bs-toggle="offcanvas" data-bs-target="#kalenderjawa" aria-controls="offcanvasBottom" data-id="5">
-                               <small class="text-muted d-block small"> Sadwårå/Paringkêlan <i class="fi fi-br-info"></i></small>
-                            </a>
+                               <small class="text-muted d-block small"> Sadwårå/Paringkêlan
+                                   <a href="" class="btn-detail" data-bs-toggle="offcanvas" data-bs-target="#kalenderjawa" aria-controls="offcanvasBottom" data-id="5">
+                                   <i class="fi fi-br-info"></i>
+                                   </a>
+                               </small>
                             <span class="fw-bold">{{ data.sadwara }}</span>
                         </div>
                     </div>
                 </li>
+                <li class="list-group-item p-3 border-light">
+                    <div class="row g-3">
+                        <div class="col-6 border-end">
+                                <small class="text-muted d-block small">Warsa
+                                    <a href="" class="btn-detail" data-bs-toggle="offcanvas" data-bs-target="#kalenderjawa" aria-controls="offcanvasBottom" data-id="3">
+                                    <i class="fi fi-br-info"></i>
+                                     </a>
+                                </small>
+                            <span class="fw-bold">{{ data.tanggal_jawa.split()[2] }}</span>
+                        </div>
+                        <div class="col-6 ps-3">
+                                <small class="text-muted d-block small">Windu, Lambang
+                                    <a href="" class="btn-detail" data-bs-toggle="offcanvas" data-bs-target="#kalenderjawa" aria-controls="offcanvasBottom" data-id="2">
+                                    <i class="fi fi-br-info"></i>
+                                    </a>
+                                </small>
+                            <span class="fw-bold">{{ data.windu }}</span>
+                        </div>
+                    </div>
+                </li>
                 <li class="list-group-item px-3 py-2 bg-light bg-opacity-50">
                     <div class="row py-2 border-bottom border-light align-items-center">
                         <div class="col-5 text-muted small">
-                            <a href="" class="btn-detail" data-bs-toggle="offcanvas" data-bs-target="#kalenderjawa" aria-controls="offcanvasBottom" data-id="6">
-                                <small>Pranôtômôngsô <i class="fi fi-br-info"></i></small>
-                            </a>
+                                <small>Pranôtômôngsô
+                                    <a href="" class="btn-detail" data-bs-toggle="offcanvas" data-bs-target="#kalenderjawa" aria-controls="offcanvasBottom" data-id="6">
+                                    <i class="fi fi-br-info"></i>
+                                    </a>
+                                </small>
                         </div>
                         <div class="col-7 small">{{ data.pranatamangsa }}</div>
                     </div>
                 </li>
                 <li class="list-group-item px-3 py-2 bg-light bg-opacity-50">
-
-                    <a href="" class="btn-detail" data-bs-toggle="offcanvas" data-bs-target="#kalenderjawa" aria-controls="offcanvasBottom" data-id="13">
-                        <small class="d-block mb-3"> Candranipun <i class="fi fi-br-info"></i></small>
-                    </a>
+                        <small class="d-block mb-3"> Candranipun
+                            <a href="" class="btn-detail" data-bs-toggle="offcanvas" data-bs-target="#kalenderjawa" aria-controls="offcanvasBottom" data-id="13">
+                                <i class="fi fi-br-info"></i>
+                            </a>
+                        </small>
                     <div class="text-center">
                         <span class="aksara">{{ candranipun[0].candranipun_aksara }}</span><br>
                         <span style="font-size:11px;">{{ candranipun[0].candranipun_latin }}</span>
                     </div>
-
                 </li>
-                <li class="list-group-item p-3">
+            <li class="list-group-item p-3">
                     <div class="row g-3">
                         <div class="col-6 border-end">
                             <a href="" class="btn-detail" data-bs-toggle="offcanvas" data-bs-target="#kalenderjawa" aria-controls="offcanvasBottom" data-id="8">
@@ -170,16 +170,10 @@
                         </div>
                     </div>
                 </li>
-            </ul>
-        </div>
-<!--test-->
-
-        </div>
-        </div>
-</div>
+                </ul>
     </section>
-<!-- header content -->
-    <!-- kalender jawa -->
+</section>
+
 <!-- penjelasan kalender jawa -->
 <div class="offcanvas offcanvas-bottom" tabindex="-1" id="kalenderjawa" aria-labelledby="offcanvasBottomLabel" style="height: 80%;">
   <div class="offcanvas-header">
@@ -191,7 +185,24 @@
   </div>
 </div>
 <!-- penjelasan kalender jawa -->
-  <!-- kalender -->
+
+<div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasWuku" style="height:90%;">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasTitle_wuku"></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+    </div>
+    <div class="offcanvas-body">
+        <div class="card" style="width:400px">
+          <img class="card-img-top" id="preview"  src="" alt="Card image">
+          <div class="card-body">
+              <small style="font-size: xx-small;">Resource: https://www.enkosa.com/penangagalan</small>
+          </div>
+        </div>
+        <p style="text-align: justify; text-justify: inter-word;" id="interpretasi"></p>
+    </div>
+</div>
+
+<div id="data-container" data-glosarium='{{ raw_glosarium | tojson | safe }}'></div>
 <script>
 $(document).ready(function() {
 
@@ -214,13 +225,13 @@ $(document).ready(function() {
 
 
 
-const glosarium = {{ raw_glosarium | tojson }};
+//const glosarium = {{ raw_glosarium | tojson | safe }};
 
 $(document).ready(function() {
 
     $('.btn-detail').on('click', function() {
         const id = $(this).data('id');
-
+        const glosarium = $('#data-container').data('glosarium');
         // cari data
         const item = glosarium.find(d => d.index == id);
 
@@ -234,6 +245,21 @@ $(document).ready(function() {
             // $('#offcanvasDesc').text(item.deskripsi);
         }
     });
+
+
+    $('.btn-wuku').on('click', function() {
+        let tanggal = $(this).attr('data-id');
+        // console.log('tanggal:', tanggal);
+        $.get('/detail-wuku', { wuku_index: tanggal }, function(res){
+            $('#offcanvasTitle_wuku').html("Wuku " + res.Wuku);
+            $("#preview").attr("src", res.ilustrasi);
+            $('#interpretasi').text(res.interpretasi);
+            // console.log('interpetasi:', res.interpretasi);
+        });
+
+    });
+
+
 
 });
 

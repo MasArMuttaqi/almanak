@@ -377,6 +377,7 @@ def kalender_jawa(tanggal):
         "hari_caka": f"{dina[1]} {pasaran[1]}",
         "tanggal_jawa": f"{jawa['tanggal']} {jawa['bulan']} {jawa['warsa']} {jawa['tahun']}",
         "windu": f"{jawa['windu']} ({jawa['lambang']})",
+        "wuku_index": idx_wuku,
         "wuku": wuku_hasil['nama'],
         **wara,
         "parerasan": cari_parerasan(dina[0], pasaran[0]),
