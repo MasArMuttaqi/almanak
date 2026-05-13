@@ -136,15 +136,15 @@ def hitung_mangsa(tanggal):
     data = [
         ((6,22),(8,1),"Kasa-Kartika"),
         ((8,2),(8,24),"Karo-Pusa"),
-        ((8,25),(9,17),"Katiga-Agrahayana"),
-        ((9,18),(10,12),"Kapat-Sitamasa"),
-        ((10,13),(11,8),"Kalima-Sita"),
+        ((8,25),(9,17),"Katiga-Manggasri"),
+        ((9,18),(10,12),"Kapat-Sitra"),
+        ((10,13),(11,8),"Kalima-Manggala"),
         ((11,9),(12,21),"Kanem-Naya"),
         ((12,22),(2,2),"Kapitu-Palguna"),
         ((2,3),(2,28),"Kawalu-Wisaka"),
         ((3,1),(3,25),"Kasanga-Jita"),
         ((3,26),(4,18),"Kasapuluh-Srawana"),
-        ((4,19),(5,11),"Dhesta-Pratrawana"),
+        ((4,19),(5,11),"Dhesta-Padrawana"),
         ((5,12),(6,21),"Sada-Asuji")
     ]
 
