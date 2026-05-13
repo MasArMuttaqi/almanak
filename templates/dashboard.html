@@ -73,7 +73,8 @@
 <!--              {% for col in range(6) %}-->
               {% if wuku[col] %}
               {% for seg in wuku[col] %}
-              <td class="calendar-cell text-center" {% if seg %} data-bs-toggle="offcanvas" data-bs-target="#offcanvasWuku" data-index="{{ seg.wuku_index }}"{% endif %}>
+              <td class="calendar-cell text-center" {% if seg %} data-bs-toggle="offcanvas" data-bs-target="#offcanvasWuku" data-index="{{ seg.wuku_index }}" data-bs-trigger="hover focus"
+    data-bs-content="Klik detail informasi untuk wuku {{ seg.wuku }}"{% endif %}>
                  <span class="pasaran">{{ seg.wuku }}</span>
                   <small class="pasaran">({{ seg.awal }}-{{ seg.akhir }})</small>
               </td>
@@ -175,6 +176,24 @@ function formatTanggal(dateString) {
     return year + "-" + month + "-" + day;
 }
 
+// Menginisialisasi semua elemen yang memiliki atribut data-bs-toggle="offcanvas"
+// agar juga memunculkan popover saat hover
+const calendarCells = document.querySelectorAll('.calendar-cell');
+
+calendarCells.forEach(el => {
+  // 1. Inisialisasi Popover
+  const popover = new bootstrap.Popover(el, {
+    trigger: 'hover',
+    placement: 'top',
+    container: 'body'
+  });
+
+  // 2. Paksa tutup saat diklik
+  el.addEventListener('click', () => {
+    popover.hide();
+  });
+});
+    
 $(document).on('click', 'td[data-tgl]', function () {
     let tanggal = $(this).attr('data-tgl');
 
