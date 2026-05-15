@@ -28,7 +28,7 @@ SIKLUS_LAMBANG = ["Kulawu", "Langkir"]
 
 SADWARA = ["Tungle","Aryang","Wurukung","Paningron","Uwas","Mawulu"]
 HASTAWARA = ["Sri","Indra","Guru","Yama","Ludra","Brahma","Kala","Uma"]
-SANGAWARA = ["Dangu","Jangur","Gigis","Nohan","Ogan","Erangan","Urungan","Tulus","Dadi"]
+SANGAWARA = ["Dangu","Jangur","Gigis","Nohan","Wogan","Kerangan","Wurungan","Tulus","Dadi"]
 
 POLA_TAHUN = [354, 355, 354, 354, 355, 354, 354, 355]
 
