@@ -112,15 +112,19 @@
             <li class="list-group-item p-3">
                     <div class="row g-3">
                         <div class="col-6 border-end">
-                            <a href="" class="btn-detail" data-bs-toggle="offcanvas" data-bs-target="#kalenderjawa" aria-controls="offcanvasBottom" data-id="8">
-                                <small class="text-muted d-block small">Haståwårå <i class="fi fi-br-info"></i></small>
-                            </a>
+                                <small class="text-muted d-block small">Haståwårå 
+                                    <a href="" class="btn-detail" data-bs-toggle="offcanvas" data-bs-target="#kalenderjawa" aria-controls="offcanvasBottom" data-id="8">
+                                    <i class="fi fi-br-info"></i>
+                                    </a>
+                                </small>
                             <span class="fw-bold">{{ data.hastawara }}</span>
                         </div>
                         <div class="col-6 ps-3">
-                            <a href="" class="btn-detail" data-bs-toggle="offcanvas" data-bs-target="#kalenderjawa" aria-controls="offcanvasBottom" data-id="7">
-                                <small class="text-muted d-block small">Sångåwårå <i class="fi fi-br-info"></i></small>
-                            </a>
+                                <small class="text-muted d-block small">Sångåwårå 
+                                    <a href="" class="btn-detail" data-bs-toggle="offcanvas" data-bs-target="#kalenderjawa" aria-controls="offcanvasBottom" data-id="7">
+                                    <i class="fi fi-br-info"></i>
+                                    </a>
+                                </small>
                             <span class="fw-bold">{{ data.sangawara }}</span>
                         </div>
 
@@ -132,10 +136,11 @@
                     </div>
                     <div class="row g-3">
                         <div class="col-6 border-end">
-                            <a href="" class="btn-detail" data-bs-toggle="offcanvas" data-bs-target="#kalenderjawa" aria-controls="offcanvasBottom" data-id="10">
-                                <small class="text-muted d-block small">Saptåwårå <i class="fi fi-br-info"></i></small>
-
-                            </a>
+                                <small class="text-muted d-block small">Saptåwårå 
+                                    <a href="" class="btn-detail" data-bs-toggle="offcanvas" data-bs-target="#kalenderjawa" aria-controls="offcanvasBottom" data-id="10">
+                                    <i class="fi fi-br-info"></i>
+                                    </a>
+                                </small>
                           <span class="fw-bold">{{ data.pancasuda_biasa }}</span>
                         </div>
                         <div class="col-6 ps-3">
@@ -149,19 +154,23 @@
                 <li class="list-group-item p-3">
                     <div class="row g-3">
                         <div class="col-6 border-end">
-                            <a href="" class="btn-detail" data-bs-toggle="offcanvas" data-bs-target="#kalenderjawa" aria-controls="offcanvasBottom" data-id="9">
-                                <small class="text-muted d-block small">Parerasan & pancasuda (çaka) <i class="fi fi-br-info"></i></small>
-                            </a>
-                          <span class="fw-bold">
+                                <small class="text-muted d-block small">Parerasan & pancasuda (çaka)
+                                    <a href="" class="btn-detail" data-bs-toggle="offcanvas" data-bs-target="#kalenderjawa" aria-controls="offcanvasBottom" data-id="9">
+                                    <i class="fi fi-br-info"></i>
+                                    </a>
+                                </small>
                               {% for item in data.parerasan %}
+                              <span class="fw-bold">
                                     {{ item }}
+                               </span>,   
                               {% endfor %}
-                          </span>
                         </div>
                         <div class="col-6 ps-3">
-                            <a href="" class="btn-detail" data-bs-toggle="offcanvas" data-bs-target="#kalenderjawa" aria-controls="offcanvasBottom" data-id="12">
-                                <small class="text-muted d-block small">Rakam <i class="fi fi-br-info"></i></small>
-                            </a>
+                                <small class="text-muted d-block small">Rakam
+                                    <a href="" class="btn-detail" data-bs-toggle="offcanvas" data-bs-target="#kalenderjawa" aria-controls="offcanvasBottom" data-id="12">
+                                    <i class="fi fi-br-info"></i>
+                                    </a>
+                                </small>
                           <span class="fw-bold">{{ data.rakam }}</span>
                         </div>
                     </div>
