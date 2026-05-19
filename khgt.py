@@ -5,13 +5,12 @@ from datetime import datetime, timedelta, date
 from pathlib import Path
 import numpy as np
 import json
-import os
 
 # =========================================================
 # DIRECTORY
 # =========================================================
 
-BASE_DIR = Path("data/khgt")
+BASE_DIR = Path("data/khgt_v2")
 ILDL_DIR = BASE_DIR / "ildl"
 BASE_DIR.mkdir(parents=True, exist_ok=True)
 ILDL_DIR.mkdir(parents=True, exist_ok=True)
@@ -19,7 +18,13 @@ ILDL_DIR.mkdir(parents=True, exist_ok=True)
 TIMELINE_BIN = BASE_DIR / "timeline.npy"
 
 # =========================================================
-# BULAN HIJRIAH (DISPLAY ONLY)
+# ANCHOR FIXED (KRUSIAL)
+# =========================================================
+
+ANCHOR_DATE = date(2025, 6, 25)  # 1 Muharram 1447 KHGT
+
+# =========================================================
+# BULAN HIJRIAH
 # =========================================================
 
 BULAN_HIJRIAH = [
@@ -29,16 +34,16 @@ BULAN_HIJRIAH = [
 ]
 
 # =========================================================
-# TIMELINE STRUCTURE (BINARY)
+# TIMELINE STRUCTURE
 # =========================================================
 
 DTYPE = np.dtype([
-    ("tgl", "U10"),     # YYYY-MM-DD
-    ("bulan", "i1"),    # 1–12
-    ("tahun", "i2"),    # Hijriah
+    ("tgl", "U10"),
+    ("bulan", "i1"),
+    ("tahun", "i2"),
     ("alt", "f4"),
     ("elong", "f4"),
-    ("status", "i1")    # 0/1
+    ("status", "i1")
 ])
 
 # =========================================================
@@ -57,18 +62,8 @@ def load_json(path, default=None):
         return json.load(f)
 
 
-def deg_to_dms(deg):
-    if deg is None:
-        return None
-    d = int(deg)
-    m_float = abs(deg - d) * 60
-    m = int(m_float)
-    s = (m_float - m) * 60
-    return f"{d}° {m}′ {s:.2f}″"
-
-
 # =========================================================
-# EPHEMERIS CACHE
+# EPHEMERIS
 # =========================================================
 
 @lru_cache(maxsize=1)
@@ -79,7 +74,7 @@ def get_ephemeris():
 
 
 # =========================================================
-# IJTIMA (NEW MOON LIST)
+# IJTIMA
 # =========================================================
 
 @lru_cache(maxsize=1)
@@ -170,7 +165,7 @@ def generate_grid(step=2):
 
 
 # =========================================================
-# KGTH CORE
+# KGTH CORE FIXED
 # =========================================================
 
 def cek_imkan_global_v2(tanggal, resolusi=2):
@@ -227,7 +222,7 @@ def cek_imkan_global_v2(tanggal, resolusi=2):
 
 
 # =========================================================
-# SAVE / LOAD BINARY
+# SAVE / LOAD
 # =========================================================
 
 def save_timeline_binary(data):
@@ -262,14 +257,29 @@ def load_ildl_npz(path):
 
 
 # =========================================================
-# BUILD CACHE
+# BUILD CACHE FIXED (ANCHOR SAFE)
 # =========================================================
 
 def build_kgth_cache_v2():
 
-    print("BUILD KGTH CACHE v2")
+    print("BUILD KGTH CACHE v2 FIXED")
 
-    semua_ijtima = dapatkan_daftar_ijtima(2026, 2027)
+    semua_ijtima = dapatkan_daftar_ijtima(2025, 2030)
+
+    # =====================================================
+    # ALIGN ANCHOR (FIX KRUSIAL)
+    # =====================================================
+
+    start_index = None
+    for i, ijt_dt in enumerate(semua_ijtima):
+        if ijt_dt.date() >= ANCHOR_DATE:
+            start_index = i
+            break
+
+    if start_index is None:
+        raise Exception("ANCHOR KHGT tidak ditemukan")
+
+    semua_ijtima = semua_ijtima[start_index:]
 
     timeline = []
 
@@ -288,13 +298,12 @@ def build_kgth_cache_v2():
 
         titik = imkan["titik_valid"][0] if imkan["titik_valid"] else None
 
-        # SAVE ILDL NPZ
-        ildl_path = ILDL_DIR / f"{tgl_1}.npz"
-        save_ildl_npz(ildl_path, imkan["ildl"])
+        # SAVE ILDL
+        save_ildl_npz(ILDL_DIR / f"{tgl_1}.npz", imkan["ildl"])
 
         timeline.append((
             tgl_1.isoformat(),
-            (ijt_dt.month % 12) + 1,
+            curr_h_idx + 1,   # FIX: 1-12
             curr_h_year,
             float(titik["alt"]) if titik else 0,
             float(titik["elong"]) if titik else 0,
@@ -302,17 +311,18 @@ def build_kgth_cache_v2():
         ))
 
         curr_h_idx += 1
+
         if curr_h_idx >= 12:
             curr_h_idx = 0
             curr_h_year += 1
 
     save_timeline_binary(timeline)
 
-    print("CACHE COMPLETE v2")
+    print("CACHE COMPLETE v2 FIXED")
 
 
 # =========================================================
-# API FAST ACCESS
+# FAST API
 # =========================================================
 
 def get_hijriah_v2(tanggal):
@@ -325,13 +335,16 @@ def get_hijriah_v2(tanggal):
     if timeline is None:
         return None
 
-    dates = timeline["f0"]
+    dates = timeline["tgl"]
 
     idx = np.searchsorted(dates, tanggal.isoformat(), side="right") - 1
 
+    if idx < 0:
+        return None
+
     row = timeline[idx]
 
-    ildl_file = ILDL_DIR / f"{row['f0']}.npz"
+    ildl_file = ILDL_DIR / f"{row['tgl']}.npz"
 
     return {
         "tanggal": tanggal.isoformat(),
@@ -346,7 +359,7 @@ def get_hijriah_v2(tanggal):
 
 
 # =========================================================
-# RUN TEST
+# TEST
 # =========================================================
 
 if __name__ == "__main__":
