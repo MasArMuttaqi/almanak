@@ -34,9 +34,12 @@ def hijri_label(hijri_code: str) -> str:
 
     return f"{bulan_nama} {tahun}"
 
-def format_tanggal_indonesia(tanggal_str):
+def format_tanggal_indonesia(tanggal_input):
     # Ubah string ke objek datetime
-    tanggal = datetime.strptime(tanggal_str, "%Y-%m-%d")
+    if isinstance(tanggal_input, str):
+        tanggal = datetime.strptime(tanggal_input, "%Y-%m-%d")
+    else:
+        tanggal = tanggal_input
 
     # Nama bulan dalam bahasa Indonesia
     bulan_indonesia = [
