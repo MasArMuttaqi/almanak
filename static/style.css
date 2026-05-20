@@ -438,6 +438,42 @@ td {
           text-decoration: none;
           border-bottom: 1px dotted #ccc;
       }
+/* tombol peta KHGT */
+.btn-load-map{
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 2000;
+
+        border: none;
+        outline: none;
+
+        padding: 14px 22px;
+
+        border-radius: 999px;
+
+        background: #0d6efd;
+        color: white;
+
+        font-size: 15px;
+        font-weight: 600;
+
+        cursor: pointer;
+
+        box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+
+        transition: all .2s ease;
+    }
+
+    .btn-load-map:hover{
+        transform: translateY(-2px);
+    }
+
+    .btn-load-map.loading{
+        opacity: .7;
+        pointer-events: none;
+    }
+/* tombol peta KHGT */
 
          /* Responsif Mobile */
         @media (max-width: 576px) {
