@@ -136,7 +136,10 @@
             </a>
         </div>
       </li>
-
+     <li class="list-group-item">
+          Sadwårå/Paringkêlan <span class="badge rounded-pill text-bg-primary" id="oc-sadwara"></span>, 
+          Wuku <span class="badge rounded-pill text-bg-info" id="oc-wuku"></span>
+      </li>
     </ul>
 
 <!-- detail -->
@@ -210,6 +213,8 @@ $(document).on('click', 'td[data-tgl]', function () {
         $('a[href="/kalenderjawa"]').attr('href', function(i, val) {
             return val + '?tanggal=' + formatTanggal(tanggal);
         });
+        $('#oc-sadwara').text(res.sadwara);
+        $('#oc-wuku').text(res.wuku);
     });
 });
 
