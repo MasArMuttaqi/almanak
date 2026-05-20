@@ -26,25 +26,30 @@ def dashboard():
 @app.route('/detail-kalender')
 def detail_kalender():
     try:
-        tanggal = request.args.get('tanggal')
+        tanggal_str = request.args.get('tanggal')
 
-        if not tanggal:
-            return jsonify({"error": "tanggal kosong"}), 400
+        if tanggal_str:
+            try:
+                # parsing string ke date
+                tanggal = datetime.strptime(tanggal_str, "%Y-%m-%d").date()
+            except ValueError:
+                # fallback jika format salah
+                tanggal = datetime.now().date()
+        else:
+            # default hari ini
+            tanggal = datetime.now().date()
 
-        y, m, d = map(int, tanggal.split('-'))
-
-        date_obj = datetime(y, m, d)
-
-        # ✅ kirim sesuai kebutuhan fungsi
-        jawa = kalender_jawa(date_obj)
-        hijriah = hisab_nu(y, m, d)
+        jawa = kalender_jawa(tanggal)
+        hijriah = hisab_nu(tanggal.year, tanggal.month, tanggal.day)
 
         return jsonify({
             "masehi": format_tanggal_indonesia(tanggal),
             "pasaran_jawa": f"{jawa.get('hari_jawa', '-')}",
             "pasaran_caka": f"{jawa.get('hari_caka', '-')}",
             "hijriah": f"{hijriah.get('tanggal_hijriah', {}).get('full', '-')}",
-            "jawa": jawa.get('tanggal_jawa', '-')
+            "jawa": f"{jawa.get('tanggal_jawa', '-')}",
+            "wuku": f"{jawa.get('wuku', '-')}",
+            "sadwara": f"{jawa.get('sadwara', '-')}"
         })
 
     except Exception as e:
