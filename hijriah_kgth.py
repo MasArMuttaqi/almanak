@@ -693,9 +693,9 @@ def konversi_hijriah(
                     timeline[i]["elongasi"]
                 ),
 
-                "imkan": imkan["status"],
+                "imkan": imkan["status"]
 
-                "ildl": ildl_cached
+                /*"ildl": ildl_cached*/
             }
 
     return None
