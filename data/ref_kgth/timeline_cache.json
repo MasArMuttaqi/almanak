@@ -1,0 +1,404 @@
+{
+  "2026": [
+    {
+      "tgl_1": "2025-01-01",
+      "ijt_utc": "2024-12-30 22:26:47",
+      "elongasi": 4.945349826336626,
+      "nama": "Rajab",
+      "tahun_h": 1446,
+      "status_pkg": "PKG 2 (penyelarasan global)"
+    },
+    {
+      "tgl_1": "2025-01-31",
+      "ijt_utc": "2025-01-29 12:35:58",
+      "elongasi": 3.840574929706151,
+      "nama": "Syaban",
+      "tahun_h": 1446,
+      "status_pkg": "PKG 2 (penyelarasan global)"
+    },
+    {
+      "tgl_1": "2025-03-02",
+      "ijt_utc": "2025-02-28 00:44:49",
+      "elongasi": 1.607723859989144,
+      "nama": "Ramadhan",
+      "tahun_h": 1446,
+      "status_pkg": "PKG 2 (penyelarasan global)"
+    },
+    {
+      "tgl_1": "2025-03-31",
+      "ijt_utc": "2025-03-29 10:57:49",
+      "elongasi": 1.0625476251098427,
+      "nama": "Syawal",
+      "tahun_h": 1446,
+      "status_pkg": "PKG 2 (penyelarasan global)"
+    },
+    {
+      "tgl_1": "2025-04-29",
+      "ijt_utc": "2025-04-27 19:31:09",
+      "elongasi": 3.3918556801192046,
+      "nama": "Dzulqaidah",
+      "tahun_h": 1446,
+      "status_pkg": "PKG 2 (penyelarasan global)"
+    },
+    {
+      "tgl_1": "2025-05-29",
+      "ijt_utc": "2025-05-27 03:02:21",
+      "elongasi": 4.772791341374386,
+      "nama": "Dzulhijjah",
+      "tahun_h": 1446,
+      "status_pkg": "PKG 2 (penyelarasan global)"
+    },
+    {
+      "tgl_1": "2025-06-27",
+      "ijt_utc": "2025-06-25 10:31:37",
+      "elongasi": 4.896252234459532,
+      "nama": "Muharram",
+      "tahun_h": 1447,
+      "status_pkg": "PKG 2 (penyelarasan global)"
+    },
+    {
+      "tgl_1": "2025-07-26",
+      "ijt_utc": "2025-07-24 19:11:12",
+      "elongasi": 3.7559387459191713,
+      "nama": "Safar",
+      "tahun_h": 1447,
+      "status_pkg": "PKG 2 (penyelarasan global)"
+    },
+    {
+      "tgl_1": "2025-08-25",
+      "ijt_utc": "2025-08-23 06:06:33",
+      "elongasi": 1.6219587267625035,
+      "nama": "Rabiul Awal",
+      "tahun_h": 1447,
+      "status_pkg": "PKG 2 (penyelarasan global)"
+    },
+    {
+      "tgl_1": "2025-09-23",
+      "ijt_utc": "2025-09-21 19:54:07",
+      "elongasi": 0.9823760257544104,
+      "nama": "Rabiul Akhir",
+      "tahun_h": 1447,
+      "status_pkg": "PKG 2 (penyelarasan global)"
+    },
+    {
+      "tgl_1": "2025-10-23",
+      "ijt_utc": "2025-10-21 12:25:10",
+      "elongasi": 3.352982191599511,
+      "nama": "Jumadil Awal",
+      "tahun_h": 1447,
+      "status_pkg": "PKG 2 (penyelarasan global)"
+    },
+    {
+      "tgl_1": "2025-11-22",
+      "ijt_utc": "2025-11-20 06:47:16",
+      "elongasi": 4.781692321247352,
+      "nama": "Jumadil Akhir",
+      "tahun_h": 1447,
+      "status_pkg": "PKG 2 (penyelarasan global)"
+    },
+    {
+      "tgl_1": "2025-12-22",
+      "ijt_utc": "2025-12-20 01:43:20",
+      "elongasi": 4.798723862856547,
+      "nama": "Rajab",
+      "tahun_h": 1447,
+      "status_pkg": "PKG 2 (penyelarasan global)"
+    },
+    {
+      "tgl_1": "2026-01-20",
+      "ijt_utc": "2026-01-18 19:51:58",
+      "elongasi": 3.3671323738368995,
+      "nama": "Syaban",
+      "tahun_h": 1447,
+      "status_pkg": "PKG 2 (penyelarasan global)"
+    },
+    {
+      "tgl_1": "2026-02-19",
+      "ijt_utc": "2026-02-17 12:01:09",
+      "elongasi": 0.9281563984913508,
+      "nama": "Ramadhan",
+      "tahun_h": 1447,
+      "status_pkg": "PKG 2 (penyelarasan global)"
+    },
+    {
+      "tgl_1": "2026-03-21",
+      "ijt_utc": "2026-03-19 01:23:28",
+      "elongasi": 1.7544571267792592,
+      "nama": "Syawal",
+      "tahun_h": 1447,
+      "status_pkg": "PKG 2 (penyelarasan global)"
+    },
+    {
+      "tgl_1": "2026-04-19",
+      "ijt_utc": "2026-04-17 11:51:48",
+      "elongasi": 3.893977879864718,
+      "nama": "Dzulqaidah",
+      "tahun_h": 1447,
+      "status_pkg": "PKG 2 (penyelarasan global)"
+    },
+    {
+      "tgl_1": "2026-05-18",
+      "ijt_utc": "2026-05-16 20:01:02",
+      "elongasi": 4.941015664523732,
+      "nama": "Dzulhijjah",
+      "tahun_h": 1447,
+      "status_pkg": "PKG 2 (penyelarasan global)"
+    },
+    {
+      "tgl_1": "2026-06-17",
+      "ijt_utc": "2026-06-15 02:54:10",
+      "elongasi": 4.680069171043953,
+      "nama": "Muharram",
+      "tahun_h": 1448,
+      "status_pkg": "PKG 2 (penyelarasan global)"
+    },
+    {
+      "tgl_1": "2026-07-16",
+      "ijt_utc": "2026-07-14 09:43:36",
+      "elongasi": 3.2095064111945697,
+      "nama": "Safar",
+      "tahun_h": 1448,
+      "status_pkg": "PKG 2 (penyelarasan global)"
+    },
+    {
+      "tgl_1": "2026-08-14",
+      "ijt_utc": "2026-08-12 17:36:44",
+      "elongasi": 0.8960886736867222,
+      "nama": "Rabiul Awal",
+      "tahun_h": 1448,
+      "status_pkg": "PKG 2 (penyelarasan global)"
+    },
+    {
+      "tgl_1": "2026-09-13",
+      "ijt_utc": "2026-09-11 03:26:59",
+      "elongasi": 1.6805666858098922,
+      "nama": "Rabiul Akhir",
+      "tahun_h": 1448,
+      "status_pkg": "PKG 2 (penyelarasan global)"
+    },
+    {
+      "tgl_1": "2026-10-12",
+      "ijt_utc": "2026-10-10 15:50:05",
+      "elongasi": 3.832314543459116,
+      "nama": "Jumadil Awal",
+      "tahun_h": 1448,
+      "status_pkg": "PKG 2 (penyelarasan global)"
+    },
+    {
+      "tgl_1": "2026-11-11",
+      "ijt_utc": "2026-11-09 07:02:06",
+      "elongasi": 4.9298617065995325,
+      "nama": "Jumadil Akhir",
+      "tahun_h": 1448,
+      "status_pkg": "PKG 2 (penyelarasan global)"
+    },
+    {
+      "tgl_1": "2026-12-11",
+      "ijt_utc": "2026-12-09 00:51:51",
+      "elongasi": 4.596116599353006,
+      "nama": "Rajab",
+      "tahun_h": 1448,
+      "status_pkg": "PKG 2 (penyelarasan global)"
+    },
+    {
+      "tgl_1": "2027-01-09",
+      "ijt_utc": "2027-01-07 20:24:23",
+      "elongasi": 2.8712664919109336,
+      "nama": "Syaban",
+      "tahun_h": 1448,
+      "status_pkg": "PKG 2 (penyelarasan global)"
+    },
+    {
+      "tgl_1": "2027-02-08",
+      "ijt_utc": "2027-02-06 15:56:07",
+      "elongasi": 0.26847369390409187,
+      "nama": "Ramadhan",
+      "tahun_h": 1448,
+      "status_pkg": "PKG 2 (penyelarasan global)"
+    },
+    {
+      "tgl_1": "2027-03-10",
+      "ijt_utc": "2027-03-08 09:29:28",
+      "elongasi": 2.3887404597648323,
+      "nama": "Syawal",
+      "tahun_h": 1448,
+      "status_pkg": "PKG 2 (penyelarasan global)"
+    },
+    {
+      "tgl_1": "2027-04-08",
+      "ijt_utc": "2027-04-06 23:51:09",
+      "elongasi": 4.308547753695281,
+      "nama": "Dzulqaidah",
+      "tahun_h": 1448,
+      "status_pkg": "PKG 2 (penyelarasan global)"
+    },
+    {
+      "tgl_1": "2027-05-08",
+      "ijt_utc": "2027-05-06 10:58:38",
+      "elongasi": 5.005711436180374,
+      "nama": "Dzulhijjah",
+      "tahun_h": 1448,
+      "status_pkg": "PKG 2 (penyelarasan global)"
+    },
+    {
+      "tgl_1": "2027-06-06",
+      "ijt_utc": "2027-06-04 19:40:21",
+      "elongasi": 4.366675012448664,
+      "nama": "Muharram",
+      "tahun_h": 1449,
+      "status_pkg": "PKG 2 (penyelarasan global)"
+    },
+    {
+      "tgl_1": "2027-07-06",
+      "ijt_utc": "2027-07-04 03:02:05",
+      "elongasi": 2.595474473568279,
+      "nama": "Safar",
+      "tahun_h": 1449,
+      "status_pkg": "PKG 2 (penyelarasan global)"
+    },
+    {
+      "tgl_1": "2027-08-04",
+      "ijt_utc": "2027-08-02 10:05:14",
+      "elongasi": 0.14566409627288326,
+      "nama": "Rabiul Awal",
+      "tahun_h": 1449,
+      "status_pkg": "PKG 2 (penyelarasan global)"
+    },
+    {
+      "tgl_1": "2027-09-02",
+      "ijt_utc": "2027-08-31 17:41:11",
+      "elongasi": 2.3603908209997844,
+      "nama": "Rabiul Akhir",
+      "tahun_h": 1449,
+      "status_pkg": "PKG 2 (penyelarasan global)"
+    },
+    {
+      "tgl_1": "2027-10-02",
+      "ijt_utc": "2027-09-30 02:36:04",
+      "elongasi": 4.257986983689104,
+      "nama": "Jumadil Awal",
+      "tahun_h": 1449,
+      "status_pkg": "PKG 2 (penyelarasan global)"
+    },
+    {
+      "tgl_1": "2027-10-31",
+      "ijt_utc": "2027-10-29 13:36:34",
+      "elongasi": 5.001657004996081,
+      "nama": "Jumadil Akhir",
+      "tahun_h": 1449,
+      "status_pkg": "PKG 2 (penyelarasan global)"
+    },
+    {
+      "tgl_1": "2027-11-30",
+      "ijt_utc": "2027-11-28 03:24:26",
+      "elongasi": 4.321355234574948,
+      "nama": "Rajab",
+      "tahun_h": 1449,
+      "status_pkg": "PKG 2 (penyelarasan global)"
+    },
+    {
+      "tgl_1": "2027-12-29",
+      "ijt_utc": "2027-12-27 20:12:19",
+      "elongasi": 2.346965915291181,
+      "nama": "Syaban",
+      "tahun_h": 1449,
+      "status_pkg": "PKG 2 (penyelarasan global)"
+    },
+    {
+      "tgl_1": "2028-01-28",
+      "ijt_utc": "2028-01-26 15:12:31",
+      "elongasi": 0.35284296090830736,
+      "nama": "Ramadhan",
+      "tahun_h": 1449,
+      "status_pkg": "PKG 2 (penyelarasan global)"
+    },
+    {
+      "tgl_1": "2028-02-27",
+      "ijt_utc": "2028-02-25 10:37:25",
+      "elongasi": 2.930214225476629,
+      "nama": "Syawal",
+      "tahun_h": 1449,
+      "status_pkg": "PKG 2 (penyelarasan global)"
+    },
+    {
+      "tgl_1": "2028-03-28",
+      "ijt_utc": "2028-03-26 04:31:19",
+      "elongasi": 4.604734157726311,
+      "nama": "Dzulqaidah",
+      "tahun_h": 1449,
+      "status_pkg": "PKG 2 (penyelarasan global)"
+    },
+    {
+      "tgl_1": "2028-04-26",
+      "ijt_utc": "2028-04-24 19:46:56",
+      "elongasi": 4.9499291843082265,
+      "nama": "Dzulhijjah",
+      "tahun_h": 1449,
+      "status_pkg": "PKG 2 (penyelarasan global)"
+    },
+    {
+      "tgl_1": "2028-05-26",
+      "ijt_utc": "2028-05-24 08:16:19",
+      "elongasi": 3.9505072466206146,
+      "nama": "Muharram",
+      "tahun_h": 1450,
+      "status_pkg": "PKG 2 (penyelarasan global)"
+    },
+    {
+      "tgl_1": "2028-06-24",
+      "ijt_utc": "2028-06-22 18:27:33",
+      "elongasi": 1.9190341546104772,
+      "nama": "Safar",
+      "tahun_h": 1450,
+      "status_pkg": "PKG 2 (penyelarasan global)"
+    },
+    {
+      "tgl_1": "2028-07-24",
+      "ijt_utc": "2028-07-22 03:01:43",
+      "elongasi": 0.6090813214877027,
+      "nama": "Rabiul Awal",
+      "tahun_h": 1450,
+      "status_pkg": "PKG 2 (penyelarasan global)"
+    },
+    {
+      "tgl_1": "2028-08-22",
+      "ijt_utc": "2028-08-20 10:43:51",
+      "elongasi": 2.9871208778090894,
+      "nama": "Rabiul Akhir",
+      "tahun_h": 1450,
+      "status_pkg": "PKG 2 (penyelarasan global)"
+    },
+    {
+      "tgl_1": "2028-09-20",
+      "ijt_utc": "2028-09-18 18:23:45",
+      "elongasi": 4.591238958656706,
+      "nama": "Jumadil Awal",
+      "tahun_h": 1450,
+      "status_pkg": "PKG 2 (penyelarasan global)"
+    },
+    {
+      "tgl_1": "2028-10-20",
+      "ijt_utc": "2028-10-18 02:56:49",
+      "elongasi": 4.9628296927244,
+      "nama": "Jumadil Akhir",
+      "tahun_h": 1450,
+      "status_pkg": "PKG 2 (penyelarasan global)"
+    },
+    {
+      "tgl_1": "2028-11-18",
+      "ijt_utc": "2028-11-16 13:18:02",
+      "elongasi": 3.937241565124048,
+      "nama": "Rajab",
+      "tahun_h": 1450,
+      "status_pkg": "PKG 2 (penyelarasan global)"
+    },
+    {
+      "tgl_1": "2028-12-18",
+      "ijt_utc": "2028-12-16 02:06:19",
+      "elongasi": 1.7426534989378515,
+      "nama": "Syaban",
+      "tahun_h": 1450,
+      "status_pkg": "PKG 2 (penyelarasan global)"
+    }
+  ]
+}
