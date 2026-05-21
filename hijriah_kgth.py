@@ -550,6 +550,10 @@ def build_timeline(
 
         tgl_1 = None
 
+        status_pkg = (
+            "PKG 2 (penyelarasan global)"
+        )
+
         for offset in range(
             start_offset,
             4
@@ -567,11 +571,27 @@ def build_timeline(
             )
 
             if (
-                imkan["status"] ==
-                "Imkan Rukyat"
+                    imkan["status"] ==
+                    "Imkan Rukyat"
             ):
 
                 tgl_1 = kandidat
+
+                # =====================================
+                # STATUS KGTH
+                # =====================================
+
+                if offset == 1:
+
+                    status_pkg = (
+                        "PKG 1 (sebelum 24:00 UTC)"
+                    )
+
+                else:
+
+                    status_pkg = (
+                        "PKG 2 (penyelarasan global)"
+                    )
 
                 break
 
@@ -580,6 +600,10 @@ def build_timeline(
             tgl_1 = (
                 ijt_dt.date() +
                 timedelta(days=2)
+            )
+
+            status_pkg = (
+                "PKG 2 (penyelarasan global)"
             )
 
         timeline.append({
@@ -592,7 +616,9 @@ def build_timeline(
 
             "nama": BULAN_HIJRIAH[curr_h_idx],
 
-            "tahun_h": curr_h_year
+            "tahun_h": curr_h_year,
+
+            "status_pkg": status_pkg
         })
 
         curr_h_idx = (
@@ -609,6 +635,10 @@ def build_timeline(
 
 # =========================================================
 # KONVERSI HIJRIAH
+# =========================================================
+# =========================================================
+# KONVERSI HIJRIAH (FAST MODE)
+# TANPA RETURN ILDL
 # =========================================================
 
 def konversi_hijriah(
@@ -643,41 +673,29 @@ def konversi_hijriah(
                 timeline[i]["tgl_1"]
             ).days + 1
 
-            tahun_h = timeline[i]["tahun_h"]
-
-            bulan_idx = bulan_hijriah_index(
-                timeline[i]["nama"]
+            tahun_h = (
+                timeline[i]["tahun_h"]
             )
 
-            ildl_cached = load_ildl(
-                tahun_h,
-                bulan_idx
+            ijt_utc = (
+                timeline[i]["ijt_utc"]
             )
 
-            if ildl_cached is None:
+            # =====================================
+            # STATUS KGTH
+            # =====================================
 
-                imkan = cek_imkan_global(
-                    timeline[i]["tgl_1"],
-                    timeline[i]["ijt_utc"],
-                    resolusi=10
+            status_pkg = (
+                timeline[i]
+                .get(
+                    "status_pkg",
+                    "PKG 1"
                 )
+            )
 
-                ildl_cached = smooth_ildl(
-                    imkan["ildl"]
-                )
-
-                save_ildl(
-                    tahun_h,
-                    bulan_idx,
-                    ildl_cached
-                )
-
-            else:
-
-                imkan = {
-                    "status": "Imkan Rukyat",
-                    "ildl": ildl_cached
-                }
+            # =====================================
+            # RETURN SUPER CEPAT
+            # =====================================
 
             return {
 
@@ -687,15 +705,15 @@ def konversi_hijriah(
 
                 "tahun": tahun_h,
 
-                "ijt_utc": timeline[i]["ijt_utc"],
+                "ijt_utc": ijt_utc,
 
                 "elongasi": deg_to_dms(
                     timeline[i]["elongasi"]
                 ),
 
-                "imkan": imkan["status"]
+                "imkan": "Imkan Rukyat",
 
-                /*"ildl": ildl_cached*/
+                "status_kgth": status_pkg
             }
 
     return None
