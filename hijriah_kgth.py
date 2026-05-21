@@ -3,7 +3,9 @@ from skyfield.api import load, wgs84
 from skyfield import almanac
 from datetime import datetime, timedelta, date
 from pathlib import Path
+
 import numpy as np
+import json
 
 from konversitanggal import format_tanggal_indonesia
 
@@ -20,6 +22,11 @@ REF_DIR.mkdir(
     exist_ok=True
 )
 
+TIMELINE_FILE = (
+    REF_DIR /
+    "timeline_cache.json"
+)
+
 # =========================================================
 # GLOBAL CACHE
 # =========================================================
@@ -27,7 +34,7 @@ REF_DIR.mkdir(
 TIMELINE_CACHE = {}
 
 # =========================================================
-# UTIL
+# BULAN HIJRIAH
 # =========================================================
 
 BULAN_HIJRIAH = [
@@ -45,107 +52,156 @@ BULAN_HIJRIAH = [
     "Dzulhijjah"
 ]
 
+# =========================================================
+# UTIL
+# =========================================================
 
 def deg_to_dms(deg):
 
     d = int(deg)
 
-    m_float = abs(deg - d) * 60
+    m_float = abs(
+        deg - d
+    ) * 60
 
     m = int(m_float)
 
-    s = (m_float - m) * 60
+    s = (
+        m_float - m
+    ) * 60
 
-    return f"{d}° {m}′ {s:.2f}″"
-
-
-def smooth_ildl(ildl):
-
-    if len(ildl) < 3:
-        return ildl
-
-    smoothed = []
-
-    for i in range(1, len(ildl) - 1):
-
-        lat = (
-            ildl[i - 1][0] +
-            ildl[i][0] +
-            ildl[i + 1][0]
-        ) / 3
-
-        smoothed.append([
-            round(lat, 3),
-            ildl[i][1]
-        ])
-
-    return smoothed
-
-
-# =========================================================
-# ILDL CACHE
-# =========================================================
-
-def bulan_hijriah_index(nama):
-
-    return BULAN_HIJRIAH.index(nama) + 1
-
-
-def get_ildl_filename(
-    tahun_h,
-    bulan_h
-):
-
-    return REF_DIR / f"{tahun_h}_{bulan_h:02d}.npy"
-
-
-def save_ildl(
-    tahun_h,
-    bulan_h,
-    ildl
-):
-
-    if not ildl:
-        return
-
-    file_npy = get_ildl_filename(
-        tahun_h,
-        bulan_h
+    return (
+        f"{d}° "
+        f"{m}′ "
+        f"{s:.2f}″"
     )
 
-    np.save(
-        str(file_npy),
-        np.array(
-            ildl,
-            dtype=np.float32
+
+# =========================================================
+# SAVE TIMELINE CACHE
+# =========================================================
+
+def save_timeline_cache():
+
+    data_save = {}
+
+    for tahun, timeline in (
+        TIMELINE_CACHE.items()
+    ):
+
+        rows = []
+
+        for item in timeline:
+
+            rows.append({
+
+                "tgl_1":
+                    item["tgl_1"]
+                    .isoformat(),
+
+                "ijt_utc":
+                    item["ijt_utc"]
+                    .strftime(
+                        "%Y-%m-%d %H:%M:%S"
+                    ),
+
+                "elongasi":
+                    item["elongasi"],
+
+                "nama":
+                    item["nama"],
+
+                "tahun_h":
+                    item["tahun_h"],
+
+                "status_pkg":
+                    item["status_pkg"]
+            })
+
+        data_save[
+            str(tahun)
+        ] = rows
+
+    with open(
+        TIMELINE_FILE,
+        "w",
+        encoding="utf-8"
+    ) as f:
+
+        json.dump(
+            data_save,
+            f,
+            ensure_ascii=False,
+            indent=2
         )
-    )
 
 
-def load_ildl(
-    tahun_h,
-    bulan_h
-):
+# =========================================================
+# LOAD TIMELINE CACHE
+# =========================================================
 
-    file_npy = get_ildl_filename(
-        tahun_h,
-        bulan_h
-    )
+def load_timeline_cache():
 
-    if not file_npy.exists():
-        return None
+    if not TIMELINE_FILE.exists():
+        return
 
     try:
 
-        data = np.load(
-            str(file_npy),
-            allow_pickle=True
+        with open(
+            TIMELINE_FILE,
+            "r",
+            encoding="utf-8"
+        ) as f:
+
+            raw = json.load(f)
+
+        for tahun, rows in raw.items():
+
+            timeline = []
+
+            for item in rows:
+
+                timeline.append({
+
+                    "tgl_1":
+                        datetime.strptime(
+                            item["tgl_1"],
+                            "%Y-%m-%d"
+                        ).date(),
+
+                    "ijt_utc":
+                        datetime.strptime(
+                            item["ijt_utc"],
+                            "%Y-%m-%d %H:%M:%S"
+                        ),
+
+                    "elongasi":
+                        item["elongasi"],
+
+                    "nama":
+                        item["nama"],
+
+                    "tahun_h":
+                        item["tahun_h"],
+
+                    "status_pkg":
+                        item["status_pkg"]
+                })
+
+            TIMELINE_CACHE[
+                int(tahun)
+            ] = timeline
+
+        print(
+            "[CACHE] timeline loaded"
         )
 
-        return data.tolist()
+    except Exception as e:
 
-    except:
-        return None
+        print(
+            "Gagal load cache:",
+            e
+        )
 
 
 # =========================================================
@@ -157,7 +213,9 @@ def get_ephemeris():
 
     ts = load.timescale()
 
-    eph = load("de440s.bsp")
+    eph = load(
+        "de440s.bsp"
+    )
 
     return ts, eph
 
@@ -172,27 +230,44 @@ def dapatkan_daftar_ijtima(
     tahun_akhir
 ):
 
-    ts, eph = get_ephemeris()
+    ts, eph = (
+        get_ephemeris()
+    )
 
     earth = eph["earth"]
     moon = eph["moon"]
     sun = eph["sun"]
 
-    t0 = ts.utc(tahun_mulai, 1, 1)
+    t0 = ts.utc(
+        tahun_mulai,
+        1,
+        1
+    )
 
-    t1 = ts.utc(tahun_akhir, 12, 31)
+    t1 = ts.utc(
+        tahun_akhir,
+        12,
+        31
+    )
 
-    f = almanac.moon_phases(eph)
+    f = almanac.moon_phases(
+        eph
+    )
 
-    times, phases = almanac.find_discrete(
-        t0,
-        t1,
-        f
+    times, phases = (
+        almanac.find_discrete(
+            t0,
+            t1,
+            f
+        )
     )
 
     hasil = []
 
-    for t, p in zip(times, phases):
+    for t, p in zip(
+        times,
+        phases
+    ):
 
         if p == 0:
 
@@ -226,7 +301,9 @@ def get_range_ijtima(
     buffer=2
 ):
 
-    tahun = tanggal_target.year
+    tahun = (
+        tanggal_target.year
+    )
 
     return dapatkan_daftar_ijtima(
         tahun - buffer,
@@ -247,41 +324,57 @@ def get_sunset_utc(
     lon
 ):
 
-    ts, eph = get_ephemeris()
+    ts, eph = (
+        get_ephemeris()
+    )
 
-    lokasi = wgs84.latlon(lat, lon)
+    lokasi = (
+        wgs84.latlon(
+            lat,
+            lon
+        )
+    )
 
-    t0 = ts.utc(year, month, day)
+    t0 = ts.utc(
+        year,
+        month,
+        day
+    )
 
     try:
 
         t1 = ts.utc(
-            (
-                datetime(
-                    year,
-                    month,
-                    day
-                ) + timedelta(days=1)
-            )
+            datetime(
+                year,
+                month,
+                day
+            ) + timedelta(days=1)
         )
 
     except:
         return None
 
-    f = almanac.sunrise_sunset(
-        eph,
-        lokasi
+    f = (
+        almanac.sunrise_sunset(
+            eph,
+            lokasi
+        )
     )
 
     try:
 
-        times, events = almanac.find_discrete(
-            t0,
-            t1,
-            f
+        times, events = (
+            almanac.find_discrete(
+                t0,
+                t1,
+                f
+            )
         )
 
-        for t, e in zip(times, events):
+        for t, e in zip(
+            times,
+            events
+        ):
 
             if e == 0:
                 return t
@@ -305,13 +398,13 @@ def hitung_hilal_cached(
     lon
 ):
 
-    ts, eph = get_ephemeris()
+    ts, eph = (
+        get_ephemeris()
+    )
 
     earth = eph["earth"]
     moon = eph["moon"]
     sun = eph["sun"]
-
-    lokasi = wgs84.latlon(lat, lon)
 
     sunset = get_sunset_utc(
         year,
@@ -324,9 +417,20 @@ def hitung_hilal_cached(
     if sunset is None:
         return None
 
-    observer = earth + lokasi
+    lokasi = (
+        wgs84.latlon(
+            lat,
+            lon
+        )
+    )
 
-    observer_at = observer.at(sunset)
+    observer = (
+        earth + lokasi
+    )
+
+    observer_at = (
+        observer.at(sunset)
+    )
 
     moon_app = (
         observer_at
@@ -340,26 +444,34 @@ def hitung_hilal_cached(
         .apparent()
     )
 
-    alt, az, distance = (
+    alt, az, dist = (
         moon_app.altaz()
     )
 
     elong = (
         moon_app
-        .separation_from(sun_app)
+        .separation_from(
+            sun_app
+        )
         .degrees
     )
 
     return {
-        "alt": round(
-            alt.degrees,
-            4
-        ),
-        "elong": round(
-            elong,
-            4
-        ),
-        "sunset_utc": sunset.utc_datetime()
+
+        "alt":
+            round(
+                alt.degrees,
+                4
+            ),
+
+        "elong":
+            round(
+                elong,
+                4
+            ),
+
+        "sunset_utc":
+            sunset.utc_datetime()
     }
 
 
@@ -383,137 +495,266 @@ def _cached_hitung_hilal(
 # KGTH RULE
 # =========================================================
 
-@lru_cache(maxsize=500)
 def is_america(lon):
 
-    return -170 <= lon <= -30
+    return (
+        -170 <= lon <= -30
+    )
 
 
-def ijtimak_before_nz_fajr(ijt_utc):
+def ijtimak_before_nz_fajr(
+    ijt_utc
+):
 
-    nz_local = ijt_utc + timedelta(hours=12)
+    nz_local = (
+        ijt_utc +
+        timedelta(hours=12)
+    )
 
-    return nz_local.hour < 5
+    return (
+        nz_local.hour < 5
+    )
 
 
 # =========================================================
-# ILDL
+# CEK TITIK
+# =========================================================
+
+def cek_titik(
+    tanggal,
+    ijt_utc,
+    lat,
+    lon
+):
+
+    data = (
+        _cached_hitung_hilal(
+            tanggal,
+            lat,
+            lon
+        )
+    )
+
+    if not data:
+        return None
+
+    sunset_utc = (
+        data["sunset_utc"]
+    )
+
+    normal_case = (
+
+        sunset_utc > ijt_utc
+
+        and
+
+        sunset_utc.date()
+        == tanggal
+    )
+
+    special_case = False
+
+    if sunset_utc > ijt_utc:
+
+        if (
+            sunset_utc.date()
+            > tanggal
+        ):
+
+            if (
+
+                is_america(lon)
+
+                and
+
+                ijtimak_before_nz_fajr(
+                    ijt_utc
+                )
+
+            ):
+
+                special_case = True
+
+    sunset_ok = (
+        normal_case or
+        special_case
+    )
+
+    current_ok = (
+
+        sunset_ok
+
+        and
+
+        data["alt"] >= 5
+
+        and
+
+        data["elong"] >= 8
+    )
+
+    if not current_ok:
+        return None
+
+    return {
+
+        "pkg":
+            (
+                "PKG 1 "
+                "(sebelum 24:00 UTC)"
+            )
+            if normal_case
+            else
+            (
+                "PKG 2 "
+                "(penyelarasan global)"
+            )
+    }
+
+
+# =========================================================
+# CEK GLOBAL OPTIMIZED
 # =========================================================
 
 @lru_cache(maxsize=500)
 def cek_imkan_global(
     tanggal,
     ijt_utc,
-    resolusi=10
+    resolusi_awal=10,
+    resolusi_final=5
 ):
 
-    ildl = []
+    # =====================================================
+    # PASS 1
+    # GRID KASAR
+    # =====================================================
+
+    kandidat_area = []
 
     for lon in range(
         -180,
         181,
-        resolusi
+        resolusi_awal
     ):
-
-        prev_ok = False
-
-        prev_lat = -60
 
         for lat in range(
             -60,
             61,
-            resolusi
+            resolusi_awal
         ):
 
-            data = _cached_hitung_hilal(
+            hasil = cek_titik(
                 tanggal,
+                ijt_utc,
                 lat,
                 lon
             )
 
-            if not data:
-                continue
+            if hasil:
 
-            sunset_utc = data["sunset_utc"]
+                kandidat_area.append(
+                    (
+                        lat,
+                        lon
+                    )
+                )
 
-            normal_case = (
-                sunset_utc > ijt_utc and
-                sunset_utc.date() == tanggal
-            )
+    # =====================================================
+    # TIDAK ADA KANDIDAT
+    # =====================================================
 
-            special_case = False
+    if not kandidat_area:
 
-            if sunset_utc > ijt_utc:
+        return {
 
-                if sunset_utc.date() > tanggal:
+            "status":
+                "Belum Memenuhi",
 
-                    if (
-                        is_america(lon) and
-                        ijtimak_before_nz_fajr(ijt_utc)
-                    ):
-                        special_case = True
+            "pkg":
+                "Belum Memenuhi"
+        }
 
-            sunset_ok = (
-                normal_case or
-                special_case
-            )
+    # =====================================================
+    # PASS 2
+    # REFINE 5°
+    # =====================================================
 
-            current_ok = (
-                sunset_ok and
-                data["elong"] >= 8 and
-                data["alt"] >= 5
-            )
+    for base_lat, base_lon in (
+        kandidat_area
+    ):
 
-            if (
-                (not prev_ok)
-                and current_ok
+        for lon in range(
+            base_lon - 10,
+            base_lon + 11,
+            resolusi_final
+        ):
+
+            for lat in range(
+                base_lat - 10,
+                base_lat + 11,
+                resolusi_final
             ):
 
-                lat_boundary = (
-                    prev_lat + lat
-                ) / 2
-
-                ildl.append([
-                    round(lat_boundary, 2),
+                hasil = cek_titik(
+                    tanggal,
+                    ijt_utc,
+                    lat,
                     lon
-                ])
+                )
 
-                break
+                if hasil:
 
-            prev_ok = current_ok
+                    return {
 
-            prev_lat = lat
+                        "status":
+                            "Imkan Rukyat",
+
+                        "pkg":
+                            hasil["pkg"]
+                    }
 
     return {
-        "status": (
-            "Imkan Rukyat"
-            if ildl else
+
+        "status":
+            "Belum Memenuhi",
+
+        "pkg":
             "Belum Memenuhi"
-        ),
-        "ildl": ildl
     }
 
 
 # =========================================================
-# BUILD TIMELINE CACHE
+# BUILD TIMELINE
 # =========================================================
 
 def build_timeline(
     tanggal_target
 ):
 
-    tahun_key = tanggal_target.year
+    tahun_key = (
+        tanggal_target.year
+    )
 
-    if tahun_key in TIMELINE_CACHE:
-        return TIMELINE_CACHE[tahun_key]
+    if tahun_key in (
+        TIMELINE_CACHE
+    ):
 
-    semua_ijtima = get_range_ijtima(
-        tanggal_target
+        return TIMELINE_CACHE[
+            tahun_key
+        ]
+
+    semua_ijtima = (
+        get_range_ijtima(
+            tanggal_target
+        )
     )
 
     ref_idx = None
 
-    for i, (ijt_dt, _) in enumerate(
+    for i, (
+        ijt_dt,
+        _
+    ) in enumerate(
         semua_ijtima
     ):
 
@@ -531,7 +772,6 @@ def build_timeline(
         return []
 
     curr_h_idx = 6
-
     curr_h_year = 1446
 
     timeline = []
@@ -541,17 +781,21 @@ def build_timeline(
         len(semua_ijtima)
     ):
 
-        ijt_dt, elong = semua_ijtima[i]
+        ijt_dt, elong = (
+            semua_ijtima[i]
+        )
 
         start_offset = 1
 
         if ijt_dt.hour >= 18:
+
             start_offset = 2
 
         tgl_1 = None
 
         status_pkg = (
-            "PKG 2 (penyelarasan global)"
+            "PKG 2 "
+            "(penyelarasan global)"
         )
 
         for offset in range(
@@ -560,65 +804,67 @@ def build_timeline(
         ):
 
             kandidat = (
-                ijt_dt.date() +
+
+                ijt_dt.date()
+
+                +
+
                 timedelta(days=offset)
             )
 
-            imkan = cek_imkan_global(
-                kandidat,
-                ijt_dt,
-                resolusi=5
+            imkan = (
+                cek_imkan_global(
+                    kandidat,
+                    ijt_dt
+                )
             )
 
             if (
-                    imkan["status"] ==
-                    "Imkan Rukyat"
+                imkan["status"]
+                ==
+                "Imkan Rukyat"
             ):
 
                 tgl_1 = kandidat
 
-                # =====================================
-                # STATUS KGTH
-                # =====================================
-
-                if offset == 1:
-
-                    status_pkg = (
-                        "PKG 1 (sebelum 24:00 UTC)"
-                    )
-
-                else:
-
-                    status_pkg = (
-                        "PKG 2 (penyelarasan global)"
-                    )
+                status_pkg = (
+                    imkan["pkg"]
+                )
 
                 break
 
         if tgl_1 is None:
 
             tgl_1 = (
-                ijt_dt.date() +
-                timedelta(days=2)
-            )
 
-            status_pkg = (
-                "PKG 2 (penyelarasan global)"
+                ijt_dt.date()
+
+                +
+
+                timedelta(days=2)
             )
 
         timeline.append({
 
-            "tgl_1": tgl_1,
+            "tgl_1":
+                tgl_1,
 
-            "ijt_utc": ijt_dt,
+            "ijt_utc":
+                ijt_dt,
 
-            "elongasi": elong,
+            "elongasi":
+                elong,
 
-            "nama": BULAN_HIJRIAH[curr_h_idx],
+            "nama":
+                BULAN_HIJRIAH[
+                    curr_h_idx
+                ],
 
-            "tahun_h": curr_h_year,
+            "tahun_h":
+                curr_h_year,
 
-            "status_pkg": status_pkg
+            "status_pkg":
+                status_pkg
         })
 
         curr_h_idx = (
@@ -626,19 +872,25 @@ def build_timeline(
         ) % 12
 
         if curr_h_idx == 0:
+
             curr_h_year += 1
 
-    TIMELINE_CACHE[tahun_key] = timeline
+    TIMELINE_CACHE[
+        tahun_key
+    ] = timeline
+
+    save_timeline_cache()
+
+    print(
+        f"[CACHE BUILD] "
+        f"{tahun_key}"
+    )
 
     return timeline
 
 
 # =========================================================
 # KONVERSI HIJRIAH
-# =========================================================
-# =========================================================
-# KONVERSI HIJRIAH (FAST MODE)
-# TANPA RETURN ILDL
 # =========================================================
 
 def konversi_hijriah(
@@ -654,8 +906,10 @@ def konversi_hijriah(
             tanggal_target.date()
         )
 
-    timeline = build_timeline(
-        tanggal_target
+    timeline = (
+        build_timeline(
+            tanggal_target
+        )
     )
 
     for i in range(
@@ -663,57 +917,57 @@ def konversi_hijriah(
     ):
 
         if (
+
             timeline[i]["tgl_1"]
-            <= tanggal_target
-            < timeline[i + 1]["tgl_1"]
+
+            <=
+
+            tanggal_target
+
+            <
+
+            timeline[i + 1]["tgl_1"]
+
         ):
 
-            selisih = (
-                tanggal_target -
+            hari = (
+
+                tanggal_target
+
+                -
+
                 timeline[i]["tgl_1"]
+
             ).days + 1
-
-            tahun_h = (
-                timeline[i]["tahun_h"]
-            )
-
-            ijt_utc = (
-                timeline[i]["ijt_utc"]
-            )
-
-            # =====================================
-            # STATUS KGTH
-            # =====================================
-
-            status_pkg = (
-                timeline[i]
-                .get(
-                    "status_pkg",
-                    "PKG 1"
-                )
-            )
-
-            # =====================================
-            # RETURN SUPER CEPAT
-            # =====================================
 
             return {
 
-                "hari": selisih,
+                "hari":
+                    hari,
 
-                "bulan": timeline[i]["nama"],
+                "bulan":
+                    timeline[i]["nama"],
 
-                "tahun": tahun_h,
+                "tahun":
+                    timeline[i]["tahun_h"],
 
-                "ijt_utc": ijt_utc,
+                "ijt_utc":
+                    timeline[i]["ijt_utc"],
 
-                "elongasi": deg_to_dms(
-                    timeline[i]["elongasi"]
-                ),
+                "elongasi":
+                    deg_to_dms(
+                        timeline[i][
+                            "elongasi"
+                        ]
+                    ),
 
-                "imkan": "Imkan Rukyat",
+                "imkan":
+                    "Imkan Rukyat",
 
-                "status_kgth": status_pkg
+                "status_kgth":
+                    timeline[i][
+                        "status_pkg"
+                    ]
             }
 
     return None
@@ -748,14 +1002,21 @@ def normalize_data(data):
     if isinstance(data, dict):
 
         return {
-            k: normalize_data(v)
-            for k, v in data.items()
+
+            k:
+                normalize_data(v)
+
+            for k, v in (
+                data.items()
+            )
         }
 
     elif isinstance(data, list):
 
         return [
+
             normalize_data(v)
+
             for v in data
         ]
 
@@ -766,17 +1027,21 @@ def normalize_data(data):
 # API
 # =========================================================
 
-def get_hijriah(tanggal=None):
+def get_hijriah(
+    tanggal=None
+):
 
     if isinstance(
         tanggal,
         str
     ):
 
-        tanggal = datetime.strptime(
-            tanggal,
-            "%Y-%m-%d"
-        ).date()
+        tanggal = (
+            datetime.strptime(
+                tanggal,
+                "%Y-%m-%d"
+            ).date()
+        )
 
     elif isinstance(
         tanggal,
@@ -792,23 +1057,31 @@ def get_hijriah(tanggal=None):
             .date()
         )
 
-    hasil = konversi_hijriah(
-        tanggal
+    hasil = (
+        konversi_hijriah(
+            tanggal
+        )
     )
 
     return {
 
-        "tanggal": (
+        "tanggal":
             format_tanggal_indonesia(
                 tanggal.isoformat()
-            )
-        ),
+            ),
 
-        "hijriah": normalize_data(
-            hasil
-        )
+        "hijriah":
+            normalize_data(
+                hasil
+            )
     }
 
+
+# =========================================================
+# AUTO LOAD CACHE
+# =========================================================
+
+load_timeline_cache()
 
 # =========================================================
 # TEST
@@ -817,7 +1090,7 @@ def get_hijriah(tanggal=None):
 if __name__ == "__main__":
 
     data = get_hijriah(
-        "2026-05-21"
+        "2026-05-24"
     )
 
     print("=" * 60)
@@ -829,7 +1102,9 @@ if __name__ == "__main__":
 
     print("=" * 60)
 
-    print("Hijriah :")
+    print(
+        "Hijriah :"
+    )
 
     print(
         data["hijriah"]
