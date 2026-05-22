@@ -59,6 +59,14 @@
           <li class="nav-item">
             <a class="nav-link nav-pill-custom {{ 'active' if request.path == '/tentang' else '' }}" href="/tentang">Tentang</a>
           </li>
+          {% if session.logged_in %}
+            <li class="nav-item">
+                <a class="nav-link nav-pill-custom {{ 'active' if request.path == '/admin' else '' }}" href="/admin">Menu Hilal</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link nav-pill-custom {{ 'active' if request.path == '/logout' else '' }}" href="/logout">Logout</a>
+            </li>
+          {% endif %}
         </ul>
       </div>
     </div>
