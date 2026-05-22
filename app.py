@@ -1,4 +1,5 @@
 # save this as app.py
+import os
 from flask import Flask, render_template, request, session, redirect, url_for, flash, jsonify
 from functools import wraps
 # from datetime import datetime
@@ -153,7 +154,7 @@ def kalenderhijriah():
 
 
 # PIN Hardcoded
-ADMIN_PIN = "123456"
+MFA_SECRET = pyotp.random_base32()
 
 # Decorator untuk mengecek apakah user sudah login
 def login_required(f):
@@ -167,20 +168,42 @@ def login_required(f):
     return decorated_function
 
 
-@app.route('/login', methods=['GET', 'POST'])
+# --- RUTE SETUP (Jalankan ini SEKALI untuk mendaftarkan aplikasi ke HP Anda) ---
+@app.route('/setup-mfa-qr')
+def setup_mfa_qr():
+    # Membuat URI standar Google Authenticator
+    totp = pyotp.TOTP(MFA_SECRET)
+    auth_url = totp.provisioning_uri(name="kangriza85@gmail.com", issuer_name="Almanak")
+
+    # Generate QR Code ke memory
+    img = qrcode.make(auth_url)
+    buf = io.BytesIO()
+    img.save(buf, 'PNG')
+    buf.seek(0)
+
+    return send_file(buf, mimetype='image/png')
+
+
+# --- RUTE LOGIN YANG SUDAH MODIFIKASI ---
+@app.route('/hilal', methods=['GET', 'POST'])
 def login():
     # Jika sudah login, langsung lempar ke dashboard
     if 'logged_in' in session:
         return redirect(url_for('admin'))
 
     if request.method == 'POST':
-        pin_input = request.form.get('pin')
+        pin_input = request.form.get('pin')  # Ini adalah 6 digit dari aplikasi Google Auth
 
-        if pin_input == ADMIN_PIN:
+        # Inisialisasi TOTP menggunakan MFA_SECRET yang dinamis
+        totp = pyotp.TOTP(MFA_SECRET)
+
+        # Mengganti 'pin_input == ADMIN_PIN' menjadi verifikasi dinamis TOTP
+        if totp.verify(pin_input):
             session['logged_in'] = True  # Menyimpan status di session
+            flash('Login Berhasil!', 'success')
             return redirect(url_for('admin'))
         else:
-            flash('PIN Salah! Silahkan coba lagi.', 'danger')
+            flash('PIN Salah atau Kedaluwarsa! Silahkan coba lagi.', 'danger')
 
     return render_template('login.html')
 
@@ -199,8 +222,40 @@ def admin():
                 "nama_bulan": nama_bulan,
                 "tanggal_masehi": tanggal_masehi_str
             })
-
+    if 'logged_in' not in session:
+        return redirect(url_for('login'))
     return render_template('admin.html',datahilal=rukyahhijriah)
+
+@app.route('/simpan_rukyah', methods=['POST'])
+def simpan_hijriah():
+    data = request.get_json()
+    hijriah = data.get('hijriah')           # contoh: "1447-03"
+    tanggal_masehi = data.get('tanggalmasehi')  # contoh: "2025-08-25"
+
+    if not hijriah or not tanggal_masehi:
+        return jsonify({"status": "error", "message": "Data tidak lengkap"}), 400
+
+    # Jika file belum ada, buat kosong dulu
+    if not os.path.exists(FILE_JSON_KOREKSI_AWAL_BULAN_HIJRIAH):
+        with open(FILE_JSON_KOREKSI_AWAL_BULAN_HIJRIAH, 'w') as f:
+            json.dump({}, f, indent=2)
+
+    # Baca file JSON lama
+    with open(FILE_JSON_KOREKSI_AWAL_BULAN_HIJRIAH, 'r') as f:
+        existing_data = json.load(f)
+
+    # Tambahkan / update data baru
+    existing_data[hijriah] = tanggal_masehi
+
+    # Simpan kembali ke file JSON
+    with open(FILE_JSON_KOREKSI_AWAL_BULAN_HIJRIAH, 'w') as f:
+        json.dump(existing_data, f, indent=4, ensure_ascii=False)
+
+    return jsonify({
+        "status": "success",
+        "message": f"Data {hijriah} berhasil disimpan.",
+        "data": {hijriah: tanggal_masehi}
+    })
 
 @app.route('/logout')
 def logout():
