@@ -9,7 +9,7 @@
 
 body{
 height:2000px;
-font-family: "Montserrat", sans-serif; background-image:url("https://www.kratonjogja.id/assets/img/page-cover.png");
+font-family: "Montserrat", sans-serif; background-image:url("/static/img/page-cover.png");
 background-repeat: repeat;
 }
 
