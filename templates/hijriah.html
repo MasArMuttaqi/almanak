@@ -127,7 +127,7 @@
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center py-2">
                         <span class="small text-muted">Ghurub / <em>Sunset</em></span>
-                        <span class="small font-monospace">{{ data2.sunset_wib }} WIB</span>
+                        <span class="small font-monospace text-end">{{ data2.sunset_wib }} WIB</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center py-2">
                         <span class="small text-muted">Tinggi Bulan / Altitude (<em>h</em>)</span>
@@ -143,7 +143,7 @@
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center py-2">
                         <span class="small fw-bold text-muted">Status</span>
-                        <span class="badge rounded-pill text-bg-info">{{ data2.keputusan }}</span>
+                        <span class="badge rounded-pill text-bg-info text-end">{{ data2.keputusan }}</span>
                     </li>
                 </ul>
 
@@ -176,7 +176,7 @@ Metode hisab hakiki wujudul hilal yang digunakan Majelis Tarjih dan Tajdid Pengu
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center py-3">
                         <span class="text-secondary fw-medium">Tanggal Hijriah</span>
-                        <span class="fw-bold text-success text-end">{{ data3.hijriah['hari'] }} {{ data3.hijriah['bulan'] }} {{ data3.hijriah['tahun'] }} H</span>
+                        <span class="fw-bold text-success text-end">{{ data3.hijriah['hari'] }} {{ data3.hijriah['bulan'] }} {{ data3.hijriah['tahun'] }}</span>
                     </li>
                     <li class="list-group-item bg-light py-2 text-center" style="border-top: 2px dashed #dee2e6; border-bottom: 2px dashed #dee2e6;">
                         <small class="text-uppercase fw-bold text-muted" style="letter-spacing: 1px;">Informasi Astronomis Ijtimak</small>
@@ -187,7 +187,7 @@ Metode hisab hakiki wujudul hilal yang digunakan Majelis Tarjih dan Tajdid Pengu
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center py-2">
                         <span class="small text-muted">Elongasi Geosentrik</span>
-                        <span class="small">{{ data3.hijriah['elongasi'] }}</span>
+                        <span class="small text-end">{{ data3.hijriah['elongasi'] }}</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center py-2">
                         <span class="small text-muted">Status</span>
