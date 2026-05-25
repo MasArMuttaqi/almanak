@@ -1,6 +1,6 @@
 # save this as app.py
 import os
-from flask import Flask, render_template, request, session, redirect, url_for, flash, jsonify
+from flask import Flask, render_template, request, session, redirect, url_for, flash, jsonify, send_file, render_template_string
 from functools import wraps
 # from datetime import datetime
 # from konversitanggal import *
