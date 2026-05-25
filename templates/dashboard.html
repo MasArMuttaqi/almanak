@@ -15,7 +15,7 @@
           </div>
     <!-- header calendar -->
     <!-- calendar -->
-    <div class="table-responsive">
+    <div class="table-responsive" style="overflow-x: auto; position: relative;">
   <table class="table table-custom">
     <thead>
       <tr>
@@ -160,7 +160,29 @@
         <div id="interpretasi"></div>
     </div>
 </div>
+<script>
+    $(document).ready(function() {
+  const $today = $('.calendar-cell.today');
 
+  if ($today.length) {
+    // Cari parent pembungkus yang bisa di-scroll
+    const $container = $today.closest('.table-responsive').length ? $today.closest('.table-responsive') : $today.closest('table').parent();
+
+    const containerWidth = $container.width();
+    const cellOffset = $today.position().left;
+    const cellWidth = $today.outerWidth();
+
+    // Kompensasi lebar kolom sticky hari
+    const stickyWidth = $today.siblings('.sticky-col').outerWidth() || 0;
+
+    const scrollToX = cellOffset - (containerWidth / 2) + (cellWidth / 2) + (stickyWidth / 2);
+
+    $container.animate({
+      scrollLeft: scrollToX
+    }, 600); // 600ms kecepatan animasi
+  }
+});
+</script>
 <script>
 function formatTanggal(dateString) {
     // Memisahkan string berdasarkan tanda "-"
