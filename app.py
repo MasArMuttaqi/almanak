@@ -1,5 +1,5 @@
 # save this as app.py
-from flask import Flask, render_template, request, session, redirect, url_for, flash, jsonify
+from flask import Flask, render_template, request, session, redirect, url_for, flash, jsonify, send_file
 from functools import wraps
 # from datetime import datetime
 # from konversitanggal import *
@@ -158,7 +158,7 @@ def kalenderhijriah():
 
 
 # PIN Hardcoded
-ADMIN_PIN = "123456"
+MFA_SECRET = pyotp.random_base32()
 
 # Decorator untuk mengecek apakah user sudah login
 def login_required(f):
