@@ -90,10 +90,9 @@
 
                 </ul>
 
-                    <div class="d-flex justify-content-between align-items-center gap-3 mt-3">
-                        <p class="text-justify text-muted">Menggunakan kombinasi metode hisab dan rukyah Lembaga Falakiyah PBNU dengan lokasi acuan Kota Yogyakarta (Lintang -7.7974565 dan Bujur 110.370697).</p>
-                        <button type="button" class="btn btn-sm btn-outline-info me-3" data-bs-toggle="modal" data-bs-target="#ModalHilal">Riwayat Rukyatul Hilal</button>
-                    </div>
+                <p class="text-justify text-muted">Menggunakan kombinasi metode hisab dan rukyah Lembaga Falakiyah PBNU dengan lokasi acuan <b>Kota Yogyakarta</b> <span class="small font-monospace">Lintang -7.7974565 dan Bujur 110.370697</span>.
+                        <button type="button" class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#ModalHilal">Riwayat Rukyatul Hilal</button>
+                </p>
                 <p class="text-justify text-muted">
                   <strong>Kriteria Imkanur Rukyah Nahdlatul Ulama (IRNU):</strong><br>
                   Lembaga Falakiyah PBNU menetapkan awal bulan berdasarkan standar IRNU dengan parameter tinggi hilal mar'i minimal 3&deg;
@@ -128,7 +127,7 @@
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center py-2">
                         <span class="small text-muted">Ghurub / <em>Sunset</em></span>
-                        <span class="small font-monospace">{{ data2.sunset_wib }} WIB</span>
+                        <span class="small font-monospace text-end">{{ data2.sunset_wib }} WIB</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center py-2">
                         <span class="small text-muted">Tinggi Bulan / Altitude (<em>h</em>)</span>
@@ -144,14 +143,16 @@
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center py-2">
                         <span class="small fw-bold text-muted">Status</span>
-                        <span class="badge rounded-pill text-bg-info">{{ data2.keputusan }}</span>
+                        <span class="badge rounded-pill text-bg-info text-end">{{ data2.keputusan }}</span>
                     </li>
                 </ul>
 
 
-           <p class="text-muted">Hasil hisab disesuaikan dengan standar waktu dan posisi wilayah Kota Yogyakarta (Lintang -7.7974565 dan Bujur 110.370697).</p>
+           <p class="text-muted mt-3">Hasil hisab disesuaikan dengan standar waktu dan posisi wilayah <b>Kota Yogyakarta</b> <span class="small font-monospace">Lintang -7.7974565 dan Bujur 110.370697</span>.</p>
 
-            <p class="text-muted">
+            <p class="text-muted mt-3">
+Metode hisab hakiki wujudul hilal yang digunakan Majelis Tarjih dan Tajdid Pengurus Pusat Muhammadiyah sebelum menerapkan Kalender Hijriah Global Tunggal / pra-KGTH.</p>
+<p class="text-muted mt-3">
               <strong>Kriteria Penetapan Awal Bulan:</strong><br>
               Awal bulan baru ditetapkan apabila pada hari ke-29 saat matahari terbenam, tiga syarat kumulatif terpenuhi:
               (1) telah terjadi ijtimak, (2) ijtimak berlangsung sebelum matahari terbenam, dan
@@ -175,7 +176,7 @@
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center py-3">
                         <span class="text-secondary fw-medium">Tanggal Hijriah</span>
-                        <span class="fw-bold text-success">{{ data3.hijriah['hari'] }} {{ data3.hijriah['bulan'] }} {{ data3.hijriah['tahun'] }} H</span>
+                        <span class="fw-bold text-success text-end">{{ data3.hijriah['hari'] }} {{ data3.hijriah['bulan'] }} {{ data3.hijriah['tahun'] }}</span>
                     </li>
                     <li class="list-group-item bg-light py-2 text-center" style="border-top: 2px dashed #dee2e6; border-bottom: 2px dashed #dee2e6;">
                         <small class="text-uppercase fw-bold text-muted" style="letter-spacing: 1px;">Informasi Astronomis Ijtimak</small>
@@ -186,13 +187,13 @@
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center py-2">
                         <span class="small text-muted">Elongasi Geosentrik</span>
-                        <span class="small">{{ data3.hijriah['elongasi'] }}</span>
+                        <span class="small text-end">{{ data3.hijriah['elongasi'] }}</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center py-2">
                         <span class="small text-muted">Status</span>
                         <div class="text-end">
                             <span>{{ data3.hijriah['imkan'] }}</span><br>
-                            <span>dengan Parameter (Kriteria) KHGT </span><span class="badge rounded-pill text-bg-info">{{ data3.hijriah['status_kgth'] }}</span>
+                            <span class="badge rounded-pill text-bg-info small">{{ data3.hijriah['status_kgth'] }}</span>
                         </div>
                     </li>
                 </ul>

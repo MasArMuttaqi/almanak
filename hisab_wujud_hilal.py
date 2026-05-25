@@ -259,7 +259,7 @@ def hisab(year, month, day):
         "tinggi_hilal": round(alt, 3),
         "elongasi": round(elong, 3),
 
-        "hijriah": f"{h_d} {bulan[h_m-1]} {h_y} H",
+        "hijriah": f"{h_d} {bulan[h_m-1]} {h_y}",
 
         "keputusan": keputusan(jd_ss, jd_ij, alt)
     }

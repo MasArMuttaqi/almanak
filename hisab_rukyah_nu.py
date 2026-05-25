@@ -265,7 +265,7 @@ def hisab_nu(y,m,d):
             "hari": hijri_d,
             "bulan": hijri_m,
             "tahun": hijri_y,
-            "full": f"{hijri_d} {hijri_m} {hijri_y} H"
+            "full": f"{hijri_d} {hijri_m} {hijri_y}"
         },
         "data_astronomi": {
             "ghurub_wib": round(ghurub + TZ, 2),
