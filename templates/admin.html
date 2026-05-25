@@ -1,15 +1,20 @@
-{% extends "base-admin.html" %}
+{% extends "base.html" %}
 {% block content %}
-<!--        <h1 class="display-4">Selamat Datang, Admin!</h1>-->
-<!--        <p class="lead">Anda berhasil login menggunakan PIN 6 digit.</p>-->
-<div class="card nm-glow-card">
-  <div class="card-body">
+<section class="container" style="margin-top:100px;" >
+    <div class="pattern-square-1"></div>
+    <div class="heading-section">
+         <div class="txt">
+            <p class="subheading section-subheading arabic">رقية الهلال</p>
+            <h2 class="heading section-heading">Hasil Rukyatul Hilal</h2>
+         </div>
+    </div>
+    <section class="container image-container">
     <div class="d-flex justify-content-between align-items-center">
-        <h5 class="card-title">Hasil Rukyatul Hilal</h5>
+        <h5 class="card-title">Riwayat Rukyatul Hilal</h5>
         <button class="btn btn-sm btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasHilal" aria-controls="offcanvasHilal">Rekam data baru</button>
     </div>
 
-    <table class="table mt-4">
+    <table class="table mt-4" style="--bs-table-bg: transparent;">
     <thead>
           <tr>
             <th>Awal Bulan Hijriah</th>
@@ -26,9 +31,7 @@
         </tbody>
     </table>
 
-  </div>
-</div>
-
+</section>
 <div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasHilal" aria-labelledby="offcanvasBottomLabel" style="height: 90%;">
   <div class="offcanvas-header">
     <h5 class="offcanvas-title" id="offcanvasBottomLabel">Fomulir Tambah Data</h5>
@@ -36,47 +39,98 @@
   </div>
   <div class="offcanvas-body small">
     <form id="formHijriah" class="container mt-3">
-      <div class="row mb-3 align-items-center">
-        <label for="bulan_hijriah" class="col-sm-6 col-form-label fw-semibold text-nowrap">
-          Awal Bulan Hijriah:
-        </label>
-        <div class="col-sm-6 d-flex align-items-center gap-2 flex-wrap">
-          <select id="bulan_hijriah" name="bulan_hijriah" class="form-select form-select-sm w-auto">
-            <option value="" disabled selected>-- Pilih --</option>
-            <option value="1">Muharram</option>
-            <option value="2">Safar</option>
-            <option value="3">Rabi'ul Awal</option>
-            <option value="4">Rabi'ul Akhir</option>
-            <option value="5">Jumadil Awal</option>
-            <option value="6">Jumadil Akhir</option>
-            <option value="7">Rajab</option>
-            <option value="8">Sya'ban</option>
-            <option value="9">Ramadhan</option>
-            <option value="10">Syawwal</option>
-            <option value="11">Dzulqa'dah</option>
-            <option value="12">Dzulhijjah</option>
-          </select>
-          <input type="text" id="hijrYear" class="form-control form-control-sm w-auto" maxlength="4" placeholder="Tahun">
-        </div>
+      <!-- Input Bulan & Tahun Hijriah -->
+<div class="row mb-3 align-items-md-center">
+  <!-- col-md-4 memberikan ruang yang pas di layar laptop, tanpa text-nowrap agar aman di layar kecil -->
+  <label for="bulan_hijriah" class="col-md-4 col-form-label fw-semibold">
+    Awal Bulan Hijriah:
+  </label>
+  <div class="col-md-8">
+    <!-- Menggunakan grid internal (row) agar select dan input tahun terbagi rapi di semua ukuran layar -->
+    <div class="row g-2">
+      <div class="col-8 col-sm-9 col-md-8">
+        <select id="bulan_hijriah" name="bulan_hijriah" class="form-select form-select-sm w-100">
+          <option value="" disabled selected>-- Pilih Bulan --</option>
+          <option value="1">Muharram</option>
+          <option value="2">Safar</option>
+          <option value="3">Rabi'ul Awal</option>
+          <option value="4">Rabi'ul Akhir</option>
+          <option value="5">Jumadil Awal</option>
+          <option value="6">Jumadil Akhir</option>
+          <option value="7">Rajab</option>
+          <option value="8">Sya'ban</option>
+          <option value="9">Ramadhan</option>
+          <option value="10">Syawwal</option>
+          <option value="11">Dzulqa'dah</option>
+          <option value="12">Dzulhijjah</option>
+        </select>
       </div>
+      <div class="col-4 col-sm-3 col-md-4">
+        <input type="text" id="hijrYear" class="form-control form-control-sm w-100" maxlength="4" placeholder="Tahun">
+      </div>
+    </div>
+  </div>
+</div>
 
-      <div class="row mb-3 align-items-center">
-        <label for="tanggalmasehi" class="col-sm-3 col-form-label fw-semibold text-nowrap">
-          Tanggal Masehi:
-        </label>
-        <div class="col-sm-9">
-          <input type="text" id="tanggalmasehi" class="form-control form-control-sm" placeholder="yyyy-mm-dd">
-        </div>
-      </div>
+<!-- Input Tanggal Masehi -->
+<div class="row mb-3 align-items-md-center">
+  <label for="tanggalmasehi" class="col-md-4 col-form-label fw-semibold">
+    Tanggal Masehi:
+  </label>
+  <div class="col-md-8">
+    <!-- Mengubah tipe data ke 'date' agar ramah pengguna HP (muncul kalender bawaan) -->
+    <input type="date" id="tanggalmasehi" class="form-control form-control-sm">
+  </div>
+</div>
 
-      <div class="row">
-        <div class="offset-sm-3 col-sm-9">
-          <button type="submit" class="btn btn-primary">Simpan Data</button>
-        </div>
-      </div>
+<!-- Tombol Aksi -->
+<div class="row mt-4">
+  <div class="col-md-12 text-end">
+    <!-- d-block d-sm-inline-block membuat tombol melebar penuh di HP, tapi normal di laptop -->
+    <button type="submit" class="btn btn-primary d-block d-sm-inline-block w-100 w-sm-auto">Simpan Data</button>
+  </div>
+</div>
     </form>
   </div>
 </div>
+</section>
+<!-- Toast Container -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+      <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+          <img id="toastIcon" src="" class="rounded me-2" alt="icon" style="width:20px; height:20px;">
+          <strong id="toastTitle" class="me-auto">Notifikasi</strong>
+          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body" id="toastBody">
+          Pesan toast tampil di sini.
+        </div>
+      </div>
+    </div>
+<script>
+  // Fungsi untuk menampilkan toast
+  function showToast(message, status) {
+    let iconUrl = "";
+    let title = "";
+
+    if (status === "success") {
+      iconUrl = "https://raw.githubusercontent.com/MasArMuttaqi/masjid-info/refs/heads/main/src/icon/check.gif";
+      title = "Sukses";
+    } else {
+      iconUrl = "https://raw.githubusercontent.com/MasArMuttaqi/masjid-info/refs/heads/main/src/icon/alert.gif";
+      title = "Galat";
+    }
+
+    $("#toastIcon").attr("src", iconUrl);
+    $("#toastTitle").text(title);
+    $("#toastBody").html(message);
+
+    const toastElement = document.getElementById("liveToast");
+    const toast = new bootstrap.Toast(toastElement, { delay: 4000 });
+    toast.show();
+  }
+</script>
+<!--toast container-->
 <script>
     // Get the current date
     const m = moment();
