@@ -10,6 +10,7 @@ from hisab_rukyah_nu import *
 from hisab_wujud_hilal import *
 from hijriah_kgth import get_hijriah
 
+import os
 import io
 import qrcode
 import pyotp
