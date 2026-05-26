@@ -136,7 +136,7 @@
             Wuku <span class="badge rounded-pill text-bg-info" id="oc-wuku">Warigalit</span>
         </div>
         <div class="p-2">
-          <a href="/kalenderjawa?tanggal=2026-05-21">
+          <a href="/kalenderjawa">
                 <i class="fi fi-br-arrow-up-right-from-square"></i>
             </a>
         </div>
@@ -222,7 +222,7 @@ calendarCells.forEach(el => {
 $(document).on('click', 'td[data-tgl]', function () {
     let tanggal = $(this).attr('data-tgl');
 
-    console.log('tanggal:', tanggal);
+    //console.log('tanggal:', tanggal);
 
     $.get('/detail-kalender', { tanggal: tanggal }, function(res){
         $('#offcanvasTitle').html(res.masehi);
@@ -241,25 +241,6 @@ $(document).on('click', 'td[data-tgl]', function () {
     });
 });
 
-$(document).on('click', 'td[data-tgl]', function () {
-    let tanggal = $(this).attr('data-tgl');
-
-    console.log('tanggal:', tanggal);
-
-    $.get('/detail-kalender', { tanggal: tanggal }, function(res){
-        $('#offcanvasTitle').html(res.masehi);
-        $('#oc-jawa').html(res.jawa);
-        $('#oc-hijriah').text(res.hijriah);
-        $('#oc-pasaran-1').text(res.pasaran_jawa);
-        $('#oc-pasaran-2').text(res.pasaran_caka);
-        $('a[href="/kalenderhijriah"]').attr('href', function(i, val) {
-            return val + '?tanggal=' + formatTanggal(tanggal);
-        });
-        $('a[href="/kalenderjawa"]').attr('href', function(i, val) {
-            return val + '?tanggal=' + tanggal;
-        });
-    });
-});
 
 $(document).on('click', 'td[data-index]', function () {
     let tanggal = $(this).attr('data-index');
