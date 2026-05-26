@@ -2,13 +2,13 @@
       /* font */
 @import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Cairo+Play:wght@200..1000&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&family=Rajdhani:wght@300;400;500;600;700&display=swap');
 @font-face {
-      font-family: aksara;     src:url("https://raw.githubusercontent.com/MasArMuttaqi/masjid-info/refs/heads/main/nykNgayogyanNew.woff2");
+      font-family: aksara;     src:url("/static/nykNgayogyanNew.woff2");
 }
     /* font */
 
 
 body{
-height:2000px;
+min-height:1500px;
 font-family: "Montserrat", sans-serif; background-image:url("/static/img/page-cover.png");
 background-repeat: repeat;
 }
@@ -86,16 +86,16 @@ background-repeat: repeat;
 /* container */
 .image-container {
     /* margin-top: -100px;
-            min-width: 360px; */
-            min-height: 150px;
-            border-radius: 20px;
-            background-image: url("https://images.unsplash.com/photo-1707209856575-a80b9dff5524?fm=jpg&q=60&w=3000&auto=format&fit=crop");
-            background-size: cover;
-            background-position: bottom right;
+    min-width: 360px; */
+    min-height: 150px;
+    border-radius: 20px;
+    background-image: url("https://images.unsplash.com/photo-1707209856575-a80b9dff5524?fm=jpg&q=60&w=3000&auto=format&fit=crop");
+    background-size: cover;
+    background-position: bottom right;
             background-color: #fafafa;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             padding: 20px;
-        }
+}
 /* container */
 
   /* CSS untuk membekukan kolom pertama */
@@ -135,12 +135,6 @@ td {
     /* Warna border abu-abu muda */
     border-radius: 5px;       /* Sudut membulat */
     padding: 5px !important;
-    /*min-width: 100px;
-    height: 140px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;*/
     background-color: #fff;
     transition: all 0.2s ease;
   }
@@ -197,18 +191,16 @@ td {
          font-weight: 700;
         }
 
-         .bg-header-calendar{
+         /* .bg-header-calendar{
              background: url('https://lh3.googleusercontent.com/d/1rAryIfNbGNWbaxKXgCpc1ZH_UrGD92UA=w800?authuser=1') left top / 25% no-repeat, url('https://lh3.googleusercontent.com/d/19omYQ9-yutMNjyaQ85c5X-3EauVBJ8S-=w800?authuser=1') right top / 25% no-repeat, #ecbe4a;
-         }
+         } */
 /* detail tanggal */
 .list-group .list-group-item i{
     /* Mengatur latar belakang dengan gradasi linear */
   background: linear-gradient(45deg, #00d2ff, #3a7bd5, #7058ff);
-
   /* Teknik agar gradasi hanya muncul pada teks/ikon (masking) */
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-
   /* Opsional: Menyesuaikan ukuran jika itu sebuah ikon */
   font-size: 10px;
   display: inline-block;
@@ -402,11 +394,8 @@ td {
 
         .tab-content {
             margin-top: 20px;
-            /*padding: 20px;
-            background: white;
-            border-radius: 10px;
-            border: 1px solid #eee;*/
         }
+        
         .tab-content p{
             font-size: 1rem !important;
             font-family: "Rajdhani", sans-serif;
@@ -438,42 +427,6 @@ td {
           text-decoration: none;
           border-bottom: 1px dotted #ccc;
       }
-/* tombol peta KHGT */
-.btn-load-map{
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        z-index: 2000;
-
-        border: none;
-        outline: none;
-
-        padding: 14px 22px;
-
-        border-radius: 999px;
-
-        background: #0d6efd;
-        color: white;
-
-        font-size: 15px;
-        font-weight: 600;
-
-        cursor: pointer;
-
-        box-shadow: 0 4px 14px rgba(0,0,0,0.25);
-
-        transition: all .2s ease;
-    }
-
-    .btn-load-map:hover{
-        transform: translateY(-2px);
-    }
-
-    .btn-load-map.loading{
-        opacity: .7;
-        pointer-events: none;
-    }
-/* tombol peta KHGT */
 
          /* Responsif Mobile */
         @media (max-width: 576px) {
