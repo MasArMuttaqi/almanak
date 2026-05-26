@@ -9,6 +9,7 @@ from kalender_jawa_sultan_agungan import *
 from hisab_rukyah_nu import *
 from hisab_wujud_hilal import *
 from hijriah_kgth import get_hijriah
+from generate_version import write_version_file
 
 import os
 import io
@@ -266,6 +267,24 @@ def logout():
     session.pop('logged_in', None)  # Menghapus session login
     flash('Anda telah keluar.', 'info')
     return redirect(url_for('login'))
+
+def get_cached_version():
+    json_path = os.path.join(os.path.dirname(__file__), "version.json")
+    
+    # Jika file json belum terbentuk, buat otomatis
+    if not os.path.exists(json_path):
+        write_version_file()
+        
+    try:
+        with open(json_path, "r") as f:
+            return json.load(f)
+    except Exception:
+        return {"version": "v1.0.0", "build_number": "0", "commit_hash": "dev", "updated_at": "-"}
+
+# Inject data versi secara global ke seluruh template di folder /templates
+@app.context_processor
+def inject_app_metadata():
+    return dict(app_version=get_cached_version())
 
 if __name__ == "__main__":
     # app.run(debug=True)
