@@ -1,0 +1,5 @@
+- name: Generate Application Version
+  run: python generate_version.py
+  env:
+    GITHUB_RUN_NUMBER: ${{ github.run_number }}
+    GITHUB_SHA: ${{ github.sha }}
