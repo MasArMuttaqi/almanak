@@ -1,0 +1,91 @@
+{
+  "hari_peringatan_keagamaan_islam": [
+    {
+      "tanggal_hijriah": "1 Muharram",
+      "nama_peringatan": "Tahun Baru Islam",
+      "keterangan": "Menandai peristiwa hijrahnya Nabi Muhammad SAW dari Mekkah ke Madinah."
+    },
+    {
+      "tanggal_hijriah": "10 Muharram",
+      "nama_peringatan": "Hari Asyura",
+      "keterangan": "Hari yang penuh bersejarah dan dianjurkan untuk berpuasa sunah Asyura."
+    },
+    {
+      "tanggal_hijriah": "12 Rabiul Awal",
+      "nama_peringatan": "Maulid Nabi Muhammad SAW",
+      "keterangan": "Hari kelahiran Nabi Muhammad SAW."
+    },
+    {
+      "tanggal_hijriah": "27 Rajab",
+      "nama_peringatan": "Isra Mikraj",
+      "keterangan": "Mengenang perjalanan malam Nabi Muhammad SAW dan perintah salat 5 waktu."
+    },
+    {
+      "tanggal_hijriah": "17 Ramadan",
+      "nama_peringatan": "Nuzululquran",
+      "keterangan": "Peringatan turunnya ayat pertama Al-Qur'an ke bumi."
+    },
+    {
+      "tanggal_hijriah": "1 Syawal",
+      "nama_peringatan": "Hari Raya Idulfitri",
+      "keterangan": "Hari kemenangan umat Islam setelah sebulan penuh berpuasa Ramadan."
+    },
+    {
+      "tanggal_hijriah": "10 Zulhijah",
+      "nama_peringatan": "Hari Raya Iduladha",
+      "keterangan": "Hari raya kurban dan pelaksanaan ibadah Haji."
+    },
+    {
+      "tanggal_hijriah": "11, 12, 13 Zulhijah",
+      "nama_peringatan": "Hari Tasyrik",
+      "keterangan": "Hari-hari yang diharamkan untuk berpuasa dan dianjurkan berkurban atau berzikir."
+    }
+  ],
+  "hari_peringatan_nasional_indonesia": [
+    {
+      "tanggal_masehi": "1 Januari",
+      "nama_peringatan": "Tahun Baru Masehi",
+      "keterangan": "Pergantian tahun kalender Gregorian."
+    },
+    {
+      "tanggal_masehi": "1 Mei",
+      "nama_peringatan": "Hari Buruh Internasional",
+      "keterangan": "Hari peringatan keberhasilan ekonomi dan sosial para buruh."
+    },
+    {
+      "tanggal_masehi": "1 Juni",
+      "nama_peringatan": "Hari Lahir Pancasila",
+      "keterangan": "Mengenang pidato Soekarno tentang dasar negara Indonesia."
+    },
+    {
+      "tanggal_masehi": "17 Agustus",
+      "nama_peringatan": "Hari Kemerdekaan Republik Indonesia",
+      "keterangan": "Hari proklamasi kemerdekaan Indonesia pada tahun 1945."
+    },
+    {
+      "tanggal_masehi": "1 Oktober",
+      "nama_peringatan": "Hari Kesaktian Pancasila",
+      "keterangan": "Mengenang bertahannya ideologi Pancasila dari ancaman G30S/PKI."
+    },
+    {
+      "tanggal_masehi": "22 Oktober",
+      "nama_peringatan": "Hari Santri Nasional",
+      "keterangan": "Peringatan nasional untuk mengenang Resolusi Jihad oleh KH Hasyim Asy'ari."
+    },
+    {
+      "tanggal_masehi": "28 Oktober",
+      "nama_peringatan": "Hari Sumpah Pemuda",
+      "keterangan": "Mengenang ikrar persatuan pemuda-pemudi Indonesia pada tahun 1928."
+    },
+    {
+      "tanggal_masehi": "10 November",
+      "nama_peringatan": "Hari Pahlawan",
+      "keterangan": "Mengenang pertempuran Surabaya yang terjadi pada tahun 1945."
+    },
+    {
+      "tanggal_masehi": "22 Desember",
+      "nama_peringatan": "Hari Ibu",
+      "keterangan": "Mengenang Kongres Perempuan Indonesia Pertama pada tahun 1928."
+    }
+  ]
+}
