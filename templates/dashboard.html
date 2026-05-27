@@ -82,7 +82,7 @@
               {% endif %}
 <!--              {% endfor %}-->
           </tr>
-          <tr>
+         <!-- <tr>
               <td class="sticky-col hari">
                   <small class="hari-jawa">Candranipun</small>
               </td>
@@ -90,10 +90,19 @@
                   <small class="aksara" style="text-align: left; margin-left: 5px;">{{ candranipun[0].candranipun_aksara }}</small><br>
                   <small class="pasaran" style="text-align: left; margin-left: 5px;">{{ candranipun[0].candranipun_latin }}</small>
               </td>
-          </tr>
+          </tr> -->
       </tfooter>
   </table>
 </div>
+<div class="row mb-3">
+        <div class="col-4">
+            <small class="hari-jawa">Candranipun</small>
+        </div>
+        <div class="col-8">
+            <small class="aksara" style="text-align: left;">{{ candranipun[0].candranipun_aksara }}</small><br>
+                  <small class="pasaran" style="text-align: left;">{{ candranipun[0].candranipun_latin }}</small>
+        </div>
+    </div>
     <!-- calendar -->
     <p class="pasaran">Kalender ini mengadopsi Kalender Karaton Dalem Ngayogkarta Hadiningrat dan Lembaga Falakiyah Nahdlatul Ulama</p>
 </section>
