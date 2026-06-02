@@ -51,7 +51,17 @@
       "keterangan": "Hari raya kurban dan pelaksanaan ibadah Haji.Istilah ini merujuk pada perenungan Nabi Ibrahim AS atas mimpinya untuk menyembelih putranya, Nabi Ismail AS."
     },
     {
-      "tanggal_hijriah": "11, 12, 13 Dzulhijjah",
+      "tanggal_hijriah": "11 Dzulhijjah",
+      "nama_peringatan": "Hari Tasyrik",
+      "keterangan": "Hari-hari yang diharamkan untuk berpuasa dan dianjurkan berkurban atau berzikir."
+    },
+    {
+      "tanggal_hijriah": "12 Dzulhijjah",
+      "nama_peringatan": "Hari Tasyrik",
+      "keterangan": "Hari-hari yang diharamkan untuk berpuasa dan dianjurkan berkurban atau berzikir."
+    },
+    {
+      "tanggal_hijriah": "13 Dzulhijjah",
       "nama_peringatan": "Hari Tasyrik",
       "keterangan": "Hari-hari yang diharamkan untuk berpuasa dan dianjurkan berkurban atau berzikir."
     }
@@ -70,7 +80,7 @@
      {
       "tanggal_masehi": "2 Mei",
       "nama_peringatan": "Hari Pendidikan Nasional",
-      "keterangan": "Hari nasional ini ditetapkan untuk menghormati jasa dan perjuangan Ki Hadjar Dewantara, yang dikenal sebagai Bapak Pendidikan Nasional."
+      "keterangan": "Hari nasional ini ditetapkan untuk menghormati jasa dan perjuangan Ki Hadjar Dewantara, yang dikenal sebagai Bapak Pendidikan Nasional."
     },
      {
       "tanggal_masehi": "20 Mei",
