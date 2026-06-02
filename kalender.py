@@ -14,6 +14,32 @@ def candranipun(pranatamangsa):
 
     return candranipun
 
+def hari_penting(tanggal_hijriah, tanggal_masehi):
+    with open("data/hari_besar.json", "r", encoding="utf-8") as f:
+        data = json.load(f)
+
+    hasil = []
+
+    # Hari besar Islam
+    for item in data.get("hari_peringatan_keagamaan_islam", []):
+        if item.get("tanggal_hijriah") == tanggal_hijriah:
+            hasil.append({
+                "kategori": "hijr-day",
+                "tanggal_masehi": tanggal_masehi,
+                **item
+            })
+
+    # Hari nasional
+    for item in data.get("hari_peringatan_nasional_indonesia", []):
+        if item.get("tanggal_masehi") == tanggal_masehi:
+            hasil.append({
+                "kategori": "national-day",
+                "tanggal_hijriah": tanggal_hijriah,
+                **item
+            })
+
+    return hasil
+
 def kalender_vertikal(tanggal=None):
     if tanggal is None:
         tanggal = datetime.now()
@@ -35,10 +61,17 @@ def kalender_vertikal(tanggal=None):
     current_periode_h = None
     current_periode_j = None
 
+    hari_penting_hasil = {}
+
     while tgl.month == tanggal.month:
         # ubah ke format Minggu=0
         hari_index = (tgl.weekday() + 1) % 7
         minggu_ke = (tgl.day + offset - 1) // 7
+
+        # =========================
+        # TANGGAL MASEHI
+        # =========================
+        tgl_masehi = f"{tgl.day} {bulan_indonesia_pendek(tgl.month)}"
 
         # =========================
         # HISAB HIJRIAH
@@ -47,6 +80,7 @@ def kalender_vertikal(tanggal=None):
         bulan_h = h['tanggal_hijriah']['bulan']
         tahun_h = h['tanggal_hijriah']['tahun']
         tanggal_h = h['tanggal_hijriah']['hari']
+        tgl_bulan_h = f"{h['tanggal_hijriah']['hari']} {h['tanggal_hijriah']['bulan']}"
 
         # =========================
         # KALENDER JAWA
@@ -62,6 +96,17 @@ def kalender_vertikal(tanggal=None):
         sadwara = j['sadwara']
 
         # =========================
+        # HARI PENTING
+        # =========================
+        hp = hari_penting(tgl_bulan_h, tgl_masehi)
+        for item in hp:
+            key = f"{tgl:%Y-%m-%d}-{item.get('nama_peringatan','')}"
+            hari_penting_hasil[key] = {
+                # "tanggal": tgl.strftime("%Y-%m-%d"),
+                **item
+            }
+
+        # =========================
         # SIMPAN KE GRID KALENDER
         # =========================
         hasil[hari_index][minggu_ke] = {
@@ -75,7 +120,6 @@ def kalender_vertikal(tanggal=None):
             "wuku_index": wuku_index,
             "sadwara": sadwara,
             "tgl_hijriah":konversi_ke_hijaiyah(tanggal_h),
-            "tgl_bulan_tahun_h": h['tanggal_hijriah'],
             "is_today": tgl.date() == today
         }
 
@@ -159,16 +203,24 @@ def kalender_vertikal(tanggal=None):
 
             if seg.get("akhir") and hasattr(seg["akhir"], "strftime"):
                 seg["akhir"] = seg["akhir"].strftime("%d")
-        # =========================
-        # RETURN TETAP KOMPATIBEL
-        # =========================
+    # =========================
+    # RETURN TETAP KOMPATIBEL
+    # =========================
     pranatamangsa = hitung_mangsa(today)
     return {
-       "grid": hasil,  # 🔥 tetap dipakai Jinja kamu
-       "periode_hijriah": periode_hijriah,  # 🔥 tambahan baru
+       "grid": hasil,
+       "periode_hijriah": periode_hijriah, 
        "periode_jawa": periode_jawa,
        "mingguan": mingguan,
-       "candranipun": candranipun(pranatamangsa)
+       "candranipun": candranipun(pranatamangsa),
+       "hari_penting": list(hari_penting_hasil.values())
        # "data_harian": data_harian  # opsional
     }
 
+if __name__ == "__main__":
+
+    # data = kalender_vertikal(
+    #     datetime.now
+    # )
+
+    print(kalender_vertikal())

@@ -61,3 +61,10 @@ def bulan_indonesia(tanggal):
         "Juli","Agustus","September","Oktober","November","Desember"
     ]
     return f"{nama_bulan[tanggal.month-1]} {tanggal.year}"
+
+def bulan_indonesia_pendek(bulan):
+    nama_bulan = [
+        "Januari","Februari","Maret","April","Mei","Juni",
+        "Juli","Agustus","September","Oktober","November","Desember"
+    ]
+    return nama_bulan[bulan - 1]

@@ -3,14 +3,17 @@
 <section class="container image-container" style="margin-top:100px;" >
     <!-- header calendar -->
     <h5 class="text-center mt-4 mb-4 date-num">{{ bulan }}</h5>
-          <div class="d-flex justify-content-around align-items-center                             " style="font-family: 'Rajdhani', sans-serif;">
+          <div class="d-flex justify-content-between align-items-center                             " style="font-family: 'Rajdhani', sans-serif;">
        <h6 class="mb-2 text-body-secondary">
-           {{ periode_hijriah[0].bulan_hijriah }} - {{ periode_hijriah[-1].bulan_hijriah }}
-           {{ periode_hijriah[0].tahun_hijriah }} H
+          {{ periode_hijriah[0].bulan_hijriah }}
+          {{ periode_hijriah[0].tahun_hijriah }} H
+          <br> {{ periode_hijriah[-1].bulan_hijriah }}
+          {{ periode_hijriah[-1].tahun_hijriah }} H
        </h6>
 
        <h6 class="mb-2 text-body-secondary text-end">
-           {{ periode_jawa[0].bulan_tahun_jawa }} - {{ periode_jawa[-1].bulan_tahun_jawa }}
+           {{ periode_jawa[0].bulan_tahun_jawa }} <br>
+           {{ periode_jawa[-1].bulan_tahun_jawa }}
        </h6>
           </div>
     <!-- header calendar -->
@@ -104,9 +107,41 @@
         </div>
     </div>
     <!-- calendar -->
-    <p class="pasaran">Kalender ini mengadopsi Kalender Karaton Dalem Ngayogkarta Hadiningrat dan Lembaga Falakiyah Nahdlatul Ulama</p>
+    <p class="pasaran">Kalender ini mengadopsi dan menyelasakan berdasarkan acuan sistem penanggalan Kalender Karaton Dalem Ngayogkarta Hadiningrat dan Lembaga Falakiyah Nahdlatul Ulama</p>
 </section>
 
+<section class="container mt-3">
+  <ul class="list-group list-group-flush hari-penting">
+    {% for item in hari_penting %}
+    <li class="list-group-item d-flex align-items-center justify-content-between">
+      <div class="d-flex align-items-center">
+        {% if item.kategori == 'national-day' %}
+          {% set tanggal = item.tanggal_masehi.split() %}
+        {% else %}
+            {% set tanggal = item.tanggal_hijriah.split() %}
+        {% endif %}
+      <div class="date-box me-3">
+          <span class="month">{{ tanggal[1][:3] }}</span>
+          <span class="day {{ item.kategori }}">{{ tanggal[0] }}</span>
+      </div>
+        <div>
+          <span class="mb-1 fw-bold text-dark" style="font-size: 0.85rem;">{{ item.nama_peringatan }}</span><br>
+          <small class="text-muted" style="font-size: 0.7rem;">
+            {{ item.tanggal_masehi }} / {{ item.tanggal_hijriah }}
+          </small>
+          <div class="collapse" id="collapseHari-{{ loop.index }}" style="line-height: 1;">
+            <small class="text-muted" style="font-size: 0.7rem;">{{ item.keterangan }}</small>
+          </div>
+        </div>
+      </div>
+      <button class="btn" data-bs-toggle="collapse" data-bs-target="#collapseHari-{{ loop.index }}" aria-expanded="false">
+        <i class="fi fi-sr-info info-icon"></i>
+      </button> 
+    </li>
+    {% endfor %}
+    
+  </ul>
+</section>
 <!-- detail -->
 <div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasBottom" style="height:90%;">
 

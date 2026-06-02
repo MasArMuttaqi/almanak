@@ -428,17 +428,73 @@ td {
           border-bottom: 1px dotted #ccc;
       }
 
-         /* Responsif Mobile */
-        @media (max-width: 576px) {
-            .image-container{
-                width: 95%;
-            }
-            .table-calendar td {
-                height: 70px; padding: 2px;
-            }
-            .date-num {
+ /* Custom styling agar semakin mirip dengan gambar */
+    .hari-penting .date-box {
+        width: 45px;
+        height: 45px;
+        border: 1px solid #dee2e6;
+        border-radius: 12px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-family: sans-serif;
+        background: #FFF;
+    }
+    .hari-penting .date-box .month {
+        font-size: 11px;
+        color: #8c8c8c;
+        text-transform: capitalize;
+    }
+
+    .hari-penting .date-box .day {
+        font-size: 16px;
+        font-weight: bold;
+        color: #ffc107; /* Warna kuning emas sesuai gambar */
+        line-height: 1;
+    }
+
+    .hari-penting .date-box .national-day {
+        font-size: 18px;
+        font-weight: bold;
+        color: #0d6efd; /* Warna kuning emas sesuai gambar */
+        line-height: 1;
+    }
+                                                                                    
+    .hari-penting .date-box .hijr-day {
+        font-size: 18px;
+        font-weight: bold;
+        color: #198754;  /* Warna kuning emas sesuai gambar */
+        line-height: 1;
+    }
+
+    .hari-penting .list-group-item {
+        border: none;
+        border-bottom: 1px solid #dee2e6 !important;
+        padding: 1rem 0.5rem;
+        background: transparent;
+    }
+    .hari-penting .list-group-item:last-child {
+        border-bottom: none !important;
+    }
+
+    /* .list-group .list-group-item .info-icon i{
+        color: #b0b0b0;
+        font-size: 1.1rem;
+        cursor: pointer;
+    } */
+
+    /* Responsif Mobile */
+    @media (max-width: 576px) {
+        .image-container{
+            width: 95%;
+        }
+        .table-calendar td {
+            height: 70px; padding: 2px;
+        }
+        .date-num {
                 font-size: 1.5rem;
-            }
+        }
             .pasaran {
                 font-size: 0.5rem;
             }

@@ -1,0 +1,121 @@
+{
+  "hari_peringatan_keagamaan_islam": [
+    {
+      "tanggal_hijriah": "1 Muharram",
+      "nama_peringatan": "Tahun Baru Islam",
+      "keterangan": "Menandai peristiwa hijrahnya Nabi Muhammad SAW dari Mekkah ke Madinah."
+    },
+    {
+      "tanggal_hijriah": "10 Muharram",
+      "nama_peringatan": "Hari Asyura",
+      "keterangan": "Hari yang penuh bersejarah dan dianjurkan untuk berpuasa sunah Asyura."
+    },
+    {
+      "tanggal_hijriah": "12 Rabiul Awal",
+      "nama_peringatan": "Maulid Nabi Muhammad SAW",
+      "keterangan": "Hari kelahiran Nabi Muhammad SAW."
+    },
+    {
+      "tanggal_hijriah": "27 Rajab",
+      "nama_peringatan": "Isra Mikraj",
+      "keterangan": "Mengenang perjalanan malam Nabi Muhammad SAW dan perintah salat 5 waktu."
+    },
+     {
+      "tanggal_masehi": "15 Syaban",
+      "nama_peringatan": "Nisfu Syaban",
+      "keterangan": "malam pertengahan bulan Syakban (tanggal 15) dalam kalender Hijriah. Malam ini sangat dimuliakan karena diyakini sebagai waktu di mana Allah SWT menurunkan rahmat, mengampuni dosa hamba-Nya, dan mencatat takdir untuk satu tahun ke depan. Umat Islam dianjurkan untuk memperbanyak ibadah guna meraih keberkahan-Nya"
+    },
+    {
+      "tanggal_hijriah": "17 Ramadan",
+      "nama_peringatan": "Nuzululquran",
+      "keterangan": "Peringatan turunnya ayat pertama Al-Qur'an ke bumi."
+    },
+    {
+      "tanggal_hijriah": "1 Syawal",
+      "nama_peringatan": "Hari Raya Idulfitri",
+      "keterangan": "Hari kemenangan umat Islam setelah sebulan penuh berpuasa Ramadan."
+    },
+    {
+      "tanggal_hijriah": "8 Dzulhijjah",
+      "nama_peringatan": "Hari Tarwiyah",
+      "keterangan": "Kata Tarwiyah berasal dari bahasa Arab yang berarti merenung, berpikir dalam-dalam, atau membawa bekal air."
+    },
+    {
+        "tanggal_hijriah": "9 Dzulhijjah",
+        "nama_peringatan": "Hari Arafah",
+        "keterangan":"umat Islam yang sedang menunaikan ibadah haji melaksanakan wukuf di Padang Arafah sebagai puncak dari rukun haji. Sementara bagi umat Islam yang tidak sedang berhaji menjadi momentum emas untuk meraih ampunan dosa dan mengabulkan doa melalui berbagai amalan sunnah"
+    },
+    {
+      "tanggal_hijriah": "10 Dzulhijjah",
+      "nama_peringatan": "Hari Raya Iduladha",
+      "keterangan": "Hari raya kurban dan pelaksanaan ibadah Haji.Istilah ini merujuk pada perenungan Nabi Ibrahim AS atas mimpinya untuk menyembelih putranya, Nabi Ismail AS."
+    },
+    {
+      "tanggal_hijriah": "11 Dzulhijjah",
+      "nama_peringatan": "Hari Tasyrik",
+      "keterangan": "Hari-hari yang diharamkan untuk berpuasa dan dianjurkan berkurban atau berzikir."
+    },
+    {
+      "tanggal_hijriah": "12 Dzulhijjah",
+      "nama_peringatan": "Hari Tasyrik",
+      "keterangan": "Hari-hari yang diharamkan untuk berpuasa dan dianjurkan berkurban atau berzikir."
+    },
+    {
+      "tanggal_hijriah": "13 Dzulhijjah",
+      "nama_peringatan": "Hari Tasyrik",
+      "keterangan": "Hari-hari yang diharamkan untuk berpuasa dan dianjurkan berkurban atau berzikir."
+    }
+  ],
+  "hari_peringatan_nasional_indonesia": [
+    {
+      "tanggal_masehi": "1 Januari",
+      "nama_peringatan": "Tahun Baru Masehi",
+      "keterangan": "Pergantian tahun kalender Gregorian."
+    },
+    {
+      "tanggal_masehi": "1 Mei",
+      "nama_peringatan": "Hari Buruh Internasional",
+      "keterangan": "Hari peringatan keberhasilan ekonomi dan sosial para buruh."
+    },
+     {
+      "tanggal_masehi": "2 Mei",
+      "nama_peringatan": "Hari Pendidikan Nasional",
+      "keterangan": "Hari nasional ini ditetapkan untuk menghormati jasa dan perjuangan Ki Hadjar Dewantara, yang dikenal sebagai Bapak Pendidikan Nasional."
+    },
+     {
+      "tanggal_masehi": "20 Mei",
+      "nama_peringatan": "Hari Kebangkitan Nasional",
+      "keterangan": "Hari nasional ini ditetapkan untuk mengenang berdirinya organisasi Boedi Oetomo (Budi Utomo) pada tanggal 20 Mei 1908, yang menjadi tonggak awal bangkitnya kesadaran nasional dan pergerakan modern di Indonesia."
+    },
+    {
+      "tanggal_masehi": "1 Juni",
+      "nama_peringatan": "Hari Lahir Pancasila",
+      "keterangan": "Mengenang pidato Soekarno tentang dasar negara Indonesia."
+    },
+    {
+      "tanggal_masehi": "17 Agustus",
+      "nama_peringatan": "Hari Kemerdekaan Republik Indonesia",
+      "keterangan": "Hari proklamasi kemerdekaan Indonesia pada tahun 1945."
+    },
+    {
+      "tanggal_masehi": "1 Oktober",
+      "nama_peringatan": "Hari Kesaktian Pancasila",
+      "keterangan": "Mengenang bertahannya ideologi Pancasila dari ancaman G30S."
+    },
+    {
+      "tanggal_masehi": "22 Oktober",
+      "nama_peringatan": "Hari Santri Nasional",
+      "keterangan": "Peringatan nasional untuk mengenang Resolusi Jihad oleh KH Hasyim Asy'ari."
+    },
+    {
+      "tanggal_masehi": "28 Oktober",
+      "nama_peringatan": "Hari Sumpah Pemuda",
+      "keterangan": "Mengenang ikrar persatuan pemuda-pemudi Indonesia pada tahun 1928."
+    },
+    {
+      "tanggal_masehi": "10 November",
+      "nama_peringatan": "Hari Pahlawan",
+      "keterangan": "Mengenang pertempuran Surabaya yang terjadi pada tahun 1945."
+    }
+  ]
+}
