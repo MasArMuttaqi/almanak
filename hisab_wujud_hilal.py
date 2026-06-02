@@ -1,6 +1,7 @@
 from math import sin, cos, tan, asin, acos, atan2, radians, degrees, floor
 from datetime import datetime, timedelta, timezone
 from konversitanggal import format_tanggal_indonesia
+
 # ==========================================
 # LOKASI
 # ==========================================
@@ -8,15 +9,12 @@ LAT = -7.7974565
 LON = 110.370697
 TZ = 7
 
-
 # ==========================================
-# JD -> DATETIME WIB
+# AWAL BULAN WUJUDUL HILAL
 # ==========================================
-def jd_to_datetime(jd):
-    unix = (jd - 2440587.5) * 86400
-    dt = datetime.fromtimestamp(unix, tz=timezone.utc)
-    dt = dt + timedelta(hours=TZ)
-    return dt.strftime("%Y-%m-%d %H:%M:%S WIB")
+ANCHOR_DATE = datetime(2025, 6, 26)
+ANCHOR_MONTH = 1
+ANCHOR_YEAR = 1447
 
 
 # ==========================================
@@ -163,51 +161,121 @@ def ijtimak_newton(year, month, day):
 
     return jd
 
+# ==========================================
+# JD -> DATETIME WIB
+# ==========================================
+def jd_to_datetime(jd):
+    unix = (jd - 2440587.5) * 86400
+    dt = datetime.fromtimestamp(unix, tz=timezone.utc)
+    dt = dt + timedelta(hours=TZ)
+    return dt.strftime("%Y-%m-%d %H:%M:%S WIB")
+
+
 
 # ==========================================
-# HIJRIAH
+# BUILD TIMELINE
 # ==========================================
-def jd_to_hijri(jd):
-    jd = floor(jd) + 0.5
+def build_timeline(sampai_tahun=2035):
 
-    l = jd - 1948440 + 10632
-    n = floor((l - 1) / 10631)
+    timeline = []
 
-    l = l - 10631 * n + 354
+    bulan = ANCHOR_MONTH
+    tahun = ANCHOR_YEAR
 
-    j = (
-        floor((10985 - l) / 5316) * floor((50 * l) / 17719) +
-        floor(l / 5670) * floor((43 * l) / 15238)
+    current = ANCHOR_DATE
+
+    timeline.append(
+        (current, bulan, tahun)
     )
 
-    l = (
-        l
-        - floor((30 - j) / 15) * floor((17719 * j) / 50)
-        - floor((j / 16)) * floor((15238 * j) / 43)
-        + 29
-    )
+    while current.year <= sampai_tahun:
 
-    m = floor((24 * l) / 709)
-    d = l - floor((709 * m) / 24)
-    y = 30 * n + j - 30
+        found = None
 
-    return int(d) + 1, int(m), int(y)
+        for offset in range(28, 32):
+
+            test = current + timedelta(days=offset)
+
+            ss = sunset(
+                test.year,
+                test.month,
+                test.day
+            )
+
+            jd_ss = julian_day(
+                test.year,
+                test.month,
+                test.day,
+                ss - TZ
+            )
+
+            jd_ij = ijtimak_newton(
+                test.year,
+                test.month,
+                test.day
+            )
+
+            ra_m, dec_m, lon_m = moon_pos(jd_ss)
+
+            LST = lst(jd_ss)
+
+            ha = (LST - ra_m * 15) % 360
+
+            if ha > 180:
+                ha -= 360
+
+            alt = degrees(
+                asin(
+                    sin(radians(LAT))*sin(radians(dec_m))
+                    +
+                    cos(radians(LAT))*cos(radians(dec_m))*cos(radians(ha))
+                )
+            )
+
+            if jd_ij < jd_ss and alt > 0:
+
+                found = test + timedelta(days=1)
+                break
+
+        if found is None:
+            break
+
+        bulan += 1
+
+        if bulan > 12:
+            bulan = 1
+            tahun += 1
+
+        timeline.append(
+            (found, bulan, tahun)
+        )
+
+        current = found
+
+    return timeline
 
 
 # ==========================================
-# KEPUTUSAN
+# HIJRIAH MUHAMMADIYAH
 # ==========================================
-def keputusan(jd_ss, jd_ij, alt):
-    if jd_ij is None:
-        return "ISTIKMAL (Ijtimak tidak terjadi)"
+def hijriah_muhammadiyah(y,m,d):
 
-    if jd_ij > jd_ss:
-        return "ISTIKMAL (Ijtimak setelah maghrib)"
+    target = datetime(y,m,d)
 
-    if alt > 0:
-        return "Masuk Bulan Baru (Wujudul Hilal)"
+    start = TIMELINE[0]
 
-    return "ISTIKMAL (Hilal belum wujud)"
+    for item in TIMELINE:
+
+        if item[0] <= target:
+            start = item
+        else:
+            break
+
+    awal, bulan, tahun = start
+
+    hari = (target - awal).days + 1
+
+    return hari, bulan, tahun
 
 
 # ==========================================
@@ -241,25 +309,26 @@ def hisab(year, month, day):
     elong = abs(lon_m - lon_s)
     if elong > 180:
         elong = 360 - elong
-    
-    hasil_keputusan = keputusan(jd_ss, jd_ij, alt)
 
-    h_d, h_m, h_y = jd_to_hijri(jd_ss)
-    
-    if hasil_keputusan.startswith("Masuk Bulan Baru"):
-        # hari terakhir bulan
-        if h_d >= 29:
-            h_d = 1
-            if h_m == 12:
-                h_m = 1
-                h_y += 1
-            else:
-                h_m += 1
+    h_d, h_m, h_y = hijriah_muhammadiyah(
+        year,
+        month,
+        day
+    )
 
-    bulan = [
-        "Muharram","Safar","Rabiul Awal","Rabiul Akhir",
-        "Jumadil Ula","Jumadil Akhir","Rajab","Sya'ban",
-        "Ramadhan","Syawal","Dzulqa'dah","Dzulhijjah"
+    bulan_nama = [
+        "Muharram",
+        "Safar",
+        "Rabiul Awal",
+        "Rabiul Akhir",
+        "Jumadil Ula",
+        "Jumadil Akhir",
+        "Rajab",
+        "Sya'ban",
+        "Ramadhan",
+        "Syawal",
+        "Dzulqa'dah",
+        "Dzulhijjah"
     ]
 
     return {
@@ -268,13 +337,42 @@ def hisab(year, month, day):
         "ijtima": ijtima_time,
         "tinggi_hilal": round(alt, 3),
         "elongasi": round(elong, 3),
-        "hijriah": f"{h_d} {bulan[h_m-1]} {h_y}",
+        "hijriah": f"{h_d} {bulan_nama[h_m-1]} {h_y}",
         "keputusan": keputusan(jd_ss, jd_ij, alt)
     }
 
 
 # ==========================================
+# KEPUTUSAN
+# ==========================================
+def keputusan(jd_ss, jd_ij, alt):
+    if jd_ij is None:
+        return "ISTIKMAL (Ijtimak tidak terjadi)"
+
+    if jd_ij > jd_ss:
+        return "ISTIKMAL (Ijtimak setelah maghrib)"
+
+    if alt > 0:
+        return "Masuk Bulan Baru (Wujudul Hilal)"
+
+    return "ISTIKMAL (Hilal belum wujud)"
+
+
+
+
+TIMELINE = build_timeline(2035)
+# ==========================================
 # TEST
 # ==========================================
 if __name__ == "__main__":
-    print(hisab(2026, 6, 16))
+    data = hisab(2026, 6, 15)
+    print("=" * 60)
+    print("Tanggal Masehi :", data["tanggal_masehi"])
+    print("Tanggal Hijriah :", data["hijriah"])
+    print("=" * 60)
+    print("Sunset WIB :", data["sunset_wib"])
+    print("Ijtima :", data["ijtima"])
+    print("Tinggi Hilal :", data["tinggi_hilal"])
+    print("Elongasi :", data["elongasi"])
+    print("=" * 60)
+    print("keputusan :", data["keputusan"])
