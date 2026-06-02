@@ -31,8 +31,9 @@
     </button>
 
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-      <div class="offcanvas-header">
-        <!-- <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5> -->
+      <div class="offcanvas-header gap-2">
+        <img src="https://lh3.googleusercontent.com/d/1D5qR0dw-d773IpiNB9uzmKZ81uGyBOq1=w800?authuser=1" alt="Logo" width="30px" height="30px">
+        <h5 class="offcanvas-title navbar-brand" id="offcanvasNavbarLabel">Almanak</h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
 
@@ -76,6 +77,12 @@
 
 
 {% block content %}{% endblock %}
+
+<!-- Tombol Floating Back to Top -->
+<button type="button" id="btnBackToTop" class="btn-back-to-top" aria-label="Back to top">
+  <i class="fi fi-br-arrow-small-up"></i>
+</button>
+
 <script>
     $(document).ready(function() {
   let items = $('.brand-item');
@@ -105,6 +112,31 @@ window.addEventListener("scroll", function () {
   } else {
     navbar.classList.remove("scrolled");
   }
+});
+</script>
+<script>
+  $(document).ready(function () {
+  const $backToTop = $("#btnBackToTop");
+
+  // Logika memunculkan/menyembunyikan tombol saat scroll
+  $(window).on("scroll", function () {
+    if ($(this).scrollTop() > 300) {
+      $backToTop.fadeIn(400); // Muncul perlahan selama 400ms
+    } else {
+      $backToTop.fadeOut(400); // Menghilang perlahan
+    }
+  });
+
+  // Logika klik tombol untuk kembali ke atas
+  $backToTop.on("click", function (e) {
+    e.preventDefault();
+    $("html, body").animate(
+      {
+        scrollTop: 0
+      },
+      600 // Durasi scroll dalam milidetik (600ms)
+    );
+  });
 });
 </script>
 </body>
