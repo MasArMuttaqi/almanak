@@ -27,7 +27,7 @@ def dashboard():
     now = datetime.now()
     data = kalender_vertikal()
     bulan = bulan_indonesia(now)
-    return render_template("dashboard.html",bulan= bulan,data=data["grid"],periode_hijriah=data["periode_hijriah"],periode_jawa=data["periode_jawa"], wuku=data["mingguan"],candranipun=data["candranipun"],hari_penting=data["hari_penting"])
+    return render_template("dashboard.html",bulan=bulan,data=data["grid"],periode_hijriah=data["periode_hijriah"],periode_jawa=data["periode_jawa"], wuku=data["mingguan"],candranipun=data["candranipun"],hari_penting=data["hari_penting"])
 
 @app.route('/detail-kalender')
 def detail_kalender():
