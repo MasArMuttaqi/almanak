@@ -73,6 +73,7 @@
               <td class="sticky-col hari">
                   <small class="hari-jawa">Wuku</small>
               </td>
+              {% for col in range(7) %}
               {% if wuku[col] %}
               {% for seg in wuku[col] %}
               <td class="calendar-cell text-center" {% if seg %} data-bs-toggle="offcanvas" data-bs-target="#offcanvasWuku" data-index="{{ seg.wuku_index }}" data-bs-trigger="hover focus"
@@ -82,6 +83,7 @@
               </td>
               {% endfor %}
               {% endif %}
+              {% endfor %}
           </tr>
       </tfooter>
   </table>
