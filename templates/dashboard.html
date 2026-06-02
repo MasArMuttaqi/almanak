@@ -5,15 +5,12 @@
     <h5 class="text-center mt-4 mb-4 date-num">{{ bulan }}</h5>
           <div class="d-flex justify-content-between align-items-center                             " style="font-family: 'Rajdhani', sans-serif;">
        <h6 class="mb-2 text-body-secondary">
-          {{ periode_hijriah[0].bulan_hijriah }}
-          {{ periode_hijriah[0].tahun_hijriah }} H
-          <br> {{ periode_hijriah[-1].bulan_hijriah }}
-          {{ periode_hijriah[-1].tahun_hijriah }} H
+           {{ periode_hijriah[0].bulan_hijriah }} - {{ periode_hijriah[-1].bulan_hijriah }}
+           {{ periode_hijriah[0].tahun_hijriah }} H
        </h6>
 
        <h6 class="mb-2 text-body-secondary text-end">
-           {{ periode_jawa[0].bulan_tahun_jawa }} <br>
-           {{ periode_jawa[-1].bulan_tahun_jawa }}
+           {{ periode_jawa[0].bulan_tahun_jawa }} - {{ periode_jawa[-1].bulan_tahun_jawa }}
        </h6>
           </div>
     <!-- header calendar -->

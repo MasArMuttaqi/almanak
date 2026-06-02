@@ -120,6 +120,7 @@ def kalender_vertikal(tanggal=None):
             "wuku_index": wuku_index,
             "sadwara": sadwara,
             "tgl_hijriah":konversi_ke_hijaiyah(tanggal_h),
+            "tgl_bulan_tahun_h": h['tanggal_hijriah'],
             "is_today": tgl.date() == today
         }
 
