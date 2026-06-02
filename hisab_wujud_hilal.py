@@ -241,8 +241,20 @@ def hisab(year, month, day):
     elong = abs(lon_m - lon_s)
     if elong > 180:
         elong = 360 - elong
+    
+    hasil_keputusan = keputusan(jd_ss, jd_ij, alt)
 
     h_d, h_m, h_y = jd_to_hijri(jd_ss)
+    
+    if hasil_keputusan.startswith("Masuk Bulan Baru"):
+        # hari terakhir bulan
+        if h_d >= 29:
+            h_d = 1
+            if h_m == 12:
+                h_m = 1
+                h_y += 1
+            else:
+                h_m += 1
 
     bulan = [
         "Muharram","Safar","Rabiul Awal","Rabiul Akhir",
@@ -253,14 +265,10 @@ def hisab(year, month, day):
     return {
         "tanggal_masehi": format_tanggal_indonesia( f"{year}-{month:02d}-{day:02d}"),
         "sunset_wib": round(ss, 2),
-
         "ijtima": ijtima_time,
-
         "tinggi_hilal": round(alt, 3),
         "elongasi": round(elong, 3),
-
         "hijriah": f"{h_d} {bulan[h_m-1]} {h_y}",
-
         "keputusan": keputusan(jd_ss, jd_ij, alt)
     }
 
@@ -268,4 +276,5 @@ def hisab(year, month, day):
 # ==========================================
 # TEST
 # ==========================================
-# print(hisab(2026, 4, 16))
+if __name__ == "__main__":
+    print(hisab(2026, 6, 16))
