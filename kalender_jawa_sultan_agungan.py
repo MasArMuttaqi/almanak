@@ -165,23 +165,23 @@ def hitung_mangsa(tanggal):
 # Parerasan & Pancasuda
 # =====================
 data_parerasan = {
-        "PasaranPancasuda": ["Ahad Pon", "Senen Kliwon", "Selasa Pahing", "Rebo Legi", "Kemis Wage"],
-        "Aras Kembang": ["Senen Pon", "Selasa Kliwon", "Rebo Wage", "Jumuwah Legi"],
-        "Aras Tuding": ["Ahad Pon", "Senen Pahing", "Rebo Pon", "Kemis Kliwon", "Setu Legi"],
-        "Bumi Kapetak": ["Setu Pon", "Rebo Pahing", "Kemis Kliwon"],
-        "Laku Yeh": ["Senen Wage", "Selasa Legi", "Setu Pahing"],
-        "Laku Api": ["Ahad Wage", "Senen Legi"],
-        "Laku Angin": ["Ahad Kliwon", "Senen Pahing", "Kemis Legi", "Jemuwah Pon"],
-        "Laku Bintang": ["Ahad Pahing", "Rebo Pon", "Jemuwah Kliwon", "Setu Legi"],
-        "Laku Bulan": ["Selasa Wage", "Setu Kliwon", "Kemis Pahing"],
-        "Laku Bumi": ["Rebo Kliwon", "Kemis Pon", "Setu Pahing"],
-        "Laku Surya": ["Ahad Legi", "Selasa Pon", "Setu Wage"],
-        "Laku Pandita Sakti": ["Ahad Kliwon", "Selasa Wage", "Kemis Pahing", "Setu Pon"],
-        "Lebu Katiup Angin": ["Senen Wage", "Selasa Pon", "Rebo Wage", "Kemis Legi", "Setu Pahing"],
-        "Satria Wibawa": ["Senen Kliwon", "Selasa Pahing", "Kemis Pon", "Jemuwah Legi", "Setu Wage"],
-        "Satria Wirang": ["Ahad Legi", "Senen Pon", "Selasa Kliwon", "Rebo Legi", "Jemuwah Wage"],
-        "Sumur Sinaba": ["Senen Legi", "Jemuwah Pahing", "Kemis Wage", "Setu Kliwon"],
-        "Tunggak Semi": ["Ahad Pahing", "Senen Wage", "Selasa Legi", "Jemuwah Kliwon", "Setu Pon"]
+        "Aras Kembang": ["Ahad Pon", "Senen Kliwon", "Selasa Pahing", "Rebo Legi", "Kemis Wage"],
+        "Aras Tuding": ["Senen Pon", "Selasa Kliwon", "Rebo Wage", "Jemuwah Legi"],
+        "Bumi Kapetak": ["Ahad Pon", "Senen Pahing", "Rebo Pon", "Kemis Kliwon", "Setu Legi"],
+        "Laku Yeh": ["Setu Pon", "Rebo Pahing", "Kemis Kliwon"],
+        "Laku Api": ["Senen Wage", "Selasa Legi", "Setu Pahing"],
+        "Laku Angin": ["Ahad Wage", "Senen Legi"],
+        "Laku Bintang": ["Ahad Kliwon", "Senen Pahing", "Kemis Legi", "Jemuwah Pon"],
+        "Laku Bulan": ["Ahad Pahing", "Rebo Pon", "Jemuwah Kliwon", "Setu Legi"],
+        "Laku Bumi": ["Selasa Wage", "Setu Kliwon", "Kemis Pahing"],
+        "Laku Surya": ["Rebo Kliwon", "Kemis Pon", "Setu Pahing"],
+        "Laku Pandita Sakti": ["Ahad Legi", "Selasa Pon", "Setu Wage"],
+        "Lebu Katiup Angin": ["Ahad Kliwon", "Selasa Wage", "Kemis Pahing", "Setu Pon"],
+        "Satria Wibawa": ["Senen Wage", "Selasa Pon", "Rebo Wage", "Kemis Legi", "Setu Pahing"],
+        "Satria Wirang": ["Senen Kliwon", "Selasa Pahing", "Kemis Pon", "Jemuwah Legi", "Setu Wage"],
+        "Sumur Sinaba": ["Ahad Legi", "Senen Pon", "Selasa Kliwon", "Rebo Legi", "Jemuwah Wage"],
+        "Tunggak Semi": ["Senen Legi", "Jemuwah Pahing", "Kemis Wage", "Setu Kliwon"],
+        "Wisesa Segara": ["Ahad Pahing", "Senen Wage", "Selasa Legi", "Jemuwah Kliwon", "Setu Pon"]
     }
 
 def cari_parerasan(dina_nama, pasaran_nama):
