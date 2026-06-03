@@ -375,7 +375,7 @@ def kalender_jawa(tanggal):
         "masehi": tanggal.strftime("%d-%m-%Y"),
         "hari_jawa": f"{dina[0]} {pasaran[0]}",
         "hari_caka": f"{dina[1]} {pasaran[1]}",
-        "hari_pasaran": f"{dina[2]} {pasaran[2]}",
+        "hari_pasaran": f"{dina[2]} {pasaran[0]}",
         "tanggal_jawa": f"{jawa['tanggal']} {jawa['bulan']} {jawa['warsa']} {jawa['tahun']}",
         "windu": f"{jawa['windu']} ({jawa['lambang']})",
         "wuku_index": idx_wuku,
