@@ -277,7 +277,7 @@ $(document).on('click', 'td[data-tgl]', function () {
         $('#oc-sadwara').text(res.sadwara);
         $('#oc-wuku').text(res.wuku);
         const hari_bookmark = ["Senin Kliwon", "Senin Wage", "Senin Pahing", "Selasa Legi", "Rabu Kliwon", "Rabu Pahing", "Kamis Wage","Sabtu Legi","Sabtu Wage","Minggu Pon", "Minggu Kliwon"];
-        $('#bookmark').toggle(hari_bookmark.includes(hari_pasaran));
+        $('#bookmark').toggle(hari_bookmark.includes(res.hari_pasaran));
 
     });
 });
