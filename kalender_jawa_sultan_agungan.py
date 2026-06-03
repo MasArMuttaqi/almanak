@@ -348,13 +348,13 @@ def kalender_jawa(tanggal):
     # HARI
     # DINA = ["Senen","Selasa","Rebo","Kemis","Jemuwah","Setu","Ahad"]
     DINA = [
-        ["Senen", "Soma"],
-        ["Selasa", "Anggara"],
-        ["Rebo", "Budha"],
-        ["Kemis", "Respati"],
-        ["Jemuwah", "Sukra"],
-        ["Setu", "Tumpak"],
-        ["Ahad", "Radite"]
+        ["Senen", "Soma","Senin"],
+        ["Selasa", "Anggara","Selasa"],
+        ["Rebo", "Budha","Rabu"],
+        ["Kemis", "Respati","Kamis"],
+        ["Jemuwah", "Sukra","Jumat"],
+        ["Setu", "Tumpak","Sabtu"],
+        ["Ahad", "Radite","Ahad"]
     ]
 
     # PASARAN = ["Legi","Pahing","Pon","Wage","Kliwon"]
