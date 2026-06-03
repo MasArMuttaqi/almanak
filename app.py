@@ -50,8 +50,9 @@ def detail_kalender():
 
         return jsonify({
             "masehi": format_tanggal_indonesia(tanggal),
-            "pasaran_jawa": f"{jawa.get('hari_jawa', '-')}",
+            # "pasaran_jawa": f"{jawa.get('hari_jawa', '-')}",
             "pasaran_caka": f"{jawa.get('hari_caka', '-')}",
+            "hari_pasaran": f"{jawa.get('hari_pasaran', '-')}",
             "hijriah": f"{hijriah.get('tanggal_hijriah', {}).get('full', '-')}",
             "jawa": f"{jawa.get('tanggal_jawa', '-')}",
             "wuku": f"{jawa.get('wuku', '-')}",
