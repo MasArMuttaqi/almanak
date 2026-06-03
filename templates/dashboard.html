@@ -151,7 +151,7 @@
             <span id="oc-pasaran-1"></span><br>
             <span id="oc-pasaran-2"></span>
           </div>
-          <i class="fi fi-br-bookmark" style="font-size:10px; color:#c5a059;" id="bookmark"; display="none";></i>
+          <i class="fi fi-br-bookmark" id="bookmark" style="font-size:10px; color:#c5a059; display:none;"></i>
         </div>
       </li>
 
@@ -262,9 +262,6 @@ calendarCells.forEach(el => {
 $(document).on('click', 'td[data-tgl]', function () {
     let tanggal = $(this).attr('data-tgl');
 
-    //console.log('tanggal:', tanggal);
-    const hari_bookmark = ["Senin Kliwon", "Senin Wage", "Senin Pahing", "Selasa Legi", "Rabu Kliwon", "Rabu Pahing", "Kamis Wage","Sabtu Legi","Sabtu Wage","Minggu Pon", "Minggu Kliwon"]
-
     $.get('/detail-kalender', { tanggal: tanggal }, function(res){
         $('#offcanvasTitle').html(res.masehi);
         $('#oc-jawa').html(res.jawa);
@@ -279,13 +276,9 @@ $(document).on('click', 'td[data-tgl]', function () {
         });
         $('#oc-sadwara').text(res.sadwara);
         $('#oc-wuku').text(res.wuku);
-        if (hari_bookmark.includes(hari_pasaran)) {
-            //console.log("Data ditemukan!");
-            $('#bookmark').css('display', 'block');
-        } else {
-            //console.log("Data tidak ditemukan.");
-            $('#bookmark').css('display', 'none');
-        }
+        const hari_bookmark = ["Senin Kliwon", "Senin Wage", "Senin Pahing", "Selasa Legi", "Rabu Kliwon", "Rabu Pahing", "Kamis Wage","Sabtu Legi","Sabtu Wage","Minggu Pon", "Minggu Kliwon"];
+        $('#bookmark').toggle(hari_bookmark.includes(hari_pasaran));
+
     });
 });
 
