@@ -250,6 +250,17 @@ def pancasuda_pakuwon(dina_nama, pasaran_nama, wuku_neptu):
        {"sisa": 6, "nama": "Bumi Kapetak"},
        {"sisa": 0, "nama": "Lebu Katiup Angin"}  # Sisa 0 atau 7
     ]
+   
+   data_pancasuda_bincilan = [
+        {"sisa": 1, "nama": "Wasesa Segara"},
+        {"sisa": 2, "nama": "Tunggak Semi"},
+        {"sisa": 3, "nama": "Satriya Wibawa"},
+        {"sisa": 4, "nama": "Sumur Sinaba"},
+        {"sisa": 5, "nama": "Satriya Wirang"},
+        {"sisa": 6, "nama": "Bumi Kapetak"},
+        {"sisa": 0, "nama": "Lebu Katiup Angin"}  # Sisa 0 atau 7
+    ]
+   
 
    total_neptu = hari_val[dina_nama] + pasaran_val[pasaran_nama] + int(wuku_neptu)
    sisa = total_neptu % 7
@@ -259,7 +270,11 @@ def pancasuda_pakuwon(dina_nama, pasaran_nama, wuku_neptu):
    else:
        index = sisa - 1
 
-   return data_sisa_pancasuda_pakuwon[index]['nama']
+   # return data_sisa_pancasuda_pakuwon[index]['nama']
+   return {
+        "pancasuda_pakuwon": data_sisa_pancasuda_pakuwon[index]['nama'],
+        "pancasuda_bincilan": data_pancasuda_bincilan[index]['nama']     
+   }
 
 # =====================
 # RAKAM
