@@ -512,12 +512,29 @@ td {
         border-bottom: none !important;
     }
 
-    /* .list-group .list-group-item .info-icon i{
-        color: #b0b0b0;
-        font-size: 1.1rem;
-        cursor: pointer;
-    } */
+    /* Membuat background item dan button menjadi transparan */
+    .accordion-transparan .accordion-item,
+    .accordion-transparan .accordion-button {
+        background-color: transparent !important;
+        color: inherit; /* Mengikuti warna teks bawaan pembungkusnya */
+        font-size: 1rem !important;
+        font-family: "Rajdhani", sans-serif;
+    }
 
+    /* Menghilangkan efek background biru/putih saat accordion diklik/aktif */
+    .accordion-transparan .accordion-button:not(.collapsed) {
+        background-color: transparent !important;
+        box-shadow: none !important;
+        color: #0d6efd; /* Anda bisa mengubah warna teks saat aktif di sini */
+    }
+
+    /* Opsional: Menghilangkan efek shadow saat button di-focus */
+    .accordion-transparan .accordion-button:focus {
+        box-shadow: none !important;
+        border-color: rgba(0, 0, 0, 0.125);
+    }
+    
+  
     /* Responsif Mobile */
     @media (max-width: 576px) {
         .image-container{

@@ -91,53 +91,79 @@
                 </ul>
 
                 <p class="text-justify text-muted mt-4">Menggunakan kombinasi metode hisab dan rukyah Lembaga Falakiyah PBNU dengan lokasi acuan <b>Kota Yogyakarta</b> <span class="small font-monospace">Lintang -7.7974565 dan Bujur 110.370697</span>.
-                    <button type="button" class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#ModalHilal">Riwayat Rukyatul Hilal</button>
+                    <button type="button" class="btn btn-sm btn-info" data-bs-toggle="offcanvas" data-bs-target="#offcanvasHilal" aria-controls="offcanvasBottom">🔭 Riwayat Rukyatul Hilal</button>
                 </p>
-                <p class="text-justify text-muted mt-4">
-                    <ol>
-                        <li>
-                            <strong>Imkanur Rukyah Nahdlatul Ulama (IRNU) — Batas Bawah</strong>
-                            <br>Imkanur rukyah secara bahasa berarti "kemungkinan hilal untuk dapat dilihat". IRNU digunakan sebagai kriteria minimal kelayakan astronomis agar sebuah laporan kesaksian melihat hilal dapat diterima.<br>
+                <div class="accordion accordion-transparan" id="accordionSistemHilal">
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingLFNU">
+                    <button class="accordion-button fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseLFNU" aria-expanded="true" aria-controls="collapseLFNU">
+                        Lembaga Falakiyah NU
+                    </button>
+                    </h2>
+                    <div id="collapseLFNU" class="accordion-collapse collapse show" aria-labelledby="headingLFNU" data-bs-parent="#accordionSistemHilal">
+                    <div class="accordion-body text-justify text-muted">
+                        
+                        <ol class="ps-3">
+                        <li class="mb-4">
+                            <span class="fw-semibold text-dark d-block mb-1">Imkanur Rukyah Nahdlatul Ulama (IRNU) — Batas Bawah</span>
+                            <p class="mb-2">Imkanur rukyah secara bahasa berarti "kemungkinan hilal untuk dapat dilihat". IRNU digunakan sebagai kriteria minimal kelayakan astronomis agar sebuah laporan kesaksian melihat hilal dapat diterima.</p>
                             <ul>
-                                <li><strong>Kriteria Posisi Hilal:</strong> Mengacu pada keputusan Muktamar Ke-34 NU di Lampung, NU mengadopsi kriteria MABIMS baru, yaitu tinggi hilal minimal 3&deg; dan jarak lengkung (elongasi) minimal 6,4&deg;.</li>
-                                <li><strong>Fungsi:</strong> Jika pada tanggal 29 posisi hilal berada di bawah angka tersebut (misalnya hanya 2&deg;), maka secara sains astronomis hilal tidak mungkin terlihat karena kalah oleh cahaya syafaq (mega). Apabila ada orang yang mengaku melihat hilal di bawah kriteria ini, kesaksiannya otomatis ditolak demi kehati-hatian.</li>
+                            <li><strong>Kriteria Posisi Hilal:</strong> Mengacu pada keputusan Muktamar Ke-34 NU di Lampung, NU mengadopsi kriteria <b>MABIMS 3-6.4</b>, yaitu tinggi hilal minimal 3&deg; dan jarak lengkung (elongasi) minimal 6,4&deg;.</li>
+                            <li><strong>Fungsi:</strong> Jika pada tanggal 29 posisi hilal berada di bawah angka tersebut (misalnya hanya 2&deg;), maka secara sains astronomis hilal tidak mungkin terlihat karena kalah oleh cahaya syafaq (mega). Apabila ada orang yang mengaku melihat hilal di bawah kriteria ini, kesaksiannya otomatis ditolak demi kehati-hatian.</li>
                             </ul>
                         </li>
+                        
                         <li>
-                            <strong>Qath'iy Rukyah Nahdlatul Ulama (QRNU) — Batas Atas</strong>
-                            <br>Qath'iy rukyah berarti "kepastian matematis bahwa hilal di atas ufuk sudah sangat kuat dan pasti bisa dilihat secara optik" jika langit cerah. Konsep ini lahir dari Muktamar Ke-34 NU tahun 2021 sebagai langkah antisipasi (solusi fikih / hukum).<br>
+                            <span class="fw-semibold text-dark d-block mb-1">Qath'iy Rukyah Nahdlatul Ulama (QRNU) — Batas Atas</span>
+                            <p class="mb-2">Qath'iy rukyah berarti "kepastian matematis bahwa hilal di atas ufuk sudah sangat kuat dan pasti bisa dilihat secara optik" jika langit cerah. Konsep ini lahir dari Muktamar Ke-34 NU tahun 2021 sebagai langkah antisipasi (solusi fikih / hukum).</p>
                             <ul>
-                                <li><strong>Kriteria Posisi Hilal:</strong> Lembaga Falakiyah PBNU menetapkan batas minimal QRNU adalah elongasi sebesar 9,9&deg;.</li>
-                                <li><strong>Fungsi (Nafyul Ikmal):</strong> Jika posisi hilal sudah sangat tinggi dan mencapai elongasi &ge; 9,9&deg; tetapi seluruh perukyat di Indonesia gagal melihatnya karena kendala cuaca (mendung tebal atau hujan), NU mengambil kebijakan untuk tidak melakukan istikmal (menyempurnakan bulan menjadi 30 hari). NU akan tetap memutuskan masuknya bulan baru esok harinya.</li>
+                            <li><strong>Kriteria Posisi Hilal:</strong> Lembaga Falakiyah PBNU menetapkan batas minimal QRNU adalah elongasi sebesar 9,9&deg;.</li>
+                            <li><strong>Fungsi (Nafyul Ikmal):</strong> Jika posisi hilal sudah sangat tinggi dan mencapai elongasi &ge; 9,9&deg; tetapi seluruh perukyat di Indonesia gagal melihatnya karena kendala cuaca (mendung tebal atau hujan), NU mengambil kebijakan untuk tidak melakukan istikmal (menyempurnakan bulan menjadi 30 hari). NU akan tetap memutuskan masuknya bulan baru esok harinya.</li>
                             </ul>
                         </li>
-                    </ol>
-                </p>
-                
-                <p class="text-justify text-muted mt-4">
-                    Kriteria <b>MABIMS 3-6.4</b> adalah pedoman baru penentuan awal bulan kamariah (terutama Ramadan, Syawal, dan Zulhijah) yang disepakati oleh Menteri-Menteri Agama Brunei Darussalam, Indonesia, Malaysia, dan Singapura (MABIMS).
-                    ​Angka 3-6.4 merujuk langsung pada dua parameter utama syarat visibilitas hilal (imkanur rukyat) agar bulan baru dinyatakan telah masuk secara syar'i dan astronomis. Hilal dinyatakan memenuhi syarat imkanur rukyat jika pada saat matahari terbenam di hari konjungsi (ijtimak), posisi hilal mencapai batas minimum berikut:
-                   <ol>
-                    <!-- Poin Pertama -->
-                    <li>
-                        <strong>Tinggi Hilal Mar'i (Aparent) &ge; 3&deg;</strong>
-                        <ul>
+                        </ol>
+
+                    </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingMabims">
+                    <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMabims" aria-expanded="false" aria-controls="collapseMabims">
+                        MABIMS
+                    </button>
+                    </h2>
+                    <div id="collapseMabims" class="accordion-collapse collapse" aria-labelledby="headingMabims" data-bs-parent="#accordionSistemHilal">
+                    <div class="accordion-body text-justify text-muted">
+                        
+                        <p>Kriteria <b>MABIMS 3-6.4</b> adalah pedoman baru penentuan awal bulan kamariah (terutama Ramadan, Syawal, dan Zulhijah) yang disepakati oleh Menteri-Menteri Agama Brunei Darussalam, Indonesia, Malaysia, dan Singapura (MABIMS).</p>
+                        <p>Angka 3-6.4 merujuk langsung pada dua parameter utama syarat visibilitas hilal (imkanur rukyat) agar bulan baru dinyatakan telah masuk secara syar'i dan astronomis. Hilal dinyatakan memenuhi syarat imkanur rukyat jika pada saat matahari terbenam di hari konjungsi (ijtimak), posisi hilal mencapai batas minimum berikut:</p>
+                        
+                        <ol class="ps-3 mb-0">
+                        <li class="mb-3">
+                            <strong>Tinggi Hilal Mar'i (Aparent) &ge; 3&deg;</strong>
+                            <ul class="mt-1">
                             <li><strong>Definisi:</strong> Ketinggian hilal di atas ufuk saat matahari terbenam.</li>
                             <li><strong>Batas Minimum:</strong> Minimal 3 derajat di atas ufuk (terhitung dari pusat piringan bulan ke ufuk hakiki/mar'i). Jika tinggi hilal kurang dari 3&deg;, secara teori astronomi modern hilal terlalu rendah dan cahayanya akan terkubur oleh pendar cahaya senja (shafak).</li>
-                        </ul>
-                    </li>
-                    <!-- Poin Kedua -->
-                    <li>
-                        <strong>Elongasi Geodesik &ge; 6,4&deg;</strong>
-                        <ul>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Elongasi Geodesik &ge; 6,4&deg;</strong>
+                            <ul class="mt-1">
                             <li><strong>Definisi:</strong> Jarak sudut antara pusat piringan bulan dan pusat piringan matahari jika dilihat oleh pengamat.</li>
                             <li><strong>Batas Minimum:</strong> Minimal 6,4&deg;. Jarak sudut ini diperlukan agar ketebalan hilal cukup menghasilkan cahaya yang bisa memisahkan diri dari silau matahari dan dapat teramati (baik dengan mata telanjang maupun alat bantu optik seperti teleskop).</li>
-                        </ul>
-                    </li>
-                    </ol>
-                </p> 
+                            </ul>
+                        </li>
+                        </ol>
+
+                    </div>
+                    </div>
+                </div>
+
+                </div> 
                 <p class="text-justify text-muted mt-4">  
-                    <strong>​📌 Catatan Penting</strong>: Kedua syarat di atas bersifat kumulatif. Artinya, posisi hilal pada petang hari tersebut harus memenuhi kedua kriteria sekaligus (Tinggi &ge; 3&deg; DAN Elongasi &ge; 6,4&deg;). Jika salah satu saja tidak terpenuhi, maka hilal dianggap belum imkanur rukyat, dan bulan berjalan akan digenapkan (istikmal) menjadi 30 hari.
+                    <strong>​📌 Catatan Penting</strong>: Kedua syarat pemenuhan imkanur rukyah bersifat kumulatif. Artinya, posisi hilal pada petang hari tersebut harus memenuhi kedua kriteria sekaligus (Tinggi &ge; 3&deg; DAN Elongasi &ge; 6,4&deg;). Jika salah satu saja tidak terpenuhi, maka hilal dianggap belum imkanur rukyat, dan bulan berjalan akan digenapkan (istikmal) menjadi 30 hari.
                 </p>
 
         </div>
@@ -169,7 +195,7 @@
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center py-2">
                         <span class="small text-muted">Waktu Ijtima' / Konjungsi</span>
-                        <span class="small text-end px-3">{{ data2.ijtima | default("-", true) }}</span>
+                        <span class="small font-monospace text-end">{{ data2.ijtima | default("-", true) }}</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center py-2">
                         <span class="small fw-bold text-muted">Status</span>
@@ -247,36 +273,35 @@ Metode hisab hakiki wujudul hilal yang digunakan Majelis Tarjih dan Tajdid Pengu
     </section>
 </section>
 
-<!-- Modal riwayat hilal -->
-<div class="modal fade" id="ModalHilal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content" style="font-family: 'Rajdhani', sans-serif;">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Riwayat Rukyatul Hilal</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <table class="table mt-4">
-            <thead>
-                  <tr>
-                    <th>Awal Bulan Hijriah</th>
-                    <th>Tanggal Masehi</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {% for item in datahilal %}
-                    <tr>
-                      <td>{{ item.nama_bulan }}</td>
-                      <td>{{ item.tanggal_masehi }}</td>
-                    </tr>
-                  {% endfor %}
-                </tbody>
-            </table>
-      </div>
+<!-- offcanvas -->
+ <div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasHilal" aria-labelledby="offcanvasBottomLabel" style="height: 90%; font-size: 1rem !important; font-family: 'Rajdhani', sans-serif;">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasBottomLabel">Riwayat Imkanur Rukyah</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <div class="table-responsive rukyah-container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Awal Bulan Hijriah</th>
+                <th>Tanggal Masehi</th>
+            </tr>
+        </thead>
+            <tbody>
+                {% for item in datahilal %}
+                <tr>
+                    <td>{{ item.nama_bulan }}</td>
+                    <td>{{ item.tanggal_masehi }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+    </table>
     </div>
   </div>
 </div>
-<!--Modal riwayat hilal-->
+<!-- offcanvas -->
+
 <script>
     $(document).ready(function() {
 
