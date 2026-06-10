@@ -80,36 +80,64 @@
                         <span class="small text-end">{{ data1.data_astronomi['azimut_bulan'] }}&deg;</span>
                     </li>
                     {% if data1.kesimpulan and data1.kesimpulan['status'] is not none %}
-                    <li class="list-group-item d-flex justify-content-between align-items-center py-2">
+                    <li class="list-group-item bg-light py-2">
                         <span class="small text-muted fw-bold">Status</span>
-                        <div class="text-end">
-                           <span class="badge rounded-pill text-bg-info px-3 text-end">{{ data1.kesimpulan['status'] }}</span>
-                        </div>
                     </li>
-                    <li class="list-group-item d-flex justify-content-end align-items-center py-2">
+                    <li class="list-group-item bg-light py-2">
+                        <span class="badge rounded-pill text-bg-success px-3 text-wrap text-center">{{ data1.kesimpulan['status'] }}</span><br>
                         <span class="small text-center text-muted"><b>{{ data1.kesimpulan['informasi'] }}</b> Sesuai kriteria {{ data1.kesimpulan['kriteria'] }}</span>
                     </li>
                     {% endif %}
                 </ul>
 
                 <p class="text-justify text-muted mt-4">Menggunakan kombinasi metode hisab dan rukyah Lembaga Falakiyah PBNU dengan lokasi acuan <b>Kota Yogyakarta</b> <span class="small font-monospace">Lintang -7.7974565 dan Bujur 110.370697</span>.
-                        <button type="button" class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#ModalHilal">Riwayat Rukyatul Hilal</button>
+                    <button type="button" class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#ModalHilal">Riwayat Rukyatul Hilal</button>
                 </p>
-                <p class="text-justify text-muted">
-                  <strong>Kriteria Imkanur Rukyah Nahdlatul Ulama (IRNU):</strong><br>
-                  Lembaga Falakiyah PBNU menetapkan awal bulan berdasarkan standar IRNU dengan parameter tinggi hilal mar'i minimal 3&deg;
-                  dan elongasi haqiqy minimal 6,4&deg;. Kriteria ini menjadi acuan utama dalam verifikasi laporan rukyatul hilal
-                  serta penyusunan almanak resmi NU di wilayah Indonesia.
+                <p class="text-justify text-muted mt-4">
+                    <ol>
+                        <li>
+                            <strong>Imkanur Rukyah Nahdlatul Ulama (IRNU) — Batas Bawah</strong>
+                            <br>Imkanur rukyah secara bahasa berarti "kemungkinan hilal untuk dapat dilihat". IRNU digunakan sebagai kriteria minimal kelayakan astronomis agar sebuah laporan kesaksian melihat hilal dapat diterima.<br>
+                            <ul>
+                                <li><strong>Kriteria Posisi Hilal:</strong> Mengacu pada keputusan Muktamar Ke-34 NU di Lampung, NU mengadopsi kriteria MABIMS baru, yaitu tinggi hilal minimal 3&deg; dan jarak lengkung (elongasi) minimal 6,4&deg;.</li>
+                                <li><strong>Fungsi:</strong> Jika pada tanggal 29 posisi hilal berada di bawah angka tersebut (misalnya hanya 2&deg;), maka secara sains astronomis hilal tidak mungkin terlihat karena kalah oleh cahaya syafaq (mega). Apabila ada orang yang mengaku melihat hilal di bawah kriteria ini, kesaksiannya otomatis ditolak demi kehati-hatian.</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Qath'iy Rukyah Nahdlatul Ulama (QRNU) — Batas Atas</strong>
+                            <br>Qath'iy rukyah berarti "kepastian matematis bahwa hilal di atas ufuk sudah sangat kuat dan pasti bisa dilihat secara optik" jika langit cerah. Konsep ini lahir dari Muktamar Ke-34 NU tahun 2021 sebagai langkah antisipasi (solusi fikih / hukum).<br>
+                            <ul>
+                                <li><strong>Kriteria Posisi Hilal:</strong> Lembaga Falakiyah PBNU menetapkan batas minimal QRNU adalah elongasi sebesar 9,9&deg;.</li>
+                                <li><strong>Fungsi (Nafyul Ikmal):</strong> Jika posisi hilal sudah sangat tinggi dan mencapai elongasi &ge; 9,9&deg; tetapi seluruh perukyat di Indonesia gagal melihatnya karena kendala cuaca (mendung tebal atau hujan), NU mengambil kebijakan untuk tidak melakukan istikmal (menyempurnakan bulan menjadi 30 hari). NU akan tetap memutuskan masuknya bulan baru esok harinya.</li>
+                            </ul>
+                        </li>
+                    </ol>
                 </p>
-                <p class="text-justify text-muted">
-                  <strong>Kriteria Qath'iy Rukyah NU (QRNU) dan Prosedur:</strong><br>
-                  Berdasarkan ketetapan Rakernas 2022, apabila elongasi mencapai minimal 9,9&deg;, maka laporan rukyat dianggap <em>qath'iy</em> (pasti)
-                  dan menggugurkan kewajiban <em>istikmal</em>. Jika kriteria IRNU tidak terpenuhi atau hilal tidak teramati,
-                  maka dilakukan penggenapan umur bulan menjadi 30 hari (<em>istikmal</em>).
-                </p>
-                <p class="text-justify text-muted">
-                   <strong>Kriteria MABIMS 3-6.4 : </strong><br>Standar baru visibilitas hilal (imkanur rukyat) yang disepakati oleh Menteri Agama Brunei, Indonesia, Malaysia, dan Singapura.
-                   Kriteria ini menetapkan bahwa hilal dianggap mungkin terlihat jika mencapai ketinggian minimal 3&deg; di atas ufuk dan elongasi (jarak sudut bulan-matahari) minimal 6,4&deg; . Kriteria ini mulai diterapkan pada 2022 menggantikan kriteria lama ( 2&deg; dan 3&deg; ) untuk memastikan hilal lebih mungkin terlihat
+                
+                <p class="text-justify text-muted mt-4">
+                    Kriteria <b>MABIMS 3-6.4</b> adalah pedoman baru penentuan awal bulan kamariah (terutama Ramadan, Syawal, dan Zulhijah) yang disepakati oleh Menteri-Menteri Agama Brunei Darussalam, Indonesia, Malaysia, dan Singapura (MABIMS).
+                    ​Angka 3-6.4 merujuk langsung pada dua parameter utama syarat visibilitas hilal (imkanur rukyat) agar bulan baru dinyatakan telah masuk secara syar'i dan astronomis. Hilal dinyatakan memenuhi syarat imkanur rukyat jika pada saat matahari terbenam di hari konjungsi (ijtimak), posisi hilal mencapai batas minimum berikut:
+                   <ol>
+                    <!-- Poin Pertama -->
+                    <li>
+                        <strong>Tinggi Hilal Mar'i (Aparent) &ge; 3&deg;</strong>
+                        <ul>
+                            <li><strong>Definisi:</strong> Ketinggian hilal di atas ufuk saat matahari terbenam.</li>
+                            <li><strong>Batas Minimum:</strong> Minimal 3 derajat di atas ufuk (terhitung dari pusat piringan bulan ke ufuk hakiki/mar'i). Jika tinggi hilal kurang dari 3&deg;, secara teori astronomi modern hilal terlalu rendah dan cahayanya akan terkubur oleh pendar cahaya senja (shafak).</li>
+                        </ul>
+                    </li>
+                    <!-- Poin Kedua -->
+                    <li>
+                        <strong>Elongasi Geodesik &ge; 6,4&deg;</strong>
+                        <ul>
+                            <li><strong>Definisi:</strong> Jarak sudut antara pusat piringan bulan dan pusat piringan matahari jika dilihat oleh pengamat.</li>
+                            <li><strong>Batas Minimum:</strong> Minimal 6,4&deg;. Jarak sudut ini diperlukan agar ketebalan hilal cukup menghasilkan cahaya yang bisa memisahkan diri dari silau matahari dan dapat teramati (baik dengan mata telanjang maupun alat bantu optik seperti teleskop).</li>
+                        </ul>
+                    </li>
+                    </ol>
+                </p> 
+                <p class="text-justify text-muted mt-4">  
+                    <strong>​📌 Catatan Penting</strong>: Kedua syarat di atas bersifat kumulatif. Artinya, posisi hilal pada petang hari tersebut harus memenuhi kedua kriteria sekaligus (Tinggi &ge; 3&deg; DAN Elongasi &ge; 6,4&deg;). Jika salah satu saja tidak terpenuhi, maka hilal dianggap belum imkanur rukyat, dan bulan berjalan akan digenapkan (istikmal) menjadi 30 hari.
                 </p>
 
         </div>

@@ -430,7 +430,7 @@ td {
             margin-top: 20px;
         }
         
-        .tab-content p{
+        .tab-content p, ol{
             font-size: 1rem !important;
             font-family: "Rajdhani", sans-serif;
             text-align: justify;

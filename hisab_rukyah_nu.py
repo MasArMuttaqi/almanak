@@ -211,52 +211,87 @@ def hisab_nu(y,m,d):
 
     elong = degrees(elong)
 
-    # print("=== HISAB NU PRESISI ===")
-    # print(f"Tanggal Masehi      : {y}-{m:02d}-{d:02d}")
-    # print(f"Tanggal Hijriah     : {hijri_d} {hijri_m} {hijri_y} H")
-    # print(f"Ghurub WIB          : {ghurub+TZ:.2f}")
-    # print(f"Tinggi Hilal Hakiki : {moonAlt:.2f}°")
-    # print(f"Tinggi Hilal Mar'i  : {moon_mar_i:.2f}°")
-    # print(f"Elongasi            : {elong:.2f}°")
-    # print(f"Azimut Matahari     : {sunAz:.2f}°")
-    # print(f"Azimut Bulan        : {moonAz:.2f}°")
-    #
-    # if moon_mar_i >= 3 and elong >= 6.4:
-    #     print("Status              : Memenuhi Imkan Rukyat")
+    # if hijri_d in [29, 30]:
+    #     if moon_mar_i >= 3 and elong >= 6.4:
+    #         kesimpulan = {
+    #             "status": "Memenuhi Imkan Rukyat",
+    #             "kriteria": "MABIMS 3-6.4",
+    #             "keterangan": "Besok adalah tanggal 1 bulan baru."
+    #         }
+    #     else:
+    #         kesimpulan = {
+    #             "status": "Istikmal 30 Hari",
+    #             "kriteria": "MABIMS 3-6.4",
+    #             "keterangan": "Bulan digenapkan menjadi 30 hari."
+    #         }
+    # 2. Logika Khusus saat masuk Tanggal 1 Bulan Baru
+    # elif hijri_d == 1:
+    #     if moon_mar_i >= 3 and elong >= 6.4:
+    #         kesimpulan = {
+    #             "status": "Awal Bulan Baru",
+    #             "kriteria": "MABIMS 3-6.4",
+    #             "informasi": "Hilal terlihat/memenuhi syarat pada petang sebelumnya."
+    #         }
+    #     else:
+    #         # Kasus jika tanggal 1 dicapai melalui jalur Istikmal
+    #         kesimpulan = {
+    #             "status": "Awal Bulan Baru (Istikmal)",
+    #             "kriteria": "MABIMS 3-6.4",
+    #             "informasi": "Bulan baru dimulai setelah penggenapan 30 hari."
+    #         }
     # else:
-    #     print("Status              : Istikmal 30 Hari")
-    # 1. Logika untuk Akhir Bulan (Penentuan apakah besok tanggal 1 atau Istikmal)
+    #     kesimpulan = None  # Tidak tampil di pertengahan bulan
+
+    kesimpulan = None
+
+    irnu = moon_mar_i >= 3 and elong >= 6.4
+    qrnu = elong >= 9.9
+
     if hijri_d in [29, 30]:
-        if moon_mar_i >= 3 and elong >= 6.4:
+
+        if qrnu:
             kesimpulan = {
-                "status": "Memenuhi Imkan Rukyat",
-                "kriteria": "MABIMS 3-6.4",
-                "keterangan": "Besok adalah tanggal 1 bulan baru."
+                "status": "Qath'iy Rukyah NU",
+                "kriteria": "QRNU elongasi ≥ 9.9°",
+                "informasi": "Hilal sangat kuat. Istikmal dinafikan (Nafyul Ikmal). Besok tanggal 1."
             }
+
+        elif irnu:
+            kesimpulan = {
+                "status": "Memenuhi dilakukan pengamatan hilal (Imkanur Rukyah NU)",
+                "kriteria": "tinggi hilal minimal 3° dan jarak lengkung (elongasi) minimal 6,4°",
+                "informasi": "Hilal memenuhi batas imkan rukyah. Menunggu hasil rukyah/isbat/ikhbar PBNU."
+            }
+
         else:
             kesimpulan = {
                 "status": "Istikmal 30 Hari",
-                "kriteria": "MABIMS 3-6.4",
-                "keterangan": "Bulan digenapkan menjadi 30 hari."
+                "kriteria": "Di bawah kriteria Imkanur Rukyah NU",
+                "informasi": "Hilal tidak memenuhi syarat astronomis. Bulan digenapkan 30 hari."
             }
 
-    # 2. Logika Khusus saat masuk Tanggal 1 Bulan Baru
     elif hijri_d == 1:
-        if moon_mar_i >= 3 and elong >= 6.4:
+
+        if qrnu:
             kesimpulan = {
-                "status": "Awal Bulan Baru",
-                "kriteria": "MABIMS 3-6.4",
-                "informasi": "Hilal terlihat/memenuhi syarat pada petang sebelumnya."
+                "status": "Awal Bulan Baru (Qath'iy Rukyah NU)",
+                "kriteria": "batas minimal QRNU - elongasi ≥ 9.9°",
+                "informasi": "Masuk bulan baru melalui Nafyul Ikmal."
             }
+
+        elif irnu:
+            kesimpulan = {
+                "status": "Awal Bulan Baru (Imkanur Rukyah NU)",
+                "kriteria": "Imkanur Rukyah NU - tinggi hilal minimal 3° dan jarak lengkung (elongasi) minimal 6,4°",
+                "informasi": "Masuk bulan baru setelah hilal memenuhi imkan rukyah."
+            }
+
         else:
-            # Kasus jika tanggal 1 dicapai melalui jalur Istikmal
             kesimpulan = {
                 "status": "Awal Bulan Baru (Istikmal)",
-                "kriteria": "MABIMS 3-6.4",
-                "informasi": "Bulan baru dimulai setelah penggenapan 30 hari."
+                "kriteria": "Di bawah Imkanur Rukyah NU",
+                "informasi": "Masuk bulan baru setelah penggenapan 30 hari."
             }
-    else:
-        kesimpulan = None  # Tidak tampil di pertengahan bulan
 
 
     result = {
@@ -275,16 +310,24 @@ def hisab_nu(y,m,d):
             "azimut_matahari": round(sunAz, 2),
             "azimut_bulan": round(moonAz, 2)
         },
-        "kesimpulan": kesimpulan,
-        # "kesimpulan": {
-        #     "status": "Memenuhi Imkan Rukyat" if (moon_mar_i >= 3 and elong >= 6.4) else "Istikmal 30 Hari",
-        #     "kriteria": "MABIMS 3-6.4"
-        # }
+        "kesimpulan": kesimpulan
     }
     return result
 # =====================
 # CONTOH
 # =====================
-# hisab_nu(2026,4,2)
-# today = datetime.now().date()
-# print(hisab_nu(today.year, today.month, today.day))
+if __name__ == "__main__":
+    data = hisab_nu(2026, 6, 15)
+    print("=" * 60)
+    print("Tanggal Masehi :", data["tanggal_masehi"])
+    print("Tanggal Hijriah :", data["tanggal_hijriah"]["full"])
+    print("=" * 60)
+    print("ghurub WIB", data["data_astronomi"]["ghurub_wib"])
+    print("tinggi hilal hakiki :", data["data_astronomi"]["tinggi_hilal_hakiki"])
+    print("tinggi hilal mar'i :", data["data_astronomi"]["tinggi_hilal_mari"])
+    print("elongasi", data["data_astronomi"]["elongasi"])
+    # print("umur_bulan", data["data_astronomi"]["umur_bulan"])
+    print("azimut matahari :", data["data_astronomi"]["azimut_matahari"])
+    print("azimut bulan :", data["data_astronomi"]["azimut_bulan"])
+    print("=" * 60)
+    print("Hipotesis :", data["kesimpulan"])

@@ -27,7 +27,7 @@ def write_version_file():
     commit_count, commit_hash = get_git_data()
     
     # Format versi dasar aplikasi Anda
-    major_minor = "2.7"
+    major_minor = "2.8"
     
     version_data = {
         "version": f"v{major_minor}.{commit_count}",

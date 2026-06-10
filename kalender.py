@@ -80,7 +80,7 @@ def kalender_vertikal(tanggal=None):
         bulan_h = h['tanggal_hijriah']['bulan']
         tahun_h = h['tanggal_hijriah']['tahun']
         tanggal_h = h['tanggal_hijriah']['hari']
-        tgl_bulan_h = f"{h['tanggal_hijriah']['hari']} {h['tanggal_hijriah']['bulan']}"
+        tgl_bulan_h = f"{tanggal_h} {bulan_h}"
 
         # =========================
         # KALENDER JAWA
@@ -120,6 +120,7 @@ def kalender_vertikal(tanggal=None):
             "wuku_index": wuku_index,
             "sadwara": sadwara,
             "tgl_hijriah":konversi_ke_hijaiyah(tanggal_h),
+            "tgl_hijriah_2": tanggal_h,
             # "tgl_bulan_tahun_h": h['tanggal_hijriah'],
             "is_today": tgl.date() == today
         }
