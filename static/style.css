@@ -534,6 +534,73 @@ td {
         border-color: rgba(0, 0, 0, 0.125);
     }
     
+    .table-infographic {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0 10px; /* Memberi jarak antar baris seperti card */
+        margin-top: 10px;
+    }
+
+    .table-infographic th {
+        background-color: #e2e8f0;
+        color: #475569;
+        text-transform: uppercase;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.8px;
+        padding: 12px 15px;
+        border: none;
+    }
+
+    .table-infographic th:first-child {
+        border-top-left-radius: 6px;
+        border-bottom-left-radius: 6px;
+        text-align: left;
+    }
+
+    .table-infographic th:last-child {
+        border-top-right-radius: 6px;
+        border-bottom-right-radius: 6px;
+        text-align: right;
+    }
+
+    .table-infographic td {
+        background-color: #ffffff;
+        padding: 16px 15px;
+        font-size: 14.5px;
+        color: #334155;
+        border-top: 1px solid #f1f5f9;
+        border-bottom: 1px solid #f1f5f9;
+        transition: transform 0.2s ease;
+    }
+
+    /* Efek garis aksen vertikal hijau di sebelah kiri tiap baris */
+    .table-infographic td:first-child {
+        font-weight: 600;
+        color: #1e3d59;
+        border-left: 5px solid #17b890;
+        border-top-left-radius: 6px;
+        border-bottom-left-radius: 6px;
+    }
+
+    .table-infographic td:last-child {
+        text-align: right;
+        font-weight: 500;
+        border-right: 1px solid #f1f5f9;
+        border-top-right-radius: 6px;
+        border-bottom-right-radius: 6px;
+    }
+
+    /* Hover effect ketika baris disentuh cursor */
+    .table-infographic tbody tr:hover td {
+        background-color: #f0fdf4;
+        border-color: #dcfce7;
+    }
+
+    .icon-cal {
+        margin-right: 4px;
+        opacity: 0.8;
+    }
   
     /* Responsif Mobile */
     @media (max-width: 576px) {

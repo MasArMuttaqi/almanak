@@ -281,21 +281,23 @@ Metode hisab hakiki wujudul hilal yang digunakan Majelis Tarjih dan Tajdid Pengu
   </div>
   <div class="offcanvas-body">
     <div class="table-responsive rukyah-container">
-    <table class="table">
+    <table class="table-infographic">
         <thead>
             <tr>
-                <th>Awal Bulan Hijriah</th>
-                <th>Tanggal Masehi</th>
+                <th><span class="icon-cal">📆🌙</span> Awal Bulan Hijriah</th>
+                <th><span class="icon-cal">📅</span> Tanggal Masehi</th>
             </tr>
         </thead>
-            <tbody>
-                {% for item in datahilal %}
-                <tr>
-                    <td>{{ item.nama_bulan }}</td>
-                    <td>{{ item.tanggal_masehi }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
+        <tbody>
+            {% for item in datahilal %}
+            <tr>
+                <td class="bulan-hijriah">{{ item.nama_bulan }}</td>
+                <td class="tanggal-masehi">
+                    {{ item.tanggal_masehi }}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
     </table>
     </div>
   </div>
