@@ -36,16 +36,16 @@ POLA_TAHUN = [354, 355, 354, 354, 355, 354, 354, 355]
 # =========================
 # ANCHOR TANGGAL JAWA
 # =========================
-ANCHOR = {
-    "date": datetime(2026, 4, 11),
-    "jdn": gregorian_to_jdn(2026, 4, 11),
-    "tanggal": 23,
-    "bulan": 9,
-    "tahun": 1959,
-    "warsa_index": 4,
-    "windu_index": 0
-}
 
+ANCHOR = {
+    "date": datetime(2025, 6, 27),
+    "jdn": gregorian_to_jdn(2025, 6, 27),
+    "tanggal": 1,
+    "bulan": 0,      # Sura
+    "tahun": 1959,
+    "warsa_index": 4, # Dal
+    "windu_index": 0         
+}
 
 # =========================
 # AUTO KALIBRASI WARA
@@ -404,5 +404,7 @@ def kalender_jawa(tanggal):
     }
 
 # TEST
-# today = datetime.now().date()
-# print(kalender_jawa(today))
+if __name__ == "__main__":
+  today = datetime.now().date()
+  print(today)
+  print(kalender_jawa(today))
