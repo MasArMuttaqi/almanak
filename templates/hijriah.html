@@ -84,8 +84,8 @@
                         <span class="small text-muted fw-bold">Status</span>
                     </li>
                     <li class="list-group-item bg-light py-2">
-                        <span class="badge rounded-pill text-bg-success px-3 text-wrap text-center">{{ data1.kesimpulan['status'] }}</span><br>
-                        <span class="small text-center text-muted"><b>{{ data1.kesimpulan['informasi'] }}</b> Sesuai kriteria {{ data1.kesimpulan['kriteria'] }}</span>
+                        <span class="badge text-bg-success px-3 text-wrap text-start">{{ data1.kesimpulan['status'] }}</span><br>
+                        <span class="small text-end text-muted"><b>{{ data1.kesimpulan['informasi'] }}</b> Sesuai kriteria {{ data1.kesimpulan['kriteria'] }}</span>
                     </li>
                     {% endif %}
                 </ul>
@@ -197,9 +197,12 @@
                         <span class="small text-muted">Waktu Ijtima' / Konjungsi</span>
                         <span class="small font-monospace text-end">{{ data2.ijtima | default("-", true) }}</span>
                     </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center py-2">
+                    <li class="list-group-item d-flex justify-content-between align-items-center bg-light py-2">
                         <span class="small fw-bold text-muted">Status</span>
-                        <span class="badge rounded-pill text-bg-info text-end">{{ data2.keputusan }}</span>
+                        <div class="text-end">
+                           <span class="badge rounded-pill bg-primary text-white text-end">{{ data2.keputusan['status'] }}</span><br>
+                           <span class="small text-muted">{{ data2.keputusan['keterangan'] }}</span> 
+                        </div>
                     </li>
                 </ul>
 
@@ -245,11 +248,12 @@ Metode hisab hakiki wujudul hilal yang digunakan Majelis Tarjih dan Tajdid Pengu
                         <span class="small text-muted">Elongasi Geosentrik</span>
                         <span class="small text-end">{{ data3.hijriah['elongasi'] }}</span>
                     </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center py-2">
+                    <li class="list-group-item d-flex justify-content-between align-items-center bg-light py-2">
                         <span class="small text-muted fw-bold">Status</span>
                         <div class="text-end">
-                            <span class="small text-muted">{{ data3.hijriah['imkan'] }}</span>
-                            <span class="badge rounded-pill text-bg-info small">{{ data3.hijriah['status_kgth'] }}</span>
+                            <span class="badge rounded-pill bg-primary text-white">{{ data3.hijriah['imkan'] }}</span>
+                            <br>
+                            <span class="small text-muted">{{ data3.hijriah['status_kgth'] }}</span>
                         </div>
                     </li>
                 </ul>

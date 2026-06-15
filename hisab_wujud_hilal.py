@@ -347,15 +347,31 @@ def hisab(year, month, day):
 # ==========================================
 def keputusan(jd_ss, jd_ij, alt):
     if jd_ij is None:
-        return "ISTIKMAL (Ijtimak tidak terjadi)"
+        # return "ISTIKMAL (Ijtimak tidak terjadi)"
+        return {
+            "status": "Istikmal",
+            "keterangan": "Ijtimak tidak terjadi"
+        }
 
     if jd_ij > jd_ss:
-        return "ISTIKMAL (Ijtimak setelah maghrib)"
+        # return "ISTIKMAL (Ijtimak setelah maghrib)"
+        return {
+            "status": "Istikmal",
+            "keterangan": "Ijtimak terjadi setelah magrib"
+        }
 
     if alt > 0:
-        return "Masuk Bulan Baru (Wujudul Hilal)"
+        # return "Masuk Bulan Baru (Wujudul Hilal)"
+        return {
+            "status": "Masuk bulan baru",
+            "keterangan": "Wujudul hilal"
+        }
 
-    return "ISTIKMAL (Hilal belum wujud)"
+    # return "ISTIKMAL (Hilal belum wujud)"
+    return {
+        "status": "Istikmal",
+        "keterangan": "Hilal belum wujud"
+    }
 
 
 
