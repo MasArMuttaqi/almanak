@@ -215,6 +215,7 @@ def kalender_vertikal(tanggal=None):
        "periode_jawa": periode_jawa,
        "mingguan": mingguan,
        "candranipun": candranipun(pranatamangsa),
+       "pranatamangsa": pranatamangsa,
        "hari_penting": list(hari_penting_hasil.values())
        # "data_harian": data_harian  # opsional
     }

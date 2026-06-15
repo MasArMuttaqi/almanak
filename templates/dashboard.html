@@ -89,14 +89,27 @@
   </table>
 </div>
 <div class="row mt-3 mb-3">
-        <div class="col-4">
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item d-flex justify-content-start gap-4">
+      <small class="hari-jawa">Pranatamangsa</small>
+      <small class="hari-jawa">{{pranatamangsa}}</small>
+    </li>
+    <li class="list-group-item d-flex justify-content-start gap-4">
+      <small class="hari-jawa">Candranipun</small>
+      <div>
+        <span class="aksara" style="text-align: left; color: #184d47;">{{ candranipun[0].candranipun_aksara }}</span><br>
+        <span class="hari-jawa" style="text-align: left;font-size: 13px;position: relative;top: -9px;">{{ candranipun[0].candranipun_latin }}</span>
+      </div>
+    </li>
+  </ul>
+        <!-- <div class="col-4">
             <small class="hari-jawa">Candranipun</small>
         </div>
         <div class="col-8">
             <span class="aksara" style="text-align: left;">{{ candranipun[0].candranipun_aksara }}</span><br>
             <span class="pasaran" style="text-align: left;">{{ candranipun[0].candranipun_latin }}</span>
-        </div>
-    </div>
+        </div> -->
+</div>
     <!-- calendar -->
     <p class="pasaran">Kalender ini mengadopsi dan menyelasakan berdasarkan acuan sistem penanggalan Kalender Karaton Dalem Ngayogkarta Hadiningrat dan Lembaga Falakiyah Nahdlatul Ulama</p>
 </section>

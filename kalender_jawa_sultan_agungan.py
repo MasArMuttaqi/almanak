@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, date
 # import math
 
 # =========================
@@ -22,7 +22,7 @@ BULAN_JAWA = [
     "Ruwah", "Pasa", "Sawal", "Dulkangidah", "Besar"
 ]
 
-SIKLUS_WARSA = ["Alip", "Ehe", "Jimawal", "Je", "Dal", "Be", "Wawu", "Jimakir"]
+# SIKLUS_WARSA = ["Alip", "Ehe", "Jimawal", "Je", "Dal", "Be", "Wawu", "Jimakir"]
 SIKLUS_WINDU = ["Adi", "Kuntara", "Sengara", "Sancaya"]
 SIKLUS_LAMBANG = ["Kulawu", "Langkir"]
 
@@ -30,21 +30,42 @@ SADWARA = ["Tungle","Aryang","Wurukung","Paningron","Uwas","Mawulu"]
 HASTAWARA = ["Sri","Indra","Guru","Yama","Ludra","Brahma","Kala","Uma"]
 SANGAWARA = ["Dangu","Jangur","Gigis","Nohan","Wogan","Kerangan","Wurungan","Tulus","Dadi"]
 
-POLA_TAHUN = [354, 355, 354, 354, 355, 354, 354, 355]
+# POLA_TAHUN = [354, 355, 354, 354, 355, 354, 354, 355]
+
+SIKLUS_WARSA = [
+    "Alip",
+    "Ehe",
+    "Jimawal",
+    "Je",
+    "Dal",
+    "Be",
+    "Wawu",
+    "Jimakir"
+]
+
+POLA_TAHUN = [
+    354,  # Alip
+    355,  # Ehe
+    354,  # Jimawal
+    354,  # Je
+    355,  # Dal
+    354,  # Be
+    354,  # Wawu
+    355   # Jimakir
+]
 
 
 # =========================
 # ANCHOR TANGGAL JAWA
 # =========================
-
 ANCHOR = {
     "date": datetime(2025, 6, 27),
     "jdn": gregorian_to_jdn(2025, 6, 27),
     "tanggal": 1,
-    "bulan": 0,      # Sura
+    "bulan": 0,          # Sura
     "tahun": 1959,
-    "warsa_index": 4, # Dal
-    "windu_index": 0         
+    "warsa_index": 4,    # Dal
+    "windu_index": 0
 }
 
 # =========================
@@ -86,44 +107,66 @@ def hitung_wara(jdn):
 # KONVERSI JAWA
 # =========================
 def jdn_to_jawa(jdn):
+
     delta = jdn - ANCHOR["jdn"]
 
-    siklus_8 = sum(POLA_TAHUN)
-    siklus_count = delta // siklus_8
-    sisa_hari = delta % siklus_8
+    tahun = ANCHOR["tahun"]
+    warsa_idx = ANCHOR["warsa_index"]
 
-    tahun = ANCHOR["tahun"] + siklus_count * 8
+    # =========================
+    # MAJU
+    # =========================
+    if delta >= 0:
 
-    i = 0
-    while sisa_hari >= POLA_TAHUN[i]:
-        sisa_hari -= POLA_TAHUN[i]
-        tahun += 1
-        i += 1
-
-    panjang_bulan = [30,29,30,29,30,29,30,29,30,29,30,29]
-
-    if POLA_TAHUN[(tahun - ANCHOR["tahun"]) % 8] == 355:
-        panjang_bulan[-1] = 30
-
-    bulan = ANCHOR["bulan"]
-    tanggal = ANCHOR["tanggal"] + sisa_hari
-
-    while tanggal > panjang_bulan[bulan]:
-        tanggal -= panjang_bulan[bulan]
-        bulan += 1
-        if bulan > 11:
-            bulan = 0
+        while delta >= POLA_TAHUN[warsa_idx]:
+            delta -= POLA_TAHUN[warsa_idx]
             tahun += 1
+            warsa_idx = (warsa_idx + 1) % 8
+
+    # =========================
+    # MUNDUR
+    # =========================
+    else:
+
+        while delta < 0:
+            warsa_idx = (warsa_idx - 1) % 8
+            tahun -= 1
+            delta += POLA_TAHUN[warsa_idx]
+
+    # =========================
+    # BULAN
+    # =========================
+    panjang_bulan = [
+        30, 29, 30, 29,
+        30, 29, 30, 29,
+        30, 29, 30, 29
+    ]
+
+    # Tahun panjang → Besar 30 hari
+    if POLA_TAHUN[warsa_idx] == 355:
+        panjang_bulan[11] = 30
+
+    bulan = 0
+
+    while delta >= panjang_bulan[bulan]:
+        delta -= panjang_bulan[bulan]
+        bulan += 1
+
+    tanggal = delta + 1
 
     selisih_tahun = tahun - ANCHOR["tahun"]
 
     return {
-        "tanggal": tanggal,
+        "tanggal": int(tanggal),
         "bulan": BULAN_JAWA[bulan],
-        "tahun": tahun,
-        "warsa": SIKLUS_WARSA[(ANCHOR["warsa_index"] + selisih_tahun) % 8],
-        "windu": SIKLUS_WINDU[(ANCHOR["windu_index"] + selisih_tahun // 8) % 4],
-        "lambang": SIKLUS_LAMBANG[(selisih_tahun // 8) % 2]
+        "tahun": int(tahun),
+        "warsa": SIKLUS_WARSA[warsa_idx],
+        "windu": SIKLUS_WINDU[
+            (ANCHOR["windu_index"] + (selisih_tahun // 8)) % 4
+        ],
+        "lambang": SIKLUS_LAMBANG[
+            ((selisih_tahun // 8) % 2)
+        ]
     }
 
 # =========================
@@ -405,6 +448,7 @@ def kalender_jawa(tanggal):
 
 # TEST
 if __name__ == "__main__":
-  today = datetime.now().date()
-  print(today)
-  print(kalender_jawa(today))
+#   today = datetime.now().date()
+    today = date(2026, 6, 17)
+    print(today)
+    print(kalender_jawa(today))
