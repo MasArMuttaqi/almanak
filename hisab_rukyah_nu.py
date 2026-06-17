@@ -326,7 +326,6 @@ if __name__ == "__main__":
     print("tinggi hilal hakiki :", data["data_astronomi"]["tinggi_hilal_hakiki"])
     print("tinggi hilal mar'i :", data["data_astronomi"]["tinggi_hilal_mari"])
     print("elongasi", data["data_astronomi"]["elongasi"])
-    # print("umur_bulan", data["data_astronomi"]["umur_bulan"])
     print("azimut matahari :", data["data_astronomi"]["azimut_matahari"])
     print("azimut bulan :", data["data_astronomi"]["azimut_bulan"])
     print("=" * 60)
