@@ -83,11 +83,11 @@ def kalibrasi_wara(tanggal_ref, ref):
 
 # 🔥 REFERENSI NYATA (INI KUNCI)
 OFFSET = kalibrasi_wara(
-    datetime(2026, 4, 14),
+    datetime(2025, 6, 27),
     {
-        "sadwara": "Paningron",
-        "hastawara": "Uma",
-        "sangawara": "Dangu"
+        "sadwara": "Tungle",
+        "hastawara": "Ludra",
+        "sangawara": "Tulus"
     }
 )
 
@@ -449,6 +449,6 @@ def kalender_jawa(tanggal):
 # TEST
 if __name__ == "__main__":
 #   today = datetime.now().date()
-    today = date(2026, 6, 17)
+    today = date(2025, 6, 28)
     print(today)
     print(kalender_jawa(today))
