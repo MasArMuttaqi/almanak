@@ -35,8 +35,8 @@
                             </span>
 
                         <div class="d-flex flex-column text-end mb-2 text-muted fw-bold">
-                             <span>{{ data.hari_jawa }}</span>
-                             <span>{{ data.hari_caka }}</span>
+                             <span style="white-space: nowrap;">{{ data.hari_jawa }}</span><br>
+                             <span style="white-space: nowrap;">{{ data.hari_caka }}</span>
                          </div>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center py-3">
@@ -157,18 +157,14 @@
                 <li class="list-group-item p-3">
                     <div class="row g-3">
                         <div class="col-6 border-end">
-                                <small class="text-muted d-block small">Parerasan & pancasuda (çaka)
-                                    <a href="" class="btn-detail" data-bs-toggle="offcanvas" data-bs-target="#kalenderjawa" aria-controls="offcanvasBottom" data-id="9">
+                            <small class="text-muted d-block small">Parerasan & pancasuda (çaka)
+                                <a href="" class="btn-detail" data-bs-toggle="offcanvas" data-bs-target="#kalenderjawa" aria-controls="offcanvasBottom" data-id="9">
                                     <i class="fi fi-br-info"></i>
-                                    </a>
-                                </small>
-                                <ol class="list-group list-group-flush list-group-numbered">
-                                    {% for item in data.parerasan %}
-                                    <li class="list-group-item">
-                                    <span class="fw-bold">{{ item }}</span>   
-                                    </li>
-                                    {% endfor %}
-                                </ol>
+                                </a>
+                            </small>
+                            {% for item in data.parerasan %}
+                                <span class="fw-bold mb-3">{{ item }}</span>   
+                            {% endfor %}
                         </div>
                         <div class="col-6 ps-3">
                                 <small class="text-muted d-block small">Rakam
