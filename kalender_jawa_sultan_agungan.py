@@ -30,7 +30,6 @@ SADWARA = ["Tungle","Aryang","Wurukung","Paningron","Uwas","Mawulu"]
 HASTAWARA = ["Sri","Indra","Guru","Yama","Ludra","Brahma","Kala","Uma"]
 SANGAWARA = ["Dangu","Jangur","Gigis","Nohan","Wogan","Kerangan","Wurungan","Tulus","Dadi"]
 
-# POLA_TAHUN = [354, 355, 354, 354, 355, 354, 354, 355]
 
 SIKLUS_WARSA = [
     "Alip",
@@ -54,6 +53,42 @@ POLA_TAHUN = [
     355   # Jimakir
 ]
 
+# =========================
+# DAFTAR WUKU
+# =========================
+WUKU = [
+    {"nama": "Sinta", "neptu": 7},
+    {"nama": "Landep", "neptu": 1},
+    {"nama": "Wukir", "neptu": 4},
+    {"nama": "Kurantil", "neptu": 6},
+    {"nama": "Tolu", "neptu": 5},
+    {"nama": "Gumbreg", "neptu": 8},
+    {"nama": "Warigalit", "neptu": 9},
+    {"nama": "Warigagung", "neptu": 3},
+    {"nama": "Julungwangi", "neptu": 7},
+    {"nama": "Sungsang", "neptu": 1},
+    {"nama": "Galungan", "neptu": 4},
+    {"nama": "Kuningan", "neptu": 6},
+    {"nama": "Langkir", "neptu": 5},
+    {"nama": "Mandasiya", "neptu": 8},
+    {"nama": "Julungpujut", "neptu": 9},
+    {"nama": "Pahang", "neptu": 3},
+    {"nama": "Kuruwelut", "neptu": 7},
+    {"nama": "Marakeh", "neptu": 1},
+    {"nama": "Tambir", "neptu": 4},
+    {"nama": "Medangkungan", "neptu": 6},
+    {"nama": "Maktal", "neptu": 5},
+    {"nama": "Wuye", "neptu": 8},
+    {"nama": "Manahil", "neptu": 9},
+    {"nama": "Prangbakat", "neptu": 3},
+    {"nama": "Bala", "neptu": 7},
+    {"nama": "Wugu", "neptu": 1},
+    {"nama": "Wayang", "neptu": 4},
+    {"nama": "Kulawu", "neptu": 6},
+    {"nama": "Dukut", "neptu": 5},
+    {"nama": "Watugunung", "neptu": 8}
+]
+
 
 # =========================
 # ANCHOR TANGGAL JAWA
@@ -65,41 +100,47 @@ ANCHOR = {
     "bulan": 0,          # Sura
     "tahun": 1959,
     "warsa_index": 4,    # Dal
-    "windu_index": 0
+    "windu_index": 0,
+    "sadwara_index": 0,  # tungle
+    "hastawara_index":4, # ludra
+    "sangawara_index": 7, # Tulus
+    # "jdn_wuku_index": 2461143,
+    # "wuku_index": 1,  # Landep
+    "jdn_wuku_index": gregorian_to_jdn(2025, 6, 22), # awal wuku
+    "wuku_index": 19,  # Madangkungan
 }
 
 # =========================
-# AUTO KALIBRASI WARA
+# HITUNG WUKU
 # =========================
-def kalibrasi_wara(tanggal_ref, ref):
-    jdn = gregorian_to_jdn(tanggal_ref.year, tanggal_ref.month, tanggal_ref.day)
+def hitung_wuku(jdn):
+    idx_wuku = (
+        ANCHOR["wuku_index"]
+        + (jdn - ANCHOR["jdn_wuku_index"]) // 7
+    ) % 30
 
     return {
-        "sad": (SADWARA.index(ref["sadwara"]) - jdn % 6) % 6,
-        "hasta": (HASTAWARA.index(ref["hastawara"]) - jdn % 8) % 8,
-        "sanga": (SANGAWARA.index(ref["sangawara"]) - jdn % 9) % 9
+        "wuku_index": idx_wuku,
+        "wuku": WUKU[idx_wuku]["nama"],
+        "neptu_wuku": WUKU[idx_wuku]["neptu"]
     }
-
-
-# 🔥 REFERENSI NYATA (INI KUNCI)
-OFFSET = kalibrasi_wara(
-    datetime(2025, 6, 27),
-    {
-        "sadwara": "Tungle",
-        "hastawara": "Ludra",
-        "sangawara": "Tulus"
-    }
-)
-
 
 # =========================
 # HITUNG WARA
 # =========================
 def hitung_wara(jdn):
+    selisih = jdn - ANCHOR["jdn"]
+
     return {
-        "sadwara": SADWARA[(jdn + OFFSET["sad"]) % 6],
-        "hastawara": HASTAWARA[(jdn + OFFSET["hasta"]) % 8],
-        "sangawara": SANGAWARA[(jdn + OFFSET["sanga"]) % 9],
+        "sadwara": SADWARA[
+            (ANCHOR["sadwara_index"] + selisih) % 6
+        ],
+        "hastawara": HASTAWARA[
+            (ANCHOR["hastawara_index"] + selisih) % 8
+        ],
+        "sangawara": SANGAWARA[
+            (ANCHOR["sangawara_index"] + selisih) % 9
+        ],
     }
 
 
@@ -312,8 +353,6 @@ def pancasuda_pakuwon(dina_nama, pasaran_nama, wuku_neptu):
        index = 6
    else:
        index = sisa - 1
-
-   # return data_sisa_pancasuda_pakuwon[index]['nama']
    return {
         "pancasuda_pakuwon": data_sisa_pancasuda_pakuwon[index]['nama'],
         "pancasuda_bincilan": data_pancasuda_bincilan[index]['nama']     
@@ -364,47 +403,13 @@ def kalender_jawa(tanggal):
     jdn = gregorian_to_jdn(tanggal.year, tanggal.month, tanggal.day)
 
     # WUKU
-    jdn_anchor_landep = 2461143
-    idx_wuku = (1 + (jdn - jdn_anchor_landep) // 7) % 30
-
-    WUKU = [
-        {"nama": "Sinta", "neptu": 7},
-        {"nama": "Landep", "neptu": 1},
-        {"nama": "Wukir", "neptu": 4},  # Ukir
-        {"nama": "Kurantil", "neptu": 6},  # Kulantir
-        {"nama": "Tolu", "neptu": 5},  # Taulu
-        {"nama": "Gumbreg", "neptu": 8},
-        {"nama": "Warigalit", "neptu": 9},  # Wariga
-        {"nama": "Warigagung", "neptu": 3},  # Warigadean
-        {"nama": "Julungwangi", "neptu": 7},
-        {"nama": "Sungsang", "neptu": 1},
-        {"nama": "Galungan", "neptu": 4},  # Dungulan
-        {"nama": "Kuningan", "neptu": 6},
-        {"nama": "Langkir", "neptu": 5},
-        {"nama": "Mandasiya", "neptu": 8},  # Medangsia
-        {"nama": "Julungpujut", "neptu": 9},  # Pujut
-        {"nama": "Pahang", "neptu": 3},
-        {"nama": "Kuruwelut", "neptu": 7},  # Krulut
-        {"nama": "Marakeh", "neptu": 1},  # Merakih
-        {"nama": "Tambir", "neptu": 4},
-        {"nama": "Medangkungan", "neptu": 6},
-        {"nama": "Maktal", "neptu": 5},  # Matal
-        {"nama": "Wuye", "neptu": 8},  # Uye
-        {"nama": "Manahil", "neptu": 9},  # Menail
-        {"nama": "Prangbakat", "neptu": 3},
-        {"nama": "Bala", "neptu": 7},
-        {"nama": "Wugu", "neptu": 1},  # Ugu
-        {"nama": "Wayang", "neptu": 4},
-        {"nama": "Kulawu", "neptu": 6},  # Klau
-        {"nama": "Dukut", "neptu": 5},
-        {"nama": "Watugunung", "neptu": 8}
-    ]
+    # jdn_anchor_landep = 2461143
+    # idx_wuku = (1 + (jdn - jdn_anchor_landep) // 7) % 30
+    wuku = hitung_wuku(jdn)
 
     # WARA
     wara = hitung_wara(jdn)
 
-    # HARI
-    # DINA = ["Senen","Selasa","Rebo","Kemis","Jemuwah","Setu","Ahad"]
     DINA = [
         ["Senen", "Soma","Senin"],
         ["Selasa", "Anggara","Selasa"],
@@ -415,7 +420,6 @@ def kalender_jawa(tanggal):
         ["Ahad", "Radite","Ahad"]
     ]
 
-    # PASARAN = ["Legi","Pahing","Pon","Wage","Kliwon"]
     PASARAN = [
         ["Legi", "Umanis (Manis)"],
         ["Pahing", "Paing (Jenar)"],
@@ -428,7 +432,7 @@ def kalender_jawa(tanggal):
 
     dina = DINA[jdn%7]
     pasaran = PASARAN[jdn%5]
-    wuku_hasil = WUKU[idx_wuku]
+    # wuku_hasil = WUKU[idx_wuku]
     return {
         "masehi": tanggal.strftime("%d-%m-%Y"),
         "hari_jawa": f"{dina[0]} {pasaran[0]}",
@@ -436,19 +440,20 @@ def kalender_jawa(tanggal):
         "hari_pasaran": f"{dina[2]} {pasaran[0]}",
         "tanggal_jawa": f"{jawa['tanggal']} {jawa['bulan']} {jawa['warsa']} {jawa['tahun']}",
         "windu": f"{jawa['windu']} ({jawa['lambang']})",
-        "wuku_index": idx_wuku,
-        "wuku": wuku_hasil['nama'],
+        # "wuku_index": idx_wuku,
+        # "wuku": wuku_hasil['nama'],
+        **wuku,
         **wara,
         "parerasan": cari_parerasan(dina[0], pasaran[0]),
         "pancasuda_biasa": pancasuda_biasa(dina[0], pasaran[0]),
-        "pawukon": pancasuda_pakuwon(dina[0], pasaran[0],wuku_hasil['neptu']),
+        "pawukon": pancasuda_pakuwon(dina[0], pasaran[0],wuku["neptu_wuku"]),
         "rakam": hitung_rakam(dina[0], pasaran[0]),
         "pranatamangsa": hitung_mangsa(tanggal)
     }
 
 # TEST
 if __name__ == "__main__":
-#   today = datetime.now().date()
-    today = date(2025, 6, 28)
+    today = datetime.now().date()
+    # today = date(2025, 6, 28)
     print(today)
     print(kalender_jawa(today))
