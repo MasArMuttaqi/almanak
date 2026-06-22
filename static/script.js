@@ -72,3 +72,9 @@ $(document).ready(function() {
     'max': maxDate                                        
   });
 });
+
+//hapus parameter get url
+document.getElementById('currentMonth').addEventListener('click', () => {
+    // Redirects to the base URL without any '?' or '#' parameters
+    window.location.href = window.location.origin + window.location.pathname;
+  });

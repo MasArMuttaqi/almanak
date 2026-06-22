@@ -135,7 +135,7 @@ def kalender_vertikal(tanggal=None):
         # SIMPAN KE GRID KALENDER
         # =========================
         hasil[hari_index][minggu_ke] = {
-            "tanggal_id": f"{today.year}-{today.month:02d}-{tgl.day:02d}",
+            "tanggal_id": f"{tgl.year}-{tgl.month:02d}-{tgl.day:02d}",
             "tgl": tgl.day,
             "tgl_jawa":tgl_jawa,
             "pasaran": pasaran_j,

@@ -2,10 +2,15 @@
 {% block content %}
 <section class="container image-container" style="margin-top:100px;" >
     <!-- alt2 -->
-    <div class="d-flex justify-content-end">
-      <div class="btn-group mb-3" role="group" aria-label="Basic outlined example">
-        <a href="?periode={{prev_bulan}}" id="prevMonth" class="btn btn-sm btn-outline-secondary {% if not prev_bulan %}disabled{% endif %}"><i class="fi fi-br-angle-left"></i></a>
-        <a href="?periode={{next_bulan}}" id="nextMonth" class="btn btn-sm btn-outline-secondary {% if not next_bulan %}disabled{% endif %}"><i class="fi fi-br-angle-right"></i></a>
+    <div class="d-flex justify-content-end mb-4">
+      <div class="btn-toolbar mb-4" role="toolbar" aria-label="Toolbar with button groups">
+        <div class="btn-group me-2" role="group" aria-label="Third group">
+          <button type="button" id="currentMonth" class="btn btn-sm btn-outline-secondary rounded-pill">Bulan ini</button>
+        </div>
+        <div class="btn-group me-3" role="group" aria-label="Basic outlined example">
+          <a href="?periode={{prev_bulan}}" id="prevMonth" class="btn btn-sm btn-outline-secondary {% if not prev_bulan %}border-0 disabled{% endif %}"><i class="fi fi-br-angle-left"></i></a>
+          <a href="?periode={{next_bulan}}" id="nextMonth" class="btn btn-sm btn-outline-secondary {% if not next_bulan %}border-0 disabled{% endif %}"><i class="fi fi-br-angle-right"></i></a>
+        </div>
       </div>
     </div>
     <div class="d-flex justify-content-between align-items-center">
