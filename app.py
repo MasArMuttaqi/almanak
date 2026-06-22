@@ -4,6 +4,8 @@ from functools import wraps
 # from datetime import datetime
 # from konversitanggal import *
 # import json
+import os
+import io
 from kalender import *
 from kalender_jawa_sultan_agungan import *
 from hisab_rukyah_nu import *
@@ -11,8 +13,6 @@ from hisab_wujud_hilal import *
 from hijriah_kgth import get_hijriah
 from generate_version import write_version_file
 
-import os
-import io
 import qrcode
 import pyotp
 
@@ -24,10 +24,11 @@ FILE_JSON_KOREKSI_AWAL_BULAN_HIJRIAH = "data/koreksirukyah.json"
 
 @app.route("/")
 def dashboard():
-    now = datetime.now()
-    data = kalender_vertikal()
-    bulan = bulan_indonesia(now)
-    return render_template("dashboard.html",bulan=bulan,data=data["grid"],periode_hijriah=data["periode_hijriah"],periode_jawa=data["periode_jawa"], wuku=data["mingguan"],pranatamangsa=data["pranatamangsa"],candranipun=data["candranipun"],hari_penting=data["hari_penting"])
+    # now = datetime.now()
+    periode = request.args.get("periode")
+    data = kalender_vertikal(periode)
+    bulan = periode_bulan_indonesia(data["periode"])
+    return render_template("dashboard.html",bulan=bulan,data=data["grid"],periode_hijriah=data["periode_hijriah"],periode_jawa=data["periode_jawa"], wuku=data["mingguan"],pranatamangsa=data["pranatamangsa"],candranipun=data["candranipun"],hari_penting=data["hari_penting"],prev_bulan=data["prev_bulan"],next_bulan=data["next_bulan"])
 
 @app.route('/detail-kalender')
 def detail_kalender():

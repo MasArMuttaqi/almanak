@@ -1,22 +1,40 @@
 {% extends "base.html" %}
 {% block content %}
 <section class="container image-container" style="margin-top:100px;" >
-    <!-- header calendar -->
-    <h5 class="text-center mt-4 mb-4 date-num">{{ bulan }}</h5>
-          <div class="d-flex justify-content-between align-items-center                             " style="font-family: 'Rajdhani', sans-serif;">
-       <h6 class="mb-2 text-body-secondary">
-          {{ periode_hijriah[0].bulan_hijriah }}
-          {{ periode_hijriah[0].tahun_hijriah }}
-          <br>
-          {{ periode_hijriah[-1].bulan_hijriah }}
-          {{ periode_hijriah[-1].tahun_hijriah }}
-       </h6>
+    <!-- alt2 -->
+    <div class="d-flex justify-content-end">
+      <div class="btn-group mb-3" role="group" aria-label="Basic outlined example">
+        <a href="?periode={{prev_bulan}}" id="prevMonth" class="btn btn-sm btn-outline-secondary {% if not prev_bulan %}disabled{% endif %}"><i class="fi fi-br-angle-left"></i></a>
+        <a href="?periode={{next_bulan}}" id="nextMonth" class="btn btn-sm btn-outline-secondary {% if not next_bulan %}disabled{% endif %}"><i class="fi fi-br-angle-right"></i></a>
+      </div>
+    </div>
+    <div class="d-flex justify-content-between align-items-center">
+      <!-- masehi -->
+      <div class="d-flex flex-column">
+        <h5 class="text-start bulan-masehi">{{ bulan.split()[0] }}</h5>
+        <h5 class="text-start tahun-masehi">{{ bulan.split()[1] }}</h5>
+      </div>
+      <!-- jawa hijriah -->
+      <div class="d-flex flex-column gap-2 hijriah-jawa text-end">
+          
+        <h6 class="mb-0 text-body-secondary d-flex flex-column flex-md-row gap-md-1 justify-content-md-end">
+          <span>{{ periode_hijriah[0].bulan_hijriah }} {{ periode_hijriah[0].tahun_hijriah }}</span>
+          <span class="d-none d-md-inline">-</span> 
+          <span>{{ periode_hijriah[-1].bulan_hijriah }} {{ periode_hijriah[-1].tahun_hijriah }}</span>
+        </h6>
 
-       <h6 class="mb-2 text-body-secondary text-end">
-           {{ periode_jawa[0].bulan_tahun_jawa }} <br> {{ periode_jawa[-1].bulan_tahun_jawa }}
-       </h6>
-          </div>
-    <!-- header calendar -->
+        <h6 class="mb-0 text-body-secondary d-flex flex-column flex-md-row gap-md-1 justify-content-md-end">
+          <span>{{ periode_jawa[0].bulan_tahun_jawa }}</span>
+          <span class="d-none d-md-inline">-</span> 
+          <span>{{ periode_jawa[-1].bulan_tahun_jawa }}</span>
+        </h6>
+
+      </div>
+
+
+    </div>
+    <!-- alt2 -->
+                                                                                                                                                  
     <!-- calendar -->
     <div class="table-responsive" style="overflow-x: auto; position: relative;">
   <table class="table table-custom">
@@ -89,26 +107,21 @@
   </table>
 </div>
 <div class="row mt-3 mb-3">
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item d-flex justify-content-start gap-4">
-      <small class="hari-jawa">Pranatamangsa</small>
-      <small class="hari-jawa">{{pranatamangsa}}</small>
-    </li>
-    <li class="list-group-item d-flex justify-content-start gap-4">
-      <small class="hari-jawa">Candranipun</small>
-      <div>
-        <span class="aksara" style="text-align: left; color: #184d47;">{{ candranipun[0].candranipun_aksara }}</span><br>
-        <span class="hari-jawa" style="text-align: left;font-size: 13px;position: relative;top: -9px;">{{ candranipun[0].candranipun_latin }}</span>
-      </div>
-    </li>
-  </ul>
-        <!-- <div class="col-4">
-            <small class="hari-jawa">Candranipun</small>
-        </div>
-        <div class="col-8">
-            <span class="aksara" style="text-align: left;">{{ candranipun[0].candranipun_aksara }}</span><br>
-            <span class="pasaran" style="text-align: left;">{{ candranipun[0].candranipun_latin }}</span>
-        </div> -->
+  <div class="col-4">
+    <span class="hijriah-jawa" style="font-size:0.8rem;">Pranatamangsa</span>
+  </div>
+  <div class="col-8">
+    <span class="hijriah-jawa" style="font-size:0.8rem;">{{ pranatamangsa }}</span>
+  </div>
+</div>
+<div class="row mt-3 mb-3">
+  <div class="col-4">
+    <span class="hijriah-jawa" style="font-size:0.8rem;">Candranipun</span>
+  </div>
+  <div class="col-8">
+    <span class="aksara" style="text-align: left; font-size:1rem;">{{ candranipun[0].candranipun_aksara }}</span><br>
+    <span class="hijriah-jawa" style="text-align: left; font-size:0.8rem;">{{ candranipun[0].candranipun_latin }}</span>
+  </div>
 </div>
     <!-- calendar -->
     <p class="pasaran">Kalender ini mengadopsi dan menyelasakan berdasarkan acuan sistem penanggalan Kalender Karaton Dalem Ngayogkarta Hadiningrat dan Lembaga Falakiyah Nahdlatul Ulama</p>
@@ -300,12 +313,10 @@ $(document).on('click', 'td[data-tgl]', function () {
 
 $(document).on('click', 'td[data-index]', function () {
     let tanggal = $(this).attr('data-index');
-    // console.log('tanggal:', tanggal);
     $.get('/detail-wuku', { wuku_index: tanggal }, function(res){
         $('#offcanvasTitle_wuku').html("Wuku " + res.Wuku);
         $("#preview").attr("src", res.ilustrasi);
         $('#interpretasi').html(res.interpretasi);
-        // console.log('interpetasi:', res.interpretasi);
     });
 
 });

@@ -2,7 +2,8 @@
       /* font */
 @import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Cairo+Play:wght@200..1000&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&family=Rajdhani:wght@300;400;500;600;700&display=swap');
 @font-face {
-      font-family: aksara;     src:url("/static/nykNgayogyanNew.woff2");
+    font-family: aksara;
+    src:url("/static/nykNgayogyanNew.woff2");
 }
     /* font */
 
@@ -132,6 +133,26 @@ background-repeat: repeat;
 }
 /* container */
 
+/* header calendar */
+.bulan-masehi{
+    color: #c05c3d;
+    font-size: 1.8rem;
+    line-height: 1.1;
+    margin-bottom: 5px;
+    font-weight: 700;
+}
+.tahun-masehi{
+    color: #7a7a7a;
+    font-size: 1.5rem;
+    line-height: 1.1;
+    font-weight: 700;
+}
+.hijriah-jawa{
+    font-family: 'Rajdhani', sans-serif; 
+    font-size: 0.7rem;
+}
+
+/* header calendar */
   /* CSS untuk membekukan kolom pertama */
   .sticky-col {
     position: sticky;

@@ -43,6 +43,31 @@ def hari_penting(tanggal_hijriah, tanggal_masehi):
 def kalender_vertikal(tanggal=None):
     if tanggal is None:
         tanggal = datetime.now()
+    elif isinstance(tanggal, str):
+        try:
+            tanggal = datetime.strptime(tanggal, "%Y-%m")
+        except ValueError:
+            tanggal = datetime.now()
+    
+    TAHUN_BERJALAN = datetime.now().year
+
+    tahun = tanggal.year
+    bulan = tanggal.month
+
+    # Pastikan tahun tetap tahun berjalan
+    tahun = TAHUN_BERJALAN
+
+    # Prev
+    if bulan > 1:
+        prev_bulan = f"{tahun}-{bulan-1:02d}"
+    else:
+        prev_bulan = None
+
+    # Next
+    if bulan < 12:
+        next_bulan = f"{tahun}-{bulan+1:02d}"
+    else:
+        next_bulan = None    
 
     awal = tanggal.replace(day=1)
 
@@ -210,13 +235,16 @@ def kalender_vertikal(tanggal=None):
     # =========================
     pranatamangsa = hitung_mangsa(today)
     return {
+       "periode": f"{tahun}-{bulan:02d}",
        "grid": hasil,
        "periode_hijriah": periode_hijriah, 
        "periode_jawa": periode_jawa,
        "mingguan": mingguan,
        "candranipun": candranipun(pranatamangsa),
        "pranatamangsa": pranatamangsa,
-       "hari_penting": list(hari_penting_hasil.values())
+       "hari_penting": list(hari_penting_hasil.values()),
+       "prev_bulan": prev_bulan,
+       "next_bulan": next_bulan
        # "data_harian": data_harian  # opsional
     }
 
