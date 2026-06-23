@@ -26,12 +26,13 @@ def get_git_data():
 def write_version_file():
     commit_count, commit_hash = get_git_data()
     
+    commit_count_1 = int(commit_count) + 4 
     # Format versi dasar aplikasi Anda
     major_minor = "2.8"
     
     version_data = {
-        "version": f"v{major_minor}.{commit_count}",
-        "build_number": commit_count,        # Mewakili urutan jumlah commit / run deployment
+        "version": f"v{major_minor}.{commit_count_1}",
+        "build_number": commit_count_1,        # Mewakili urutan jumlah commit / run deployment
         "commit_hash": commit_hash,          # Hash untuk melacak kode spesifik di GitHub
         "updated_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     }

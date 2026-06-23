@@ -9,9 +9,11 @@
 
 
 body{
-min-height:2000px;
-font-family: "Montserrat", sans-serif; background-image:url("/static/img/page-cover.png");
-background-repeat: repeat;
+    min-height:2000px;
+    font-family: "Montserrat", sans-serif; 
+    background-image:url("/static/img/page-cover.png");
+    background-repeat: repeat;
+    background-position: center top;
 }
 
 /* navigation */
@@ -289,9 +291,23 @@ td {
     top: 0;
     left: 0;
     width: 100%;
-    height: 390px;
-    /* background: #F2E5CC; */
-    background: rgba(243, 235, 205, 0.38);
+    height: 400px;
+    background: rgb(242, 229, 204);
+    /* background: rgba(243, 235, 205, 0.38); */
+}
+
+.pattern-square-1:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://aksara.kratonjogja.id/assets/img/background/pattern-4.png');
+    background-position: right center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    z-index: 2;
 }
 
 .heading-section {
@@ -309,7 +325,7 @@ td {
 }
 .heading-section .subheading {
    /* font-family: 'Rajdhani', sans-serif;*/
-    color: #184D47 !important;
+    color: #B1944D !important;
     margin-bottom: 0.625rem;
 }
 
@@ -319,12 +335,10 @@ td {
     margin-bottom: 0.625rem;
 }
 .section-subheading {
-    /* font-family: 'Rajdhani', sans-serif; */
     font-weight: 600;
     font-size: 1.25rem;
     line-height: 1.4;
     letter-spacing: 0.02rem;
-    color: #184D47 !important;
 }
 
 .nm-glow-card {
@@ -632,22 +646,22 @@ td {
             height: 70px; padding: 2px;
         }
         .date-num {
-                font-size: 1.5rem;
+            font-size: 1.5rem;
         }
-            .pasaran {
-                font-size: 0.5rem;
-            }
-            .hijri-num {
-                font-size: 0.6rem;
-            }
-            .pattern-square-1 {
-                width: 100%;
-                height: 65vw;
-            }
-            .heading-section {
-                display: block;
-            }
-            .heading-section .heading {
-                font-size: 1.625rem;
-            }
+        .pasaran {
+            font-size: 0.5rem;
         }
+        .hijri-num {
+            font-size: 0.6rem;
+        }
+        .pattern-square-1 {
+            width: 100%;
+            height: 65vw;
+        }
+        .heading-section {
+            display: block;
+        }
+        .heading-section .heading {
+            font-size: 1.625rem;
+        }
+    }
