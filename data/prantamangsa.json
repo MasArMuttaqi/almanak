@@ -1,61 +1,73 @@
 [
   {
     "Mangsa": "Kasa-Kartika",
+    "Umur": "41 dina",
     "candranipun_aksara": "ꦱꦼꦱꦺꦴꦠꦾꦩꦸꦂꦕꦲꦶꦁꦲꦼꦩ꧀ꦧꦤꦤ꧀",
-    "candranipun_latin": "Sesotyå murcå ing embanan"
+    "candranipun_latin": "Sesotya murca ing embanan"
   },
   {
     "Mangsa": "Karo-Pusa",
+    "Umur": "23 dina",
     "candranipun_aksara": "ꦧꦤ꧀ꦠꦭꦉꦁꦏ",
-    "candranipun_latin": "Bantålå rengkå"
+    "candranipun_latin": "Bantala rengka"
   },
   {
-    "Mangsa": "Katiga-Manggasri",
+    "Mangsa": "Katiga-Agrahayana",
+    "Umur": "24 dina",
     "candranipun_aksara": "ꦱꦸꦠꦩꦤꦸꦠ꧀ꦲꦶꦁꦧꦥ",
-    "candranipun_latin": "Sutå manut ing båpå"
+    "candranipun_latin": "Suta manut ing bapa"
   },
   {
-    "Mangsa": "Kapat-Sitra",
+    "Mangsa": "Kapat-Sitamasa",
+    "Umur": "25 dina",
     "candranipun_aksara": "ꦮꦱ꧀ꦥꦏꦸꦩꦼꦩ꧀ꦧꦼꦁꦗꦿꦺꦴꦤꦶꦁꦏꦭ꧀ꦧꦸ",
-    "candranipun_latin": "Waspå kumembeng jroning kalbu"
+    "candranipun_latin": "Waspa kumembeng jroning kalbu"
   },
   {
-    "Mangsa": "Kalima-Manggala",
+    "Mangsa": "Kalima-Sita",
+    "Umur": "27 dina",
     "candranipun_aksara": "ꦥꦚ꧀ꦕꦸꦫꦤ꧀ꦩꦱ꧀ꦱꦸꦩꦮꦸꦂꦲꦶꦁꦗꦒꦢ꧀",
-    "candranipun_latin": "Pancuran mas sumawur ing jagad"
+    "candranipun_latin": "Pancuran emas sumawur ing jagad"
   },
   {
     "Mangsa": "Kanem-Naya",
+    "Umur": "43 dina",
     "candranipun_aksara": "ꦫꦱꦩꦸꦭꦾꦏꦱꦸꦕꦶꦪꦤ꧀",
-    "candranipun_latin": "Råså mulyå kasuciyan"
+    "candranipun_latin": "Rasa mulya kasuciyan"
   },
   {
     "Mangsa": "Kapitu-Palguna",
+    "Umur": "43 dina",
     "candranipun_aksara": "ꦮꦶꦱꦏꦺꦤ꧀ꦠꦶꦂꦲꦶꦁꦩꦫꦸꦠ",
-    "candranipun_latin": "Wiså kéntir ing marutå"
+    "candranipun_latin": "Wisa kentar ing maruta"
   },
   {
     "Mangsa": "Kawalu-Wisaka",
+    "Umur": "27/26 dina",
     "candranipun_aksara": "ꦲꦚ꧀ꦗꦿꦃꦗꦿꦺꦴꦤꦶꦁꦏꦪꦸꦤ꧀",
     "candranipun_latin": "Anjrah jroning kayun"
   },
   {
     "Mangsa": "Kasanga-Jita",
+    "Umur": "25 dina",
     "candranipun_aksara": "ꦮꦼꦝꦫꦶꦁꦮꦕꦤꦩꦸꦭꦾ",
-    "candranipun_latin": "Wedharing wacånå mulyå"
+    "candranipun_latin": "Wedharing wacana mulya"
   },
   {
     "Mangsa": "Kasapuluh-Srawana",
+    "Umur": "24 dina",
     "candranipun_aksara": "ꦒꦼꦝꦺꦴꦁꦩꦶꦤꦼꦧ꧀ꦗꦿꦺꦴꦤꦶꦁꦏꦭ꧀ꦧꦸ",
-    "candranipun_latin": "Gedhong mineb jroning kalbu"
+    "candranipun_latin": "Gedhong minep jroning kalbu"
   },
   {
-    "Mangsa": "Dhesta-Padrawana",
+    "Mangsa": "Dhesta-Pratrawana",
+    "Umur": "23 dina",
     "candranipun_aksara": "ꦱꦼꦱꦺꦴꦠꦾꦱꦶꦤꦫꦮꦺꦢꦶ",
-    "candranipun_latin": "Sesotyå sinåråwèdi"
+    "candranipun_latin": "Sotya sinarawedi"
   },
   {
     "Mangsa": "Sada-Asuji",
+    "Umur": "41 dina",
     "candranipun_aksara": "ꦠꦶꦂꦠꦱꦃꦱꦏꦶꦁꦱꦱꦤ",
     "candranipun_latin": "Tirta sah saking sasana"
   }
