@@ -1,71 +1,95 @@
 [
   {
+    "awal": "22/06",
+    "akhir": "01/08",
     "Mangsa": "Kasa-Kartika",
     "Umur": "41 dina",
     "candranipun_aksara": "ꦱꦼꦱꦺꦴꦠꦾꦩꦸꦂꦕꦲꦶꦁꦲꦼꦩ꧀ꦧꦤꦤ꧀",
     "candranipun_latin": "Sesotya murca ing embanan"
   },
   {
+    "awal": "02/08",
+    "akhir": "24/08",
     "Mangsa": "Karo-Pusa",
     "Umur": "23 dina",
     "candranipun_aksara": "ꦧꦤ꧀ꦠꦭꦉꦁꦏ",
     "candranipun_latin": "Bantala rengka"
   },
   {
+    "awal": "25/08",
+    "akhir": "17/09",
     "Mangsa": "Katiga-Agrahayana",
     "Umur": "24 dina",
     "candranipun_aksara": "ꦱꦸꦠꦩꦤꦸꦠ꧀ꦲꦶꦁꦧꦥ",
     "candranipun_latin": "Suta manut ing bapa"
   },
   {
+    "awal": "18/09",
+    "akhir": "12/10",
     "Mangsa": "Kapat-Sitamasa",
     "Umur": "25 dina",
     "candranipun_aksara": "ꦮꦱ꧀ꦥꦏꦸꦩꦼꦩ꧀ꦧꦼꦁꦗꦿꦺꦴꦤꦶꦁꦏꦭ꧀ꦧꦸ",
     "candranipun_latin": "Waspa kumembeng jroning kalbu"
   },
   {
+    "awal": "13/10",
+    "akhir": "08/11",
     "Mangsa": "Kalima-Sita",
     "Umur": "27 dina",
     "candranipun_aksara": "ꦥꦚ꧀ꦕꦸꦫꦤ꧀ꦩꦱ꧀ꦱꦸꦩꦮꦸꦂꦲꦶꦁꦗꦒꦢ꧀",
     "candranipun_latin": "Pancuran emas sumawur ing jagad"
   },
   {
+    "awal": "09/11",
+    "akhir": "21/12",
     "Mangsa": "Kanem-Naya",
     "Umur": "43 dina",
     "candranipun_aksara": "ꦫꦱꦩꦸꦭꦾꦏꦱꦸꦕꦶꦪꦤ꧀",
     "candranipun_latin": "Rasa mulya kasuciyan"
   },
   {
+    "awal": "22/12",
+    "akhir": "02/02",
     "Mangsa": "Kapitu-Palguna",
     "Umur": "43 dina",
     "candranipun_aksara": "ꦮꦶꦱꦏꦺꦤ꧀ꦠꦶꦂꦲꦶꦁꦩꦫꦸꦠ",
     "candranipun_latin": "Wisa kentar ing maruta"
   },
   {
+    "awal": "03/02",
+    "akhir": "28/02",
     "Mangsa": "Kawalu-Wisaka",
     "Umur": "27/26 dina",
     "candranipun_aksara": "ꦲꦚ꧀ꦗꦿꦃꦗꦿꦺꦴꦤꦶꦁꦏꦪꦸꦤ꧀",
     "candranipun_latin": "Anjrah jroning kayun"
   },
   {
+    "awal": "01/03",
+    "akhir": "25/03",
     "Mangsa": "Kasanga-Jita",
     "Umur": "25 dina",
     "candranipun_aksara": "ꦮꦼꦝꦫꦶꦁꦮꦕꦤꦩꦸꦭꦾ",
     "candranipun_latin": "Wedharing wacana mulya"
   },
   {
+    "awal": "26/03",
+    "akhir": "18/04",
     "Mangsa": "Kasapuluh-Srawana",
     "Umur": "24 dina",
     "candranipun_aksara": "ꦒꦼꦝꦺꦴꦁꦩꦶꦤꦼꦧ꧀ꦗꦿꦺꦴꦤꦶꦁꦏꦭ꧀ꦧꦸ",
     "candranipun_latin": "Gedhong minep jroning kalbu"
   },
   {
+    "awal": "19/04",
+    "akhir": "11/05",
     "Mangsa": "Dhesta-Pratrawana",
     "Umur": "23 dina",
     "candranipun_aksara": "ꦱꦼꦱꦺꦴꦠꦾꦱꦶꦤꦫꦮꦺꦢꦶ",
     "candranipun_latin": "Sotya sinarawedi"
   },
   {
+    "awal": "12/05",
+    "akhir": "21/06",
     "Mangsa": "Sada-Asuji",
     "Umur": "41 dina",
     "candranipun_aksara": "ꦠꦶꦂꦠꦱꦃꦱꦏꦶꦁꦱꦱꦤ",

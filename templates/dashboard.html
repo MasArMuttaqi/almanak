@@ -113,26 +113,31 @@
 </div>
 <div class="row mt-3 mb-3">
   <div class="col-4">
-    <span class="hijriah-jawa" style="font-size:0.8rem;">Pranatamangsa</span>
+    <span class="hari-jawa">Pranatamangsa</span>
   </div>
   <div class="col-8">
-    <span class="hijriah-jawa" style="font-size:0.8rem;">{{ pranatamangsa }}</span>
+    <span class="hari-jawa">{{ pranatamangsa }}</span>
   </div>
 </div>
 <div class="row mt-3 mb-3">
   <div class="col-4">
-    <span class="hijriah-jawa" style="font-size:0.8rem;">Candranipun</span>
+    <span class="hari-jawa">Candranipun</span>
   </div>
   <div class="col-8">
     <span class="aksara" style="text-align: left; font-size:1rem;">{{ candranipun[0].candranipun_aksara }}</span><br>
-    <span class="hijriah-jawa" style="text-align: left; font-size:0.8rem;">{{ candranipun[0].candranipun_latin }}</span>
+    <span class="hari-jawa">{{ candranipun[0].candranipun_latin }}</span>
   </div>
 </div>
     <!-- calendar -->
-    <p class="pasaran">Kalender ini mengadopsi dan menyelasakan berdasarkan acuan sistem penanggalan Kalender Karaton Dalem Ngayogkarta Hadiningrat dan Lembaga Falakiyah Nahdlatul Ulama</p>
 </section>
 
-<section class="container mt-3">
+<section class="container mt-4">
+  <p class="pasaran">Kalender ini mengadopsi dan menyelasakan berdasarkan acuan sistem penanggalan Kalender Karaton Dalem Ngayogkarta Hadiningrat dan Kalender Kamariah Lembaga Falakiyah Nahdlatul Ulama</p>
+  {% if hari_penting is not none %}
+  <header class="nm-block-head">
+    <h3 class="nm-block-title">Hari besar dan peringatan</h3>
+  </header>
+
   <ul class="list-group list-group-flush hari-penting">
     {% for item in hari_penting %}
     <li class="list-group-item d-flex align-items-center justify-content-between">
@@ -161,8 +166,8 @@
       </button> 
     </li>
     {% endfor %}
-    
   </ul>
+  {% endif %}
 </section>
 <!-- detail -->
 <div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasBottom" style="height:90%;">

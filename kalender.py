@@ -240,8 +240,8 @@ def kalender_vertikal(tanggal=None):
        "periode_hijriah": periode_hijriah, 
        "periode_jawa": periode_jawa,
        "mingguan": mingguan,
-       "candranipun": candranipun(pranatamangsa),
        "pranatamangsa": pranatamangsa,
+       "candranipun": candranipun(pranatamangsa),
        "hari_penting": list(hari_penting_hasil.values()),
        "prev_bulan": prev_bulan,
        "next_bulan": next_bulan
