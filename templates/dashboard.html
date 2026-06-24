@@ -4,7 +4,7 @@
 <section class="container image-container" style="margin-top:100px;" >
     <!-- alt2 -->
     <div class="d-flex justify-content-end gap-3 mb-4">
-        <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill" id="currentMonth" style="font-size: 10px;">bulan ini</button>
+        <a href="{{ url_for('dashboard') }}" class="btn btn-sm btn-outline-secondary rounded-pill" id="currentMonth">bulan ini</a>
         <a href="?periode={{prev_bulan}}" class="btn btn-sm {% if not prev_bulan %}border-0 disabled{% endif %}" id="prevMonth">
           <i class="fi fi-br-arrow-left text-secondary"></i>
         </a>

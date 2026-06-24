@@ -18,8 +18,9 @@
 
 <body>
 <nav class="navbar fixed-top navbar-expand-lg" id="navbar-atas">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">
+  <div class="container-fluid {{ '' if request.path == url_for('dashboard') else 'd-flex justify-content-between' }}">
+    <a href="{{ url_for('dashboard') }}" class="btn btn-md d-inline-flex align-items-center justify-content-center p-0 me-3 {{ 'd-none' if request.path == url_for('dashboard') else '' }}"><i class="fi fi-br-arrow-left text-secondary"></i></a>
+    <a class="navbar-brand d-flex align-items-center gap-2" href="#">
         <img src="https://lh3.googleusercontent.com/d/1D5qR0dw-d773IpiNB9uzmKZ81uGyBOq1=w800?authuser=1" alt="Logo" width="30px" height="30px">
         <span id="brand-alfabet" class="brand-item">Almanak</span>
         <span id="brand-aksara" class="brand-item aksara" style="display:none;">ꦄꦭ꧀ꦩꦤꦏ꧀</span>

@@ -20,6 +20,7 @@ body{
 .navbar-brand{
   font-family: "Philosopher", sans-serif;
   font-weight:600;
+  width: 145px;
  }
 
  .aksara{
