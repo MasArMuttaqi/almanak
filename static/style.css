@@ -86,6 +86,11 @@ body{
       /*box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);*/
     }
 
+    .offcanvas {
+        border-start-start-radius: 16px;
+        border-start-end-radius: 16px;
+    }
+
  .btn-back-to-top {
   position: fixed;
   bottom: 24px;

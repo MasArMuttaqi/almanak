@@ -35,7 +35,7 @@
                             </span>
 
                         <div class="d-flex flex-column text-end mb-2 text-muted fw-bold">
-                             <span style="white-space: nowrap;">{{ data.hari_jawa }}</span><br>
+                             <span style="white-space: nowrap;">{{ data.hari_jawa }}</span>
                              <span style="white-space: nowrap;">{{ data.hari_caka }}</span>
                          </div>
                     </li>
@@ -144,12 +144,14 @@
                           <span class="fw-bold">{{ data.pancasuda_biasa }}</span>
                         </div>
                         <div class="col-6 ps-3">
-                            <a href="" class="btn-detail" data-bs-toggle="offcanvas" data-bs-target="#kalenderjawa" aria-controls="offcanvasBottom" data-id="11">
-                                <small class="text-muted d-block small">Pawukon <i class="fi fi-br-info"></i></small>
-                            </a>
-                            <small class="text-muted d-block mt-2">Betaljemur Adammakna</small>
+                            <small class="text-muted d-block small">Pawukon
+                                <a href="" class="btn-detail" data-bs-toggle="offcanvas" data-bs-target="#kalenderjawa" aria-controls="offcanvasBottom" data-id="11">
+                                    <i class="fi fi-br-info"></i>
+                                </a>
+                            </small>
+                            <small class="text-muted d-block mt-2"><em>Betaljemur Adammakna</em></small>
                             <span class="fw-bold">{{ data.pawukon['pancasuda_pakuwon'] }}</span>
-                            <small class="text-muted d-block mt-2">Bincilan</small>
+                            <small class="text-muted d-block mt-2"><em>Bincilan</em></small>
                             <span class="fw-bold">{{ data.pawukon['pancasuda_bincilan'] }}</span>
                         </div>
                     </div>
