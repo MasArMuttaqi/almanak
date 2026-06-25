@@ -69,11 +69,11 @@ body{
 }
 
 .navbar  {
-      transition: all 0.3s ease;
-      background-color: transparent;
-      box-shadow: none;
-      color:#fff;
-    }
+    transition: all 0.3s ease;
+    background-color: transparent;
+    box-shadow: none;
+    color:#fff;
+}
 
     /* Navbar setelah discroll */
     .navbar.scrolled {
@@ -86,7 +86,7 @@ body{
       /*box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);*/
     }
 
-    .offcanvas {
+    .offcanvas.offcanvas-bottom {
         border-start-start-radius: 16px;
         border-start-end-radius: 16px;
     }
@@ -260,13 +260,13 @@ td {
 /* detail tanggal */
 .list-group .list-group-item i{
     /* Mengatur latar belakang dengan gradasi linear */
-  background: linear-gradient(45deg, #00d2ff, #3a7bd5, #7058ff);
-  /* Teknik agar gradasi hanya muncul pada teks/ikon (masking) */
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  /* Opsional: Menyesuaikan ukuran jika itu sebuah ikon */
-  font-size: 10px;
-  display: inline-block;
+    background: linear-gradient(to top right, #c5a059, #D7A84D, #B1944D);
+    /* Teknik agar gradasi hanya muncul pada teks/ikon (masking) */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    /* Opsional: Menyesuaikan ukuran jika itu sebuah ikon */
+    font-size: 10px;
+    display: inline-block;
 }
 
 .list-group-item {
