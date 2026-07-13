@@ -149,10 +149,19 @@
                                     <i class="fi fi-br-info"></i>
                                 </a>
                             </small>
-                            <small class="text-muted d-block mt-2"><em>Betaljemur Adammakna</em></small>
-                            <span class="fw-bold">{{ data.pawukon['pancasuda_pakuwon'] }}</span>
-                            <small class="text-muted d-block mt-2"><em>Bincilan</em></small>
-                            <span class="fw-bold">{{ data.pawukon['pancasuda_bincilan'] }}</span>
+                            <div class="d-flex flex-column flex-md-row justify-content-md-between align-items-md-center gap-2">
+                                <!-- Blok Betaljemur Adammakna -->
+                                <div>
+                                    <small class="text-muted d-block"><em>Betaljemur Adammakna</em></small>
+                                    <span class="fw-bold">{{ data.pawukon['pancasuda_pakuwon'] }}</span>
+                                </div>
+                        
+                                <!-- Blok Bincilan -->
+                                <div>
+                                    <small class="text-muted d-block"><em>Bincilan</em></small>
+                                    <span class="fw-bold">{{ data.pawukon['pancasuda_bincilan'] }}</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </li>
