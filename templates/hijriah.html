@@ -320,7 +320,29 @@ Metode hisab hakiki wujudul hilal yang digunakan Majelis Tarjih dan Tajdid Pengu
   </div>
 </div>
 <!-- offcanvas -->
-
+<!-- modal -->
+<div class="modal fade" id="modalKHGT" tabindex="-1" aria-labelledby="modalKHGTLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalKHGTLabel">📌 Catatan</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Masih terjadi perbedaan tanggal hijriah berdasaran KHGT antara <b>algoritma yang dibangun</b> dengan <b>Kalender Resmi KHGT Persyarikatan Muhammadiyah</b>. Dikarena belum tersedia dokumentasi resmi terkait metode, definisi, dan parameter astronomi yang digunakan perangkat KHGT
+      </div>
+    </div>
+  </div>
+</div>
+<!-- modal -->
+<script>
+const kgthTab = document.getElementById('kgth-tab');
+kgthTab.addEventListener('shown.bs.tab', function () {
+    // Panggil ID modal Anda di sini
+    const myModal = new bootstrap.Modal(document.getElementById('modalKHGT'));
+    myModal.show();
+});
+</script>
 <script>
     $(document).ready(function() {
 
