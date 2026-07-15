@@ -1,490 +1,153 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="id">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Masjid Info</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-  
-<link href="https://fonts.cdnfonts.com/css/digital-7-mono" rel="stylesheet">
-  
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">    
-<link rel='stylesheet' href='https://cdn-uicons.flaticon.com/4.0.0/uicons-bold-straight/css/uicons-bold-straight.css'>  
-<link rel="stylesheet" type="text/css" href="style.css">        
-    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desain Kartu UI - Bootstrap 5</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/4.0.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+    <style>
+        /* Gaya Kustom untuk mencocokkan desain gambar */
+        /* font */
+        @import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Cairo+Play:wght@200..1000&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&family=Rajdhani:wght@300;400;500;600;700&display=swap');
+        @font-face {
+            font-family: aksara;
+            src:url("https://masarmuttaqi.github.io/almanak/static/nykNgayogyanNew.woff2");
+        }
+        /* font */
+        .aksara{
+             font-family: aksara, serif;
+             /* font-size: 1rem;*/
+             font-variant-ligatures: normal;
+            font-feature-settings: "liga" on, "clig" on, "ccmp" on;
+            -webkit-font-feature-settings: "liga" on, "clig" on, "ccmp" on;
+            text-rendering: optimizeLegibility;
+         }
 
-  <style>
-  .news-heading-container {
-    margin-bottom: 20px;
-    font-family: "Philosopher", sans-serif;    
-  }
 
-  .news-heading {
-    color: #333333; /* Warna biru tua sesuai gambar */
-    font-weight: 600;
-    font-size: 1.5rem;
-    /* text-transform: uppercase; */
-    margin-bottom: 5px;
-    letter-spacing: 1px;
-    display: block;
-  }
-  .news-heading span{
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.85rem;
-      font-weight:300;
-  }
+        .arabic{
+             font-family: "Cairo Play", sans-serif;
+         }
 
-  .news-line {
-    width: 100%;
-    height: 4px; /* Ketebalan garis kuning tipis */
-    background: linear-gradient(135deg, #f6cd75 0%, #db9a32 52%, #a75b1b 100%);
-    /* Warna kuning emas sesuai gambar */
-    position: relative;
-  }
+        body {
+            background-color: #f0f2f5; /* Latar belakang abu-abu terang */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-  /* Bagian garis yang lebih tebal di awal */
-  .news-line::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: -4px; /* Menumpuk sedikit ke atas agar terlihat menyatu */
-    width: 60px; /* Panjang garis tebal */
-    height: 6px;  /* Ketebalan garis utama */
-    background-color: #f6cd75;
-  }
-</style>
-  </head>
-  <body>
-    <div class="container-fluid p-3">
-  <div class="ratio-16-9 d-flex flex-column p-4 glass-layer">
-    <!-- header -->
-    <div class="row flex-grow-1">
-        <!-- logo -->
-        <div class="col-12 col-md-8">
-            <div class="header-container">
-              <div class="logo-box">
-                <img src="https://raw.githubusercontent.com/MasArMuttaqi/masjid-info/refs/heads/main/src/img/1000303251.png" alt="Logo ISI">
-              </div>
+        .custom-card {
+            background-color: #fff;
+            border-radius: 20px; /* Sudut melengkung halus */
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.1); /* Bayangan lembut */
+            width: 320px;
+            overflow: hidden; /* Memastikan pola latar belakang tetap di dalam */
+            position: relative;
+        }
 
-              <div class="content-box">
-                <div class="script-row">
-                  <span class="aksara">ꦩꦱ꧀ꦗꦶꦣ꧀ꦄꦭ꧀ꦄꦐ꧀ꦱ꧀ꦲꦄꦭ꧀ꦐꦸꦣ꧀ꦱ꧀</span>
-                  <span class="hijaiyah"> مسجد ال اقصى ال قدوس</span>
-                </div>
-                
-                <h1 class="main-title">MASJID AL-AQSHA AL QUDS</h1>
-                
-                <div class="sub-title">
-                  <span>Kampus 2 ISI Surakarta</span>
-                </div>
-              </div>
-            </div>
-        </div>
-        <!-- logo -->
-        <!-- jam -->
-        <div class="col-12 col-md-4 p-2 bg-col-4">
-            <div class="infobox gradient d-flex justify-content-between align-items-center">
-              <div class="hari-pasaran d-flex flex-column text-center">
-                <span id="hariini" class="hariini text-dark"></span>
-                <span id="pasaran" class="pasaran text-secondary"></span>
-              </div>
-              <div class="vertical-line-alt"></div>                        
-              <div class="date-container">
-                  <p id="tanggal-masehi" class="date-item m-0">1 Januari 1990</p>
-                  <p id="tanggal-hijriah" class="date-item m-0" style="display:none;">3 Jumadil Akhir 1410</p>
-                  <p id="tanggal-jawa" class="date-item m-0" style="display:none;">3 Jumadil Akir 1922</p>
-              </div>
-              <div class="vertical-line-alt"></div>
-              <div class="d-flex justify-content-between align-items-center me-3">
-                <span class="time" id="hour">88</span>
-                <span class="time" id="blind">:</span>
-                <span class="time" id="minute">88</span>
-              </div>
-            </div>
-        </div>
-        <!-- jam -->
-    </div>
-    <!-- header -->
-    
-  
-    
-    <div class="row flex-grow-1">
-      <div class="col-12 col-md-8">
-        <!-- <strong>Col-8 (Main Content)</strong> -->
+        /* Ikon Aplikasi Buatan Kustom menggunakan SVG */
+        .app-icon-container {
+            background-color: #f1f8ff; /* Latar belakang biru yang sangat terang untuk ikon */
+            border: 1px solid #e1e8ed;
+            border-radius: 12px;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 24px;
+        }
 
-     
+        /* Pola kisi samar di bagian bawah kartu */
+        .card-pattern {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 60%;
+            height: 40%;
+            opacity: 0.1; /* Sangat samar */
+            /*background-image: 
+                linear-gradient(#4a4a4a 1px, transparent 1px),
+                linear-gradient(90deg, #4a4a4a 1px, transparent 1px);*/
+                background-image: url('https://i.pinimg.com/1200x/46/6e/d3/466ed3634f917cdbc5cc8fc54e6545c8.jpg');
+            /*background-size: 20px 20px;*/
+            background-size: cover;
+            pointer-events: none; /* Tidak mengganggu klik */
+        }
 
-       <!-- konten promo -->
-        <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
-          <div class="carousel-indicators">
-            <button type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide-to="0" class="active" aria-current="true"></button>
-            
-            <!-- Template Taklimat -->
-              <button type="button" data-bs-target="#carouselExampleAutoplaying" id="indicator-slide2"></button>
+        /* Penyesuaian tipografi untuk teks judul */
+        .card-title-text {
+            font-size: 20px;
+            font-weight: 500;
+            line-height: 1.3;
+            color: #333;
+            margin-bottom: 30px;
+        }
 
-            
-            <!-- Berikan ID pada indikator tetap lainnya -->
-            <button type="button" data-bs-target="#carouselExampleAutoplaying" id="indicator-agenda" data-bs-slide-to="2"></button>
-            <button type="button" data-bs-target="#carouselExampleAutoplaying" id="indicator-kas" data-bs-slide-to="3"></button>
-          </div>
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <div class="news-heading-container d-block w-100">
-          <div class="d-flex flex-column mb-3">
-        <h1 class="news-heading">Maklumat Sholat Jum'at</h1> 
-        <span>Jum`at Legi, 12 Februari 2026 / 3 Ramadan 1446</span>
-        </div>
-        <div class="news-line"></div>
-      </div>
-     <!-- Maklumat -->
-     <div class="row">
-    <div class="col-12 col-md-6">
-        <!-- Imam -->
-        <div class="card m-2 border-0 shadow-sm">
-          <div class="card-body">
-             <header class="nm-block-head">
-                <h3 class="nm-block-title">Imam</h3>
-             </header>
-              <div class="d-flex flex-column">
-                  <span class="fw-bold">nama</span>
-                  <span class="text-secondary">profil</span>
-              </div>
-          </div>
-        </div>
-      <!-- imam -->
+        /* Tombol 'Buat Baru' yang tipis dan minimalis */
+        .btn-create-new {
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+            background-color: #fcfcfc;
+            color: #333;
+            font-size: 13px;
+            padding: 8px 16px;
+            transition: all 0.2s ease-in-out;
+        }
 
-    </div>
-    <div class="col-12 col-md-6">
-<!-- khotib -->
-     <div class="card m-2 border-0 shadow-sm">
-  <div class="card-body">
-            <header class="nm-block-head">
-    <h3 class="nm-block-title">Khotib</h3>
- </header>
-  <div class="d-flex flex-column">
-      <span class="fw-bold">nama</span>
-      <span class="text-secondary">profil</span>
-  </div>
-  </div></div>
-      <!-- khotib -->
+        .btn-create-new:hover {
+            background-color: #f1f1f1;
+            border-color: #ccc;
+        }
+    </style>
+</head>
+<body>
 
-    </div>
-  </div>
-  <div class="row">
-    <div class="col">
-      <!-- khutbah --> 
-      <div class="card m-2 border-0 shadow-sm">
-  <div class="card-body">
- <header class="nm-block-head">
-    <h3 class="nm-block-title">Tema Khutbah</h3>
- </header>    
-  <p>tema khutbah</p>
-  </div></div>
-      <!-- khutbah -->
-    </div>
-  </div>
-     <!-- maklumat -->
-    </div>
-    <!-- taklimat -->
-    <div class="carousel-item" id="item-slide2">
-      <div class="news-heading-container d-block w-100">
-        <div class="d-flex flex-column mb-3">
-        <h1 class="news-heading">Taklimat Sholat Jum'at</h1> <span>Jum`at Legi, 12 Februari 2026 | 3 Ramadan 1446</span>
-        </div>
-        <div class="news-line"></div>
-      </div>
-      <p class="arabic text-end" id="taklimat-arabic"></p>
-      <p class="fw-bold lh-2" id="taklimat-indonesia"></p>
-    </div>
-    <!-- taklimat -->
-    <div class="carousel-item" id="slide-agenda">
-      <div class="news-heading-container d-block w-100">
-        <h1 class="news-heading">Agenda Pengajian Rutin</h1>
-        <div class="news-line"></div>
-        <!-- element -->
-        <div class="infobox darkblue ml-auto p-2">
-        <div class="number text-center">
-        <small>Sen</small>
-        <span class="fw-bold" style="font-size:1.5rem;">29</span>
-        </div>
-        <div class="vertical-line-alt"></div>
-        <div class="content d-flex flex-column lh-1"> 
-           <span>29 Juni 2026 / 13 Muharam 1448</span>  
-           <span>Tema</span>
-           <span>pemateri</span>
-        </div>    
-      </div>
-        <!-- element -->
-      </div>
-    </div>
-    
-    <div class="carousel-item" id="slide-kas">
-        
-      <div class="news-heading-container d-block w-100">
-          <div class="d-flex flex-column mb-3">
-        <h1 class="news-heading">Rekapitulasi Keuangan</h1>
-        <span>per tanggal: 04 Maret 2026</span>
-        </div>
-        <div class="news-line"></div>
-        
-        <div class="infobox darkblue ml-auto p-2">
-        <div class="number">
-        <img src="https://fragrant.mobiletransaction.org/wp-content/uploads/2019/09/qr-code-for-wikipedia.png.webp" width="50px">
-        </div>
-        <div class="vertical-line-alt"></div>
-        <div class="content">
-          
-              <a href="#">Laporan lengkap dapat memindai QR Code</a>
-          
-        </div>
-        
-      </div>
-      
-      </div>
-    </div>
-    
-  </div>
-
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
-</div>
-
-     <!-- konten promo -->  
-      </div>
-      <!-- jadwal sholat -->
-      <div class="col-12 col-md-4 p-2 bg-col-4">
-<!-- test -->
-   <div class="weather-container d-flex flex-column justify-content-between" style="height:100%;">
-        
-        <div class="gradient-overlay"></div>
-
-        <div class="content-overlay p-4 d-flex flex-column justify-content-between">
-
-        <div class="d-flex justify-content-between align-items-center">
-            <div class="d-flex justify-content-center align-items-center text-white">
-
-              <div class="profile-img glass-card">
-                  <img id="icon-keterangan" src="https://raw.githubusercontent.com/MasArMuttaqi/masjid-info/refs/heads/main/src/icon/1000305525.png" alt="Profile">
-              </div>
-
-              <div class="d-flex flex-column">
-                <span style="color:#fff; font-size: 0.8rem; line-height: 1; text-align: center;" id="statusSholat">Iqomah</span>
-                <span class="countdown" id="countdown" style="display: block;">- 00:00:00</span>
-              </div>
-
-            </div>
-
-            <div class="d-flex flex-column text-white text-end">
-                <span class="time-pray fw-bold" id="Nextprayer"></span>
-                <small id="NextPrayerTime"></small>
-            </div>
-        </div>
-
+    <div class="custom-card p-4">
         
 
-<!-- prayer card -->
-    <div class="row row-cols-2">
-      <div class="col">
-        <div class="prayer-tile glass-card waktu-Imsak">
-          <div class="prayer-time" id="time-imsak">N/A</div>
-          <div class="prayer-name opacity-75">Imsak<img src="https://maps.gstatic.com/weather/v1/mostly_cloudy_night.svg" class="float-end" alt="icon-imsak"></div>
-        </div>
-       </div>
-      
-      <div class="col">
-        <div class="prayer-tile glass-card waktu-Subuh">
-          <div class="prayer-time" id="time-subuh">N/A</div>
-          <div class="prayer-name opacity-75">Subuh <img src="https://maps.gstatic.com/weather/v1/cloudy.svg" alt="icon-subuh" class="float-end"></div>
-        </div>
-      </div>
-      
-      <div class="col">
-        <div class="prayer-tile glass-card waktu-Terbit">
-          <div class="prayer-time" id="time-terbit">N/A</div>
-          <div class="prayer-name opacity-75">Terbit <img src="https://raw.githubusercontent.com/MasArMuttaqi/masjid-info/refs/heads/main/src/icon/terbit_alt.svg" alt="icon-terbit" class="float-end"></div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="prayer-tile glass-card waktu-Dhuha">
-          <div class="prayer-time" id="time-dhuha">N/A</div>
-          <div class="prayer-name opacity-75">Dhuha <img src="https://raw.githubusercontent.com/MasArMuttaqi/masjid-info/refs/heads/main/src/icon/dhuha_alt.svg" alt="icon-Dhuha" class="float-end"></div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="prayer-tile glass-card waktu-Zuhur">
-          <div class="prayer-time" id="time-zuhur">N/A</div>
-          <div class="prayer-name opacity-75">Zuhur <img src="https://maps.gstatic.com/weather/v1/sunny.svg" alt="icon-Zuhur" class="float-end"></div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="prayer-tile glass-card waktu-Asar">
-          <div class="prayer-time" id="time-asar">N/A</div>
-          <div class="prayer-name opacity-75">Asar <img src="https://maps.gstatic.com/weather/v1/mostly_cloudy.svg" alt="icon-Asar" class="float-end"></div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="prayer-tile glass-card waktu-Magrib">
-          <div class="prayer-time" id="time-magrib">N/A</div>
-          <div class="prayer-name opacity-75">Magrib <img src="https://raw.githubusercontent.com/MasArMuttaqi/masjid-info/refs/heads/main/src/icon/magrib_alt.svg" alt="icon-Magrib" class="float-end"></div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="prayer-tile glass-card waktu-Isya">
-          <div class="prayer-time" id="time-isya">N/A</div>
-          <div class="prayer-name opacity-75">Isya <img src="https://maps.gstatic.com/weather/v1/clear.svg" alt="icon-Isya" class="float-end"></div>
-        </div>
-      </div>
-    </div>
-    <!-- prayer card -->
-               
-       <div class="nm-ws-footer">Sumber: <a href="https://bimasislam.kemenag.go.id/jadwalshalat" target="_blank">Ditjen Bimas Islam - Kemenag RI</a>
-       </div>
-          
-        </div>
-    </div> 
-<!-- test -->
-    
-      </div>
-    </div>
-<!-- jadwal sholat -->
+        <img src="https://lh3.googleusercontent.com/d/1D5qR0dw-d773IpiNB9uzmKZ81uGyBOq1=w800?authuser=1" alt="Logo" class="app-icon-container">
 
-  </div>
-</div>
-<!-- popup jadwal sholat harus update -->
-<div id="overlayJadwal" class="custom-overlay d-none">
-    <div class="custom-card bg-tidakditemukan">
+        <div class="card-title-text mb-4">
+            <span id="brand-alfabet" class="brand-item">Almanak</span>
+            <span id="brand-aksara" class="brand-item aksara" style="display:none;">ꦄꦭ꧀ꦩꦤꦏ꧀</span>
+            <span id="brand-arab" class="brand-item arabic" style="display:none;">المنك</span>
+        </div>
+
+            <a href="https://almanak-2jgo.onrender.com/" class="btn btn-light btn-create-new mb-2">
+                Buka Halaman
+            </a>
         
-        <div class="card-header-custom">
-            <div class="error-icon-wrapper">
-                <img src="https://cdn-icons-gif.flaticon.com/18818/18818445.gif" alt="Error Icon">
-            </div>
-            <h5 class="card-title-custom">Whoops!<br>Ada Kesalahan</h5>
-        </div>
-        
-        <div class="card-body-custom">
-            <p id="pesanJadwal">
-                Try again or contact <a href="#">Chat support</a> if you need additional help.
-            </p>
-            <button class="btn-close-custom" onclick="closeOverlay()">Tutup</button>
-        </div>
-
+        <div class="card-pattern"></div>
     </div>
-</div>
-<!-- popup jadwal sholat harus update -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/moment-hijri@3.0.0/moment-hijri.min.js"></script>
-<script src="tanggal_indonesia.js"></script>
-<script src="tanggal_jawa.js"></script>
-<script src="tanggal_hijriah.js"></script>
-<script src="waktusholat_rev.js"></script>
-<script>
-    //JAM DIGITAL
-    $(document).ready(function() {
-    // Fungsi untuk memperbarui jam
-    function updateClock() {
-        const now = new Date();
-        
-        // Ambil jam dan menit, tambahkan angka 0 di depan jika di bawah 10
-        let hours = now.getHours().toString().padStart(2, '0');
-        let minutes = now.getMinutes().toString().padStart(2, '0');
 
-        // Masukkan ke dalam HTML
-        $('#hour').text(hours);
-        $('#minute').text(minutes);
-    }
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        // navbar title
+        $(document).ready(function() {
+          let items = $('.brand-item');
+          let currentIndex = 0;
 
-    // Jalankan fungsi update jam setiap detik
-    setInterval(updateClock, 1000);
+          function rotateDates() {
+            // 1. Sembunyikan item yang sedang tampil (FadeOut)
+            $(items[currentIndex]).fadeOut(1000, function() {
 
-    // Fungsi untuk efek berkedip pada titik dua (blind)
-    setInterval(function() {
-        $('#blind').fadeOut(500).fadeIn(500);
-    }, 1000);
+              // 2. Hitung index berikutnya
+              currentIndex = (currentIndex + 1) % items.length;
 
-    // Panggil sekali di awal agar tidak menunggu 1 detik saat pertama load
-    updateClock();
-});
-    //END OF JAM DIGITAL
-    //TAKLIMAT SHOLAT JUMAT
-fetch("https://raw.githubusercontent.com/MasArMuttaqi/masjid-info/refs/heads/main/src/json/taklimatsholatjumat.json")
-    .then(response => response.json())
-    .then(data => {
-        //console.log(data[0].arabic);
-        //console.log(data[0].indonesia);
-        $('#taklimat-arabic').text(data[0].arabic);
-        $('#taklimat-indonesia').html(data[0].indonesia);
-    })
-    .catch(err => console.error(err));
-    // END OF TAKLIMAT SHOLAT JUMAT
-</script>
+              // 3. Tampilkan item berikutnya (FadeIn)
+              $(items[currentIndex]).fadeIn(1000);
+            });
+          }
 
-
-<script>
-const date = new Date().toISOString().split("T")[0]; 
-$('#tanggal-hijriah').html(convertToHijriWithRukyah(date));
-$('#tanggal-masehi').html(formatTanggalIndo(date));
-</script>
-<script>
-$(document).ready(function(){
-  let jw=tanggalJawa(new Date());
-
-  $("#hariini").html(jw.hari);
-  $("#pasaran").html(jw.pasaran);
-
-  $("#tanggal-jawa").html(
-  jw.tanggal+" "+jw.bulan+" "+jw.windu+" "+jw.tahun);
-
-  setTimeout(function() {
-    var prayerText = $('#Nextprayer').text();
-    console.log("Hasilnya:", prayerText);
-    if (prayerText === "Sholat Jum'at") {
-        $(".weather-container").addClass("bg-Zuhur");
-        $(".waktu-Zuhur").addClass('active');
-    }else if(prayerText === "-"){
-        $(".weather-container").addClass("bg-Selesai");
-        $(".countdown").css("display", "none");
-    }
-    else{
-      $(".weather-container").addClass("bg-"+prayerText);
-      $(".waktu-"+prayerText).addClass('active');
-    }
-
-  }, 500);
-
-});
-</script>
-<script>
-$(document).ready(function() {
-      let items = $('.date-item');
-      let currentIndex = 0;
-
-      function rotateDates() {
-        // 1. Sembunyikan item yang sedang tampil (FadeOut)
-        $(items[currentIndex]).fadeOut(1000, function() {
-          
-          // 2. Hitung index berikutnya
-          currentIndex = (currentIndex + 1) % items.length;
-          
-          // 3. Tampilkan item berikutnya (FadeIn)
-          $(items[currentIndex]).fadeIn(1000);
+          // Atur interval penggantian (misal: setiap 4 detik)
+          setInterval(rotateDates, 4000);
         });
-      }
-
-      // Atur interval penggantian (misal: setiap 4 detik)
-      setInterval(rotateDates, 4000);
-   // Mengambil teks di dalam span 
-});
-</script>
-  </body>
+    </script>
+</body>
 </html>
