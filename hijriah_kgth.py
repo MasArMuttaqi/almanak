@@ -302,18 +302,7 @@ def build_timeline(
         tanggal_target.year
     )
 
-    print("BUILD TIMELINE", tahun_key)
-    print("Cache:", tahun_key in TIMELINE_CACHE)
-
-    print(
-        "tahun_key =",
-        tahun_key
-    )
-
-    print(
-        "cache keys =",
-        TIMELINE_CACHE.keys()
-    )
+    
 
     if tahun_key in (
         TIMELINE_CACHE
@@ -435,34 +424,18 @@ def build_timeline(
 
     TIMELINE_CACHE[tahun_key] = timeline
 
-    print(tahun_key,
-        len(timeline)
-    )
-    print("=== ISI TIMELINE ===")
+    
+    
 
-    for item in timeline:
-        if item["tgl_1"].year == 2026:
-            print(
-                item["nama"],
-                item["tgl_1"],
-                item["ijt_utc"]
-            )
-    print("Jumlah timeline =", len(timeline))
-
-    for item in timeline:
-        print(
-            item["nama"],
-            item["tgl_1"],
-            item["ijt_utc"]
-        )
+ 
 
     save_timeline_cache()
 
 
-    print(
-        f"[CACHE BUILD] "
-        f"{tahun_key}"
-    )
+   # print(
+   #    f"[CACHE BUILD] "
+   #     f"{tahun_key}"
+   # )
 
 
     return timeline
@@ -765,7 +738,7 @@ def get_sunset_utc(
         )
 
 
-        for t, e in zip(times, events):
+        # for t, e in zip(times, events):
             print(t.utc_datetime(), e)
 
         for t, e in zip(
@@ -891,24 +864,15 @@ def hitung_hilal_cached(
 
     elong = moon_geo.separation_from(sun_geo).degrees
 
-    print("GAST =", sunset.gast)
-    print("RA Moon =", ra_m.hours)
-    print("Dec Moon =", dec_m.degrees)
+    
 
     lst = sunset.gast + lon / 15.0
-    print("LST =", lst)
+    
 
     H = (lst - ra_m.hours) * 15.0
-    print("Hour Angle =", H)
+    
 
-    print(
-        lat,
-        lon,
-        "Geo Alt:",
-        alt_geo,
-        "Elong:",
-        elong
-    )
+    
 
     return {
 
