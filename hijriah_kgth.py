@@ -23,7 +23,7 @@ from konversitanggal import format_tanggal_indonesia
 
 BASE_DIR = Path(__file__).resolve().parent
 
-REF_DIR = BASE_DIR / "data" / "ref_kgth_2"
+REF_DIR = BASE_DIR / "data" / "ref_kgth"
 
 REF_DIR.mkdir(
     parents=True,
