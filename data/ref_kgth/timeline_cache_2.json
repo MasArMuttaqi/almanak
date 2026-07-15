@@ -460,13 +460,13 @@
       "sunset_utc": null
     },
     {
-      "tgl_1": "2027-03-10",
+      "tgl_1": "2027-03-09",
       "ijt_utc": "2027-03-08 09:29:28",
       "elongasi": 2.3887369631373487,
       "nama": "Syawal",
       "tahun_h": 1448,
       "pkg1": false,
-      "pkg2": false,
+      "pkg2": true,
       "status_pkg": "Belum Memenuhi",
       "nz_fajr_utc": "2027-03-08 06:50:52",
       "lat": null,
