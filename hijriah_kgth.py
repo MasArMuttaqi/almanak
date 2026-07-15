@@ -739,7 +739,7 @@ def get_sunset_utc(
 
 
         # for t, e in zip(times, events):
-            print(t.utc_datetime(), e)
+        #    print(t.utc_datetime(), e)
 
         for t, e in zip(
             times,
