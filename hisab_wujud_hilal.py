@@ -333,7 +333,8 @@ def hisab(year, month, day):
 
     return {
         "tanggal_masehi": format_tanggal_indonesia( f"{year}-{month:02d}-{day:02d}"),
-        "sunset_wib": round(ss, 2),
+        # "sunset_wib": round(ss, 2),
+        "sunset_wib": f"{int(ss + round((ss % 1) * 60) // 60):02d}:{round((ss % 1) * 60) % 60:02d}",
         "ijtima": ijtima_time,
         "tinggi_hilal": round(alt, 3),
         "elongasi": round(elong, 3),
