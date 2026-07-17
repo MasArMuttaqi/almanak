@@ -28,7 +28,7 @@ def write_version_file():
     
     commit_count_1 = int(commit_count) + 4 
     # Format versi dasar aplikasi Anda
-    major_minor = "2.8"
+    major_minor = "2.9"
     
     version_data = {
         "version": f"v{major_minor}.{commit_count_1}",
