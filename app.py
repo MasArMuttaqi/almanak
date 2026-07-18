@@ -4,6 +4,9 @@ from functools import wraps
 # from datetime import datetime
 # from konversitanggal import *
 # import json
+import requests
+from bs4 import BeautifulSoup
+
 import os
 import io
 from kalender import *
@@ -145,6 +148,16 @@ def kalenderhijriah():
     hisab_wujud_hilal = hisab(tanggal.year, tanggal.month, tanggal.day)
     hijriah_kgth = get_hijriah(tanggal)
 
+    #data dari khgt.muhammadiyah.or.id
+    url = "https://khgt.muhammadiyah.or.id"
+    r = requests.get(url, timeout=10)
+    r.raise_for_status()
+    soup = BeautifulSoup(r.text, "html.parser")
+        # Ambil elemen <p class="fs-18 m-0 text-center">
+    tanggal = soup.find("p",class_="fs-18 m-0 text-center"
+    )
+    tanggal_text = tanggal.get_text(" ", strip=True)
+
     with open(FILE_JSON_KOREKSI_AWAL_BULAN_HIJRIAH, "r") as k2:
         rukyah_hijriah_raw = json.load(k2)
         # Buat list baru hasil konversi
@@ -157,7 +170,7 @@ def kalenderhijriah():
                 "tanggal_masehi": tanggal_masehi_str
             })
 
-    return render_template("hijriah.html", data1=hisab_rukyah, data2=hisab_wujud_hilal, data3=hijriah_kgth,datahilal=rukyahhijriah)
+    return render_template("hijriah.html", data1=hisab_rukyah, data2=hisab_wujud_hilal, data3=hijriah_kgth,datahilal=rukyahhijriah,tanggal_khgt=tanggal_text)
 
 
 # PIN Hardcoded
