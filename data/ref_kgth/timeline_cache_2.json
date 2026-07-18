@@ -411,7 +411,7 @@
       "nama": "Syawal",
       "tahun_h": 1448,
       "pkg1": false,
-      "pkg2": false,
+      "pkg2": true,
       "status_pkg": "Belum Memenuhi",
       "nz_fajr_utc": "2027-03-08 06:50:52",
       "lat": 28,
