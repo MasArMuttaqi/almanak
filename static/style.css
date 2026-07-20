@@ -666,6 +666,7 @@ td {
         }
         .heading-section {
             display: block;
+            margin-bottom: 0.5rem;
         }
         .heading-section .heading {
             font-size: 1.625rem;

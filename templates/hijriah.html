@@ -3,6 +3,7 @@
 <div class="pattern-square-1"></div>
 <section class="container" style="margin-top:100px;" >
     <div class="heading-section">
+        <a href="{{ url_for('dashboard') }}" class="btn btn-outline-secondary mb-4"><i class="fi fi-br-arrow-left"> Kembali</i></a>
          <div class="txt">
             <p class="subheading section-subheading arabic">کاليندر هجرية</p>
             <h2 class="heading section-heading">Kalender Hijriah</h2>
@@ -409,24 +410,33 @@ kgthTab.addEventListener('shown.bs.tab', function () {
 });
 
 $(document).ready(function() {
-    // Mendengarkan event ketika tombol tab Bootstrap diklik dan selesai berganti
-    $('#tempTab button[data-bs-toggle="pill"]').on('shown.bs.tab', function (e) {
-        // e.target adalah tombol yang baru saja diklik
-        // Ambil string target ID-nya (misal: "#falakiyah", "#hisab", atau "#kgth")
-        var targetId = $(e.target).data('bs-target'); 
-        
-        // Buat ID baru khusus untuk deskripsi (misal: "#falakiyah-desc")
+    // 1. FUNGSI UNTUK MENGAKTIFKAN DESKRIPSI
+    function aktifkanDeskripsi(targetId) {
+        // Buat ID baru khusus untuk deskripsi (misal: "#kgth-desc")
         var descTargetId = targetId + '-desc';
         
-        // 1. Matikan semua tab deskripsi yang sedang aktif saat ini
+        // Matikan semua tab deskripsi yang sedang aktif saat ini
         $('#deskripsiTabContent .tab-pane').removeClass('show active');
         
-        // 2. Jalankan efek transisi halus untuk memunculkan deskripsi yang sesuai
+        // Jalankan efek transisi halus untuk memunculkan deskripsi yang sesuai
         $(descTargetId).addClass('active');
-        // Keterangan: setTimeout memberikan jeda microsecond agar efek 'fade' (animasi halus) Bootstrap berjalan sempurna
         setTimeout(function() {
             $(descTargetId).addClass('show');
         }, 50);
+    }
+
+    // 2. DETEKSI OTOMATIS SAAT HALAMAN PERTAMA KALI DIMUAT (FIRST LOAD)
+    // Mencari tombol yang punya class 'active' saat awal halaman dibuka
+    var tombolAktifAwal = $('#tempTab button.active');
+    if (tombolAktifAwal.length > 0) {
+        var idAwal = tombolAktifAwal.data('bs-target'); // Mengambil "#kgth"
+        aktifkanDeskripsi(idAwal);
+    }
+
+    // 3. MENDENGARKAN EVENT KETIKA TOMBOL DIKLIK (SEPERTI SEMULA)
+    $('#tempTab button[data-bs-toggle="pill"]').on('shown.bs.tab', function (e) {
+        var targetId = $(e.target).data('bs-target'); 
+        aktifkanDeskripsi(targetId);
     });
 });
 
