@@ -134,9 +134,14 @@
 <section class="container mt-4">
   <p class="pasaran">Kalender ini mengadopsi dan menyelasakan berdasarkan acuan sistem penanggalan Kalender Karaton Dalem Ngayogkarta Hadiningrat dan Kalender Kamariah Lembaga Falakiyah Nahdlatul Ulama</p>
   {% if hari_penting is not none %}
-  <header class="nm-block-head">
-    <h3 class="nm-block-title">Hari besar dan peringatan</h3>
-  </header>
+  {% if hari_penting %}
+    <div class="wrapper-hari-penting" style="display: block;">
+      <header class="nm-block-head">
+        <h3 class="nm-block-title">Hari besar dan peringatan</h3>
+      </header>
+      <!-- Tempat list hari penting Anda -->
+    </div>
+  {% endif %}
 
   <ul class="list-group list-group-flush hari-penting">
     {% for item in hari_penting %}
