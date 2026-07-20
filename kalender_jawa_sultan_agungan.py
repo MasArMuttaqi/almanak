@@ -395,6 +395,35 @@ def hitung_rakam(dina_nama, pasaran_nama):
         index = sisa - 1
 
      return data_rakam[index]['nama']
+# =========================
+# Paarasan
+# =========================
+def paarasan(dina,pasaran):
+
+    hari_val = { "Ahad": 5,"Senen": 4,"Selasa": 3,"Rebo": 7,"Kemis": 8,"Jemuwah": 6,"Setu": 9,}
+
+    pasaran_val = {"Legi": 5,"Pahing": 9,"Pon": 7,"Wage": 4,"Kliwon": 8,}
+
+    KARAKTER_NEPTU = {
+        7: "Lakuning Bumi",
+        8: "Lakuning Geni",
+        9: "Lakuning Angin / Aras Peksi",
+        10: "Aras Pepet",
+        11: "Aras Tuding",
+        12: "Aras Kembang",
+        13: "Lakuning Lintang",
+        14: "Lakuning Rembulan",
+        15: "Lakuning Srengenge",
+        16: "Lakuning Banyu",
+        17: "Lakuning Bumi",
+        18: "Lakuning Geni",
+    }
+
+    jumlah_neptu = hari_val[dina] + pasaran_val[pasaran]
+
+    hasil = KARAKTER_NEPTU[jumlah_neptu]
+
+    return hasil
 
 # =========================
 # MAIN
@@ -448,6 +477,7 @@ def kalender_jawa(tanggal):
         "pancasuda_biasa": pancasuda_biasa(dina[0], pasaran[0]),
         "pawukon": pancasuda_pakuwon(dina[0], pasaran[0],wuku["neptu_wuku"]),
         "rakam": hitung_rakam(dina[0], pasaran[0]),
+        "pangarasan": paarasan(dina[0], pasaran[0]),
         "pranatamangsa": hitung_mangsa(tanggal)
     }
 

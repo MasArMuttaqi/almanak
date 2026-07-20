@@ -188,12 +188,27 @@
                             </ul>
                         </div>
                         <div class="col-6 ps-3">
-                                <small class="text-muted d-block small">Rakam
-                                    <a href="" class="btn-detail" data-bs-toggle="offcanvas" data-bs-target="#kalenderjawa" aria-controls="offcanvasBottom" data-id="12">
-                                    <i class="fi fi-br-info"></i>
-                                    </a>
-                                </small>
-                          <span class="fw-bold">{{ data.rakam }}</span>
+                          <div class="d-flex flex-column flex-md-row justify-content-md-between align-items-md-center gap-2">
+                                <!-- Blok Rakam -->
+                                <div>
+                                    <small class="text-muted d-block">Rakam
+                                        <a href="" class="btn-detail" data-bs-toggle="offcanvas" data-bs-target="#kalenderjawa" aria-controls="offcanvasBottom" data-id="12">
+                                            <i class="fi fi-br-info"></i>
+                                        </a>
+                                    </small>
+                                     <span class="fw-bold">{{ data.rakam }}</span>
+                                </div>
+                        
+                                <!-- Blok Pangarasan -->
+                                <div>
+                                    <small class="text-muted d-block small">Pangarasan/Paarasan
+                                        <a href="" class="btn-detail" data-bs-toggle="offcanvas" data-bs-target="#kalenderjawa" aria-controls="offcanvasBottom" data-id="13">
+                                            <i class="fi fi-br-info"></i>
+                                        </a>
+                                    </small>
+                                    <span class="fw-bold">{{ data.pangarasan }}</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </li>
