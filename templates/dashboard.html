@@ -3,15 +3,22 @@
 <div class="pattern-square-1"></div>
 <section class="container image-container" style="margin-top:100px;" >
     <!-- alt2 -->
-    <div class="d-flex justify-content-end gap-3 mb-4">
-        <a href="{{ url_for('dashboard') }}" class="btn btn-sm btn-outline-secondary rounded-pill" id="currentMonth">bulan ini</a>
-        <a href="?periode={{prev_bulan}}" class="btn btn-sm {% if not prev_bulan %}border-0 disabled{% endif %}" id="prevMonth">
-          <i class="fi fi-br-arrow-left text-secondary"></i>
-        </a>
-        <a href="?periode={{next_bulan}}" class="btn btn-sm {% if not next_bulan %}border-0 disabled{% endif %}" id="nextMonth">
-          <i class="fi fi-br-arrow-right text-secondary"></i>
-        </a>
-    </div>
+    <div class="d-flex justify-content-end align-items-center gap-1 mb-4">
+    <!-- Tombol Prev (Panah Kiri) -->
+    <a href="?periode={{prev_bulan}}" class="btn nav-pill-btn rounded-circle {% if not prev_bulan %}disabled{% endif %}" id="prevMonth">
+        <i class="fi fi-br-angle-left"></i>
+    </a>
+
+    <!-- Tombol Utama (Bulan Ini) -->
+    <a href="{{ url_for('dashboard') }}" class="btn nav-pill-btn btn-center rounded-pill" id="currentMonth">
+        bulan ini
+    </a>
+
+    <!-- Tombol Next (Panah Kanan) -->
+    <a href="?periode={{next_bulan}}" class="btn nav-pill-btn rounded-circle {% if not next_bulan %}disabled{% endif %}" id="nextMonth">
+        <i class="fi fi-br-angle-right"></i>
+    </a>
+</div>
 
     <div class="d-flex justify-content-between align-items-center">
       <!-- masehi -->

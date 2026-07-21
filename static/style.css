@@ -125,6 +125,46 @@ body{
   transform: scale(0.95) translateY(-2px);
 }
 
+/* Styling tombol navigasi mini */
+.nav-pill-btn {
+    background-color: #f0f0f0; /* Warna background abu-abu terang */
+    color: #212529;            /* Warna teks/ikon gelap */
+    border: none;
+    font-size: 10px;           /* Ukuran teks/ikon maksimal 10px */
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    transition: all 0.2s ease;
+}
+
+/* Tombol tengah (Bulan ini) */
+.nav-pill-btn.btn-center {
+    height: 24px;
+    padding: 0 12px;
+}
+
+/* Tombol panah melingkar */
+.nav-pill-btn.rounded-circle {
+    width: 24px;
+    height: 24px;
+    padding: 0;
+}
+
+/* Efek Hover */
+.nav-pill-btn:hover {
+    background-color: #e2e2e2;
+    color: #000;
+}
+
+/* State Disabled */
+.nav-pill-btn.disabled, 
+.nav-pill-btn:disabled {
+    background-color: #f8f9fa;
+    opacity: 0.4;
+}
+
 /* navigation */
 /* container */
 .image-container {
