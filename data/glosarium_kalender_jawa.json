@@ -7,12 +7,12 @@
   {
     "index": 2,
     "nama": "Windu & lambang",
-    "deskripsi": "<p><strong>Windu</strong> adalah satuan waktu dalam penanggalan Jawa yang lamanya <strong>8 tahun</strong>. \nSiklus besar ini terdiri dari 4 windu, yaitu: <em>Adi</em>, <em>Kuntara</em>, <em>Sengara</em>, dan <em>Sancaya</em> dengan total durasi <strong>32 tahun</strong>.</p><ul><li>Tiap windu tersebut memiliki lambang: <strong>Kulawu</strong> dan <strong>Langkir</strong>. </li><li>Masing-masing lambang berumur <em>8 tahun</em>, sehingga siklus total dari lambang tersebut berumur <em>16 tahun</em>.</li></ul>"
+    "deskripsi": "<p><strong>Windu</strong> adalah satuan waktu dalam penanggalan Jawa yang lamanya <strong>8 tahun</strong>. \nSiklus besar ini terjadi setiap 4 windu, yaitu: <em>Adi</em>, <em>Kuntara</em>, <em>Sengara</em>, dan <em>Sancaya</em> dengan total durasi <strong>32 tahun</strong>.</p><ul><li>Tiap windu tersebut memiliki lambang: <strong>Kulawu</strong> dan <strong>Langkir</strong>. </li><li>Masing-masing lambang berumur <em>8 tahun</em>, sehingga siklus total dari lambang tersebut berumur <em>16 tahun</em>.</li></ul>"
   },
   {
     "index": 3,
     "nama": "Warsa",
-    "deskripsi": "<p><strong>Tahun Jawa</strong> berputar dalam siklus delapan tahun, yaitu: <em>Alip</em>, <em>Ehe</em>, <em>Jimawal</em>, <em>Je</em>, <em>Dal</em>, <em>Be</em>, <em>Wawu</em>, dan <em>Jimakir</em>.</p><ul><li><strong>Taun Wuntu (Tahun Panjang):</strong> Memiliki umur <strong>355 hari</strong>. Pada tahun ini, bulan <em>Besar</em> sebagai bulan terakhir memiliki umur <strong>30 hari</strong>.</li><li><strong>Taun Wastu (Tahun Pendek):</strong> Memiliki umur <strong>354 hari</strong> (berlaku untuk tahun-tahun sisanya dalam siklus tersebut).</li></ul>"
+    "deskripsi": "<p><strong>Tahun Jawa</strong> berputar dalam siklus delapan tahun atau windu, yaitu: <em>Alip</em>, <em>Ehe</em>, <em>Jimawal</em>, <em>Je</em>, <em>Dal</em>, <em>Be</em>, <em>Wawu</em>, dan <em>Jimakir</em>.</p><ul><li><strong>Taun Wuntu (Tahun Panjang):</strong> Memiliki umur <strong>355 hari</strong>. Pada tahun ini, bulan <em>Besar</em> sebagai bulan terakhir memiliki umur <strong>30 hari</strong>.</li><li><strong>Taun Wastu (Tahun Pendek):</strong> Memiliki umur <strong>354 hari</strong> (berlaku untuk tahun-tahun sisanya dalam siklus tersebut).</li></ul>"
   },
   {
     "index": 4,
