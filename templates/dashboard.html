@@ -80,7 +80,7 @@
 
               {% for d in data[i] %}
             <td class="calendar-cell {% if i == 0 %}text-danger{% endif %}{% if i == 5 %}text-success {% endif %}{% if d and d.is_today %} today{% endif %}"
-                {% if d %} data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" data-tgl="{{ d.tanggal_id }}"{% endif %}>
+    {% if d %} data-bs-toggle="modal" data-bs-target="#modalDetailTanggal" data-tgl="{{ d.tanggal_id }}"{% endif %}>
                 <!-- elemen baru -->
                 {% if d %}
                 <div class="d-flex justify-content-around align-items-center" >
@@ -182,61 +182,64 @@
   {% endif %}
 </section>
 <!-- detail -->
-<div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasBottom" style="height:90%;">
+<!-- detail modal -->
+<div class="modal fade" id="modalDetailTanggal" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
 
-  <div class="offcanvas-header">
-    <h5 class="offcanvas-title" id="offcanvasTitle">Tanggal</h5>
-    <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
-  </div>
+      <div class="modal-header border-0">
+        <h5 class="modal-title" id="modalTitle">Tanggal</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
 
-  <div class="offcanvas-body small">
-    <ul class="list-group list-group-flush" style="background: #f4f4f6;padding: 10px;border-radius: 10px;">
+      <div class="modal-body small">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item d-flex flex-column">
+            <div>
+              <span class="fw-bold text-muted">Hari Pasaran / Pancawara</span>
+              <i class="fi fi-br-bookmark" id="bookmark" style="font-size:10px; display:none;"></i>
+            </div>
+            <div class="d-flex flex-column flex-md-row justify-content-md-between align-items-md-center">
+             <span class="fw-bold" id="oc-pasaran-1"></span>
+             <span class="fw-bold" id="oc-pasaran-2"></span>
+            </div>
+          </li>
 
-      <li class="list-group-item d-flex justify-content-between">
-        Pasaran / Pancawara
-        <div class="d-flex gap-2">
-          <div class="d-flex flex-column text-end">
-            <span id="oc-pasaran-1"></span>
-            <span id="oc-pasaran-2"></span>
-          </div>
-          <div style="min-width: 10px;">
-            <i class="fi fi-br-bookmark" id="bookmark" style="font-size:10px; display:none;"></i>
-          </div>
-        </div>
-      </li>
-
-      <li class="list-group-item d-flex justify-content-between">
-        Hijriah
-        <div class="d-flex gap-2">
-          <span class="fw-bold" id="oc-hijriah"></span>
-            <a href="/kalenderhijriah">
-                <i class="fi fi-br-arrow-up-right-from-square"></i>
-            </a>
-        </div>
-
-      </li>
-
-      <li class="list-group-item d-flex justify-content-between">
-        Jawa
-        <div class="d-flex gap-2">
-          <div class="text-end">
-            <span class="fw-bold" id="oc-jawa">4 Besar Dal 1959</span>
-              <br>
-              Sadwårå/Paringkêlan <span class="badge rounded-pill text-bg-info" id="oc-sadwara">Uwas</span><br>
-              Wuku <span class="badge rounded-pill text-bg-success" id="oc-wuku">Warigalit</span>
-          </div>
-          <div>
-            <a href="/kalenderjawa">
-                  <i class="fi fi-br-arrow-up-right-from-square"></i>
+          <li class="list-group-item d-flex flex-column">
+            <span class="fw-bold text-muted">Hijriah</span>
+            <div class="d-flex justify-content-between">
+              <span class="fw-bold" id="oc-hijriah"></span>
+              <a href="/kalenderhijriah" class="text-muted" style="text-decoration: none;">
+                Detail <i class="fi fi-br-arrow-up-right-from-square"></i>
               </a>
-          </div>
-        </div>
-      </li>
-    </ul>
+            </div>
+          </li>
 
+          <li class="list-group-item d-flex flex-column">
+           <span class="fw-bold text-muted">Jawa</span>
+            <div class="d-flex justify-content-between">
+
+              <div>
+                <span class="fw-bold" id="oc-jawa">4 Besar Dal 1959</span><br>
+                Sadwårå/Paringkêlan <span class="badge rounded-pill text-bg-info" id="oc-sadwara">Uwas</span></br>
+                Wuku <span class="badge rounded-pill text-bg-success" id="oc-wuku">Warigalit</span>
+              </div>
+
+                <a href="/kalenderjawa" class="text-muted" style="text-decoration: none;">
+                  Detail <i class="fi fi-br-arrow-up-right-from-square"></i>
+                </a>
+
+            </div>
+          </li>
+
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- detail modal -->
 <!-- detail -->
-</div>
-</div>
 
 <div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasWuku" style="height:90%;">
     <div class="offcanvas-header">
@@ -310,11 +313,18 @@ calendarCells.forEach(el => {
   });
 });
     
+// Remove focus from any element inside the modal as soon as it begins hiding
+$('#modalDetailTanggal').on('hide.bs.modal', function () {
+    if (document.activeElement) {
+        document.activeElement.blur(); // Drops focus from .btn-close before aria-hidden="true" is set
+    }
+});
+
 $(document).on('click', 'td[data-tgl]', function () {
     let tanggal = $(this).attr('data-tgl');
 
     $.get('/detail-kalender', { tanggal: tanggal }, function(res){
-        $('#offcanvasTitle').html(res.masehi);
+        $('#modalTitle').html(res.masehi);
         $('#oc-jawa').html(res.jawa);
         $('#oc-hijriah').text(res.hijriah);
         $('#oc-pasaran-1').text(res.hari_pasaran);
@@ -329,7 +339,6 @@ $(document).on('click', 'td[data-tgl]', function () {
         $('#oc-wuku').text(res.wuku);
         const hari_bookmark = ["Senin Kliwon", "Senin Wage", "Senin Pahing", "Selasa Legi", "Rabu Kliwon", "Rabu Pahing", "Kamis Wage","Sabtu Legi","Sabtu Wage","Minggu Pon", "Minggu Kliwon"];
         $('#bookmark').toggle(hari_bookmark.includes(res.hari_pasaran));
-
     });
 });
 
