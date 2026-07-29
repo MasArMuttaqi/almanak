@@ -154,7 +154,7 @@
                         <small class="text-uppercase fw-bold text-muted" style="letter-spacing: 1px;">Informasi Astronomis</small>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center py-2">
-                        <span class="small text-muted">Waktu Ijtima'</span>
+                        <span class="small text-muted">Waktu Ijtima' / Konjungsi</span>
                         <span class="small font-monospace text-end">{{ data3.hijriah['ijt_utc'] }} UTC</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center py-2">
@@ -178,25 +178,24 @@
                         <span class="small text-muted">Fajar Selandia baru</span>
                         <span class="small font-monospace text-end">{{ data3.hijriah['nz_fajr_utc'] }} UTC</span>
                     </li> 
-                    <li class="list-group-item d-flex justify-content-between align-items-start bg-light py-2">
+                    <li class="list-group-item d-flex flex-column flex-md-row justify-content-md-between align-items-md-center gap-2 bg-light">
                         <span class="small text-muted fw-bold pe-2" style="flex: 1;">Parameter Kalender Global</span>
-                        <div class="d-flex flex-column text-end" style="flex-shrink: 0;">
-                            <span class="small text-muted">PKG1: {{ "Terpenuhi" if data3.hijriah['pkg1'] else "Tidak terpenuhi" }}</span>
-                            <span class="small text-muted">PKG2: {{ "Terpenuhi" if data3.hijriah['pkg2'] else "Tidak terpenuhi" }}</span>
+                        <div class="d-grid gap-1 mb-2 small text-muted" style="grid-template-columns: auto auto 1fr; flex-shrink: 0;">
+                            <span>PKG1</span><span>:</span><span>{{ "Terpenuhi" if data3.hijriah['pkg1'] else "Tidak terpenuhi" }}</span>
+                            <span>PKG2</span><span>:</span><span>{{ "Terpenuhi" if data3.hijriah['pkg2'] else "Tidak terpenuhi" }}</span>
                         </div>
                     </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center bg-light py-2">
+                    <li class="list-group-item d-flex flex-column flex-md-row justify-content-md-between align-items-md-center gap-2 bg-light">
                         <span class="small text-muted fw-bold">Status</span>
-                        <div class="d-flex flex-column text-end">
+                        <div class="d-flex flex-column text-start text-md-end mb-2">
                         {% if data3.hijriah['status_kgth'] == 'PKG 2' %}
-                            <span class="badge rounded-pill text-bg-primary px-3 text-wrap">PKG 2</span>
-                            <span class="small text-muted">Penyelarasan Global</span> 
+                            <!-- <span class="badge rounded-pill text-bg-primary px-3 text-wrap">PKG 2</span>
+                            <span class="small text-muted">Penyelarasan Global</span> -->
+                            <h6 class="small text-muted">Penyelarasan Global: ijtimak terjadi sebelum fajar di Selandia Baru dan setelah pukul 24.00 UTC<span class="badge rounded-pill text-bg-primary text-white">PKG 2</span></h6>
                         {% elif data3.hijriah['status_kgth'] == 'PKG 1 (sebelum 24:00 UTC)' %}
-                            <span class="badge rounded-pill text-bg-success px-3 text-wrap">PKG 1</span>
-                            <span class="small text-muted">Matahari terbenam sebelum 24:00 UTC (tinggi ≥ 5&deg;, elongasi ≥ 8&deg;)</span>
+                            <h6 class="small text-muted">matahari terbenam sebelum 24:00 UTC (tinggi ≥ 5&deg;, elongasi ≥ 8&deg;) <span class="badge rounded-pill text-bg-success text-white">PKG 1</span></h6>
                         {% elif data3.hijriah['status_kgth'] == 'Belum Memenuhi' %}
-                            <span class="badge rounded-pill text-bg-info px-3 text-wrap">Istikmal 30 hari</span>
-                            <span class="small text-muted">belum memenuhi <br> kriteria PKG 1 dan PKG 2</span>
+                            <h6 class="small text-muted">belum memenuhi kriteria PKG 1 dan PKG 2 <span class="badge rounded-pill text-bg-primary text-white">istikmal 30 hari</span></h6>
                         {% endif %}
                         </div>
                     </li>
@@ -214,9 +213,7 @@
                             <p class="card-text mb-0">{{ tanggal_khgt }}</p>
                         </div>
                         <div>
-                            <a href="https://khgt.muhammadiyah.or.id" class="btn btn-outline-primary btn-sm text-nowrap" target="_blank">
-                                🌐 Kunjungi laman KHGT
-                            </a>
+                            <a href="https://khgt.muhammadiyah.or.id" class="btn btn-outline-primary btn-sm text-nowrap" target="_blank">Kunjungi laman KHGT</a>
                         </div>
                     </div>
                 </div>

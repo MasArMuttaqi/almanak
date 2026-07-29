@@ -27,22 +27,20 @@
                     </form>
                 </div>
                 <!-- pencarian -->
-        <ul class="list-group list-group-flush">
+        <ul class="list-group list-group-flush mt-4">
                     <li class="list-group-item d-flex flex-column flex-md-row justify-content-md-between align-items-md-center gap-2">
-
+                        {% set hari_bookmark = ["Senen Kliwon", "Senen Wage", "Senen Pahing", "Selasa Legi", "Rebo Kliwon", "Rebo Pahing", "Kemis Wage","Setu Legi","Setu Wage","Ahad Pon", "Ahad Kliwon"] %}
                         <span class="text-secondary fw-medium">Hari Pasaran / Pancawara
+                            {% if data.hari_jawa in hari_bookmark %}<i class="fi fi-br-bookmark" style="font-size:10px;"></i>{% endif %}
                             <a href="" class="btn-detail" data-bs-toggle="offcanvas" data-bs-target="#kalenderjawa" aria-controls="offcanvasBottom" data-id="1">
-                            <i class="fi fi-br-info"></i></a>
+                                <i class="fi fi-br-info"></i>
+                            </a>
                         </span>
-                            {% set hari_bookmark = ["Senin Kliwon", "Senin Wage", "Senin Pahing", "Selasa Legi", "Rabu Kliwon", "Rabu Pahing", "Kamis Wage","Sabtu Legi","Sabtu Wage","Minggu Pon", "Minggu Kliwon"] %}
-                            <div class="d-flex flex-column text-start text-md-end mb-2 text-muted fw-bold">
-                                <span style="white-space: nowrap;">{{ data.hari_jawa }} {% if data.hari_jawa in hari_bookmark %}<i class="fi fi-br-bookmark" style="font-size:10px;"></i>{% endif %}</span>
+                            
+                        <div class="d-flex flex-column text-start text-md-end mb-2 text-muted fw-bold">
+                                <span style="white-space: nowrap;">{{ data.hari_jawa }}</span>
                                 <span style="white-space: nowrap;">{{ data.hari_caka }}</span>
-                            </div>
-                           
-                     
-                        
-
+                        </div>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center py-3">
                         <span class="text-secondary fw-medium">Tanggal Masehi</span>
