@@ -258,9 +258,9 @@ def hisab_nu(y,m,d):
 
         elif irnu:
             kesimpulan = {
-                "status": "Memenuhi dilakukan pengamatan hilal (Imkanur Rukyah NU)",
-                "kriteria": "tinggi hilal minimal 3° dan jarak lengkung (elongasi) minimal 6,4°",
-                "informasi": "Hilal memenuhi batas imkan rukyah. Menunggu hasil rukyah/isbat/ikhbar PBNU."
+                "status": "Memenuhi dilakukan pengamatan hilal",
+                "kriteria": "tinggi hilal minimal 3° dan jarak lengkung (elongasi) minimal 6.4°",
+                "informasi": "Menunggu hasil rukyah/isbat/ikhbar PBNU."
             }
 
         else:

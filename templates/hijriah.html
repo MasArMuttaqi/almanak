@@ -81,18 +81,20 @@
                         <span class="small text-end">{{ data1.data_astronomi['azimut_bulan'] }}&deg;</span>
                     </li>
                     {% if data1.kesimpulan and data1.kesimpulan['status'] is not none %}
-                    <li class="list-group-item bg-light py-2">
+                    <li class="list-group-item d-flex flex-column flex-md-row justify-content-md-between align-items-md-center gap-2 bg-light">
                         <span class="small text-muted fw-bold">Status</span>
-                    </li>
-                    <li class="list-group-item bg-light py-2">
-                        <span class="badge text-bg-success px-3 text-wrap text-start">{{ data1.kesimpulan['status'] }}</span><br>
-                        <span class="small text-end text-muted"><b>{{ data1.kesimpulan['informasi'] }}</b> Sesuai kriteria {{ data1.kesimpulan['kriteria'] }}</span>
+                        <div class="d-flex flex-column text-start text-md-end mb-2 text-muted">
+                            <span class="badge text-bg-success text-wrap ms-md-auto" style="width: fit-content;">{{ data1.kesimpulan['status'] }}</span>
+                            <span class="small text-muted">{{ data1.kesimpulan['kriteria'] }}</span>
+                            <span class="small text-muted">{{ data1.kesimpulan['informasi'] }}</span>
+                        </div>
+                        
                     </li>
                     {% endif %}
                 </ul>
 
                 <p class="text-justify text-muted mt-4">Menggunakan kombinasi metode hisab dan rukyah Lembaga Falakiyah PBNU dengan lokasi acuan <b>Kota Yogyakarta</b> <span class="small font-monospace">Lintang -7.7974565 dan Bujur 110.370697</span>.
-                    <button type="button" class="btn btn-sm" data-bs-toggle="offcanvas" data-bs-target="#offcanvasHilal" aria-controls="offcanvasBottom" style="background-color: #c5a059; color: white;">🔭 Riwayat Rukyatul Hilal</button>
+                    <button type="button" class="btn btn-sm btn-success" data-bs-toggle="offcanvas" data-bs-target="#offcanvasHilal" aria-controls="offcanvasBottom">🔭 Riwayat Rukyatul Hilal</button>
                 </p>
                 
 
@@ -189,8 +191,6 @@
                         <span class="small text-muted fw-bold">Status</span>
                         <div class="d-flex flex-column text-start text-md-end mb-2">
                         {% if data3.hijriah['status_kgth'] == 'PKG 2' %}
-                            <!-- <span class="badge rounded-pill text-bg-primary px-3 text-wrap">PKG 2</span>
-                            <span class="small text-muted">Penyelarasan Global</span> -->
                             <h6 class="small text-muted">Penyelarasan Global: ijtimak terjadi sebelum fajar di Selandia Baru dan setelah pukul 24.00 UTC<span class="badge rounded-pill text-bg-primary text-white">PKG 2</span></h6>
                         {% elif data3.hijriah['status_kgth'] == 'PKG 1 (sebelum 24:00 UTC)' %}
                             <h6 class="small text-muted">matahari terbenam sebelum 24:00 UTC (tinggi ≥ 5&deg;, elongasi ≥ 8&deg;) <span class="badge rounded-pill text-bg-success text-white">PKG 1</span></h6>
@@ -338,11 +338,11 @@
   </div>
   <div class="offcanvas-body">
     <div class="table-responsive">
-    <table class="table table-sm table-hover">
-        <thead class="table-primary">
+    <table class="table table-sm table-hover table-rounded">
+        <thead>
             <tr>
-                <th>Awal Bulan Hijriah</th>
-                <th>Tanggal Masehi</th>
+                <th style="background: #0f3222; color: #fafafa;">Awal Bulan Hijriah</th>
+                <th style="background: #0f3222; color: #fafafa;">Tanggal Masehi</th>
             </tr>
         </thead>
         <tbody>
