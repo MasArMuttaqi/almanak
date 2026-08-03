@@ -143,13 +143,23 @@
                         <span>Saptåwårå/Pancasuda</span>
                     </div>
                     <div class="row g-3">
-                        <div class="col-6 border-end">
-                                <small class="text-muted d-block small">Saptåwårå 
-                                    <a href="" class="btn-detail" data-bs-toggle="offcanvas" data-bs-target="#kalenderjawa" aria-controls="offcanvasBottom" data-id="10">
+                        <div class="col-6 border-end d-flex flex-column">
+                            <div class="mb-2">
+                            <small class="text-muted d-block small">Saptåwårå 
+                                <a href="" class="btn-detail" data-bs-toggle="offcanvas" data-bs-target="#kalenderjawa" aria-controls="offcanvasBottom" data-id="10">
                                     <i class="fi fi-br-info"></i>
-                                    </a>
-                                </small>
-                          <span class="fw-bold">{{ data.pancasuda_biasa }}</span>
+                                </a>
+                            </small>
+                            <span class="fw-bold">{{ data.pancasuda_biasa }}</span>
+                            </div>
+                            <div>
+                                <small class="text-muted d-block small">Pangarasan/Paarasan
+                                        <a href="" class="btn-detail" data-bs-toggle="offcanvas" data-bs-target="#kalenderjawa" aria-controls="offcanvasBottom" data-id="13">
+                                            <i class="fi fi-br-info"></i>
+                                        </a>
+                                    </small>
+                                    <span class="fw-bold">{{ data.pangarasan }}</span>
+                            </div>
                         </div>
                         <div class="col-6 ps-3">
                             <small class="text-muted d-block small">Pawukon
@@ -173,6 +183,7 @@
                         </div>
                     </div>
                 </li>
+                
                 <li class="list-group-item p-3">
                     <div class="row g-3">
                         <div class="col-6 border-end">
@@ -181,36 +192,20 @@
                                     <i class="fi fi-br-info"></i>
                                 </a>
                             </small>
-                            <ul class="list-group list-group-flush">
-                            {% for item in data.parerasan %}
-                             <li class="list-group-item"> 
-                                <span class="fw-bold mb-3">{{ item }}</span> 
-                            </li>
-                            {% endfor %}
-                            </ul>
+                            <div class="d-flex flex-column flex-md-row justify-content-md-between align-items-md-center gap-2">
+                                {% for item in data.parerasan %}
+                                    <span class="fw-bold mb-3">{{ item }}</span> 
+                                {% endfor %}
+                            </div>
+                            
                         </div>
                         <div class="col-6 ps-3">
-                          <div class="d-flex flex-column flex-md-row justify-content-md-between align-items-md-center gap-2">
-                                <!-- Blok Rakam -->
-                                <div>
-                                    <small class="text-muted d-block">Rakam
-                                        <a href="" class="btn-detail" data-bs-toggle="offcanvas" data-bs-target="#kalenderjawa" aria-controls="offcanvasBottom" data-id="12">
-                                            <i class="fi fi-br-info"></i>
-                                        </a>
-                                    </small>
-                                     <span class="fw-bold">{{ data.rakam }}</span>
-                                </div>
-                        
-                                <!-- Blok Pangarasan -->
-                                <div>
-                                    <small class="text-muted d-block small">Pangarasan/Paarasan
-                                        <a href="" class="btn-detail" data-bs-toggle="offcanvas" data-bs-target="#kalenderjawa" aria-controls="offcanvasBottom" data-id="13">
-                                            <i class="fi fi-br-info"></i>
-                                        </a>
-                                    </small>
-                                    <span class="fw-bold">{{ data.pangarasan }}</span>
-                                </div>
-                            </div>
+                            <small class="text-muted d-block">Rakam
+                                <a href="" class="btn-detail" data-bs-toggle="offcanvas" data-bs-target="#kalenderjawa" aria-controls="offcanvasBottom" data-id="12">
+                                    <i class="fi fi-br-info"></i>
+                                </a>
+                            </small>
+                            <span class="fw-bold">{{ data.rakam }}</span>
                         </div>
                     </div>
                 </li>
