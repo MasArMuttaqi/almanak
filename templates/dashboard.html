@@ -157,7 +157,7 @@
         {% if item.kategori == 'national-day' %}
           {% set tanggal = item.tanggal_masehi.split() %}
         {% else %}
-            {% set tanggal = item.tanggal_hijriah.split() %}
+            {% set tanggal = item.tanggal_masehi.split() %}
         {% endif %}
       <div class="date-box me-3">
           <span class="month">{{ tanggal[1][:3] }}</span>

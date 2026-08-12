@@ -21,7 +21,7 @@ import pyotp
 
 
 app = Flask(__name__)
-app.secret_key = "22de06ad-aff4-4d2e-bb32-1347f7a697a9"  # ganti dengan key aman
+app.secret_key = os.environ.get("SECRET_KEY", "default-secret") # ganti dengan key aman
 
 FILE_JSON_KOREKSI_AWAL_BULAN_HIJRIAH = "data/koreksirukyah.json"
 
