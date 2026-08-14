@@ -84,6 +84,18 @@
   <i class="fi fi-br-arrow-small-up"></i>
 </button>
 
+<!-- Fullscreen White Overlay dengan Logo -->
+  <div id="loading-overlay" class="d-none position-fixed top-0 start-0 w-100 h-100 flex-column align-items-center justify-content-center" style="z-index: 9999;">
+    <div class="loading position-relative d-flex align-items-center justify-content-center">
+      <!-- Ring Spinner -->
+      <div class="spinner-border position-absolute w-100 h-100 opacity-50" role="status" style="border-width: 6px; color: #D7A84D;">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <!-- Gambar Logo (Ganti URL ini dengan path logo Anda) -->
+      <img src="https://lh3.googleusercontent.com/d/1D5qR0dw-d773IpiNB9uzmKZ81uGyBOq1=w800?authuser=1" alt="Logo" class="img-fluid p-1">
+    </div>
+  </div>
+
 <script src="{{url_for('static',filename='script.js')}}"></script>
 
 </body>

@@ -636,6 +636,22 @@ td {
     .table-rounded thead tr th:last-child {
         border-top-right-radius: 8px;
     }
+
+    .loading{
+        width: 140px;
+        height: 140px;
+        background: rgba(242, 229, 204, 0.45);
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        border: 1px solid rgba(255, 255, 255, 0.6);
+        box-shadow: 0 8px 32px 0 rgba(100, 80, 50, 0.12);
+        border-radius:50%;
+    }
+    .loading img {
+        width: 80px;
+        height: 80px;
+        /*object-fit: contain;*/
+    }
   
     /* Responsif Mobile */
     @media (max-width: 576px) {
@@ -666,3 +682,4 @@ td {
             font-size: 1.625rem;
         }
     }
+

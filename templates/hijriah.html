@@ -45,13 +45,13 @@
         <div class="tab-pane fade show active" id="falakiyah" role="tabpanel">
 
                    <ul class="list-group list-group-flush">
-                    <li class="list-group-item d-flex justify-content-between align-items-center py-3">
+                    <li class="list-group-item d-flex flex-column flex-md-row justify-content-md-between align-items-md-center py-3">
                         <span class="text-secondary fw-medium">Tanggal Masehi</span>
-                        <span class="fw-bold text-dark text-end">{{ data1.tanggal_masehi }}</span>
+                        <span class="fw-bold text-dark text-start text-md-end mb-2">{{ data1.tanggal_masehi }}</span>
                     </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center py-3">
+                    <li class="list-group-item d-flex flex-column flex-md-row justify-content-md-between align-items-md-center py-3">
                         <span class="text-secondary fw-medium">Tanggal Hijriah</span>
-                        <span class="fw-bold text-success text-end">{{ data1.tanggal_hijriah["full"] }}</span>
+                        <span class="fw-bold text-success text-start text-md-end mb-2">{{ data1.tanggal_hijriah["full"] }}</span>
                     </li>
                     <li class="list-group-item bg-light py-2 text-center" style="border-top: 2px dashed #dee2e6; border-bottom: 2px dashed #dee2e6;">
                         <small class="text-uppercase fw-bold text-muted" style="letter-spacing: 1px;">Informasi Astronomis</small>
@@ -102,13 +102,13 @@
         <div class="tab-pane fade" id="hisab" role="tabpanel">
 
                   <ul class="list-group list-group-flush">
-                    <li class="list-group-item d-flex justify-content-between align-items-center py-3">
+                    <li class="list-group-item d-flex flex-column flex-md-row justify-content-md-between align-items-md-center py-3">
                         <span class="text-secondary fw-medium">Tanggal Masehi</span>
-                        <span class="fw-bold text-dark text-end">{{ data2.tanggal_masehi }}</span>
+                        <span class="fw-bold text-dark text-start text-md-end">{{ data2.tanggal_masehi }}</span>
                     </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center py-3">
+                    <li class="list-group-item d-flex flex-column flex-md-row justify-content-md-between align-items-md-center py-3">
                         <span class="text-secondary fw-medium">Tanggal Hijriah</span>
-                        <span class="fw-bold text-success text-end">{{ data2.hijriah }}</span>
+                        <span class="fw-bold text-success text-start text-md-end">{{ data2.hijriah }}</span>
                     </li>
                     <li class="list-group-item bg-light py-2 text-center" style="border-top: 2px dashed #dee2e6; border-bottom: 2px dashed #dee2e6;">
                         <small class="text-uppercase fw-bold text-muted" style="letter-spacing: 1px;">Informasi Astronomis Ijtimak</small>
@@ -144,13 +144,13 @@
          <div class="tab-pane fade" id="kgth" role="tabpanel">
 
                   <ul class="list-group list-group-flush">
-                    <li class="list-group-item d-flex justify-content-between align-items-center py-3">
+                    <li class="list-group-item d-flex flex-column flex-md-row justify-content-md-between align-items-md-center py-3">
                         <span class="text-secondary fw-medium">Tanggal Masehi</span>
-                        <span class="fw-bold text-dark text-end">{{ data3.tanggal }}</span>
+                        <span class="fw-bold text-dark text-start text-md-end">{{ data3.tanggal }}</span>
                     </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center py-3">
+                    <li class="list-group-item d-flex flex-column flex-md-row justify-content-md-between align-items-md-center py-3">
                         <span class="text-secondary fw-medium">Tanggal Hijriah</span>
-                        <span class="fw-bold text-success text-end">{{ data3.hijriah['hari'] }} {{ data3.hijriah['bulan'] }} {{ data3.hijriah['tahun'] }}</span>
+                        <span class="fw-bold text-success text-start text-md-end">{{ data3.hijriah['hari'] }} {{ data3.hijriah['bulan'] }} {{ data3.hijriah['tahun'] }}</span>
                     </li>
                     <li class="list-group-item bg-light py-2 text-center" style="border-top: 2px dashed #dee2e6; border-bottom: 2px dashed #dee2e6;">
                         <small class="text-uppercase fw-bold text-muted" style="letter-spacing: 1px;">Informasi Astronomis</small>

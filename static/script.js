@@ -72,3 +72,19 @@ $(document).ready(function() {
     'max': maxDate                                        
   });
 });
+
+$(document).ready(function() {
+      $('a[href]').on('click', function(e) {
+        var href = $(this).attr('href');
+
+        if (!href || href.startsWith('#') || href.startsWith('javascript:') || $(this).attr('target') === '_blank' || e.ctrlKey || e.metaKey) {
+          return;
+        }
+
+        $('#loading-overlay').removeClass('d-none').addClass('d-flex');
+      });
+
+      $(window).on('pageshow', function() {
+        $('#loading-overlay').addClass('d-none').removeClass('d-flex');
+      });
+});
