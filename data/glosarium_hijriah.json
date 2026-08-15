@@ -1,0 +1,42 @@
+[
+  {
+    "index": 0,
+    "parameter": "Ghurub",
+    "deskripsi": "Waktu terbenamnya piringan atas Matahari di ufuk (horizon) barat secara sempurna. Dalam astronomi Islam, ghurub menandai bergantinya hari dalam kalender Hijriah sekaligus awal dimulainya pengamatan hilal."
+  },
+  {
+    "index": 1,
+    "parameter": "Tinggi Hilal Hakiki",
+    "deskripsi": "Ketinggian pusat piringan Bulan di atas ufuk (horizon) yang dihitung dari titik pusat Bumi (geosentris), tanpa memperhitungkan efek pembiasan cahaya atmosfer dan beda lihat (paralaks)."
+  },
+  {
+    "index": 2,
+    "parameter": "Tinggi Hilal Mar&apos;i",
+    "deskripsi": "Ketinggian hilal yang sebenarnya terlihat oleh pengamat di permukaan Bumi (toposentris). Angka ini sudah memperhitungkan faktor refraksi (pembiasan cahaya oleh atmosfer Bumi), paralaks (perbedaan sudut pandang dari permukaan Bumi vs pusat Bumi), dan ketinggian tempat pengamat dari permukaan laut"
+  },
+  {
+    "index": 3,
+    "parameter": "Elongasi",
+    "deskripsi": "Jarak sudut antara pusat piringan Matahari dan pusat piringan Bulan dihitung dari titik pengamat. Semakin besar nilai elongasi, semakin tebal lengkungan cahaya hilal yang terbentuk."
+  },
+  {
+    "index": 4,
+    "parameter": "Azimut Matahari",
+    "deskripsi": "Posisi atau sudut horizontal Matahari di horizon saat terbenam, dihitung dari titik Utara sejati (0&deg;) searah jarum jam. Skala menggunakan sistem standar 0&deg; Utara - 90&deg; Timur - 180&deg; Selatan - 270&deg; Barat."
+  },
+  {
+    "index": 5,
+    "parameter": "Azimut Bulan",
+    "deskripsi": "Posisi atau sudut horizontal Bulan di horizon saat terbenam, dihitung dari titik Utara sejati (0&deg;) searah jarum jam. Skala menggunakan sistem standar 0&deg; Utara - 90&deg; Timur - 180&deg; Selatan - 270&deg; Barat."
+  },
+  {
+    "index": 6,
+    "parameter": "Itjtima&apos; / Konjungsi",
+    "deskripsi": "Ijtima&apos; (istilah ilmu falak/astronomi Islam) atau konjungsi (istilah astronomi modern) adalah peristiwa ketika Bumi, Bulan, dan Matahari berada dalam satu garis lurus yang sama jika dilihat dari Bumi. Penanda Bulan Baru: Momen ini merupakan tanda astronomis berakhirnya siklus bulan lama dan dimulainya fase Bulan Baru (<em>New Moon</em>)."
+  },
+  {
+    "index": 7,
+    "parameter": "Umur Bulan",
+    "deskripsi": "Selisih waktu antara konjungsi dengan matahari terbenam"
+  }
+]

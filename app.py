@@ -170,7 +170,10 @@ def kalenderhijriah():
                 "tanggal_masehi": tanggal_masehi_str
             })
 
-    return render_template("hijriah.html", data1=hisab_rukyah, data2=hisab_wujud_hilal, data3=hijriah_kgth,datahilal=rukyahhijriah,tanggal_khgt=tanggal_text)
+    with open("data/glosarium_hijriah.json", "r") as raw_glosarium:
+            desc = json.load(raw_glosarium)
+
+    return render_template("hijriah.html", data1=hisab_rukyah, data2=hisab_wujud_hilal, data3=hijriah_kgth,datahilal=rukyahhijriah,tanggal_khgt=tanggal_text,raw_glosarium=desc)
 
 
 # PIN Hardcoded
