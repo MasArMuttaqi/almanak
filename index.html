@@ -31,7 +31,10 @@
          }
 
         body {
-            background-color: #f0f2f5; /* Latar belakang abu-abu terang */
+            /*background-color: #f0f2f5; */
+            /* Latar belakang abu-abu terang */
+            background-image: url("https://i.pinimg.com/736x/83/a7/8c/83a78ca2b6938b14dc6af1a46258af18.jpg");
+            background-size: cover;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -41,7 +44,11 @@
         }
 
         .custom-card {
-            background-color: #fff;
+            /*background-color: #fff;*/
+            background: rgba(255, 255, 255, 0.45);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
             border-radius: 20px; /* Sudut melengkung halus */
             box-shadow: 0 4px 6px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.1); /* Bayangan lembut */
             width: 320px;
@@ -62,22 +69,7 @@
             margin-bottom: 24px;
         }
 
-        /* Pola kisi samar di bagian bawah kartu */
-        .card-pattern {
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            width: 60%;
-            height: 40%;
-            opacity: 0.1; /* Sangat samar */
-            /*background-image: 
-                linear-gradient(#4a4a4a 1px, transparent 1px),
-                linear-gradient(90deg, #4a4a4a 1px, transparent 1px);*/
-                background-image: url('https://i.pinimg.com/1200x/46/6e/d3/466ed3634f917cdbc5cc8fc54e6545c8.jpg');
-            /*background-size: 20px 20px;*/
-            background-size: cover;
-            pointer-events: none; /* Tidak mengganggu klik */
-        }
+
 
         /* Penyesuaian tipografi untuk teks judul */
         .card-title-text {
@@ -103,39 +95,71 @@
             background-color: #f1f1f1;
             border-color: #ccc;
         }
+
+        .loading{
+            width: 140px;
+            height: 140px;
+            background: rgba(242, 229, 204, 0.45);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 8px 32px 0 rgba(100, 80, 50, 0.12);
+            border-radius:50%;
+        }
+        .loading img {
+            width: 80px;
+            height: 80px;
+            /*object-fit: contain;*/
+        }
     </style>
 </head>
 <body>
 
     <div class="custom-card p-4">
         
+        <div class="d-flex d-flex align-items-center gap-3">
+            <img src="https://lh3.googleusercontent.com/d/1D5qR0dw-d773IpiNB9uzmKZ81uGyBOq1=w800?authuser=1" alt="Logo" class="app-icon-container">
 
-        <img src="https://lh3.googleusercontent.com/d/1D5qR0dw-d773IpiNB9uzmKZ81uGyBOq1=w800?authuser=1" alt="Logo" class="app-icon-container">
+            <div class="card-title-text">
+                <span id="brand-alfabet" class="brand-item">Almanak</span>
+                <span id="brand-aksara" class="brand-item aksara" style="display:none;">ꦄꦭ꧀ꦩꦤꦏ꧀</span>
+                <span id="brand-arab" class="brand-item arabic" style="display:none;">المنك</span>
+            </div>
+        </div>
+        
 
-        <div class="card-title-text mb-4">
-            <span id="brand-alfabet" class="brand-item">Almanak</span>
-            <span id="brand-aksara" class="brand-item aksara" style="display:none;">ꦄꦭ꧀ꦩꦤꦏ꧀</span>
-            <span id="brand-arab" class="brand-item arabic" style="display:none;">المنك</span>
+        <p class="text-secondary mb-4">Almanak: Kalender Jawa dan Hijriah. Dibuat ini merangkum Kalender Jawa Sultan Agungan dan petung jawa atau populer sebutan primbon, serta dipadukan dengan kalender hijriah dengan 3 metode hisab rukyah, hisab wujudul hilal dan Kalender Hijriah Global Tunggal (KHGT).</p>
+
+        <div class="dropdown">
+            <button class="btn btn-light btn-create-new mb-2 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Akses Almanak
+            </button>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="https://almanak-tawny.vercel.app/">
+                    <img src="https://raw.githubusercontent.com/tandpfun/skill-icons/main/icons/Vercel-Dark.svg" width="20">
+                    Buka Laman (Tautan utama)</a>
+                </li>
+                <li><a class="dropdown-item" href="https://almanak-2jgo.onrender.com/">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQad04Zi8X5WSAqAJYrbtO3KNu8D1UISyBx_93K4YWQDpclOACPLdgdFeZ2&s=10" width="20" style="border-radius: 3px;">
+                    Buka Laman (Tautan alternatif)</a>
+                </li>
+              </ul>
         </div>
 
-            <div class="dropdown">
-  <button class="btn btn-light btn-create-new mb-2 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Akses Almanak
-  </button>
-  <ul class="dropdown-menu">
-    <li><a class="dropdown-item" href="https://almanak-2jgo.onrender.com/">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQad04Zi8X5WSAqAJYrbtO3KNu8D1UISyBx_93K4YWQDpclOACPLdgdFeZ2&s=10" width="20" style="border-radius: 3px;">
-        Buka Laman</a>
-    </li>
-    <li><a class="dropdown-item" href="https://almanak-tawny.vercel.app/">
-        <img src="https://raw.githubusercontent.com/tandpfun/skill-icons/main/icons/Vercel-Dark.svg" width="20">
-        Buka Laman</a>
-    </li>
-  </ul>
-</div>
-        
-        <div class="card-pattern"></div>
     </div>
+
+    <!-- Fullscreen White Overlay dengan Logo -->
+    <div id="loading-overlay" class="d-none position-fixed top-0 start-0 w-100 h-100 flex-column align-items-center justify-content-center" style="z-index: 9999;">
+        <div class="loading position-relative d-flex align-items-center justify-content-center">
+          <!-- Ring Spinner -->
+          <div class="spinner-border position-absolute w-100 h-100 opacity-50" role="status" style="border-width: 6px; color: #D7A84D;">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <!-- Gambar Logo (Ganti URL ini dengan path logo Anda) -->
+          <img src="https://lh3.googleusercontent.com/d/1D5qR0dw-d773IpiNB9uzmKZ81uGyBOq1=w800?authuser=1" alt="Logo" class="img-fluid p-1">
+        </div>
+    </div>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -161,6 +185,23 @@
           // Atur interval penggantian (misal: setiap 4 detik)
           setInterval(rotateDates, 4000);
         });
+
+        $(document).ready(function() {
+              $('a[href]').on('click', function(e) {
+                var href = $(this).attr('href');
+
+                if (!href || href.startsWith('#') || href.startsWith('javascript:') || $(this).attr('target') === '_blank' || e.ctrlKey || e.metaKey) {
+                  return;
+                }
+
+                $('#loading-overlay').removeClass('d-none').addClass('d-flex');
+              });
+
+              $(window).on('pageshow', function() {
+                $('#loading-overlay').addClass('d-none').removeClass('d-flex');
+              });
+        });
+
     </script>
 </body>
 </html>
