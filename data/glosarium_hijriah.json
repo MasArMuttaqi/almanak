@@ -22,12 +22,12 @@
   {
     "index": 4,
     "parameter": "Azimut Matahari",
-    "deskripsi": "Posisi atau sudut horizontal Matahari di horizon saat terbenam, dihitung dari titik Utara sejati (0&deg;) searah jarum jam. Skala menggunakan sistem standar 0&deg; Utara - 90&deg; Timur - 180&deg; Selatan - 270&deg; Barat."
-  },
+    "deskripsi": "Posisi atau sudut horizontal Matahari di horizon saat terbenam, dihitung dari titik Utara sejati (0&deg;) searah jarum jam. Skala menggunakan sistem standar <span class='label label-default'>0&deg; Utara</span>,<span class='label label-primary'>90&deg; Timur</span>,<span class='label label-success'>180&deg; Selatan</span>, dan <span class='label label-info'>270&deg; Barat</span>"
+  }
   {
     "index": 5,
     "parameter": "Azimut Bulan",
-    "deskripsi": "Posisi atau sudut horizontal Bulan di horizon saat terbenam, dihitung dari titik Utara sejati (0&deg;) searah jarum jam. Skala menggunakan sistem standar 0&deg; Utara - 90&deg; Timur - 180&deg; Selatan - 270&deg; Barat."
+    "deskripsi": "Posisi atau sudut horizontal Bulan di horizon saat terbenam, dihitung dari titik Utara sejati (0&deg;) searah jarum jam. Skala menggunakan sistem standar <span class='label label-default'>0&deg; Utara</span>,<span class='label label-primary'>90&deg; Timur</span>,<span class='label label-success'>180&deg; Selatan</span>, dan <span class='label label-info'>270&deg; Barat</span>"
   },
   {
     "index": 6,
