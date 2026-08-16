@@ -56,57 +56,28 @@
                     <li class="list-group-item bg-light py-2 text-center" style="border-top: 2px dashed #dee2e6; border-bottom: 2px dashed #dee2e6;">
                         <small class="text-uppercase fw-bold text-muted" style="letter-spacing: 1px;">Informasi Astronomis</small>
                     </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center py-2">
-                        <span class="small text-muted">Ghurub
-                            <a href="" class="btn-detail" data-bs-toggle="modal" data-bs-target="#glosariumModal" data-id="0">
-                                <i class="fi fi-br-info"></i>
-                            </a>
-                        </span>
+                    <a href="" class="list-group-item d-flex justify-content-between align-items-center py-2 btn-detail" data-bs-toggle="modal" data-bs-target="#glosariumModal" data-id="0">
+                        <span class="small text-muted">Ghurub</span>
                         <span class="small font-monospace text-end">{{ data1.data_astronomi['ghurub_wib'] }} WIB</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center py-2">
-                        <span class="small text-muted">
-                            Tinggi Hilal Hakiki
-                            <a href="" class="btn-detail" data-bs-toggle="modal" data-bs-target="#glosariumModal" data-id="1">
-                                <i class="fi fi-br-info"></i>
-                            </a>
-                        </span>
+                    </a>
+                    <a href="" class="list-group-item d-flex justify-content-between align-items-center py-2 btn-detail" data-bs-toggle="modal" data-bs-target="#glosariumModal" data-id="1">
+                        <span class="small text-muted">Tinggi Hilal Hakiki</span>
                         <span class="small text-end">{{ data1.data_astronomi['tinggi_hilal_hakiki'] }}&deg;</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center py-2">
-                        <span class="small text-muted">
-                            Tinggi Hilal Mar'i
-                            <a href="" class="btn-detail" data-bs-toggle="modal" data-bs-target="#glosariumModal" data-id="2">
-                                <i class="fi fi-br-info"></i>
-                            </a>
-                        </span>
+                    </a>
+                    <a href="" class="list-group-item d-flex justify-content-between align-items-center py-2 btn-detail" data-bs-toggle="modal" data-bs-target="#glosariumModal" data-id="2">
+                        <span class="small text-muted">Tinggi Hilal Mar'i</span>
                         <span class="small text-end">{{ data1.data_astronomi['tinggi_hilal_mari'] }}&deg;</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center py-2">
-                        <span class="small text-muted">
-                            Elongasi
-                            <a href="" class="btn-detail" data-bs-toggle="modal" data-bs-target="#glosariumModal" data-id="3">
-                                <i class="fi fi-br-info"></i>
-                            </a>
-                        </span>
+                    </a>
+                    <li class="list-group-item d-flex justify-content-between align-items-center py-2 btn-detail" data-bs-toggle="modal" data-bs-target="#glosariumModal" data-id="3">
+                        <span class="small text-muted">Elongasi</span>
                         <span class="small text-end">{{ data1.data_astronomi['elongasi'] }}&deg;</span>
                     </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center py-2">
-                        <span class="small text-muted">
-                            Azimut Matahari
-                            <a href="" class="btn-detail" data-bs-toggle="modal" data-bs-target="#glosariumModal" data-id="4">
-                                <i class="fi fi-br-info"></i>
-                            </a>
-                        </span>
+                    <li class="list-group-item d-flex justify-content-between align-items-center py-2 btn-detail" data-bs-toggle="modal" data-bs-target="#glosariumModal" data-id="4">
+                        <span class="small text-muted">Azimut Matahari</span>
                         <span class="small text-end">{{ data1.data_astronomi['azimut_matahari'] }}&deg;</span>
                     </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center py-2">
-                        <span class="small text-muted">
-                            Azimut Bulan
-                            <a href="" class="btn-detail" data-bs-toggle="modal" data-bs-target="#glosariumModal" data-id="5">
-                                <i class="fi fi-br-info"></i>
-                            </a>
-                        </span>
+                    <li class="list-group-item d-flex justify-content-between align-items-center py-2 btn-detail" data-bs-toggle="modal" data-bs-target="#glosariumModal" data-id="5">
+                        <span class="small text-muted">Azimut Bulan</span>
                         <span class="small text-end">{{ data1.data_astronomi['azimut_bulan'] }}&deg;</span>
                     </li>
                     {% if data1.kesimpulan and data1.kesimpulan['status'] is not none %}
@@ -154,15 +125,10 @@
                         <span class="small text-muted">Elongasi</span>
                         <span class="small text-end">{{ data2.elongasi }}&deg;</span>
                     </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center py-2">
-                        <span class="small text-muted">
-                            Waktu Ijtima' / Konjungsi
-                            <a href="" class="btn-detail" data-bs-toggle="modal" data-bs-target="#glosariumModal" data-id="6">
-                                <i class="fi fi-br-info"></i>
-                            </a>
-                        </span>
+                    <a href="" class="list-group-item d-flex justify-content-between align-items-center py-2 btn-detail" data-bs-toggle="modal" data-bs-target="#glosariumModal" data-id="6">
+                        <span class="small text-muted">Waktu Ijtima' / Konjungsi</span>
                         <span class="small font-monospace text-end">{{ data2.ijtima | default("-", true) }}</span>
-                    </li>
+                    </a>
                     <li class="list-group-item d-flex justify-content-between align-items-center bg-light py-2">
                         <span class="small fw-bold text-muted">Status</span>
                         <div class="text-end">
@@ -425,7 +391,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <p id="glosariumModalDesc"></p>
+        <p class="small text-muted" id="glosariumModalDesc" style="text-align: justify;"></p>
       </div>
     </div>
   </div>

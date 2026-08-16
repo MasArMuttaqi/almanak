@@ -211,37 +211,6 @@ def hisab_nu(y,m,d):
 
     elong = degrees(elong)
 
-    # if hijri_d in [29, 30]:
-    #     if moon_mar_i >= 3 and elong >= 6.4:
-    #         kesimpulan = {
-    #             "status": "Memenuhi Imkan Rukyat",
-    #             "kriteria": "MABIMS 3-6.4",
-    #             "keterangan": "Besok adalah tanggal 1 bulan baru."
-    #         }
-    #     else:
-    #         kesimpulan = {
-    #             "status": "Istikmal 30 Hari",
-    #             "kriteria": "MABIMS 3-6.4",
-    #             "keterangan": "Bulan digenapkan menjadi 30 hari."
-    #         }
-    # 2. Logika Khusus saat masuk Tanggal 1 Bulan Baru
-    # elif hijri_d == 1:
-    #     if moon_mar_i >= 3 and elong >= 6.4:
-    #         kesimpulan = {
-    #             "status": "Awal Bulan Baru",
-    #             "kriteria": "MABIMS 3-6.4",
-    #             "informasi": "Hilal terlihat/memenuhi syarat pada petang sebelumnya."
-    #         }
-    #     else:
-    #         # Kasus jika tanggal 1 dicapai melalui jalur Istikmal
-    #         kesimpulan = {
-    #             "status": "Awal Bulan Baru (Istikmal)",
-    #             "kriteria": "MABIMS 3-6.4",
-    #             "informasi": "Bulan baru dimulai setelah penggenapan 30 hari."
-    #         }
-    # else:
-    #     kesimpulan = None  # Tidak tampil di pertengahan bulan
-
     kesimpulan = None
 
     irnu = moon_mar_i >= 3 and elong >= 6.4
