@@ -100,19 +100,19 @@
                        </a>
                     </small>
                     
-                            <div class="d-flex flex-column flex-md-row justify-content-md-between align-items-md-center gap-2">
+                            <div class="d-flex flex-column flex-md-row justify-content-md-between align-items-md-top gap-2">
                                 <!-- Blok Pranatamangsa -->
                                 <div>
-                                    <small class="text-muted d-block"><em>Pranatamangsa</em></small>
+                                    <small class="text-muted d-block fst-italic">Pranatamangsa</small>
                                     <span class="fw-bold">{{ data.pranatamangsa }}</span>
                                 </div>
                         
                                 <!-- Blok Candranipun -->
                                 <div>
-                                    <small class="text-muted d-block"><em>Candranipun</em></small>
-                                    <div>
-                                        <span class="aksara">{{ candranipun[0].candranipun_aksara }}</span><br>
-                                        <span style="font-size:11px;">{{ candranipun[0].candranipun_latin }}</span>
+                                    <small class="text-muted d-block fst-italic">Candranipun</small>
+                                    <div class="d-flex flex-column flex-md-row justify-content-md-start gap-2 align-items-md-center">
+                                        <span class="aksara text-start fs-5">{{ candranipun[0].candranipun_aksara }}</span>
+                                        <span class="fst-italic fs-6">{{ candranipun[0].candranipun_latin }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -162,7 +162,7 @@
                             </div>
                         </div>
                         <div class="col-6 ps-3">
-                            <small class="text-muted d-block small">Pawukon
+                            <small class="text-muted d-block small mb-2">Pawukon
                                 <a href="" class="btn-detail" data-bs-toggle="offcanvas" data-bs-target="#kalenderjawa" aria-controls="offcanvasBottom" data-id="11">
                                     <i class="fi fi-br-info"></i>
                                 </a>
@@ -170,13 +170,13 @@
                             <div class="d-flex flex-column flex-md-row justify-content-md-between align-items-md-center gap-2">
                                 <!-- Blok Betaljemur Adammakna -->
                                 <div>
-                                    <small class="text-muted d-block"><em>Betaljemur Adammakna</em></small>
+                                    <small class="text-muted d-block fst-italic">Betaljemur Adammakna</small>
                                     <span class="fw-bold">{{ data.pawukon['pancasuda_pakuwon'] }}</span>
                                 </div>
                         
                                 <!-- Blok Bincilan -->
                                 <div>
-                                    <small class="text-muted d-block"><em>Bincilan</em></small>
+                                    <small class="text-muted d-block fst-italic"><em>Bincilan</em></small>
                                     <span class="fw-bold">{{ data.pawukon['pancasuda_bincilan'] }}</span>
                                 </div>
                             </div>
@@ -407,9 +407,10 @@
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
     </div>
     <div class="offcanvas-body">
-        <div class="card" style="width:400px">
+        <div class="card mb-5" style="max-width:400px">
           <img class="card-img-top" id="preview"  src="" alt="Card image">
-          <div class="card-body">
+          <div class="card-body d-flex justify-content-end gap-2">
+            <small class="text-secondary">sumber gambar:</small>
               <img src="https://herjaka.com/wp-content/uploads/2021/03/logo-herjaka-kecil.gif" height="20px" >
           </div>
         </div>

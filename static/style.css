@@ -637,6 +637,17 @@ td {
         border-top-right-radius: 8px;
     }
 
+    /* Efek hover pada cell yang dapat diklik */
+    .calendar-cell.wuku[data-bs-toggle="tooltip"] {
+        cursor: pointer;
+        transition: background-color 0.2s ease, transform 0.1s ease;
+    }
+
+    .calendar-cell.wuku[data-bs-toggle="tooltip"]:hover {
+        background-color: rgba(0, 0, 0, 0.05); /* Latar belakang sedikit gelap saat hover */
+        transform: scale(1.02); /* Efek sedikit membesar */
+    }
+
     .loading{
         width: 140px;
         height: 140px;

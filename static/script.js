@@ -73,18 +73,34 @@ $(document).ready(function() {
   });
 });
 
+
 $(document).ready(function() {
-      $('a[href]').on('click', function(e) {
-        var href = $(this).attr('href');
+  // Variable selector untuk link dan tombol submit
+  var $triggers = $('a[href], button[type="submit"], input[type="submit"]');
 
-        if (!href || href.startsWith('#') || href.startsWith('javascript:') || $(this).attr('target') === '_blank' || e.ctrlKey || e.metaKey) {
-          return;
-        }
+  $triggers.on('click', function(e) {
+    var $this = $(this);
+    var href = $this.attr('href');
 
-        $('#loading-overlay').removeClass('d-none').addClass('d-flex');
-      });
+    // Cek jika elemen adalah link <a> dan memenuhi kondisi yang diabaikan
+    if ($this.is('a')) {
+      if (!href || href.startsWith('#') || href.startsWith('javascript:') || $this.attr('target') === '_blank' || e.ctrlKey || e.metaKey) {
+        return;
+      }
+    }
 
-      $(window).on('pageshow', function() {
-        $('#loading-overlay').addClass('d-none').removeClass('d-flex');
-      });
+    // Tampilkan overlay jika lolos validasi
+    $('#loading-overlay').removeClass('d-none').addClass('d-flex');
+  });
+
+  // Tampilkan overlay saat form di-submit via tombol Enter
+  $('form').on('submit', function() {
+    $('#loading-overlay').removeClass('d-none').addClass('d-flex');
+  });
+
+  // Sembunyikan overlay saat halaman dimuat kembali (misal navigasi 'Back')
+  $(window).on('pageshow', function() {
+    $('#loading-overlay').addClass('d-none').removeClass('d-flex');
+  });
 });
+
