@@ -171,6 +171,18 @@ def jam_desimal_ke_jd(y, m, d, jam_desimal):
 # ============================================================
 # KONVERSI MASEHI → HIJRIAH BERDASARKAN ANCHOR
 # ============================================================
+# ============================================================
+# KONVERSI MASEHI → HIJRIAH
+#
+# PRIORITAS:
+#
+# 1. Anchor koreksi rukyah digunakan sebagai tanggal 1 bulan.
+# 2. Jika anchor bulan berikutnya tersedia, panjang bulan
+#    ditentukan dari selisih kedua anchor.
+# 3. Jika anchor berikutnya belum tersedia, gunakan Hisab Urfi.
+# 4. Setelah bulan selesai, otomatis maju ke bulan berikutnya.
+# ============================================================
+
 def masehi_to_hijri_json(target_date):
 
     target = datetime.strptime(
@@ -179,7 +191,7 @@ def masehi_to_hijri_json(target_date):
     )
 
     # ========================================================
-    # BACA SEMUA ANCHOR KOREKSI RUKYAH
+    # BACA ANCHOR KOREKSI RUKYAH
     # ========================================================
 
     anchors = []
@@ -199,11 +211,11 @@ def masehi_to_hijri_json(target_date):
             )
 
             anchors.append(
-                (
-                    base_date,
-                    hy,
-                    hm
-                )
+                {
+                    "date": base_date,
+                    "year": hy,
+                    "month": hm
+                }
             )
 
         except (ValueError, TypeError):
@@ -215,25 +227,26 @@ def masehi_to_hijri_json(target_date):
     # ========================================================
 
     if not anchors:
+
         return "-", "-", "-"
 
     # ========================================================
-    # URUTKAN BERDASARKAN TANGGAL MASEHI
+    # URUTKAN ANCHOR
     # ========================================================
 
     anchors.sort(
-        key=lambda x: x[0]
+        key=lambda x: x["date"]
     )
 
     # ========================================================
-    # CARI ANCHOR BULAN YANG BERLAKU
+    # CARI ANCHOR TERAKHIR <= TARGET
     # ========================================================
 
     current_index = None
 
     for i, anchor in enumerate(anchors):
 
-        if target >= anchor[0]:
+        if target >= anchor["date"]:
 
             current_index = i
 
@@ -241,100 +254,119 @@ def masehi_to_hijri_json(target_date):
 
             break
 
-    # Belum mencapai anchor pertama
+    # Target sebelum anchor pertama
     if current_index is None:
+
         return "-", "-", "-"
 
-    base_date, hy, hm = anchors[current_index]
-
     # ========================================================
-    # CARI ANCHOR BERIKUTNYA
+    # MULAI DARI ANCHOR
     # ========================================================
 
-    next_anchor = None
-
-    if current_index + 1 < len(anchors):
-
-        next_anchor = anchors[current_index + 1]
+    base_date = anchors[current_index]["date"]
+    hy = anchors[current_index]["year"]
+    hm = anchors[current_index]["month"]
 
     # ========================================================
-    # JUMLAH HARI BULAN
-    #
-    # PRIORITAS:
-    #
-    # 1. Jika anchor bulan berikutnya tersedia:
-    #    gunakan selisih tanggal koreksi rukyah.
-    #
-    # 2. Jika tidak tersedia:
-    #    gunakan pola Hisab Urfi.
+    # MAJU BULAN DEMI BULAN
     # ========================================================
 
-    if next_anchor is not None:
+    while True:
 
-        next_date = next_anchor[0]
+        # ----------------------------------------------------
+        # CARI ANCHOR BERIKUTNYA
+        # ----------------------------------------------------
 
-        jumlah_hari_bulan = ( next_date - base_date ).days
+        next_anchor = None
 
-    else:
+        if current_index + 1 < len(anchors):
 
-        jumlah_hari_bulan = (
-            jumlah_hari_bulan_urfi(
-                hy,
-                hm
+            next_anchor = anchors[
+                current_index + 1
+            ]
+
+        # ----------------------------------------------------
+        # TENTUKAN PANJANG BULAN
+        # ----------------------------------------------------
+
+        if next_anchor is not None:
+
+            jumlah_hari_bulan = (
+                next_anchor["date"]
+                - base_date
+            ).days
+
+        else:
+
+            jumlah_hari_bulan = (
+                jumlah_hari_bulan_urfi(
+                    hy,
+                    hm
+                )
+            )
+
+        # ----------------------------------------------------
+        # HITUNG HARI
+        # ----------------------------------------------------
+
+        day = (
+            target - base_date
+        ).days + 1
+
+        # ----------------------------------------------------
+        # TARGET MASIH DI BULAN INI
+        # ----------------------------------------------------
+
+        if 1 <= day <= jumlah_hari_bulan:
+
+            return (
+                day,
+                bulan_hijri[hm - 1],
+                hy
+            )
+
+        # ----------------------------------------------------
+        # TARGET SUDAH MELEWATI BULAN INI
+        # ----------------------------------------------------
+
+        # Jika ada anchor berikutnya dan target sudah
+        # mencapai anchor tersebut, gunakan anchor berikutnya.
+        if (
+            next_anchor is not None
+            and target >= next_anchor["date"]
+        ):
+
+            current_index += 1
+
+            base_date = next_anchor["date"]
+            hy = next_anchor["year"]
+            hm = next_anchor["month"]
+
+            continue
+
+        # ----------------------------------------------------
+        # TIDAK ADA ANCHOR BERIKUTNYA
+        #
+        # Gunakan HISAB URFI untuk maju ke bulan berikutnya.
+        # ----------------------------------------------------
+
+        base_date = (
+            base_date
+            + timedelta(
+                days=jumlah_hari_bulan
             )
         )
 
-    # ========================================================
-    # HITUNG HARI HIJRIAH
-    # ========================================================
+        # Bulan berikutnya
+        hm += 1
 
-    day = ( target - base_date).days + 1
+        if hm > 12:
 
-    # ========================================================
-    # VALIDASI HARI
-    # ========================================================
+            hm = 1
+            hy += 1
 
-    if day < 1:
-
-        return "-", "-", "-"
-
-    # ========================================================
-    # JIKA MELEBIHI PANJANG BULAN
-    # ========================================================
-
-    if day > jumlah_hari_bulan:
-
-        # ----------------------------------------------------
-        # Jika sudah masuk anchor berikutnya,
-        # gunakan anchor tersebut.
-        # ----------------------------------------------------
-
-        if (
-            next_anchor is not None
-            and target >= next_anchor[0]
-        ):
-
-            return masehi_to_hijri_json(
-                target_date
-            )
-
-        return "-", "-", "-"
-
-    # ========================================================
-    # NAMA BULAN
-    # ========================================================
-
-    nama_bulan = bulan_hijri[hm - 1]
-
-    # ========================================================
-    # HASIL
-    # ========================================================
-
-    return (
-        day,
-        nama_bulan,
-        hy
-    )
+        # Setelah maju menggunakan urfi, loop kembali
+        # dan hitung posisi target pada bulan berikutnya.
 # ============================================================
 # JULIAN DAY
 # ============================================================
@@ -558,65 +590,114 @@ def moon_sun_difference(jd):
 # ============================================================
 # MENCARI IJTIMA / KONJUNGSI
 # ============================================================
+
 def find_conjunction(jd_target):
 
+    """
+    Mencari waktu ijtima terdekat dari jd_target.
+
+    Metode:
+        1. Scan untuk menemukan perubahan tanda
+           selisih bujur ekliptik Bulan - Matahari.
+        2. Refinement dengan bisection.
+
+    Hasil:
+        Julian Day UTC.
+    """
+
     # --------------------------------------------------------
-    # Cari titik awal dengan selisih terkecil
+    # RENTANG PENCARIAN
     # --------------------------------------------------------
 
     start = jd_target - 20
     end = jd_target + 20
 
+    # 1 jam
     step = 1 / 24
 
-    best_jd = None
-    best_abs = 999
+    previous_jd = start
+    previous_diff = moon_sun_difference(
+        previous_jd
+    )
 
-    jd = start
+    candidates = []
+
+    jd = start + step
 
     while jd <= end:
 
-        diff = moon_sun_difference(jd)
+        current_diff = moon_sun_difference(jd)
 
-        value = abs(diff)
+        # ----------------------------------------------------
+        # PERUBAHAN TANDA
+        # ----------------------------------------------------
 
-        if value < best_abs:
+        if (
+            previous_diff == 0
+            or current_diff == 0
+            or previous_diff * current_diff < 0
+        ):
 
-            best_abs = value
-            best_jd = jd
+            a = previous_jd
+            b = jd
+
+            # ------------------------------------------------
+            # BISECTION
+            # ------------------------------------------------
+
+            fa = previous_diff
+            fb = current_diff
+
+            for _ in range(60):
+
+                c = (a + b) / 2
+
+                fc = moon_sun_difference(c)
+
+                # Sudah sangat dekat dengan ijtima
+                if abs(fc) < 1e-10:
+
+                    a = c
+                    b = c
+                    break
+
+                # Cari interval yang mengandung akar
+                if fa * fc <= 0:
+
+                    b = c
+                    fb = fc
+
+                else:
+
+                    a = c
+                    fa = fc
+
+            root = (
+                a + b
+            ) / 2
+
+            candidates.append(root)
+
+        previous_jd = jd
+        previous_diff = current_diff
 
         jd += step
 
-    if best_jd is None:
+    # --------------------------------------------------------
+    # JIKA TIDAK ADA AKAR
+    # --------------------------------------------------------
+
+    if not candidates:
         return None
 
-
     # --------------------------------------------------------
-    # Refinement
+    # PILIH IJTIMA TERDEKAT DARI TARGET
     # --------------------------------------------------------
 
-    a = best_jd - step
-    b = best_jd + step
-
-    for _ in range(60):
-
-        c = (a + b) / 2
-
-        fa = moon_sun_difference(a)
-        fc = moon_sun_difference(c)
-
-        # Cari titik menuju 0
-        if abs(fa) < abs(fc):
-
-            b = c
-
-        else:
-
-            a = c
-
-    return (
-        a + b
-    ) / 2
+    return min(
+        candidates,
+        key=lambda x: abs(x - jd_target)
+    )
 
 # ============================================================
 # JULIAN DAY → DATETIME UTC
@@ -825,40 +906,67 @@ def parallax(alt):
 # SUNSET / GHURUB
 # ============================================================
 
-def sunset(y, m, d):
+def sunset_wib(y, m, d):
+    """
+    Menghitung waktu ghurub dalam WIB.
+
+    Hasil:
+        jam desimal WIB
+
+    Catatan:
+        Formula menggunakan lokasi acuan:
+            LAT
+            LON
+            TZ
+
+        Nilai ini adalah waktu lokal WIB dan BUKAN UTC.
+    """
 
     jd0 = julian_day(
         y,
         m,
         d,
-        12
+        12 - TZ
     )
 
     RA, Dec = sun_position(jd0)
 
     latr = radians(LAT)
-
     decr = radians(Dec)
 
-    H = degrees(
-        acos(
-            (
-                -sin(radians(-0.833))
-                - sin(latr)
-                * sin(decr)
-            )
-            /
-            (
-                cos(latr)
-                * cos(decr)
-            )
-        )
+    # Tinggi matahari saat terbenam
+    h0 = radians(-0.833)
+
+    cos_H = (
+        sin(h0)
+        - sin(latr) * sin(decr)
+    ) / (
+        cos(latr) * cos(decr)
     )
 
-    return (
-        12
-        + (H - LON) / 15
+    # Perlindungan numerik
+    cos_H = max(
+        -1,
+        min(1, cos_H)
     )
+
+    H = degrees(
+        acos(cos_H)
+    )
+
+    # Waktu matahari tengah hari lokal WIB
+    solar_noon_wib = (
+        12
+        - LON / 15
+        + TZ
+    )
+
+    ghurub_wib = (
+        solar_noon_wib
+        + H / 15
+    )
+
+    return ghurub_wib
 
 
 # ============================================================
@@ -981,93 +1089,135 @@ def find_moon_events_local(y, m, d):
     return moonrise_jd, moonset_jd
 
 # ============================================================
-# HISAB FINAL
+# HISAB FINAL NU
 # ============================================================
 
 def hisab_nu(y, m, d):
 
-    # --------------------------------------------------------
-    # GHURUB
-    # --------------------------------------------------------
+    """
+    Hisab astronomis NU.
 
-    ghurub = sunset(
+    Semua waktu lokal menggunakan WIB sesuai lokasi acuan.
+
+    Internal astronomical calculation:
+        Julian Day = UTC
+
+    Output:
+        Ghurub       = WIB
+        Moonrise     = WIB
+        Moonset      = WIB
+        Ijtima       = UTC + WIB
+        Umur bulan   = berdasarkan JD UTC
+    """
+
+    # ========================================================
+    # TANGGAL TARGET
+    # ========================================================
+
+    target_date = f"{y:04d}-{m:02d}-{d:02d}"
+
+    # ========================================================
+    # GHURUB WIB
+    # ========================================================
+
+    ghurub_wib = sunset_wib(
         y,
         m,
         d
+    )
+
+    # --------------------------------------------------------
+    # Konversi ghurub WIB → UTC
+    #
+    # Ini penting:
+    #
+    # ghurub_wib adalah jam lokal WIB.
+    # Untuk Julian Day harus dikembalikan ke UTC.
+    # --------------------------------------------------------
+
+    ghurub_utc = (
+        ghurub_wib
+        - TZ
     )
 
     jd_ghurub = jam_desimal_ke_jd(
         y,
         m,
         d,
-        ghurub
+        ghurub_utc
     )
 
-
-    # --------------------------------------------------------
-    # HIJRIAH
-    # --------------------------------------------------------
+    # ========================================================
+    # KONVERSI MASEHI → HIJRIAH
+    # ========================================================
 
     hijri_d, hijri_m, hijri_y = (
         masehi_to_hijri_json(
-            f"{y:04d}-{m:02d}-{d:02d}"
+            target_date
         )
     )
 
-
-    # --------------------------------------------------------
+    # ========================================================
     # IJTIMA
-    # --------------------------------------------------------
+    # ========================================================
 
     jd_ijtima = find_conjunction(
         jd_ghurub
     )
 
+    ijtima_utc = None
+    ijtima_wib = None
+    umur_bulan_jam = None
+
     if jd_ijtima is not None:
+
+        # ----------------------------------------------------
+        # Ijtima UTC
+        # ----------------------------------------------------
 
         ijtima_utc = jd_to_datetime(
             jd_ijtima
         )
+
+        # ----------------------------------------------------
+        # Ijtima WIB
+        # ----------------------------------------------------
 
         ijtima_wib = (
             ijtima_utc
             + timedelta(hours=TZ)
         )
 
-        # Umur Bulan saat ghurub
+        # ----------------------------------------------------
+        # Umur bulan saat ghurub
+        #
+        # Keduanya JD UTC sehingga aman.
+        # ----------------------------------------------------
+
         umur_bulan_jam = (
             jd_ghurub
             - jd_ijtima
         ) * 24
 
-    else:
-
-        ijtima_utc = None
-        ijtima_wib = None
-        umur_bulan_jam = None
-
-
-    # --------------------------------------------------------
+    # ========================================================
     # POSISI MATAHARI
-    # --------------------------------------------------------
+    # ========================================================
 
     sunRA, sunDec = sun_position(
         jd_ghurub
     )
 
-
-    # --------------------------------------------------------
+    # ========================================================
     # POSISI BULAN
-    # --------------------------------------------------------
+    # ========================================================
 
     moonRA, moonDec = moon_position(
         jd_ghurub
     )
 
-
-    # --------------------------------------------------------
-    # ALT AZ
-    # --------------------------------------------------------
+    # ========================================================
+    # ALTITUDE / AZIMUTH
+    # ========================================================
 
     sunAlt, sunAz = altitude_azimuth(
         sunRA,
@@ -1081,10 +1231,9 @@ def hisab_nu(y, m, d):
         jd_ghurub
     )
 
-
-    # --------------------------------------------------------
+    # ========================================================
     # TINGGI HILAL MAR'I
-    # --------------------------------------------------------
+    # ========================================================
 
     moon_mar_i = (
         moonAlt
@@ -1092,10 +1241,9 @@ def hisab_nu(y, m, d):
         - parallax(moonAlt)
     )
 
-
-    # --------------------------------------------------------
+    # ========================================================
     # ELONGASI
-    # --------------------------------------------------------
+    # ========================================================
 
     delta_ra = abs(
         sunRA - moonRA
@@ -1103,7 +1251,10 @@ def hisab_nu(y, m, d):
 
     if delta_ra > 180:
 
-        delta_ra = 360 - delta_ra
+        delta_ra = (
+            360
+            - delta_ra
+        )
 
     elong = acos(
         sin(radians(sunDec))
@@ -1116,102 +1267,87 @@ def hisab_nu(y, m, d):
 
     elong = degrees(elong)
 
-
     # ========================================================
     # MOONRISE / MOONSET
     # ========================================================
 
-  
-
-    jd_moonrise, jd_moonset = find_moon_events_local(
-        y,
-        m,
-        d
+    jd_moonrise, jd_moonset = (
+        find_moon_events_local(
+            y,
+            m,
+            d
+        )
     )
 
-
-    # --------------------------------------------------------
-    # KONVERSI WAKTU
-    # --------------------------------------------------------
+    # ========================================================
+    # KONVERSI MOONRISE / MOONSET KE WIB
+    # ========================================================
 
     moonrise_wib = None
     moonset_wib = None
 
     if jd_moonrise is not None:
+
         moonrise_utc = jd_to_datetime(
             jd_moonrise
         )
 
         moonrise_wib = (
-                moonrise_utc
-                + timedelta(hours=TZ)
+            moonrise_utc
+            + timedelta(hours=TZ)
         )
 
     if jd_moonset is not None:
+
         moonset_utc = jd_to_datetime(
             jd_moonset
         )
 
         moonset_wib = (
-                moonset_utc
-                + timedelta(hours=TZ)
+            moonset_utc
+            + timedelta(hours=TZ)
         )
-
 
     # ========================================================
     # LAMA BULAN DI ATAS UFUK
     # ========================================================
 
+    lama_ufuk_jam = None
+
     if (
-            jd_moonrise is not None
-            and jd_moonset is not None
+        jd_moonrise is not None
+        and jd_moonset is not None
     ):
 
-        lama_ufuk_jam = durasi_jam(
-            jd_moonrise,
+        lama_ufuk_jam = (
             jd_moonset
-        )
-
-    else:
-
-        lama_ufuk_jam = None
-
-        if jd_moonrise is not None and jd_moonset is not None:
-            lama_ufuk_jam = (
-                                    jd_moonset - jd_moonrise
-                            ) * 24
-
+            - jd_moonrise
+        ) * 24
 
     # ========================================================
-    # LAMA BULAN DI ATAS UFUK SETELAH GHURUB
+    # LAMA BULAN SETELAH GHURUB
     # ========================================================
+
+    lama_setelah_ghurub_jam = None
 
     if jd_moonset is not None:
 
-        lama_setelah_ghurub_jam = durasi_jam(
-            jd_ghurub,
+        lama_setelah_ghurub_jam = (
             jd_moonset
-        )
+            - jd_ghurub
+        ) * 24
 
+        # Jika moonset terjadi sebelum ghurub,
+        # tidak ada waktu bulan setelah ghurub.
         if lama_setelah_ghurub_jam < 0:
+
             lama_setelah_ghurub_jam = 0
-
-    else:
-
-        lama_setelah_ghurub_jam = None
-
-        if jd_moonset is not None:
-
-            lama_setelah_ghurub_jam = (
-                                              jd_moonset - jd_ghurub
-                                      ) * 24
-
-            if lama_setelah_ghurub_jam < 0:
-                lama_setelah_ghurub_jam = 0
 
     # ========================================================
     # UMUR BULAN SAAT MOONSET
     # ========================================================
+
+    umur_bulan_moonset_jam = None
 
     if (
         jd_ijtima is not None
@@ -1223,37 +1359,26 @@ def hisab_nu(y, m, d):
             - jd_ijtima
         ) * 24
 
-    else:
-
-        umur_bulan_moonset_jam = None
-
-
     # ========================================================
-    # KRITERIA NU
+    # KRITERIA IMKANUR RUKYAH NU
     # ========================================================
-
-    # Imkanur Rukyah:
-    #
-    # Tinggi Hilal Mar'i >= 3°
-    # Elongasi >= 6.4°
-    # Umur Bulan >= 8 jam
-    #
-    # Umur 8 jam merupakan kriteria tambahan,
-    # bukan bagian dari angka resmi MABIMS 3-6.4.
 
     irnu = (
         moon_mar_i >= 3
         and elong >= 6.4
-        and (
-            umur_bulan_jam is not None
-            and umur_bulan_jam >= 8
-        )
+        # and (
+        #     umur_bulan_jam is not None
+        #     and umur_bulan_jam >= 8
+        # )
     )
 
+    # ========================================================
+    # QATH'IY RUKYAH NU
+    # ========================================================
 
-    # Qath'iy Rukyah NU
-    qrnu = elong >= 9.9
-
+    qrnu = (
+        elong >= 9.9
+    )
 
     # ========================================================
     # KESIMPULAN
@@ -1261,23 +1386,26 @@ def hisab_nu(y, m, d):
 
     kesimpulan = None
 
+    # --------------------------------------------------------
+    # AKHIR BULAN
+    # --------------------------------------------------------
 
-    if hijri_d in [29, 30]:
+    if hijri_d in (29, 30):
 
         if qrnu:
 
             kesimpulan = {
                 "status":"Qath'iy Rukyah NU",
-                "kriteria":"QRNU elongasi ≥ 9.9°",
-                "informasi":"Hilal sangat kuat. Istikmal dinafikan (Nafyul Ikmal), besok tanggal 1."
+                "kriteria": "QRNU elongasi ≥ 9.9°",
+                "informasi": "Hilal sangat kuat. Istikmal dinafikan (Nafyul Ikmal), besok tanggal 1."
             }
 
         elif irnu:
 
             kesimpulan = {
-                "status": "Memenuhi dilakukan pengamatan hilal",
-                "kriteria":"tinggi hilal minimal 3° dan jarak lengkung (elongasi) minimal 6.4°",
-                "informasi":"Hilal memenuhi batas imkanur rukyah. Menunggu hasil rukyah/isbat/ikhbar PBNU."
+                "status":"Memenuhi dilakukan pengamatan hilal",
+                "kriteria": "Tinggi hilal minimal 3° dan elongasi minimal 6.4°",
+                "informasi":"Hilal memenuhi batas imkanur rukyah. Menunggu hasil Sidang Isbat dan/atau rukyah/ikhbar PBNU."
             }
 
         else:
@@ -1285,9 +1413,12 @@ def hisab_nu(y, m, d):
             kesimpulan = {
                 "status":"Istikmal 30 Hari",
                 "kriteria":"Tidak memenuhi kriteria Imkanur Rukyah",
-                "informasi": "Salah satu atau lebih parameter astronomis tidak memenuhi kriteria."
+                "informasi": "Parameter astronomis tidak memenuhi kriteria."
             }
 
+    # --------------------------------------------------------
+    # AWAL BULAN
+    # --------------------------------------------------------
 
     elif hijri_d == 1:
 
@@ -1296,7 +1427,7 @@ def hisab_nu(y, m, d):
             kesimpulan = {
                 "status": "Awal Bulan Baru (Qath'iy Rukyah NU)",
                 "kriteria": "Elongasi ≥ 9.9°",
-                "informasi":"Masuk bulan baru melalui Nafyul Ikmal."
+                "informasi": "Masuk bulan baru melalui Nafyul Ikmal."
             }
 
         elif irnu:
@@ -1304,17 +1435,16 @@ def hisab_nu(y, m, d):
             kesimpulan = {
                 "status": "Awal Bulan Baru (Imkanur Rukyah NU)",
                 "kriteria": "Tinggi hilal ≥ 3°, elongasi ≥ 6.4°",
-                "informasi":"Masuk bulan baru setelah hilal memenuhi imkanur rukyah."
+                "informasi": "Masuk bulan baru setelah hilal memenuhi imkanur rukyah."
             }
 
         else:
 
             kesimpulan = {
-                "status":"Awal Bulan Baru (Istikmal)",
+                "status": "Awal Bulan Baru (Istikmal)",
                 "kriteria": "Di bawah Imkanur Rukyah",
                 "informasi": "Masuk bulan baru setelah penggenapan 30 hari."
             }
-
 
     # ========================================================
     # HASIL
@@ -1322,27 +1452,41 @@ def hisab_nu(y, m, d):
 
     result = {
 
+        # ----------------------------------------------------
+        # TANGGAL MASEHI
+        # ----------------------------------------------------
+
         "tanggal_masehi":
             format_tanggal_indonesia(
-                f"{y}-{m:02d}-{d:02d}"
+                target_date
             ),
 
+        # ----------------------------------------------------
+        # TANGGAL HIJRIAH
+        # ----------------------------------------------------
 
         "tanggal_hijriah": {
 
-            "hari": hijri_d,
+            "hari":
+                hijri_d,
 
-            "bulan": hijri_m,
+            "bulan":
+                hijri_m,
 
-            "tahun": hijri_y,
+            "tahun":
+                hijri_y,
 
             "full":
-                f"{hijri_d} "
-                f"{hijri_m} "
-                f"{hijri_y}"
-
+                (
+                    f"{hijri_d} "
+                    f"{hijri_m} "
+                    f"{hijri_y}"
+                )
         },
 
+        # ====================================================
+        # DATA IJTIMA
+        # ====================================================
 
         "data_ijtima": {
 
@@ -1388,8 +1532,7 @@ def hisab_nu(y, m, d):
                         umur_bulan_jam,
                         2
                     )
-                    if umur_bulan_jam
-                    is not None
+                    if umur_bulan_jam is not None
                     else None
                 ),
 
@@ -1399,20 +1542,21 @@ def hisab_nu(y, m, d):
                         umur_bulan_moonset_jam,
                         2
                     )
-                    if umur_bulan_moonset_jam
-                    is not None
+                    if umur_bulan_moonset_jam is not None
                     else None
                 )
-
         },
 
+        # ====================================================
+        # DATA UFUK
+        # ====================================================
 
         "data_ufuk": {
 
+            # Ghurub selalu ditampilkan WIB
             "ghurub_wib":
-                round(
-                    ghurub + TZ,
-                    2
+                format_jam_desimal(
+                    ghurub_wib
                 ),
 
             "moonrise_wib":
@@ -1439,8 +1583,7 @@ def hisab_nu(y, m, d):
                         lama_ufuk_jam,
                         2
                     )
-                    if lama_ufuk_jam
-                    is not None
+                    if lama_ufuk_jam is not None
                     else None
                 ),
 
@@ -1455,8 +1598,7 @@ def hisab_nu(y, m, d):
                         lama_setelah_ghurub_jam,
                         2
                     )
-                    if lama_setelah_ghurub_jam
-                    is not None
+                    if lama_setelah_ghurub_jam is not None
                     else None
                 ),
 
@@ -1464,15 +1606,17 @@ def hisab_nu(y, m, d):
                 format_durasi(
                     lama_setelah_ghurub_jam
                 )
-
         },
 
+        # ====================================================
+        # DATA ASTRONOMI
+        # ====================================================
 
         "data_astronomi": {
 
             "ghurub_wib":
                 format_jam_desimal(
-                    ghurub + TZ
+                    ghurub_wib
                 ),
 
             "tinggi_hilal_hakiki":
@@ -1504,13 +1648,14 @@ def hisab_nu(y, m, d):
                     moonAz,
                     2
                 )
-
         },
 
+        # ====================================================
+        # KESIMPULAN
+        # ====================================================
 
         "kesimpulan":
             kesimpulan
-
     }
 
     return result
@@ -1524,8 +1669,8 @@ if __name__ == "__main__":
 
     data = hisab_nu(
         2026,
-        8,
-        13
+        9,
+        11
     )
 
     print("=" * 70)
