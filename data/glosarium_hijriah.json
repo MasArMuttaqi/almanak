@@ -37,6 +37,26 @@
   {
     "index": 7,
     "parameter": "Umur Bulan",
-    "deskripsi": "Selisih waktu antara konjungsi dengan matahari terbenam"
+    "deskripsi": "Selisih waktu antara konjungsi dengan matahari terbenam. Umur Bulan Ghurub: Waktu yang telah berlalu sejak terjadinya fase Ijtima' / Konjungsi (saat Bulan, Bumi, dan Matahari berada dalam satu garis bujur astronomis yang sama) hingga momen Matahari terbenam (ghurub). Umur Bulan Moonset: Waktu yang telah berlalu sejak terjadinya fase Ijtima' / Konjungsi hingga momen Bulan terbenam sepenuhnya di bawah ufuk (moonset). "
+  },
+  {
+    "index": "8",
+    "parameter": "Moonrise WIB",
+    "deskripsi": "Waktu terbitnya piringan atas Bulan di ufuk (horizon) timur."
+  },
+  {
+    "index": "9",
+    "parameter": "Moonset WIB",
+    "deskripsi": "Waktu terbenamnya seluruh piringan Bulan di bawah ufuk (horizon) barat secara sempurna."
+  },
+  {
+    "index": "10",
+    "parameter": "Lama di Atas Ufuk (lag)",
+    "deskripsi": "Total durasi atau rentang waktu Bulan berada di atas garis horizon, dihitung sejak saat terbit (moonrise) hingga terbenam (moonset)."
+  },
+  {
+    "index": "11",
+    "parameter": "Lama Setelah Ghurub",
+    "deskripsi": "Selisih waktu antara terbenamnya Matahari (ghurub) dengan terbenamnya Bulan (moonset). Durasi ini menunjukkan berapa lama hilal/Bulan berada di atas ufuk barat setelah Matahari terbenam. Waktu ini memberikan jendela observasi (rukyatul hilal) yang sangat cukup dan ideal bagi pengamat untuk melihat hilal sebelum Bulan ikut terbenam."
   }
 ]
