@@ -1,0 +1,301 @@
+from math import sin, cos, tan, asin, acos, atan2, radians, degrees, floor
+from datetime import datetime
+import json
+from konversitanggal import format_tanggal_indonesia
+
+# =========================
+# KONFIGURASI LOKASI
+# =========================
+LAT = -7.7974565
+LON = 110.370697
+TZ  = 7
+
+# baca file JSON
+with open("data/koreksirukyah.json", "r") as c:
+    HIJRI_CORRECTION = json.load(c)
+
+bulan_hijri = [
+    "Muharram","Safar","Rabiul Awal","Rabiul Akhir",
+    "Jumadil Awal","Jumadil Akhir","Rajab","Syaban",
+    "Ramadhan","Syawal","Dzulqaidah","Dzulhijjah"
+]
+
+# =====================
+# KONVERSI HIJRIAH JSON
+# =====================
+def masehi_to_hijri_json(target_date):
+    target = datetime.strptime(target_date,"%Y-%m-%d")
+
+    anchors = []
+
+    for k,v in HIJRI_CORRECTION.items():
+        y,m = k.split("-")
+        anchors.append((datetime.strptime(v,"%Y-%m-%d"),int(y),int(m)))
+
+    anchors.sort()
+
+    for i in range(len(anchors)-1,-1,-1):
+        base_date, hy, hm = anchors[i]
+
+        if target >= base_date:
+            delta = (target-base_date).days
+            hm += delta // 30
+            day = (delta % 30)+1
+
+            while hm > 12:
+                hm -= 12
+                hy += 1
+
+            return day, bulan_hijri[hm-1], hy
+
+    return "-", "-", "-"
+
+# =====================
+# JULIAN DAY
+# =====================
+def julian_day(y,m,d,h=0):
+    if m <= 2:
+        y -= 1
+        m += 12
+
+    A = floor(y/100)
+    B = 2 - A + floor(A/4)
+
+    jd = floor(365.25*(y+4716)) + floor(30.6001*(m+1)) + d + B - 1524.5
+    jd += h/24
+
+    return jd
+
+# =====================
+# SUN POSITION
+# =====================
+def sun_position(jd):
+    T = (jd-2451545.0)/36525
+
+    L0 = (280.46646 + 36000.76983*T)%360
+    M = radians((357.52911 + 35999.05029*T)%360)
+
+    C = (1.914602-0.004817*T)*sin(M)+0.019993*sin(2*M)+0.000289*sin(3*M)
+
+    lam = radians(L0+C)
+
+    eps = radians(23.439291)
+
+    RA = degrees(atan2(cos(eps)*sin(lam),cos(lam)))
+    Dec = degrees(asin(sin(eps)*sin(lam)))
+
+    return RA%360, Dec
+
+# =====================
+# MOON POSITION PRESISI
+# =====================
+def moon_position(jd):
+    D = jd-2451545.0
+
+    L0 = (218.316 + 13.176396*D)%360
+    M = radians((134.963 + 13.064993*D)%360)
+    Ms = radians((357.529 + 0.98560028*D)%360)
+    F = radians((93.272 + 13.229350*D)%360)
+
+    lon = L0 \
+        + 6.289*sin(M) \
+        + 1.274*sin(2*radians(L0)-M) \
+        + 0.658*sin(2*radians(L0)) \
+        + 0.214*sin(2*M) \
+        - 0.186*sin(Ms)
+
+    lat = 5.128*sin(F) + 0.280*sin(M+F)
+
+    eps = radians(23.439291)
+
+    lam = radians(lon)
+    beta = radians(lat)
+
+    RA = degrees(atan2(
+        sin(lam)*cos(eps)-tan(beta)*sin(eps),
+        cos(lam)
+    ))
+
+    Dec = degrees(asin(
+        sin(beta)*cos(eps)+cos(beta)*sin(eps)*sin(lam)
+    ))
+
+    return RA%360, Dec
+
+# =====================
+# SIDEREAL TIME
+# =====================
+def sidereal_time(jd):
+    T = (jd-2451545.0)/36525
+    return (280.46061837 + 360.98564736629*(jd-2451545))%360
+
+# =====================
+# ALT AZ
+# =====================
+def altitude_azimuth(RA,Dec,jd):
+    LST = (sidereal_time(jd)+LON)%360
+    HA = radians((LST-RA)%360)
+
+    lat = radians(LAT)
+    dec = radians(Dec)
+
+    alt = asin(
+        sin(lat)*sin(dec)+cos(lat)*cos(dec)*cos(HA)
+    )
+
+    az = atan2(
+        sin(HA),
+        cos(HA)*sin(lat)-tan(dec)*cos(lat)
+    )
+
+    return degrees(alt),(degrees(az)+360)%360
+
+# =====================
+# REFRAKSI
+# =====================
+def refraksi(alt):
+    if alt > -1:
+        return 1.02/tan(radians(alt+10.3/(alt+5.11)))/60
+    return 0
+
+# =====================
+# PARALLAX
+# =====================
+def parallax(alt):
+    return 0.95*cos(radians(alt))
+
+# =====================
+# SUNSET
+# =====================
+def sunset(y,m,d):
+    jd0 = julian_day(y,m,d,12)
+
+    RA,Dec = sun_position(jd0)
+
+    latr = radians(LAT)
+    decr = radians(Dec)
+
+    H = degrees(acos(
+        (-sin(radians(-0.833))-sin(latr)*sin(decr)) /
+        (cos(latr)*cos(decr))
+    ))
+
+    return 12+(H-LON)/15
+
+# =====================
+# HISAB FINAL
+# =====================
+def hisab_nu(y,m,d):
+    ghurub = sunset(y,m,d)
+
+    jd = julian_day(y,m,d,ghurub)
+
+    hijri_d,hijri_m,hijri_y = masehi_to_hijri_json(f"{y:04d}-{m:02d}-{d:02d}")
+
+    sunRA,sunDec = sun_position(jd)
+    moonRA,moonDec = moon_position(jd)
+
+    sunAlt,sunAz = altitude_azimuth(sunRA,sunDec,jd)
+    moonAlt,moonAz = altitude_azimuth(moonRA,moonDec,jd)
+
+    moon_mar_i = moonAlt + refraksi(moonAlt) - parallax(moonAlt)
+
+    delta_ra = abs(sunRA-moonRA)
+    if delta_ra > 180:
+        delta_ra = 360-delta_ra
+
+    elong = acos(
+        sin(radians(sunDec))*sin(radians(moonDec)) +
+        cos(radians(sunDec))*cos(radians(moonDec))*cos(radians(delta_ra))
+    )
+
+    elong = degrees(elong)
+
+    kesimpulan = None
+
+    irnu = moon_mar_i >= 3 and elong >= 6.4
+    qrnu = elong >= 9.9
+
+    if hijri_d in [29, 30]:
+
+        if qrnu:
+            kesimpulan = {
+                "status": "Qath'iy Rukyah NU",
+                "kriteria": "QRNU elongasi ≥ 9.9°",
+                "informasi": "Hilal sangat kuat. Istikmal dinafikan (Nafyul Ikmal). Besok tanggal 1."
+            }
+
+        elif irnu:
+            kesimpulan = {
+                "status": "Memenuhi dilakukan pengamatan hilal",
+                "kriteria": "tinggi hilal minimal 3° dan jarak lengkung (elongasi) minimal 6.4°",
+                "informasi": "Menunggu hasil rukyah/isbat/ikhbar PBNU."
+            }
+
+        else:
+            kesimpulan = {
+                "status": "Istikmal 30 Hari",
+                "kriteria": "Di bawah kriteria Imkanur Rukyah NU",
+                "informasi": "Hilal tidak memenuhi syarat astronomis. Bulan digenapkan 30 hari."
+            }
+
+    elif hijri_d == 1:
+
+        if qrnu:
+            kesimpulan = {
+                "status": "Awal Bulan Baru (Qath'iy Rukyah NU)",
+                "kriteria": "batas minimal QRNU - elongasi ≥ 9.9°",
+                "informasi": "Masuk bulan baru melalui Nafyul Ikmal."
+            }
+
+        elif irnu:
+            kesimpulan = {
+                "status": "Awal Bulan Baru (Imkanur Rukyah NU)",
+                "kriteria": "Imkanur Rukyah NU - tinggi hilal minimal 3° dan jarak lengkung (elongasi) minimal 6,4°",
+                "informasi": "Masuk bulan baru setelah hilal memenuhi imkan rukyah."
+            }
+
+        else:
+            kesimpulan = {
+                "status": "Awal Bulan Baru (Istikmal)",
+                "kriteria": "Di bawah Imkanur Rukyah NU",
+                "informasi": "Masuk bulan baru setelah penggenapan 30 hari."
+            }
+
+
+    result = {
+        "tanggal_masehi": format_tanggal_indonesia(f"{y}-{m:02d}-{d:02d}"),
+        "tanggal_hijriah": {
+            "hari": hijri_d,
+            "bulan": hijri_m,
+            "tahun": hijri_y,
+            "full": f"{hijri_d} {hijri_m} {hijri_y}"
+        },
+        "data_astronomi": {
+            "ghurub_wib": round(ghurub + TZ, 2),
+            "tinggi_hilal_hakiki": round(moonAlt, 2),
+            "tinggi_hilal_mari": round(moon_mar_i, 2),
+            "elongasi": round(elong, 2),
+            "azimut_matahari": round(sunAz, 2),
+            "azimut_bulan": round(moonAz, 2)
+        },
+        "kesimpulan": kesimpulan
+    }
+    return result
+# =====================
+# CONTOH
+# =====================
+if __name__ == "__main__":
+    data = hisab_nu(2026, 6, 15)
+    print("=" * 60)
+    print("Tanggal Masehi :", data["tanggal_masehi"])
+    print("Tanggal Hijriah :", data["tanggal_hijriah"]["full"])
+    print("=" * 60)
+    print("ghurub WIB", data["data_astronomi"]["ghurub_wib"])
+    print("tinggi hilal hakiki :", data["data_astronomi"]["tinggi_hilal_hakiki"])
+    print("tinggi hilal mar'i :", data["data_astronomi"]["tinggi_hilal_mari"])
+    print("elongasi", data["data_astronomi"]["elongasi"])
+    print("azimut matahari :", data["data_astronomi"]["azimut_matahari"])
+    print("azimut bulan :", data["data_astronomi"]["azimut_bulan"])
+    print("=" * 60)
+    print("Hipotesis :", data["kesimpulan"])
