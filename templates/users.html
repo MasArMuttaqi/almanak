@@ -1,0 +1,176 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="pattern-square-1"></div>
+<section class="container" style="margin-top:100px;" >
+    <div class="heading-section">
+        <a href="{{ url_for('admin') }}" class="btn btn-md d-inline-flex align-items-center gap-2 mb-4" style="font-size:10px;"><i class="fi fi-br-arrow-small-left"></i> Kembali</a>
+         <div class="txt">
+             <div class="d-flex align-items-center gap-3">
+                <p class="subheading section-subheading aksara">ꦩꦤꦗꦼꦩꦺꦤ꧀ꦄꦏꦸꦤ꧀</p>
+                <div style="width: 1px; background-color: #888; min-height: 28px; margin: 0 5px 0 5px;"></div>
+                <p class="subheading section-subheading arabic-2">ماناجمن اکون</p>
+             </div>
+            <h2 class="heading section-heading">Manajemen Akun</h2>
+         </div>
+    </div>
+    <section class="container image-container">
+        <!-- FLASH -->
+
+    {% with messages =
+        get_flashed_messages(with_categories=true)
+    %}
+
+        {% for category, message in messages %}
+
+        <div class="alert alert-{{ category }}">
+            {{ message }}
+        </div>
+
+        {% endfor %}
+
+    {% endwith %}
+
+
+    <div>
+        <strong>Daftar Administrator </strong>
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>MFA</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                {% for account
+                   in accounts["administrator"] %}
+                    <tr>
+                        <td>{{ loop.index }} </td>
+                        <td>{{ account.email }}</td>
+                        <td><span class="badge text-bg-danger">Administrator</span></td>
+                        <td>Aktif</td>
+                        <td><span class="text-muted">Protected</span></td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="5" class="text-center">Tidak ada administrator.</td>
+                    </tr>
+                {% endfor %}
+                {% for account in accounts["admin"] %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>{{ account.email }}</td>
+                        <td><span class="badge text-bg-primary">Admin</span></td>
+                        <td>Aktif</td>
+                        <td> <!-- QR --> 
+                            <a href="{{ url_for( 'user_qr', email=account.email ) }}" class=" btn btn-sm btn-success " title="QR MFA" > <i class=" fi fi-br-qrcode " ></i> </a> 
+                            <!-- EDIT --> 
+                            <button type="button" class=" btn btn-sm btn-warning " title="Edit" data-bs-toggle="offcanvas" data-bs-target="#accountOffcanvas" onclick=" openEditAccount( '{{ account.email }}' ) " > <i class=" fi fi-br-pencil " ></i> </button> 
+                            <!-- RESET MFA --> 
+                            <form method="POST" action="{{ url_for( 'reset_mfa', email=account.email ) }}" class="d-inline" onsubmit=" return confirm( 'Reset MFA on this account?' ); " > 
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token }}" > <button type="submit" class=" btn btn-sm btn-secondary " title="Reset MFA" > <i class=" fi fi-br-rotate-left " ></i> </button> 
+                            </form> 
+                            <!-- DELETE --> 
+                            <form method="POST" action="{{ url_for( 'user_delete', email=account.email ) }}" class="d-inline" onsubmit=" return confirm( 'Delete on this account?' ); " > 
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token }}" > 
+                                <button type="submit" class=" btn btn-sm btn-danger " title="Hapus" > <i class=" fi fi-br-trash " ></i> </button> 
+                            </form> 
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+    <div class="mt-4">
+        <a href="{{ url_for('user_add') }}" class="btn btn-primary">
+            + Tambah Admin
+        </a>
+    </div>
+
+    </section>
+</section>
+
+<!-- ========================================================= --> 
+<!-- OFFCANVAS BOTTOM --> 
+<!-- ========================================================= --> 
+<div class=" offcanvas offcanvas-bottom " tabindex="-1" id="accountOffcanvas" aria-labelledby="accountOffcanvasLabel" style=" height:auto; max-height:90vh; border-radius:24px 24px 0 0; " > 
+    <div class="offcanvas-header"> 
+        <div> 
+            <h5 class="offcanvas-title" id="accountOffcanvasLabel" > Tambah Admin </h5> 
+            <small class="text-muted" id="accountOffcanvasDescription" > Tambahkan akun admin baru. </small>
+        </div> 
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" ></button> 
+    </div> 
+    <div class="offcanvas-body"> 
+        <form method="POST" action="{{ url_for('user_save') }}" id="accountForm" > 
+            <!-- CSRF --> 
+            <input type="hidden" name="csrf_token" value="{{ csrf_token }}" > 
+            <!-- MODE --> 
+            <input type="hidden" name="mode" id="accountMode" value="add" >
+            <!-- EMAIL LAMA -->
+            <input type="hidden" name="original_email" id="originalEmail" value="" >
+            <div class=" row g-3 align-items-end " > 
+            <!-- EMAIL -->
+            <div class="col-md-8">
+            <label for="accountEmail" class="form-label fw-semibold" > Email Admin </label>
+            <input type="email" class="form-control" id="accountEmail" name="email" placeholder="admin@example.com" required >
+            <div class="form-text" id="emailHelp" > Email digunakan untuk login dan identitas akun. </div> 
+    </div>
+    <!-- BUTTON -->
+    <div class="col-md-4"> 
+        <button type="submit" class=" btn btn-primary w-100 " id="accountSubmit" ><i class=" fi fi-br-check " ></i> Simpan </button> 
+    </div> 
+</div> 
+</form> 
+</div> 
+</div> 
+<!-- ========================================================= --> 
+<!-- JAVASCRIPT --> 
+<!-- ========================================================= --> 
+<script> 
+    function openAddAccount() { 
+        /* * --------------------------------------------------------- * MODE * --------------------------------------------------------- */ 
+        document .getElementById("accountMode") .value = "add"; 
+        document .getElementById("originalEmail") .value = ""; 
+        /* * --------------------------------------------------------- * TITLE * --------------------------------------------------------- */ 
+        document .getElementById("accountOffcanvasLabel") .innerText = "Tambah Admin"; 
+        document .getElementById("accountOffcanvasDescription") .innerText = "Tambahkan akun admin baru."; 
+        /* * --------------------------------------------------------- * EMAIL * --------------------------------------------------------- */ 
+        const email = document.getElementById( "accountEmail" ); 
+        email.value = ""; 
+        email.readOnly = false; 
+        /* * --------------------------------------------------------- * HELP * --------------------------------------------------------- */ 
+        document .getElementById("emailHelp") .innerText = "Email akan dibuatkan TOTP baru."; 
+        /* * --------------------------------------------------------- * BUTTON * --------------------------------------------------------- */ 
+        document .getElementById("accountSubmit") .innerHTML = '<i class="fi fi-br-check"></i> ' + 'Buat Akun'; 
+        } 
+    function openEditAccount(email) { 
+        /* * --------------------------------------------------------- * MODE * --------------------------------------------------------- */ 
+        document .getElementById("accountMode") .value = "edit"; 
+        document .getElementById("originalEmail") .value = email; 
+        /* * --------------------------------------------------------- * TITLE * --------------------------------------------------------- */ 
+        document .getElementById("accountOffcanvasLabel") .innerText = "Edit Admin"; 
+        document .getElementById("accountOffcanvasDescription") .innerText = "Ubah alamat email akun admin."; 
+        /* * --------------------------------------------------------- * EMAIL * --------------------------------------------------------- */ 
+        const emailInput = document.getElementById( "accountEmail" ); 
+        emailInput.value = email; 
+        emailInput.readOnly = false; 
+        /* * --------------------------------------------------------- * HELP * --------------------------------------------------------- */ 
+        document .getElementById("emailHelp") .innerText = "Perubahan email tidak mereset MFA."; 
+        /* * --------------------------------------------------------- * BUTTON * --------------------------------------------------------- */ 
+        document .getElementById("accountSubmit") .innerHTML = '<i class="fi fi-br-check"></i> ' + 'Simpan Perubahan'; } 
+        /* * ============================================================= * RESET FORM SAAT OFFCANVAS DITUTUP * ============================================================= */ 
+        document .getElementById("accountOffcanvas") .addEventListener( "hidden.bs.offcanvas", function () { 
+            document .getElementById("accountForm") .reset(); 
+            document .getElementById("accountMode") .value = "add"; 
+            document .getElementById("originalEmail") .value = ""; } 
+        ); 
+</script>
+
+{% endblock %}

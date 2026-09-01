@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="pattern-square-1"></div>
+<section class="container" style="margin-top:100px;" >
+    <div class="heading-section">
+        <a href="{{ url_for('dashboard') }}" class="btn btn-md d-inline-flex align-items-center gap-2 mb-4" style="font-size:10px;"><i class="fi fi-br-arrow-small-left"></i> Kembali</a>
+         <div class="txt">
+             <div class="d-flex align-items-center gap-3">
+                <p class="subheading section-subheading arabic-2">روايت روءية هلال</p>
+             </div>
+            <h2 class="heading section-heading">Riwayat Rukyatul Hilal</h2>
+         </div>
+    </div>
+    <section class="container image-container">
+        <p class="text-secondary mb-3">Daftar riwayat Rukyatul Hilal awal bulan Hijriah berbasis kalender masehi. Penetapan awal bulan berdasarkan hasil sidang isbat dan/atau ikhbar Lembaga Falakiyah PBNU.</p> 
+        <div class="input-group input-group-sm mb-3">
+            <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon">
+                <option selected>Pilih tahun hijriah</option>
+                <option value="1447">1447</option>
+                <option value="1448">1448</option>
+            </select>
+            <button class="btn btn-outline-secondary" type="button">Terapkan</button>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-sm table-hover table-rounded">
+                <thead>
+                    <tr>
+                        <th style="background: #0f3222; color: #fafafa;">Awal Bulan Hijriah</th>
+                        <th style="background: #0f3222; color: #fafafa;">Tanggal Masehi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in datahilal %}
+                    <tr>
+                        <td>{{ item.nama_bulan }}</td>
+                        <td>{{ item.tanggal_masehi }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="d-flex justify-content-end mb-3">
+            <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#TambahRukyah">
+            Tambah data
+            </button>
+        </div>
+    </section>
+</section>
+
+{%
+            set bulan_hijriah = [
+            {
+                "index": 1,
+                "Nama_Bulan_Hijriah": "Muharram"
+            },
+            {
+                "index": 2,
+                "Nama_Bulan_Hijriah": "Safar"
+            },
+            {
+                "index": 3,
+                "Nama_Bulan_Hijriah": "Rabiul Awal"
+            },
+            {
+                "index": 4,
+                "Nama_Bulan_Hijriah": "Rabiul Akhir"
+            },
+            {
+                "index": 5,
+                "Nama_Bulan_Hijriah": "Jumadil Ula"
+            },
+            {
+                "index": 6,
+                "Nama_Bulan_Hijriah": "Jumadil Akhir"
+            },
+            {
+                "index": 7,
+                "Nama_Bulan_Hijriah": "Rajab"
+            },
+            {
+                "index": 8,
+                "Nama_Bulan_Hijriah": "Syaban"
+            },
+            {
+                "index": 9,
+                "Nama_Bulan_Hijriah": "Ramadhan"
+            },
+            {
+                "index": 10,
+                "Nama_Bulan_Hijriah": "Syawal"
+            },
+            {
+                "index": 11,
+                "Nama_Bulan_Hijriah": "Dzulqaidah"
+            },
+            {
+                "index": 12,
+                "Nama_Bulan_Hijriah": "Dzulhijjah"
+            }
+            ]
+        %}
+        
+<!-- tambah rukyah -->
+<div class="modal fade" id="TambahRukyah" tabindex="-1" aria-labelledby="TambahRukyahLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header border-0">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Hasil Rukyatul Hilal</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="d-flex flex-column flex-md-row justify-content-md-between align-items-md-center py-3">
+        <label for="awalhijriah" class="form-label">Awal bulan Hijriah</label>
+        <div class="d-flex gap-2">
+        <select class="form-select" aria-label="awalhirjiah" name="awalbulanhijriah" id="awalbulanhijriah">
+        <option selected>Pilih Bulan</option>
+        {% for bulan in bulan_hijriah %}
+            <option value="{{ bulan.index }}">{{ bulan.Nama_Bulan_Hijriah }}</option>
+        {% endfor %}
+        </select>
+        <input type="number" class="form-control" id="tahunhijriah" name="tahunhijriah">
+    </div>
+</div>
+<div class="d-flex flex-column flex-md-row justify-content-md-between align-items-md-center py-3">
+  <label for="awalhijriah" class="form-label">Tanggal Masehi</label>
+  <input type="date" class="form-control" id="myDateInput" name="tanggalmasehi">
+  </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Batal tambah data</button>
+        <button type="button" class="btn btn-primary btn-sm">Simpan data</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- tambah rukyah -->
+
+{% endblock %}

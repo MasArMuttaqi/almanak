@@ -1,14 +1,17 @@
 # save this as app.py
-from flask import Flask, render_template, request, session, redirect, url_for, flash, jsonify, send_file
+import os
+import io
+import json
+import secrets
 from functools import wraps
-# from datetime import datetime
-# from konversitanggal import *
-# import json
+import pyotp
+import qrcode
+
+from flask import (Flask,render_template,request,redirect,url_for,session,flash,send_file)
+
 import requests
 from bs4 import BeautifulSoup
 
-import os
-import io
 from kalender import *
 from kalender_jawa_sultan_agungan import *
 from hisab_rukyah_nu import *
@@ -16,13 +19,12 @@ from hisab_wujud_hilal import *
 from hijriah_kgth import get_hijriah
 from generate_version import write_version_file
 
-import qrcode
-import pyotp
 
 
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY", "default-secret") # ganti dengan key aman
 
+ACCOUNTS_FILE = "accounts.json"
 FILE_JSON_KOREKSI_AWAL_BULAN_HIJRIAH = "data/koreksirukyah.json"
 
 @app.route("/")
@@ -176,115 +178,1179 @@ def kalenderhijriah():
     return render_template("hijriah.html", data1=hisab_rukyah, data2=hisab_wujud_hilal, data3=hijriah_kgth,datahilal=rukyahhijriah,tanggal_khgt=tanggal_text,raw_glosarium=desc)
 
 
-# PIN Hardcoded
-MFA_SECRET = pyotp.random_base32()
 
-# Decorator untuk mengecek apakah user sudah login
+
+# ============================================================
+# ACCOUNT STORAGE
+# ============================================================
+
+def default_accounts():
+    return {
+        "administrator": [],
+        "admin": []
+    }
+
+def load_accounts():
+
+    # ========================================================
+    # Jika accounts.json tersedia
+    # ========================================================
+
+    if os.path.exists(ACCOUNTS_FILE):
+
+        try:
+
+            with open(
+                ACCOUNTS_FILE,
+                "r",
+                encoding="utf-8"
+            ) as f:
+
+                accounts = json.load(f)
+
+        except (
+            json.JSONDecodeError,
+            OSError
+        ) as e:
+
+            raise RuntimeError(
+                f"Gagal membaca "
+                f"{ACCOUNTS_FILE}: {e}"
+            )
+
+        accounts.setdefault(
+            "administrator",
+            []
+        )
+
+        accounts.setdefault(
+            "admin",
+            []
+        )
+
+        return accounts
+
+    # ========================================================
+    # Bootstrap dari Codespaces Secret
+    # ========================================================
+
+    raw = os.environ.get(
+        "AUTH_ACCOUNTS"
+    )
+
+    if raw:
+
+        try:
+
+            accounts = json.loads(raw)
+
+        except json.JSONDecodeError as e:
+
+            raise RuntimeError(
+                "AUTH_ACCOUNTS bukan JSON valid."
+            ) from e
+
+        if not isinstance(
+            accounts,
+            dict
+        ):
+
+            raise RuntimeError(
+                "AUTH_ACCOUNTS harus berupa "
+                "object JSON."
+            )
+
+        accounts.setdefault(
+            "administrator",
+            []
+        )
+
+        accounts.setdefault(
+            "admin",
+            []
+        )
+
+        save_accounts(
+            accounts
+        )
+
+        return accounts
+
+    # ========================================================
+    # Tidak ada data
+    # ========================================================
+
+    return {
+        "administrator": [],
+        "admin": []
+    }
+
+
+def save_accounts(accounts):
+    """
+    Menyimpan accounts.json dengan format rapi.
+    """
+
+    temp_file = ACCOUNTS_FILE + ".tmp"
+
+    with open(
+        temp_file,
+        "w",
+        encoding="utf-8"
+    ) as f:
+
+        json.dump(
+            accounts,
+            f,
+            indent=2,
+            ensure_ascii=False
+        )
+
+    os.replace(
+        temp_file,
+        ACCOUNTS_FILE
+    )
+
+
+# ============================================================
+# ACCOUNT HELPER
+# ============================================================
+
+def normalize_email(email):
+    return email.strip().lower()
+
+
+def find_account(email):
+    """
+    Mencari akun berdasarkan email.
+    """
+
+    email = normalize_email(email)
+
+    accounts = load_accounts()
+
+    for role in ("administrator", "admin"):
+
+        for account in accounts.get(role, []):
+
+            if normalize_email(
+                account.get("email", "")
+            ) == email:
+
+                return {
+                    "email": normalize_email(
+                        account["email"]
+                    ),
+                    "role": role,
+                    "totp_secret": account.get(
+                        "totp_secret"
+                    )
+                }
+
+    return None
+
+
+def email_exists(email):
+    return find_account(email) is not None
+
+
+# ============================================================
+# SECURITY DECORATOR
+# ============================================================
+
 def login_required(f):
+
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        if 'logged_in' not in session:
-            flash('Silahkan login terlebih dahulu.', 'warning')
-            return redirect(url_for('login'))
+
+        if not session.get("logged_in"):
+
+            flash(
+                "Silahkan login terlebih dahulu.",
+                "warning"
+            )
+
+            return redirect(
+                url_for("login")
+            )
+
         return f(*args, **kwargs)
 
     return decorated_function
 
 
-# --- RUTE SETUP (Jalankan ini SEKALI untuk mendaftarkan aplikasi ke HP Anda) ---
-@app.route('/setup-mfa-qr')
-def setup_mfa_qr():
-    # Membuat URI standar Google Authenticator
-    totp = pyotp.TOTP(MFA_SECRET)
-    auth_url = totp.provisioning_uri(name="kangriza85@gmail.com", issuer_name="Almanak")
+def administrator_required(f):
 
-    # Generate QR Code ke memory
-    img = qrcode.make(auth_url)
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+
+        if not session.get("logged_in"):
+
+            flash(
+                "Silahkan login terlebih dahulu.",
+                "warning"
+            )
+
+            return redirect(
+                url_for("login")
+            )
+
+        if session.get("role") != "administrator":
+
+            flash(
+                "Anda tidak memiliki akses.",
+                "danger"
+            )
+
+            return redirect(
+                url_for("admin")
+            )
+
+        return f(*args, **kwargs)
+
+    return decorated_function
+
+
+# ============================================================
+# CSRF
+# ============================================================
+
+def get_csrf_token():
+
+    if "csrf_token" not in session:
+
+        session["csrf_token"] = secrets.token_urlsafe(32)
+
+    return session["csrf_token"]
+
+
+@app.context_processor
+def inject_csrf():
+
+    return {
+        "csrf_token": get_csrf_token()
+    }
+
+
+def check_csrf():
+
+    token = request.form.get("csrf_token")
+
+    if not token:
+
+        return False
+
+    return secrets.compare_digest(
+        token,
+        session.get("csrf_token", "")
+    )
+
+
+# ============================================================
+# LOGIN
+# ============================================================
+
+@app.route(
+    "/hilal",
+    methods=["GET", "POST"]
+)
+def login():
+
+    # --------------------------------------------------------
+    # Sudah login
+    # --------------------------------------------------------
+
+    if session.get("logged_in"):
+
+        return redirect(
+            url_for("admin")
+        )
+
+    # --------------------------------------------------------
+    # POST
+    # --------------------------------------------------------
+
+    if request.method == "POST":
+
+        step = request.form.get("step")
+
+        # ====================================================
+        # STEP 1 : EMAIL
+        # ====================================================
+
+        if step == "email":
+
+            email = normalize_email(
+                request.form.get("email", "")
+            )
+
+            if not email:
+
+                flash(
+                    "Email wajib diisi.",
+                    "danger"
+                )
+
+                return redirect(
+                    url_for("login")
+                )
+
+            account = find_account(email)
+
+            # ------------------------------------------------
+            # EMAIL TIDAK TERDAFTAR
+            # ------------------------------------------------
+
+            if not account:
+
+                flash(
+                    "Email tidak terdaftar.",
+                    "danger"
+                )
+
+                return render_template(
+                    "login.html",
+                    show_totp=False,
+                    email=email
+                )
+
+            # ------------------------------------------------
+            # Email ditemukan
+            # ------------------------------------------------
+
+            if not account.get("totp_secret"):
+
+                flash(
+                    "Akun belum memiliki konfigurasi MFA.",
+                    "danger"
+                )
+
+                return redirect(
+                    url_for("login")
+                )
+
+            # ------------------------------------------------
+            # Simpan email sementara
+            # ------------------------------------------------
+
+            session["mfa_email"] = email
+
+            return render_template(
+                "login.html",
+                show_totp=True,
+                email=email
+            )
+
+        # ====================================================
+        # STEP 2 : TOTP
+        # ====================================================
+
+        if step == "totp":
+
+            email = normalize_email(
+                session.get("mfa_email", "")
+            )
+
+            if not email:
+
+                flash(
+                    "Sesi login telah berakhir.",
+                    "warning"
+                )
+
+                return redirect(
+                    url_for("login")
+                )
+
+            otp_code = request.form.get(
+                "otp",
+                ""
+            ).strip()
+
+            # ------------------------------------------------
+            # Pastikan 6 digit
+            # ------------------------------------------------
+
+            if (
+                len(otp_code) != 6
+                or not otp_code.isdigit()
+            ):
+
+                flash(
+                    "Kode TOTP harus 6 digit.",
+                    "danger"
+                )
+
+                return render_template(
+                    "login.html",
+                    show_totp=True,
+                    email=email
+                )
+
+            # ------------------------------------------------
+            # Cari akun
+            # ------------------------------------------------
+
+            account = find_account(email)
+
+            if not account:
+
+                session.pop(
+                    "mfa_email",
+                    None
+                )
+
+                flash(
+                    "Email tidak terdaftar.",
+                    "danger"
+                )
+
+                return redirect(
+                    url_for("login")
+                )
+
+            secret = account.get(
+                "totp_secret"
+            )
+
+            if not secret:
+
+                flash(
+                    "Konfigurasi MFA akun tidak ditemukan.",
+                    "danger"
+                )
+
+                return redirect(
+                    url_for("login")
+                )
+
+            # ------------------------------------------------
+            # Verifikasi TOTP
+            # ------------------------------------------------
+
+            totp = pyotp.TOTP(secret)
+
+            # valid_window=1 memberi toleransi ±30 detik
+            valid = totp.verify(
+                otp_code,
+                valid_window=1
+            )
+
+            if not valid:
+
+                flash(
+                    "Kode TOTP salah atau sudah kedaluwarsa.",
+                    "danger"
+                )
+
+                return render_template(
+                    "login.html",
+                    show_totp=True,
+                    email=email
+                )
+
+            # ------------------------------------------------
+            # LOGIN BERHASIL
+            # ------------------------------------------------
+
+            session.clear()
+
+            session["logged_in"] = True
+            session["email"] = account["email"]
+            session["role"] = account["role"]
+
+            # Buat CSRF baru
+            session["csrf_token"] = secrets.token_urlsafe(32)
+
+            flash(
+                "Login berhasil!",
+                "success"
+            )
+
+            return redirect(
+                url_for("admin")
+            )
+
+    # --------------------------------------------------------
+    # GET
+    # --------------------------------------------------------
+
+    return render_template(
+        "login.html",
+        show_totp=False,
+        email=""
+    )
+
+
+# ============================================================
+# LOGOUT
+# ============================================================
+
+@app.route("/logout")
+def logout():
+
+    session.clear()
+
+    flash(
+        "Anda telah logout.",
+        "success"
+    )
+
+    return redirect(
+        url_for("login")
+    )
+
+
+# ============================================================
+# ADMIN DASHBOARD
+# ============================================================
+
+@app.route("/admin")
+@login_required
+def admin():
+
+    rukyahhijriah = []
+
+    try:
+
+        with open(
+            FILE_JSON_KOREKSI_AWAL_BULAN_HIJRIAH,
+            "r",
+            encoding="utf-8"
+        ) as k2:
+
+            rukyah_hijriah_raw = json.load(k2)
+
+            for key, value in rukyah_hijriah_raw.items():
+
+                # =================================================
+                # Gunakan fungsi Anda yang sudah ada
+                # =================================================
+
+                nama_bulan = hijri_label(key)
+
+                tanggal_masehi_str = (
+                    format_tanggal_indonesia(value)
+                )
+
+                rukyahhijriah.append({
+                    "nama_bulan": nama_bulan,
+                    "tanggal_masehi":
+                        tanggal_masehi_str
+                })
+
+    except FileNotFoundError:
+
+        flash(
+            "File data koreksi rukyah tidak ditemukan.",
+            "warning"
+        )
+
+    return render_template(
+        "rukyatulhilal.html",
+        datahilal=rukyahhijriah
+    )
+
+# ============================================================
+# BOOTSTRAP QR ADMINISTRATOR
+# ============================================================
+
+@app.route("/setup-mfa-qr")
+def setup_mfa_qr():
+
+    # --------------------------------------------------------
+    # Ambil token setup dari URL
+    # --------------------------------------------------------
+
+    token = request.args.get(
+        "token",
+        ""
+    ).strip()
+
+    setup_token = os.environ.get(
+        "MFA_SETUP_TOKEN",
+        ""
+    ).strip()
+
+    # --------------------------------------------------------
+    # Token wajib tersedia
+    # --------------------------------------------------------
+
+    if not setup_token:
+
+        return (
+            "MFA_SETUP_TOKEN belum dikonfigurasi.",
+            500
+        )
+
+    # --------------------------------------------------------
+    # Validasi token
+    # --------------------------------------------------------
+
+    if not token:
+
+        return (
+            "Setup token diperlukan.",
+            401
+        )
+
+    if not secrets.compare_digest(
+        token,
+        setup_token
+    ):
+
+        return (
+            "Setup token tidak valid.",
+            403
+        )
+
+    # --------------------------------------------------------
+    # Ambil akun administrator
+    # --------------------------------------------------------
+
+    accounts = load_accounts()
+
+    administrators = accounts.get(
+        "administrator",
+        []
+    )
+
+    if not administrators:
+
+        return (
+            "Akun administrator belum tersedia.",
+            404
+        )
+
+    administrator = administrators[0]
+
+    email = normalize_email(
+        administrator.get(
+            "email",
+            ""
+        )
+    )
+
+    totp_secret = administrator.get(
+        "totp_secret"
+    )
+
+    # --------------------------------------------------------
+    # Pastikan email
+    # --------------------------------------------------------
+
+    if not email:
+
+        return (
+            "Email administrator belum dikonfigurasi.",
+            500
+        )
+
+    # --------------------------------------------------------
+    # Pastikan TOTP secret
+    # --------------------------------------------------------
+
+    if not totp_secret:
+
+        return (
+            "TOTP secret administrator belum dikonfigurasi.",
+            500
+        )
+
+    # --------------------------------------------------------
+    # Generate provisioning URI
+    # --------------------------------------------------------
+
+    totp = pyotp.TOTP(
+        totp_secret
+    )
+
+    auth_url = totp.provisioning_uri(
+        name=email,
+        issuer_name="Almanak"
+    )
+
+    # --------------------------------------------------------
+    # Generate QR
+    # --------------------------------------------------------
+
+    img = qrcode.make(
+        auth_url
+    )
+
     buf = io.BytesIO()
-    img.save(buf, 'PNG')
+
+    img.save(
+        buf,
+        format="PNG"
+    )
+
     buf.seek(0)
 
-    return send_file(buf, mimetype='image/png')
+    response = send_file(
+        buf,
+        mimetype="image/png"
+    )
+
+    # --------------------------------------------------------
+    # Jangan cache QR
+    # --------------------------------------------------------
+
+    response.headers["Cache-Control"] = (
+        "no-store, no-cache, must-revalidate, "
+        "max-age=0"
+    )
+
+    response.headers["Pragma"] = "no-cache"
+
+    return response
+
+# ============================================================
+# TAMBAH / EDIT ADMIN
+# ============================================================
+
+@app.route(
+    "/admin/users/save",
+    methods=["POST"]
+)
+@administrator_required
+def user_save():
+
+    # --------------------------------------------------------
+    # CSRF
+    # --------------------------------------------------------
+
+    if not check_csrf():
+
+        flash(
+            "CSRF token tidak valid.",
+            "danger"
+        )
+
+        return redirect(
+            url_for("users")
+        )
+
+    # --------------------------------------------------------
+    # Ambil data form
+    # --------------------------------------------------------
+
+    mode = request.form.get(
+        "mode",
+        "add"
+    ).strip().lower()
+
+    email = normalize_email(
+        request.form.get(
+            "email",
+            ""
+        )
+    )
+
+    original_email = normalize_email(
+        request.form.get(
+            "original_email",
+            ""
+        )
+    )
+
+    # --------------------------------------------------------
+    # Validasi email
+    # --------------------------------------------------------
+
+    if not email:
+
+        flash(
+            "Email wajib diisi.",
+            "danger"
+        )
+
+        return redirect(
+            url_for("users")
+        )
+
+    # --------------------------------------------------------
+    # Load accounts
+    # --------------------------------------------------------
+
+    accounts = load_accounts()
+
+    # ========================================================
+    # MODE TAMBAH
+    # ========================================================
+
+    if mode == "add":
+
+        # -----------------------------------------------
+        # Cek email sudah terdaftar
+        # -----------------------------------------------
+
+        if email_exists(email):
+
+            flash(
+                "Email tersebut sudah terdaftar.",
+                "warning"
+            )
+
+            return redirect(
+                url_for("users")
+            )
+
+        # -----------------------------------------------
+        # Generate TOTP Secret
+        # -----------------------------------------------
+
+        totp_secret = pyotp.random_base32()
+
+        # -----------------------------------------------
+        # Tambahkan admin
+        # -----------------------------------------------
+
+        accounts["admin"].append({
+            "email": email,
+            "totp_secret": totp_secret
+        })
+
+        save_accounts(accounts)
+
+        flash(
+            "Admin berhasil ditambahkan. "
+            "Silahkan scan QR MFA.",
+            "success"
+        )
+
+        # -----------------------------------------------
+        # Setelah tambah, tampilkan QR
+        # -----------------------------------------------
+
+        return redirect(
+            url_for(
+                "user_qr",
+                email=email
+            )
+        )
+
+    # ========================================================
+    # MODE EDIT
+    # ========================================================
+
+    if mode == "edit":
+
+        if not original_email:
+
+            flash(
+                "Identitas akun lama tidak ditemukan.",
+                "danger"
+            )
+
+            return redirect(
+                url_for("users")
+            )
+
+        account = None
+
+        # -----------------------------------------------
+        # Cari akun admin berdasarkan email lama
+        # -----------------------------------------------
+
+        for item in accounts["admin"]:
+
+            if normalize_email(
+                item.get("email", "")
+            ) == original_email:
+
+                account = item
+                break
+
+        # -----------------------------------------------
+        # Tidak ditemukan
+        # -----------------------------------------------
+
+        if not account:
+
+            flash(
+                "Admin tidak ditemukan.",
+                "danger"
+            )
+
+            return redirect(
+                url_for("users")
+            )
+
+        # -----------------------------------------------
+        # Jika email berubah
+        # -----------------------------------------------
+
+        if email != original_email:
+
+            existing = find_account(email)
+
+            if existing:
+
+                flash(
+                    "Email baru sudah digunakan "
+                    "oleh akun lain.",
+                    "danger"
+                )
+
+                return redirect(
+                    url_for("users")
+                )
+
+        # -----------------------------------------------
+        # Ubah email
+        #
+        # TOTP SECRET TIDAK DIUBAH
+        # -----------------------------------------------
+
+        account["email"] = email
+
+        save_accounts(accounts)
+
+        flash(
+            "Data admin berhasil diperbarui.",
+            "success"
+        )
+
+        return redirect(
+            url_for("users")
+        )
+
+    # ========================================================
+    # MODE TIDAK DIKENAL
+    # ========================================================
+
+    flash(
+        "Mode operasi tidak valid.",
+        "danger"
+    )
+
+    return redirect(
+        url_for("users")
+    )
+
+# ============================================================
+# DAFTAR USER
+# ============================================================
+
+@app.route("/admin/users")
+@administrator_required
+def users():
+
+    accounts = load_accounts()
+
+    return render_template(
+        "users.html",
+        accounts=accounts
+    )
 
 
-# --- RUTE LOGIN YANG SUDAH MODIFIKASI ---
-@app.route('/hilal', methods=['GET', 'POST'])
-def login():
-    # Jika sudah login, langsung lempar ke dashboard
-    if 'logged_in' in session:
-        return redirect(url_for('admin'))
+# ============================================================
+# QR MFA USER
+# ============================================================
 
-    if request.method == 'POST':
-        pin_input = request.form.get('pin')  # Ini adalah 6 digit dari aplikasi Google Auth
+@app.route(
+    "/admin/users/<path:email>/qr"
+)
+@administrator_required
+def user_qr(email):
 
-        # Inisialisasi TOTP menggunakan MFA_SECRET yang dinamis
-        totp = pyotp.TOTP(MFA_SECRET)
+    email = normalize_email(email)
 
-        # Mengganti 'pin_input == ADMIN_PIN' menjadi verifikasi dinamis TOTP
-        if totp.verify(pin_input):
-            session['logged_in'] = True  # Menyimpan status di session
-            flash('Login Berhasil!', 'success')
-            return redirect(url_for('admin'))
-        else:
-            flash('PIN Salah atau Kedaluwarsa! Silahkan coba lagi.', 'danger')
+    account = find_account(email)
 
-    return render_template('login.html')
+    if not account:
+
+        flash(
+            "Akun tidak ditemukan.",
+            "danger"
+        )
+
+        return redirect(
+            url_for("users")
+        )
+
+    secret = account.get(
+        "totp_secret"
+    )
+
+    if not secret:
+
+        flash(
+            "TOTP secret tidak ditemukan.",
+            "danger"
+        )
+
+        return redirect(
+            url_for("users")
+        )
+
+    # --------------------------------------------------------
+    # Generate provisioning URI
+    # --------------------------------------------------------
+
+    totp = pyotp.TOTP(secret)
+
+    auth_url = totp.provisioning_uri(
+        name=email,
+        issuer_name="Almanak"
+    )
+
+    # --------------------------------------------------------
+    # Generate QR
+    # --------------------------------------------------------
+
+    img = qrcode.make(auth_url)
+
+    buf = io.BytesIO()
+
+    img.save(
+        buf,
+        format="PNG"
+    )
+
+    buf.seek(0)
+
+    return send_file(
+        buf,
+        mimetype="image/png"
+    )
 
 
-@app.route('/admin')
-@login_required  # Route ini sekarang terproteksi
-def admin():
-    with open(FILE_JSON_KOREKSI_AWAL_BULAN_HIJRIAH, "r") as k2:
-        rukyah_hijriah_raw = json.load(k2)
-        # Buat list baru hasil konversi
-        rukyahhijriah = []
-        for key, value in rukyah_hijriah_raw.items():
-            nama_bulan = hijri_label(key)
-            tanggal_masehi_str = format_tanggal_indonesia(value)
-            rukyahhijriah.append({
-                "nama_bulan": nama_bulan,
-                "tanggal_masehi": tanggal_masehi_str
-            })
-    if 'logged_in' not in session:
-        return redirect(url_for('login'))
-    return render_template('admin.html',datahilal=rukyahhijriah)
+# ============================================================
+# RESET MFA
+# ============================================================
 
-@app.route('/simpan_rukyah', methods=['POST'])
-def simpan_hijriah():
-    data = request.get_json()
-    hijriah = data.get('hijriah')           # contoh: "1447-03"
-    tanggal_masehi = data.get('tanggalmasehi')  # contoh: "2025-08-25"
+@app.route(
+    "/admin/users/reset-mfa/<path:email>",
+    methods=["POST"]
+)
+@administrator_required
+def reset_mfa(email):
 
-    if not hijriah or not tanggal_masehi:
-        return jsonify({"status": "error", "message": "Data tidak lengkap"}), 400
+    if not check_csrf():
 
-    # Jika file belum ada, buat kosong dulu
-    if not os.path.exists(FILE_JSON_KOREKSI_AWAL_BULAN_HIJRIAH):
-        with open(FILE_JSON_KOREKSI_AWAL_BULAN_HIJRIAH, 'w') as f:
-            json.dump({}, f, indent=2)
+        flash(
+            "CSRF token tidak valid.",
+            "danger"
+        )
 
-    # Baca file JSON lama
-    with open(FILE_JSON_KOREKSI_AWAL_BULAN_HIJRIAH, 'r') as f:
-        existing_data = json.load(f)
+        return redirect(
+            url_for("users")
+        )
 
-    # Tambahkan / update data baru
-    existing_data[hijriah] = tanggal_masehi
+    email = normalize_email(email)
 
-    # Simpan kembali ke file JSON
-    with open(FILE_JSON_KOREKSI_AWAL_BULAN_HIJRIAH, 'w') as f:
-        json.dump(existing_data, f, indent=4, ensure_ascii=False)
+    accounts = load_accounts()
 
-    return jsonify({
-        "status": "success",
-        "message": f"Data {hijriah} berhasil disimpan.",
-        "data": {hijriah: tanggal_masehi}
-    })
+    account = None
 
-@app.route('/logout')
-def logout():
-    session.pop('logged_in', None)  # Menghapus session login
-    flash('Anda telah keluar.', 'info')
-    return redirect(url_for('login'))
+    for item in accounts["admin"]:
+
+        if normalize_email(
+            item.get("email", "")
+        ) == email:
+
+            account = item
+            break
+
+    if not account:
+
+        flash(
+            "Admin tidak ditemukan.",
+            "danger"
+        )
+
+        return redirect(
+            url_for("users")
+        )
+
+    # --------------------------------------------------------
+    # Generate secret baru
+    # --------------------------------------------------------
+
+    account["totp_secret"] = (
+        pyotp.random_base32()
+    )
+
+    save_accounts(accounts)
+
+    flash(
+        "MFA berhasil di-reset. QR baru harus dipindai.",
+        "success"
+    )
+
+    return redirect(
+        url_for(
+            "user_qr",
+            email=email
+        )
+    )
+
+
+# ============================================================
+# DELETE ADMIN
+# ============================================================
+
+@app.route(
+    "/admin/users/delete/<path:email>",
+    methods=["POST"]
+)
+@administrator_required
+def user_delete(email):
+
+    if not check_csrf():
+
+        flash(
+            "CSRF token tidak valid.",
+            "danger"
+        )
+
+        return redirect(
+            url_for("users")
+        )
+
+    email = normalize_email(email)
+
+    accounts = load_accounts()
+
+    before = len(
+        accounts["admin"]
+    )
+
+    accounts["admin"] = [
+        account
+        for account in accounts["admin"]
+        if normalize_email(
+            account.get("email", "")
+        ) != email
+    ]
+
+    after = len(
+        accounts["admin"]
+    )
+
+    if before == after:
+
+        flash(
+            "Admin tidak ditemukan.",
+            "warning"
+        )
+
+        return redirect(
+            url_for("users")
+        )
+
+    save_accounts(accounts)
+
+    flash(
+        "Admin berhasil dihapus.",
+        "success"
+    )
+
+    return redirect(
+        url_for("users")
+    )
 
 def get_cached_version():
     json_path = os.path.join(os.path.dirname(__file__), "version.json")
