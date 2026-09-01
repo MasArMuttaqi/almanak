@@ -1,9 +1,4 @@
 {
-  "administrator": [
-    {
-      "email": "kangriza85@gmail.com",
-      "totp_secret": "JBSWY3DPEHPK3PXP"
-    }
-  ],
+  "administrator": [],
   "admin": []
 }
