@@ -14,21 +14,28 @@
     <section class="container image-container">
         <p class="text-secondary mb-3">Daftar riwayat Rukyatul Hilal awal bulan Hijriah berbasis kalender masehi. Penetapan awal bulan berdasarkan hasil sidang isbat dan/atau ikhbar Lembaga Falakiyah PBNU.</p> 
         <div class="input-group input-group-sm mb-3">
-            <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon">
-                <option selected>Pilih tahun hijriah</option>
-                <option value="1447">1447</option>
-                <option value="1448">1448</option>
+            <select class="form-select" id="filterTahun">
+                <option value="">Pilih tahun hijriah</option>
             </select>
-            <button class="btn btn-outline-secondary" type="button">Terapkan</button>
+
+            <button class="btn btn-outline-secondary" type="button" id="btnTerapkan">
+                Terapkan
+            </button>
         </div>
+
         <div class="table-responsive">
-            <table class="table table-sm table-hover table-rounded">
+            <table class="table table-sm table-hover table-rounded" id="tableHilal">
                 <thead>
                     <tr>
-                        <th style="background: #0f3222; color: #fafafa;">Awal Bulan Hijriah</th>
-                        <th style="background: #0f3222; color: #fafafa;">Tanggal Masehi</th>
+                        <th style="background: #0f3222; color: #fafafa;">
+                            Awal Bulan Hijriah
+                        </th>
+                        <th style="background: #0f3222; color: #fafafa;">
+                            Tanggal Masehi
+                        </th>
                     </tr>
                 </thead>
+
                 <tbody>
                     {% for item in datahilal %}
                     <tr>
@@ -134,5 +141,86 @@
   </div>
 </div>
 <!-- tambah rukyah -->
+
+<script>
+$(document).ready(function () {
+
+    const $select = $('#filterTahun');
+    const $rows = $('#tableHilal tbody tr');
+    const tahun = new Set();
+
+    $rows.each(function () {
+
+        const namaBulan = $(this)
+            .find('td')
+            .eq(0)
+            .text()
+            .trim();
+
+        const match = namaBulan.match(/\b(1[34]\d{2})\b/);
+
+        if (match) {
+            tahun.add(match[1]);
+        }
+    });
+
+    /*
+     * Masukkan tahun yang tersedia ke select
+     */
+    Array.from(tahun)
+        .sort((a, b) => parseInt(a) - parseInt(b))
+        .forEach(function (tahunHijriah) {
+
+            $select.append(
+                $('<option>', {
+                    value: tahunHijriah,
+                    text: tahunHijriah
+                })
+            );
+
+        });
+
+
+    /*
+     * Tombol Terapkan
+     */
+    $('#btnTerapkan').on('click', function () {
+
+        const tahunDipilih = $select.val();
+
+        // Jika tidak memilih tahun,
+        // tampilkan semua data
+        if (!tahunDipilih) {
+
+            $rows.show();
+
+            return;
+        }
+
+        /*
+         * Filter berdasarkan tahun
+         */
+        $rows.each(function () {
+
+            const namaBulan = $(this)
+                .find('td')
+                .eq(0)
+                .text()
+                .trim();
+
+            const match = namaBulan.match(/\b(1[34]\d{2})\b/);
+
+            if (match && match[1] === tahunDipilih) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+
+        });
+
+    });
+
+});
+</script>
 
 {% endblock %}
