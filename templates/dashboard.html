@@ -74,8 +74,8 @@
           <tr>
             <td class="sticky-col {{ nama_hari[i].class }}" style="padding:10px 15px !important;">
                 <span class="hari">{{ nama_hari[i].umum }}</span>
-                <small class="hari-arab">{{ nama_hari[i].arab }}</small><br>
-                <small class="hari-jawa">{{ nama_hari[i].jawa }}</small>
+                <span class="hari-arab">{{ nama_hari[i].arab }}</span><br>
+                <span class="hari-jawa">{{ nama_hari[i].jawa }}</span>
             </td>
 
               {% for d in data[i] %}
@@ -89,7 +89,7 @@
                 </div>
                    <span class="date-num text-teal">{{ d.tgl }}</span>
                    <span class="pasaran">{{ d.pasaran.split()[-1] }}</span>
-                   <span class="pasaran">{{ d.sadwara }}</span>
+                   <span class="sadwara">{{ d.sadwara }}</span>
                 {% endif %}
                 <!-- elemen baru -->
             </td>
@@ -101,13 +101,13 @@
       <tfooter>
           <tr>
               <td class="sticky-col hari">
-                  <small class="hari-jawa">Wuku</small>
+                  <span class="hari-jawa">Wuku</span>
               </td>
               {% for col in range(7) %}
               {% if wuku[col] %}
               {% for seg in wuku[col] %}
               <td class="calendar-cell text-center wuku" {% if seg %} data-bs-toggle="offcanvas" data-bs-target="#offcanvasWuku" data-index="{{ seg.wuku_index }}" data-bs-trigger="hover focus"{% endif %}>
-                <span class="pasaran wuku-wrapper" data-bs-toggle="tooltip" data-bs-trigger="hover" title="Klik detail informasi wuku {{ seg.wuku }}">
+                <span class="wuku-cell wuku-wrapper" data-bs-toggle="tooltip" data-bs-trigger="hover" title="Klik detail informasi wuku {{ seg.wuku }}">
                   {{ seg.wuku }}
                 </span>
                 <small class="pasaran">({{ seg.awal }}-{{ seg.akhir }})</small>

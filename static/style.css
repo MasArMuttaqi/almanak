@@ -1,11 +1,11 @@
 
-      /* font */
-@import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Cairo+Play:wght@200..1000&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&family=Rajdhani:wght@300;400;500;600;700&display=swap');
+/* font */
+@import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Anek+Bangla:wght@100..800&family=Cairo+Play:wght@200..1000&family=El+Messiri:wght@400..700&family=Montserrat:wght@100..900&family=Noto+Sans+Sundanese:wght@400..700&family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&family=Rajdhani:wght@300;400;500;600;700&display=swap');
 @font-face {
     font-family: aksara;
     src:url("/static/nykNgayogyanNew.woff2");
 }
-    /* font */
+/* font */
 
 
 body{
@@ -36,6 +36,12 @@ body{
 .arabic{
      font-family: "Cairo Play", sans-serif;
  }
+
+.noto-sans-sundanese {
+  font-family: "Noto Sans Sundanese", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
 
 /* Styling Link Utama */
 .nav-pill-custom {
@@ -293,6 +299,23 @@ td {
         display: block;
         text-align: center;
         }
+
+        .sadwara{
+            font-size: 0.6rem;
+            margin-top: 0.2rem;
+            color: #607D8B;
+            display: block;
+            text-align: center;
+        }
+
+        .wuku-cell{
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #6c757d;
+            display: block;
+            text-align: center;
+        }
+
         .hijri-num {
          font-family: "Amiri", serif;
          color: #6c757d;

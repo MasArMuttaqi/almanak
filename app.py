@@ -177,7 +177,9 @@ def kalenderhijriah():
 
     return render_template("hijriah.html", data1=hisab_rukyah, data2=hisab_wujud_hilal, data3=hijriah_kgth,datahilal=rukyahhijriah,tanggal_khgt=tanggal_text,raw_glosarium=desc)
 
-
+@app.route("/kalendersunda")
+def kalendersunda():
+    return render_template("kalendersunda.html")
 
 
 # ============================================================
