@@ -6,6 +6,8 @@ import secrets
 from functools import wraps
 import pyotp
 import qrcode
+from datetime import date
+from zoneinfo import ZoneInfo
 
 from flask import (Flask,render_template,request,redirect,url_for,session,flash,send_file,jsonify)
 
@@ -18,6 +20,7 @@ from hisab_rukyah_nu import *
 from hisab_wujud_hilal import *
 from hijriah_kgth import get_hijriah
 from generate_version import write_version_file
+from jadwalsholat import Lokasi, ParameterSalat,hitung_jadwal
 
 
 
@@ -177,9 +180,151 @@ def kalenderhijriah():
 
     return render_template("hijriah.html", data1=hisab_rukyah, data2=hisab_wujud_hilal, data3=hijriah_kgth,datahilal=rukyahhijriah,tanggal_khgt=tanggal_text,raw_glosarium=desc)
 
-@app.route("/kalendersunda")
-def kalendersunda():
-    return render_template("kalendersunda.html")
+# @app.route("/kalendersunda")
+# def kalendersunda():
+#     return render_template("kalendersunda.html")
+
+def nama_lokasi_dari_koordinat(lintang, bujur):
+    """Mengubah koordinat menjadi nama wilayah administratif."""
+    url = "https://nominatim.openstreetmap.org/reverse"
+    params = {
+        "lat": lintang,
+        "lon": bujur,
+        "format": "jsonv2",
+        "addressdetails": 1,
+        "zoom": 14,
+        "accept-language": "id",
+    }
+
+    headers = {
+        "User-Agent": "AlmanakJadwalSholat/1.0"
+    }
+
+    try:
+        response = requests.get(
+            url,
+            params=params,
+            headers=headers,
+            timeout=5,
+        )
+        response.raise_for_status()
+
+        alamat = response.json().get("address", {})
+
+        # Nama kelurahan/kecamatan
+        kecamatan = (
+            alamat.get("suburb")
+            or alamat.get("city_district")
+            or alamat.get("town")
+            or alamat.get("village")
+        )
+
+        # Kota atau kabupaten
+        kota = (
+            alamat.get("city")
+            or alamat.get("municipality")
+            or alamat.get("county")
+            or alamat.get("state_district")
+        )
+
+        provinsi = alamat.get("state")
+
+        bagian = []
+        for nama in (kecamatan, kota, provinsi):
+            if nama and nama not in bagian:
+                bagian.append(nama)
+
+        return ", ".join(bagian) or "Lokasi browser"
+
+    except (requests.RequestException, ValueError, TypeError):
+        return "Lokasi browser"
+
+@app.route("/jadwalsholat")
+def jadwalsholat():
+    # 1. Tanggal yang dipilih pengguna
+    tanggal_str = request.args.get("tanggal")
+
+    try:
+        if tanggal_str:
+            tanggal = datetime.strptime(
+                tanggal_str, "%Y-%m-%d"
+            ).date()
+        else:
+            tanggal = datetime.now(
+                ZoneInfo("Asia/Jakarta")
+            ).date()
+    except ValueError:
+        tanggal = datetime.now(
+            ZoneInfo("Asia/Jakarta")
+        ).date()
+
+    # 2. Kalender Jawa dan Hijriah dari module yang sudah ada
+    jawa = kalender_jawa(tanggal)
+    hijriah = hisab_nu(
+        tanggal.year,
+        tanggal.month,
+        tanggal.day,
+    )
+
+    # 3. Ambil koordinat dari browser atau session
+    try:
+        lat_str = request.args.get("lat")
+        lon_str = request.args.get("lon")
+
+        lintang = float(
+            lat_str if lat_str is not None
+            else session.get("lintang", -7.2575)
+        )
+        bujur = float(
+            lon_str if lon_str is not None
+            else session.get("bujur", 112.7521)
+        )
+
+        if not -90 <= lintang <= 90:
+            raise ValueError("Lintang tidak valid")
+        if not -180 <= bujur <= 180:
+            raise ValueError("Bujur tidak valid")
+
+    except (ValueError, TypeError):
+        lintang, bujur = -7.2575, 112.7521
+
+    session["lintang"] = lintang
+    session["bujur"] = bujur
+
+    # 4. Objek lokasi untuk perhitungan astronomi
+    nama_lokasi = nama_lokasi_dari_koordinat(
+        lintang,
+        bujur,
+    )
+
+    lokasi = Lokasi(
+        nama=nama_lokasi,
+        lintang=lintang,
+        bujur=bujur,
+        zona="Asia/Jakarta",
+    )
+
+
+    parameter = ParameterSalat()
+
+    # 5. Hitung jadwal salat
+    hasil = hitung_jadwal(
+        tanggal,
+        lokasi,
+        parameter,
+    )
+
+    # 6. Kirim semua data ke template
+    return render_template(
+        "jadwalsholat.html",
+        tanggal=tanggal,
+        lokasi=lokasi,
+        nama_lokasi=lokasi.nama,
+        jadwal=hasil["waktu"],
+        hasil=hasil,
+        data1=hijriah,
+        data2=jawa.get("hari_pasaran"),
+    )
 
 
 # ============================================================

@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="pattern-square-1"></div>
+<section class="container" style="margin-top:75px;" >
+    <div class="heading-section">
+        <a href="{{ url_for('dashboard') }}" class="btn btn-md d-inline-flex align-items-center gap-2 mb-4" style="font-size:10px;"><i class="fi fi-br-arrow-small-left"></i> Kembali</a>
+         <div class="txt">
+             <h2 class="heading section-heading">Jadwal Sholat Hari Ini</h2>
+             <div class="d-flex flex-column flex-md-row justify-content-md-between align-items-md-center">
+                <p class="subheading fw-medium" style="font-size: 0.7rem; color: #21232E !important;">{{data2}}, {{ data1.tanggal_masehi }} · {{ data1.tanggal_hijriah["full"] }} H</p>
+                <p class="subheading d-flex align-items-center gap-2 fw-medium" style="font-size: 0.7rem; color: #21232E !important">
+                <i class="fi fi-br-marker"></i>
+                {{ nama_lokasi }}<br>({{ "%.4f"|format(lokasi.lintang) }},{{ "%.4f"|format(lokasi.bujur) }})
+             </p>
+             </div>
+         </div>
+    </div>
+    <section class="container image-container">
+        <!-- pencarian -->
+                <div class="search-container">
+                    <form method="get" action="{{ url_for('jadwalsholat') }}">
+                    <div class="custom-search-group">
+
+                        <div class="search-input-wrapper">
+                            <i class="fi fi-br-calendar-day"></i>
+                            <input type="date" name="tanggal" value="{{ tanggal.strftime('%Y-%m-%d') if tanggal else '' }}" id="myDateInput" class="form-control custom-input" placeholder="cari tanggal...">
+                        </div>
+
+                        <button class="btn btn-filter" type="submit">
+                            <i class="fi fi-br-search"></i>
+                        </button>
+                    </div>
+                    </form>
+                </div>
+                <!-- pencarian -->
+
+        <ul class="list-group list-group-flush mt-4">
+            {% set daftar_waktu = [
+                ("Imsak", "imsak", "https://maps.gstatic.com/weather/v1/mostly_cloudy_night.svg"),
+                ("Subuh", "subuh_alt.svg", "https://masarmuttaqi.github.io/masjid-info-neo/icon/subuh_alt.svg"),
+                ("Terbit", "terbit_alt.svg", "https://masarmuttaqi.github.io/masjid-info-neo/icon/terbit_alt.svg"),
+                ("Dhuha", "dhuha_alt.svg", "https://masarmuttaqi.github.io/masjid-info-neo/icon/dhuha_alt.svg"),
+                ("Zuhur", "zuhur_alt.png", "https://masarmuttaqi.github.io/masjid-info-neo/icon/zuhur_alt.png"),
+                ("Asar", "asar_alt.svg", "https://masarmuttaqi.github.io/masjid-info-neo/icon/asar_alt.svg"),
+                ("Magrib", "magrib_alt.svg", "https://masarmuttaqi.github.io/masjid-info-neo/icon/magrib_alt.svg"),
+                ("Isya", "isya_alt.svg", "https://masarmuttaqi.github.io/masjid-info-neo/icon/isya_alt.svg")
+            ] %}
+
+            {% for nama, ikon, url_ikon in daftar_waktu %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span class="d-flex align-items-center gap-3 text-base font-medium">
+                    <img src="{{ url_ikon }}" width="20" height="20" alt="">
+                    {{ nama }}
+                </span>
+
+                <span class="fw-bold">
+                    {% if nama == "Imsak" %}
+                        {{ jadwal.get("Imsak", "--:--:--") or "--:--:--" }}
+                    {% else %}
+                        {{ jadwal.get(nama, "--:--:--") or "--:--:--" }}
+                    {% endif %}
+                </span>
+            </li>
+            {% endfor %}
+        </ul>
+
+        <p class="mt-3 pasaran">Perhitungan otomatis berdasarkan koordinat lokasi. Silakan cek jadwal di masjid setempat untuk memastikan atau sumber referensi <a href="https://jadwalsholat.nu.or.id/" target="_blank" class="nm-ws-footer">Lembaga Falakiyah NU</a>, <a href="https://khgt.muhammadiyah.or.id/" target="_blank" class="nm-ws-footer">Majelis Tarjih Tajdid PP Muhammadiyah</a>, <a href="https://bimasislam.kemenag.go.id/jadwal-sholat" target="_blank" class="nm-ws-footer">Bimbingan Masyarakat Islam Kemenag RI</a>.</p>
+        
+    </section>
+    <p class="mt-4 pasaran fw-medium text-start"><b>Referensi:</b> Soelaiman, M.Sy (2026) <em>Ilmu Falak:Perhitungan Waktu Sholat Syar'iyyah & Arah Kiblat dengan Logaritma 4 Desimal</em>, Surabaya: PDF Ulya Al Fithrah</p>
+</section>
+
+<script>
+$(document).ready(function() {
+
+    // 1. Get the date from the URL (e.g., ?date=2026-04-15)
+    const urlParams = new URLSearchParams(window.location.search);
+    let dateValue = urlParams.get('tanggal');
+
+    // 2. If the param is missing, generate today's date in YYYY-MM-DD format
+    if (!dateValue) {
+        const today = new Date();
+        dateValue = today.toISOString().split('T')[0];
+    }
+    // 3. Set the input value
+    $('#myDateInput').val(dateValue);
+});
+
+
+$(document).ready(function () {
+    const params = new URLSearchParams(window.location.search);
+    const input = document.getElementById("myDateInput");
+
+    function tanggalLokal() {
+        const now = new Date();
+        return [
+            now.getFullYear(),
+            String(now.getMonth() + 1).padStart(2, "0"),
+            String(now.getDate()).padStart(2, "0")
+        ].join("-");
+    }
+
+    if (input && !input.value) {
+        input.value = params.get("tanggal") || tanggalLokal();
+    }
+
+    // Koordinat sudah pernah dikirim pada pemuatan ini.
+    if (params.has("lat") && params.has("lon")) {
+        return;
+    }
+
+    if (!navigator.geolocation) {
+        console.warn("Geolocation tidak didukung browser.");
+        return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+        function (position) {
+            const url = new URL(window.location.href);
+
+            url.searchParams.set("lat", position.coords.latitude);
+            url.searchParams.set("lon", position.coords.longitude);
+            url.searchParams.set(
+                "tanggal",
+                input?.value || tanggalLokal()
+            );
+
+            window.location.replace(url.toString());
+        },
+        function (error) {
+            console.warn("Gagal mendapatkan lokasi:", error.message);
+        },
+        {
+            enableHighAccuracy: true,
+            timeout: 10000,
+            maximumAge: 300000
+        }
+    );
+});
+
+</script>
+{% endblock %}
