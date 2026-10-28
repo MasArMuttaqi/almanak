@@ -39,6 +39,49 @@ class ParameterSalat:
     faktor_asar: float = 1.0        # 1 = bayangan sama panjang + bayangan saat zawal
 
 
+class d:
+    """Pembungkus jadwal salat yang dapat di-serialisasi dan diformat."""
+
+    def __init__(self, tanggal, lokasi, parameter=None):
+        if isinstance(tanggal, str):
+            tanggal = date.fromisoformat(tanggal)
+        self.tanggal = tanggal
+        self.lokasi = lokasi
+        self.parameter = parameter or ParameterSalat()
+
+    def jadwal(self):
+        """Kembalikan hasil jadwal sebagai dictionary yang siap dipakai."""
+        return hitung_jadwal(self.tanggal, self.lokasi, self.parameter)
+
+    def as_dict(self):
+        """Versi data jadwal yang aman untuk JSON atau penyimpanan."""
+        return self.jadwal()
+
+    @classmethod
+    def from_dict(cls, payload, lokasi=None, parameter=None):
+        """Bangun objek d dari data jadwal hasil hitung_jadwal()."""
+        tanggal = payload.get("tanggal")
+        lokasi_obj = lokasi or Lokasi(
+            nama=payload.get("lokasi", "Lokasi tidak dikenal"),
+            lintang=float(payload.get("lintang", 0.0)),
+            bujur=float(payload.get("bujur", 0.0)),
+            zona=payload.get("zona", "Asia/Jakarta"),
+        )
+        return cls(tanggal=tanggal, lokasi=lokasi_obj, parameter=parameter)
+
+    def __str__(self):
+        jadwal = self.jadwal()
+        baris = [
+            f"Jadwal shalat {jadwal['tanggal']}",
+            f"lokasi: {jadwal['lokasi']}",
+            f"koordinat: {jadwal['lintang']}, {jadwal['bujur']}",
+        ]
+        for nama in ("Imsak", "Subuh", "Terbit", "Dhuha", "Zuhur", "Asar", "Magrib", "Isya"):
+            value = jadwal["waktu"][nama]
+            baris.append(f"{nama:8s}: {value or 'Tidak terdefinisi pada tanggal/lokasi ini'}")
+        return "\n".join(baris)
+
+
 def _normalisasi_menit(menit):
     """Normalisasi menit ke rentang [0, 1440)."""
     return menit % 1440

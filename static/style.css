@@ -549,6 +549,13 @@ td {
             text-justify: inter-word;
         }
 
+        .jadwalsholat{
+            font-size: 0.87rem !important;
+            font-family: "Rajdhani", sans-serif;
+            text-align: justify;
+            text-justify: inter-word;
+        }
+
         .btn-credit{
             width:100px;
             height:40px;
@@ -727,59 +734,55 @@ td {
     }
 
     /* Class kustom untuk floating card di bawah tengah halaman jadwal sholat */
-    /* Pembungkus posisi melayang di bawah tengah */
-    .floating-card-bottom {
+    /* Posisi Toast di bawah tengah */
+    .toast-container-bottom {
       position: fixed;
-      bottom: 24px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 1050;
-      width: calc(100% - 32px);
-      max-width: 560px;
+      bottom: 20px;
+      left: 20px;
+      transform: none; /* Menghapus geseran tengah */
+      z-index: 1080;
+      width: calc(100% - 40px);
+      max-width: 460px;
     }
 
-    /* Card Glassmorphism khas iOS/Material You */
-    .glass-card {
-      /* Warna background hijau gelap semi-transparan */
-      background: rgba(255, 255, 255, 0.12) !important;
-      
-      /* Efek blur background di belakang kartu */
-      backdrop-filter: blur(12px) saturate(180%);
-      -webkit-backdrop-filter: blur(12px) saturate(180%);
-      
-      /* Border halus transparan untuk efek kristal */
-      border: 1px solid rgba(255, 255, 255, 0.12) !important;
-      border-radius: 20px !important;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    /* Style Toast Glassmorphism Minimalis */
+    .toast-glass {
+      background: rgba(220, 225, 230, 0.6) !important;
+      backdrop-filter: blur(10px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.4) !important;
+      border-radius: 16px !important;
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+      color: #0F3222;
+      opacity: 1 !important;
     }
 
-    /* Penyesuaian Tipografi Presisi */
-    .text-header-label {
-      font-size: 0.95rem;
+    /* Tipografi Kompak */
+    .toast-label {
+      font-size: 0.8rem;
       font-weight: 400;
-      color: rgba(85, 85, 85, 0.82);
+      color: #555;
       letter-spacing: 0.2px;
     }
 
-    .display-time {
-      font-size: 2rem;
+    .toast-time {
+      font-size: 1.5rem;
       font-weight: 700;
       line-height: 1;
-      color: rgb(85, 85, 85);
-      letter-spacing: -0.5px;
+      color: #0F3222;
     }
 
-    .time-zone {
-      font-size: 1rem;
+    .toast-zone {
+      font-size: 0.6rem;
       font-weight: 500;
-      color: rgba(85, 85, 85, 0.75);
-      margin-left: 6px;
+      color: rgba(15, 50, 34, 0.8);
+      margin-left: 4px;
     }
 
-    .countdown-timer {
-      font-size: 1rem;
+    .toast-countdown {
+      font-size: 1.1rem;
       font-weight: 600;
-      color: rgba(85, 85, 85, 0.9);
-      letter-spacing: 1px;
+      color: rgba(15, 50, 34, 0.8);
+      letter-spacing: 0.5px;
     }
     

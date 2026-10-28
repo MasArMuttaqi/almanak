@@ -70,32 +70,180 @@
         <p class="mt-3 pasaran">Perhitungan otomatis berdasarkan koordinat lokasi. Silakan cek jadwal di masjid setempat untuk memastikan atau sumber referensi <a href="https://jadwalsholat.nu.or.id/" target="_blank" class="nm-ws-footer">Lembaga Falakiyah NU</a>, <a href="https://khgt.muhammadiyah.or.id/" target="_blank" class="nm-ws-footer">Majelis Tarjih Tajdid PP Muhammadiyah</a>, <a href="https://bimasislam.kemenag.go.id/jadwal-sholat" target="_blank" class="nm-ws-footer">Bimbingan Masyarakat Islam Kemenag RI</a>.</p>
         
     </section>
-    <p class="mt-4 pasaran fw-medium text-start"><b>Referensi:</b> Soelaiman, M.Sy (2026) <em>Ilmu Falak:Perhitungan Waktu Sholat Syar'iyyah & Arah Kiblat dengan Logaritma 4 Desimal</em>, Surabaya: PDF Ulya Al Fithrah</p>
+    <p class="text-justify text-muted mt-4 jadwalsholat"><b>Referensi:</b> Soelaiman, M.Sy (2026) <em>Ilmu Falak:Perhitungan Waktu Sholat Syar'iyyah & Arah Kiblat dengan Logaritma 4 Desimal</em>, Surabaya: PDF Ulya Al Fithrah</p>
+    <p class="text-justify text-muted mt-2 jadwalsholat"><b>Metode Perhitungan:</b><br>
+        Metode perhitungan waktu sholat menggunakan rumus astronomi dan parameter berikut:
+    </p>
+        <div class="table-responsive">
+        <table class="table text-muted jadwalsholat">
+            <thead>
+            <tr>
+                <th scope="col" style="width: 30%;" class="bg-transparent">Parameter</th>
+                <th scope="col" class="bg-transparent">Fungsi</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="bg-transparent">Bu'dul Darojah</td>
+                <td class="bg-transparent">Jarak posisi Matahari dari titik i'tidal terdekat.</td>
+            </tr>
+            <tr>
+                <td class="bg-transparent">Mail Awal</td>
+                <td class="bg-transparent">Deklinasi Matahari dalam metode dokumen.</td>
+            </tr>
+            <tr>
+                <td class="bg-transparent">Ardul Balad</td>
+                <td class="bg-transparent">Lintang tempat pengamatan.</td>
+            </tr>
+            <tr>
+                <td class="bg-transparent">Bu'dul Quthri</td>
+                <td class="bg-transparent">Parameter yang menggabungkan Mail Awal dan lintang tempat.</td>
+            </tr>
+            <tr>
+                <td class="bg-transparent">Asal Mutlaq</td>
+                <td class="bg-transparent">Parameter perhitungan berdasarkan tamam Mail Awal dan tamam Ardul Balad.</td>
+            </tr>
+            <tr>
+                <td class="bg-transparent">Nisful Fudlah</td>
+                <td class="bg-transparent">Parameter lanjutan untuk menghitung waktu terbenam dan waktu lainnya.</td>
+            </tr>
+            </tbody>
+        </table>
+        </div>
+    <p class="text-justify text-muted mt-2 jadwalsholat"><b>Aturan waktu shalat</b></p>
+    <div class="table-responsive">
+    <table class="table table-hover align-middle mb-0 jadwalsholat">
+        <thead>
+        <tr style="border-bottom: 2px solid rgba(0, 0, 0, 0.1);">
+            <th scope="col" class="bg-transparent fw-bold" style="width: 25%;">Waktu</th>
+            <th scope="col" class="bg-transparent fw-bold">Ketentuan</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr style="border-color: rgba(0, 0, 0, 0.05);">
+            <td class="bg-transparent">Magrib</td>
+            <td class="bg-transparent">Menggunakan Nisful Fudlah, konversi sudut waktu menjadi menit, dan tambahan tamkin 3 menit 30 detik.</td>
+        </tr>
+        <tr style="border-color: rgba(0, 0, 0, 0.05);">
+            <td class="bg-transparent">Isya</td>
+            <td class="bg-transparent">Menggunakan Irtifa&apos; 17&deg;.</td>
+        </tr>
+        <tr style="border-color: rgba(0, 0, 0, 0.05);">
+            <td class="bg-transparent">Subuh</td>
+            <td class="bg-transparent">Menggunakan Irtifa&apos; 19&deg;.</td>
+        </tr>
+        <tr style="border-color: rgba(0, 0, 0, 0.05);">
+            <td class="bg-transparent">Imsak</td>
+            <td class="bg-transparent">Waktu Subuh dikurangi interval ihtiyat.</td>
+        </tr>
+        <tr style="border-color: rgba(0, 0, 0, 0.05);">
+            <td class="bg-transparent">Dhuha</td>
+            <td class="bg-transparent">Menggunakan Irtifa&apos; 4&deg;30&apos;.</td>
+        </tr>
+        <tr style="border-color: rgba(0, 0, 0, 0.05);">
+            <td class="bg-transparent">Zuhur</td>
+            <td class="bg-transparent">Saat Matahari melewati meridian atau zawal.</td>
+        </tr>
+        <tr style="border-color: rgba(0, 0, 0, 0.05);">
+            <td class="bg-transparent">Asar</td>
+            <td class="bg-transparent">Menggunakan Ghoyah Irtifa', cotangen, dan faktor bayangan.</td>
+        </tr>
+        </tbody>
+    </table>
+    </div>
+    <p class="text-justify text-muted mt-2 jadwalsholat"><b>Penyesuaian antara metode asli dan implementasi <em>script</em></b><br>
+        Menggunakan pendekatan astronomi trigonometri modern, bukan tabel log-sin klasik secara persis. Pendekatan ini memungkinkan perhitungan dijalankan tanpa tabel logaritma manual. Algoritma intinya:
+        <ol class="list-group list-group-numbered list-group-flush jadwalsholat">
+        <li class="list-group-item">Menerima tanggal, lintang, bujur, dan zona waktu.</li>
+        <li class="list-group-item">Menghitung deklinasi Matahari dan <em>equation of time</em> (selisih antara waktu matahari tampak (apparent solar time—yang ditunjukkan oleh jam matahari) dan waktu matahari rata-rata (mean solar time—yang ditunjukkan oleh jam mekanik atau digital biasa) dalam satuan menit).</li>
+        <li class="list-group-item">Menentukan waktu kulminasi Matahari atau Zuhur.</li>
+        <li class="list-group-item">Menghitung sudut waktu untuk Subuh, Terbit, Dhuha, Magrib, dan Isya.</li>
+        <li class="list-group-item">Menghitung Asar berdasarkan faktor panjang bayangan.</li>
+        <li class="list-group-item">Menghitung Imsak berdasarkan interval sebelum Subuh.</li>
+        <li class="list-group-item">Menerapkan koreksi tamkin Magrib dan ihtiyat sesuai parameter.</li>
+        <li class="list-group-item">Menghasilkan jadwal dalam format HH:MM:SS.</li>
+        </ol>
+    </p>
+    <div class="table-responsive">
+    <table class="table table-hover align-middle mb-0 text-muted jadwalsholat">
+        <thead>
+        <tr style="border-bottom: 2px solid rgba(0, 0, 0, 0.1);">
+            <th scope="col" class="bg-transparent fw-bold" style="width: 25%;">Aspek</th>
+            <th scope="col" class="bg-transparent fw-bold" style="width: 37.5%;">Metode Baku</th>
+            <th scope="col" class="bg-transparent fw-bold" style="width: 37.5%;">Implementasi</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr style="border-color: rgba(0, 0, 0, 0.05);">
+            <td class="bg-transparent">Posisi Matahari</td>
+            <td class="bg-transparent">Darojatus Syams dan tabel buruj</td>
+            <td class="bg-transparent">Deklinasi Matahari dengan aproksimasi astronomis</td>
+        </tr>
+        <tr style="border-color: rgba(0, 0, 0, 0.05);">
+            <td class="bg-transparent">Operasi hitung</td>
+            <td class="bg-transparent">Logaritma sinus dan kaidah klasik</td>
+            <td class="bg-transparent">Fungsi trigonometri</td>
+        </tr>
+        <tr style="border-color: rgba(0, 0, 0, 0.05);">
+            <td class="bg-transparent">Waktu Zuhur</td>
+            <td class="bg-transparent">Konsep zawal</td>
+            <td class="bg-transparent">Kulminasi berdasarkan bujur dan equation of time</td>
+        </tr>
+        <tr style="border-color: rgba(0, 0, 0, 0.05);">
+            <td class="bg-transparent">Waktu Subuh/Isya</td>
+            <td class="bg-transparent">Irtifa&apos; 19&deg;/17&deg;</td>
+            <td class="bg-transparent">Sudut Matahari &minus;19&deg;/&minus;17&deg;</td>
+        </tr>
+        <tr style="border-color: rgba(0, 0, 0, 0.05);">
+            <td class="bg-transparent">Waktu Dhuha</td>
+            <td class="bg-transparent">Irtifa&apos; 4&deg;30&apos;</td>
+            <td class="bg-transparent">Tinggi Matahari +4,5°</td>
+        </tr>
+        <tr style="border-color: rgba(0, 0, 0, 0.05);">
+            <td class="bg-transparent">Waktu Asar</td>
+            <td class="bg-transparent">Ghoyah Irtifa' dan cotangen</td>
+            <td class="bg-transparent">Rumus tinggi Matahari berdasarkan faktor bayangan</td>
+        </tr>
+        <tr style="border-color: rgba(0, 0, 0, 0.05);">
+            <td class="bg-transparent">Koreksi Magrib</td>
+            <td class="bg-transparent">Tamkin 3 menit 30 detik</td>
+            <td class="bg-transparent">Parameter tambahan 3,5 menit</td>
+        </tr>
+        </tbody>
+    </table>
+    </div>
 </section>
 
 <!-- Floating Card Bottom Center -->
-  <div class="floating-card-bottom">
-    <div class="card glass-card">
-      <div class="card-body px-4 py-3">
-        <!-- Label Atas -->
-        <div class="text-header-label mb-1" id="countdown-label">
-          Menuju Zuhur
-        </div>
-        <!-- Baris Jam & Countdown -->
-        <div class="d-flex align-items-baseline justify-content-between">
-          <!-- Sisi Kiri: Jam Utama & Zona Waktu -->
+  
+<div class="toast-container-bottom">
+  <div class="toast toast-glass show w-100" id="toast-countdown" role="alert"maria-live="assertive" aria-atomic="true">
+    <div class="toast-body px-3 py-2">
+      <div class="d-flex align-items-center justify-content-between">
+        <!-- Sisi Kiri: Label & Jam Waktu Salat -->
+        <div>
+          <div class="toast-label mb-0" id="countdown-label">
+            Menuju Zuhur
+          </div>
           <div class="d-flex align-items-baseline">
-            <span class="display-time" id="jam-sekarang">11:38</span>
-            <span class="time-zone">WIB</span>
+            <span class="toast-time" id="jam-sekarang">
+              --:--
+            </span>
+            <span class="toast-zone">WIB</span>
           </div>
-          <!-- Sisi Kanan: Hitung Mundur (Countdown) -->
-          <div class="countdown-timer" id="countdown-waktu">
-            - 00 : 14 : 00
+        </div>
+        <!-- Sisi Kanan: Countdown & Tombol Close -->
+        <div class="d-flex align-items-center gap-3">
+          <div class="toast-countdown" id="countdown-waktu" aria-live="off">
+            00 : 00 : 00
           </div>
+          <button type="button"class="btn-close btn-close-secondary opacity-75" data-bs-dismiss="toast" aria-label="Tutup countdown" style="font-size: 0.75rem;"></button>
         </div>
       </div>
     </div>
   </div>
+</div>
+
 
 <script>
 $(document).ready(function() {
@@ -166,12 +314,37 @@ $(document).ready(function () {
 });
 
 </script>
+
+<script type="application/json" id="jadwal-data">{{ jadwal | tojson }}</script>
+
 <script>
 $(function () {
     "use strict";
-    // Data jadwal berasal dari Flask/Jinja
-    const jadwal = {{ jadwal | tojson }};
 
+    // ==================================================
+    // 1. MEMBACA DATA JADWAL DARI FLASK / JINJA
+    // ==================================================
+    let jadwalData = {};
+
+    try {
+        jadwalData = JSON.parse(
+            $("#jadwal-data").text() || "{}"
+        );
+
+        if (
+            !jadwalData ||
+            typeof jadwalData !== "object" ||
+            Array.isArray(jadwalData)
+        ) {
+            jadwalData = {};
+        }
+    } catch (error) {
+        console.error("Gagal membaca data jadwal:", error);
+    }
+
+    // ==================================================
+    // 2. KONFIGURASI COUNTDOWN
+    // ==================================================
     const daftarSholat = [
         { nama: "Subuh",  key: "Subuh" },
         { nama: "Zuhur",  key: "Zuhur" },
@@ -187,11 +360,18 @@ $(function () {
     const $label = $("#countdown-label");
     const $countdown = $("#countdown-waktu");
 
-    if (!$jam.length || !$label.length || !$countdown.length) {
+    if (
+        !$jam.length ||
+        !$label.length ||
+        !$countdown.length
+    ) {
+        console.warn("Elemen countdown tidak ditemukan.");
         return;
     }
 
-    // Mendapatkan tanggal dan waktu WIB
+    // ==================================================
+    // 3. MENDAPATKAN TANGGAL BERDASARKAN WIB
+    // ==================================================
     function waktuWIB() {
         const parts = new Intl.DateTimeFormat("en-GB", {
             timeZone: ZONA_WAKTU,
@@ -224,7 +404,8 @@ $(function () {
     }
 
     function tambahHari(tanggal, jumlah) {
-        const [tahun, bulan, hari] = tanggal.split("-").map(Number);
+        const [tahun, bulan, hari] =
+            tanggal.split("-").map(Number);
 
         const tanggalBaru = new Date(
             Date.UTC(tahun, bulan - 1, hari + jumlah)
@@ -237,23 +418,38 @@ $(function () {
         ].join("-");
     }
 
-    // Konversi tanggal dan jam WIB menjadi timestamp
+    // ==================================================
+    // 4. KONVERSI JAM WIB MENJADI TIMESTAMP
+    // ==================================================
     function timestampWIB(tanggal, jam) {
         const cocok = String(jam || "").match(
             /^(\d{1,2}):(\d{2})(?::(\d{2}))?$/
         );
 
-        if (!cocok) return null;
+        if (!cocok) {
+            return null;
+        }
 
         const h = Number(cocok[1]);
         const m = Number(cocok[2]);
         const s = Number(cocok[3] || 0);
 
-        if (h > 23 || m > 59 || s > 59) return null;
+        if (h > 23 || m > 59 || s > 59) {
+            return null;
+        }
 
-        const [tahun, bulan, hari] = tanggal.split("-").map(Number);
+        const [tahun, bulan, hari] =
+            tanggal.split("-").map(Number);
 
-        return Date.UTC(tahun, bulan - 1, hari, h - 7, m, s);
+        // WIB = UTC+7
+        return Date.UTC(
+            tahun,
+            bulan - 1,
+            hari,
+            h - 7,
+            m,
+            s
+        );
     }
 
     function formatJam(jam) {
@@ -261,14 +457,25 @@ $(function () {
             /^(\d{1,2}):(\d{2})(?::(\d{2}))?$/
         );
 
-        if (!cocok) return "--:--";
+        if (!cocok) {
+            return "--:--";
+        }
 
-        return String(cocok[1]).padStart(2, "0") +
-            ":" + cocok[2];
+        return (
+            String(cocok[1]).padStart(2, "0") +
+            ":" +
+            cocok[2]
+        );
     }
 
+    // ==================================================
+    // 5. FORMAT COUNTDOWN
+    // ==================================================
     function formatCountdown(ms) {
-        const total = Math.max(0, Math.ceil(ms / 1000));
+        const total = Math.max(
+            0,
+            Math.ceil(ms / 1000)
+        );
 
         const jam = Math.floor(total / 3600);
         const menit = Math.floor((total % 3600) / 60);
@@ -281,47 +488,69 @@ $(function () {
         ].join(" : ");
     }
 
+    // ==================================================
+    // 6. MEMBUAT DAFTAR WAKTU SALAT
+    // ==================================================
     function buatDaftarTarget(tanggal) {
         const hasil = [];
 
         $.each(daftarSholat, function (_, sholat) {
-            const jam = jadwal[sholat.key];
-            const timestamp = timestampWIB(tanggal, jam);
+            // PENTING: gunakan jadwalData, bukan jadwal
+            const jam = jadwalData[sholat.key];
 
-            if (timestamp !== null) {
+            const target = timestampWIB(tanggal, jam);
+
+            if (target !== null) {
                 hasil.push({
                     nama: sholat.nama,
                     jam: jam,
-                    target: timestamp
+                    target: target
                 });
             }
+        });
+
+        // Pastikan urutan berdasarkan waktu sebenarnya
+        hasil.sort(function (a, b) {
+            return a.target - b.target;
         });
 
         return hasil;
     }
 
+    // ==================================================
+    // 7. MENENTUKAN TARGET COUNTDOWN
+    // ==================================================
     function cariTarget(sekarang, tanggal) {
         const daftarTarget = buatDaftarTarget(tanggal);
 
-        // Jika berada dalam periode jeda setelah waktu salat
+        if (daftarTarget.length === 0) {
+            return null;
+        }
+
+        // Jika waktu salat baru saja tiba, jeda 2 menit
         for (const sholat of daftarTarget) {
+            const akhirJeda =
+                sholat.target + DURASI_JEDA;
+
             if (
                 sekarang >= sholat.target &&
-                sekarang < sholat.target + DURASI_JEDA
+                sekarang < akhirJeda
             ) {
                 return {
                     mode: "jeda",
                     nama: sholat.nama,
                     jam: sholat.jam,
-                    target: sholat.target + DURASI_JEDA
+                    target: akhirJeda
                 };
             }
         }
 
-        // Waktu salat berikutnya pada hari ini
-        const berikutnya = daftarTarget.find(function (sholat) {
-            return sholat.target > sekarang;
-        });
+        // Cari waktu salat berikutnya hari ini
+        const berikutnya = daftarTarget.find(
+            function (sholat) {
+                return sholat.target > sekarang;
+            }
+        );
 
         if (berikutnya) {
             return {
@@ -332,10 +561,14 @@ $(function () {
             };
         }
 
-        // Setelah Isya: menuju Subuh hari berikutnya
+        // Setelah Isya, target berikutnya adalah Subuh besok
         const besok = tambahHari(tanggal, 1);
-        const jamSubuh = jadwal["Subuh"];
-        const targetSubuh = timestampWIB(besok, jamSubuh);
+        const jamSubuh = jadwalData["Subuh"];
+
+        const targetSubuh = timestampWIB(
+            besok,
+            jamSubuh
+        );
 
         if (targetSubuh !== null) {
             return {
@@ -349,6 +582,9 @@ $(function () {
         return null;
     }
 
+    // ==================================================
+    // 8. MEMPERBARUI TAMPILAN
+    // ==================================================
     function perbaruiCountdown() {
         const sekarang = Date.now();
         const bagian = waktuWIB();
@@ -363,7 +599,8 @@ $(function () {
             return;
         }
 
-        // Jam yang ditampilkan adalah jam target waktu salat
+        // Jam kiri menunjukkan JAM WAKTU SALAT TARGET,
+        // bukan jam real-time.
         $jam.text(formatJam(target.jam));
 
         if (target.mode === "jeda") {
@@ -377,11 +614,32 @@ $(function () {
         );
     }
 
-    // Perbarui setiap detik
-    perbaruiCountdown();
-    setInterval(perbaruiCountdown, 1000);
+    // ==================================================
+    // 9. TIMER
+    // ==================================================
+    let timerCountdown = null;
+
+    function jalankanCountdown() {
+        perbaruiCountdown();
+
+        // Sinkronkan pembaruan dengan pergantian detik
+        const jeda = 1000 - (Date.now() % 1000);
+
+        timerCountdown = setTimeout(
+            jalankanCountdown,
+            jeda
+        );
+    }
+
+    // Mencegah timer ganda jika fungsi diinisialisasi ulang
+    if (timerCountdown !== null) {
+        clearTimeout(timerCountdown);
+    }
+
+    jalankanCountdown();
 });
 </script>
+
 
 
 {% endblock %}
