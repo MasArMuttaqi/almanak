@@ -1,17 +1,20 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="pattern-square-1"></div>
-<section class="container" style="margin-top:75px;" >
+<section class="container" style="margin-top: 8vh;">
     <div class="heading-section">
         <a href="{{ url_for('dashboard') }}" class="btn btn-md d-inline-flex align-items-center gap-2 mb-4" style="font-size:10px;"><i class="fi fi-br-arrow-small-left"></i> Kembali</a>
          <div class="txt">
              <h2 class="heading section-heading">Jadwal Sholat Hari Ini</h2>
              <div class="d-flex flex-column flex-md-row justify-content-md-between align-items-md-center">
-                <p class="subheading fw-medium" style="font-size: 0.7rem; color: #21232E !important;">{{data2}}, {{ data1.tanggal_masehi }} · {{ data1.tanggal_hijriah["full"] }} H</p>
+                <p class="subheading d-flex align-items-center gap-2 fw-medium" style="font-size: 0.7rem; color: #21232E !important;">
+                    <i class="fi fi-br-calendar-day"></i>
+                    {{data2}}, {{ data1.tanggal_masehi }} <br> {{ data1.tanggal_hijriah["full"] }} H
+                </p>
                 <p class="subheading d-flex align-items-center gap-2 fw-medium" style="font-size: 0.7rem; color: #21232E !important">
-                <i class="fi fi-br-marker"></i>
-                {{ nama_lokasi }}<br>({{ "%.4f"|format(lokasi.lintang) }},{{ "%.4f"|format(lokasi.bujur) }})
-             </p>
+                    <i class="fi fi-br-marker"></i>
+                    {{ nama_lokasi }}<br>({{ "%.4f"|format(lokasi.lintang) }},{{ "%.4f"|format(lokasi.bujur) }})
+                </p>
              </div>
          </div>
     </div>
@@ -36,14 +39,14 @@
 
         <ul class="list-group list-group-flush mt-4">
             {% set daftar_waktu = [
-                ("Imsak", "imsak", "https://maps.gstatic.com/weather/v1/mostly_cloudy_night.svg"),
-                ("Subuh", "subuh_alt.svg", "https://masarmuttaqi.github.io/masjid-info-neo/icon/subuh_alt.svg"),
-                ("Terbit", "terbit_alt.svg", "https://masarmuttaqi.github.io/masjid-info-neo/icon/terbit_alt.svg"),
-                ("Dhuha", "dhuha_alt.svg", "https://masarmuttaqi.github.io/masjid-info-neo/icon/dhuha_alt.svg"),
-                ("Zuhur", "zuhur_alt.png", "https://masarmuttaqi.github.io/masjid-info-neo/icon/zuhur_alt.png"),
-                ("Asar", "asar_alt.svg", "https://masarmuttaqi.github.io/masjid-info-neo/icon/asar_alt.svg"),
-                ("Magrib", "magrib_alt.svg", "https://masarmuttaqi.github.io/masjid-info-neo/icon/magrib_alt.svg"),
-                ("Isya", "isya_alt.svg", "https://masarmuttaqi.github.io/masjid-info-neo/icon/isya_alt.svg")
+                ("Imsak", "imsak", "https://masarmuttaqi.github.io/masjid-info/src/icon/icon-Imsak.svg"),
+                ("Subuh", "subuh_alt.svg", "https://masarmuttaqi.github.io/masjid-info/src/icon/icon-Subuh.svg"),
+                ("Terbit", "terbit_alt.svg", "https://masarmuttaqi.github.io/masjid-info/src/icon/icon-Terbit.svg"),
+                ("Dhuha", "dhuha_alt.svg", "https://masarmuttaqi.github.io/masjid-info/src/icon/icon-Dhuha.svg"),
+                ("Zuhur", "zuhur_alt.png", "https://masarmuttaqi.github.io/masjid-info/src/icon/icon-Zuhur.svg"),
+                ("Asar", "asar_alt.svg", "https://masarmuttaqi.github.io/masjid-info/src/icon/icon-Asar.svg"),
+                ("Magrib", "magrib_alt.svg", "https://masarmuttaqi.github.io/masjid-info/src/icon/icon-Magrib.svg"),
+                ("Isya", "isya_alt.svg", "https://masarmuttaqi.github.io/masjid-info/src/icon/icon-Isya.svg")
             ] %}
 
             {% for nama, ikon, url_ikon in daftar_waktu %}
@@ -69,6 +72,30 @@
     </section>
     <p class="mt-4 pasaran fw-medium text-start"><b>Referensi:</b> Soelaiman, M.Sy (2026) <em>Ilmu Falak:Perhitungan Waktu Sholat Syar'iyyah & Arah Kiblat dengan Logaritma 4 Desimal</em>, Surabaya: PDF Ulya Al Fithrah</p>
 </section>
+
+<!-- Floating Card Bottom Center -->
+  <div class="floating-card-bottom">
+    <div class="card glass-card">
+      <div class="card-body px-4 py-3">
+        <!-- Label Atas -->
+        <div class="text-header-label mb-1" id="countdown-label">
+          Menuju Zuhur
+        </div>
+        <!-- Baris Jam & Countdown -->
+        <div class="d-flex align-items-baseline justify-content-between">
+          <!-- Sisi Kiri: Jam Utama & Zona Waktu -->
+          <div class="d-flex align-items-baseline">
+            <span class="display-time" id="jam-sekarang">11:38</span>
+            <span class="time-zone">WIB</span>
+          </div>
+          <!-- Sisi Kanan: Hitung Mundur (Countdown) -->
+          <div class="countdown-timer" id="countdown-waktu">
+            - 00 : 14 : 00
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
 <script>
 $(document).ready(function() {
@@ -139,4 +166,222 @@ $(document).ready(function () {
 });
 
 </script>
+<script>
+$(function () {
+    "use strict";
+    // Data jadwal berasal dari Flask/Jinja
+    const jadwal = {{ jadwal | tojson }};
+
+    const daftarSholat = [
+        { nama: "Subuh",  key: "Subuh" },
+        { nama: "Zuhur",  key: "Zuhur" },
+        { nama: "Asar",   key: "Asar" },
+        { nama: "Magrib", key: "Magrib" },
+        { nama: "Isya",   key: "Isya" }
+    ];
+
+    const DURASI_JEDA = 2 * 60 * 1000;
+    const ZONA_WAKTU = "Asia/Jakarta";
+
+    const $jam = $("#jam-sekarang");
+    const $label = $("#countdown-label");
+    const $countdown = $("#countdown-waktu");
+
+    if (!$jam.length || !$label.length || !$countdown.length) {
+        return;
+    }
+
+    // Mendapatkan tanggal dan waktu WIB
+    function waktuWIB() {
+        const parts = new Intl.DateTimeFormat("en-GB", {
+            timeZone: ZONA_WAKTU,
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+            hourCycle: "h23"
+        }).formatToParts(new Date());
+
+        const hasil = {};
+
+        $.each(parts, function (_, item) {
+            if (item.type !== "literal") {
+                hasil[item.type] = Number(item.value);
+            }
+        });
+
+        return hasil;
+    }
+
+    function tanggalWIB(data) {
+        return [
+            data.year,
+            String(data.month).padStart(2, "0"),
+            String(data.day).padStart(2, "0")
+        ].join("-");
+    }
+
+    function tambahHari(tanggal, jumlah) {
+        const [tahun, bulan, hari] = tanggal.split("-").map(Number);
+
+        const tanggalBaru = new Date(
+            Date.UTC(tahun, bulan - 1, hari + jumlah)
+        );
+
+        return [
+            tanggalBaru.getUTCFullYear(),
+            String(tanggalBaru.getUTCMonth() + 1).padStart(2, "0"),
+            String(tanggalBaru.getUTCDate()).padStart(2, "0")
+        ].join("-");
+    }
+
+    // Konversi tanggal dan jam WIB menjadi timestamp
+    function timestampWIB(tanggal, jam) {
+        const cocok = String(jam || "").match(
+            /^(\d{1,2}):(\d{2})(?::(\d{2}))?$/
+        );
+
+        if (!cocok) return null;
+
+        const h = Number(cocok[1]);
+        const m = Number(cocok[2]);
+        const s = Number(cocok[3] || 0);
+
+        if (h > 23 || m > 59 || s > 59) return null;
+
+        const [tahun, bulan, hari] = tanggal.split("-").map(Number);
+
+        return Date.UTC(tahun, bulan - 1, hari, h - 7, m, s);
+    }
+
+    function formatJam(jam) {
+        const cocok = String(jam || "").match(
+            /^(\d{1,2}):(\d{2})(?::(\d{2}))?$/
+        );
+
+        if (!cocok) return "--:--";
+
+        return String(cocok[1]).padStart(2, "0") +
+            ":" + cocok[2];
+    }
+
+    function formatCountdown(ms) {
+        const total = Math.max(0, Math.ceil(ms / 1000));
+
+        const jam = Math.floor(total / 3600);
+        const menit = Math.floor((total % 3600) / 60);
+        const detik = total % 60;
+
+        return [
+            String(jam).padStart(2, "0"),
+            String(menit).padStart(2, "0"),
+            String(detik).padStart(2, "0")
+        ].join(" : ");
+    }
+
+    function buatDaftarTarget(tanggal) {
+        const hasil = [];
+
+        $.each(daftarSholat, function (_, sholat) {
+            const jam = jadwal[sholat.key];
+            const timestamp = timestampWIB(tanggal, jam);
+
+            if (timestamp !== null) {
+                hasil.push({
+                    nama: sholat.nama,
+                    jam: jam,
+                    target: timestamp
+                });
+            }
+        });
+
+        return hasil;
+    }
+
+    function cariTarget(sekarang, tanggal) {
+        const daftarTarget = buatDaftarTarget(tanggal);
+
+        // Jika berada dalam periode jeda setelah waktu salat
+        for (const sholat of daftarTarget) {
+            if (
+                sekarang >= sholat.target &&
+                sekarang < sholat.target + DURASI_JEDA
+            ) {
+                return {
+                    mode: "jeda",
+                    nama: sholat.nama,
+                    jam: sholat.jam,
+                    target: sholat.target + DURASI_JEDA
+                };
+            }
+        }
+
+        // Waktu salat berikutnya pada hari ini
+        const berikutnya = daftarTarget.find(function (sholat) {
+            return sholat.target > sekarang;
+        });
+
+        if (berikutnya) {
+            return {
+                mode: "countdown",
+                nama: berikutnya.nama,
+                jam: berikutnya.jam,
+                target: berikutnya.target
+            };
+        }
+
+        // Setelah Isya: menuju Subuh hari berikutnya
+        const besok = tambahHari(tanggal, 1);
+        const jamSubuh = jadwal["Subuh"];
+        const targetSubuh = timestampWIB(besok, jamSubuh);
+
+        if (targetSubuh !== null) {
+            return {
+                mode: "countdown",
+                nama: "Subuh",
+                jam: jamSubuh,
+                target: targetSubuh
+            };
+        }
+
+        return null;
+    }
+
+    function perbaruiCountdown() {
+        const sekarang = Date.now();
+        const bagian = waktuWIB();
+        const tanggal = tanggalWIB(bagian);
+
+        const target = cariTarget(sekarang, tanggal);
+
+        if (!target) {
+            $jam.text("--:--");
+            $label.text("Jadwal tidak tersedia");
+            $countdown.text("-- : -- : --");
+            return;
+        }
+
+        // Jam yang ditampilkan adalah jam target waktu salat
+        $jam.text(formatJam(target.jam));
+
+        if (target.mode === "jeda") {
+            $label.text("Waktu " + target.nama);
+        } else {
+            $label.text("Menuju " + target.nama);
+        }
+
+        $countdown.text(
+            formatCountdown(target.target - sekarang)
+        );
+    }
+
+    // Perbarui setiap detik
+    perbaruiCountdown();
+    setInterval(perbaruiCountdown, 1000);
+});
+</script>
+
+
 {% endblock %}
