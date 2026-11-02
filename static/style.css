@@ -736,13 +736,17 @@ td {
     /* Class kustom untuk floating card di bawah tengah halaman jadwal sholat */
     /* Posisi Toast di bawah tengah */
     .toast-container-bottom {
-      position: fixed;
-      bottom: 20px;
-      left: 20px;
+      /* position: fixed; */
+      /* bottom: 20px;
+      left: 20px; */
+      position: relative;
+      display: flex;
+      align-items: center;
       transform: none; /* Menghapus geseran tengah */
-      z-index: 1080;
-      width: calc(100% - 40px);
-      max-width: 460px;
+      /* z-index: 1080; */
+      /* width: calc(100% - 40px); */
+      max-width: 500px;
+      margin: 0 auto;
     }
 
     /* Style Toast Glassmorphism Minimalis */
@@ -784,5 +788,62 @@ td {
       font-weight: 600;
       color: rgba(15, 50, 34, 0.8);
       letter-spacing: 0.5px;
+    }
+
+    .location {
+      position: relative;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      max-width: 500px;
+      margin: 0 auto;
+      height: 64px;
+      padding: 6px;
+      background-color: rgba(255, 255, 255, 0.25); /* Efek transparan semi-putih */
+      border: 1.5px solid rgba(255, 255, 255, 0.4); /* Border terang transparan */
+      border-radius: 50px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .icon-btn {
+      width: 50px;
+      height: 50px;
+      background-color: #ffffff;
+      border: none;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: transform 0.2s ease;
+    }
+
+    .icon-btn:hover {
+      transform: scale(1.05);
+    }
+
+    .icon-btn svg {
+      width: 22px;
+      height: 22px;
+      fill: none;
+      stroke: #c5a059;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .location-label{
+      flex: 1;
+      height: 100%;
+      background: transparent;
+      border: none;
+      outline: none;
+      text-align: center;
+      font-size: 1rem;
+      font-weight: 400;
+      color: rgb(15, 50, 34);
+      padding: 0 10px;
     }
     
