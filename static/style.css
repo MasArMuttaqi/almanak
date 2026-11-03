@@ -550,7 +550,7 @@ td {
         }
 
         .jadwalsholat{
-            font-size: 0.87rem !important;
+            font-size: 1rem !important;
             font-family: "Rajdhani", sans-serif;
             text-align: justify;
             text-justify: inter-word;
@@ -733,117 +733,193 @@ td {
 
     }
 
-    /* Class kustom untuk floating card di bawah tengah halaman jadwal sholat */
-    /* Posisi Toast di bawah tengah */
-    .toast-container-bottom {
-      /* position: fixed; */
-      /* bottom: 20px;
-      left: 20px; */
+    /* Class kustom untuk halaman jadwal sholat */
+    /* Card Utama */
+    .schedule-card {
+      width: 100%;
+      /* max-width: 400px; */
+      border: none;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    }
+
+    /* Card Header Hijau */
+    .schedule-card .card-header {
+      background: linear-gradient(135deg, #009c48 0%, #007a38 100%);
+      color: #ffffff;
+      padding: 20px 20px 35px 20px;
+      text-align: center;
+      border: none;
       position: relative;
+    }
+
+
+    /* Search Bar di Header */
+    .search-pill {
+      background: rgba(255, 255, 255, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      border-radius: 50px;
+      padding: 4px;
       display: flex;
       align-items: center;
-      transform: none; /* Menghapus geseran tengah */
-      /* z-index: 1080; */
-      /* width: calc(100% - 40px); */
-      max-width: 500px;
-      margin: 0 auto;
+      margin-bottom: 20px;
     }
 
-    /* Style Toast Glassmorphism Minimalis */
-    .toast-glass {
-      background: rgba(220, 225, 230, 0.6) !important;
-      backdrop-filter: blur(10px) saturate(180%);
-      -webkit-backdrop-filter: blur(16px) saturate(180%);
-      border: 1px solid rgba(255, 255, 255, 0.4) !important;
-      border-radius: 16px !important;
-      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
-      color: #0F3222;
-      opacity: 1 !important;
+    .search-btn {
+      width: 36px;
+      height: 36px;
+      background-color: #ffffff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      flex-shrink: 0;
     }
 
-    /* Tipografi Kompak */
-    .toast-label {
-      font-size: 0.8rem;
-      font-weight: 400;
-      color: #555;
-      letter-spacing: 0.2px;
+    .search-btn svg {
+      width: 18px;
+      height: 18px;
+      fill: none;
+      stroke: #008744;
+      stroke-width: 2.5;
     }
 
-    .toast-time {
-      font-size: 1.5rem;
+    .search-input {
+      background: transparent;
+      border: none;
+      color: #ffffff;
+      padding: 0 12px;
+      width: 100%;
+      font-size: 15px;
+      outline: none;
+    }
+
+    .search-input::placeholder {
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+
+.next-prayer-banner {
+  position: absolute;
+  bottom: -28px;
+  left: 5%;
+  right: 5%;
+  background: rgba(220, 225, 230, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    color: #1e293b;
+  padding: 12px 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 2;
+}
+
+.next-prayer-banner .left-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.next-prayer-banner .label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #475569;
+  margin-bottom: 2px;
+}
+
+.next-prayer-banner .time-wrapper {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.next-prayer-banner .main-time {
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.5px;
+}
+
+.next-prayer-banner .tz {
+  font-size: 13px;
+  font-weight: 400;
+  color: #475569;
+}
+
+.next-prayer-banner .right-section {
+  display: flex;
+  align-items: center;
+}
+
+.next-prayer-banner .countdown {
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: #1e293b;
+}
+
+    /* List Group Styling */
+    .schedule-card .list-group {
+      padding-top: 25px;
+    }
+
+    .schedule-card .list-group-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 30px;
+      font-size: 16px;
+      border: none;
+      border-bottom: 1px dashed #e9ecef;
+      color: #495057;
+    }
+
+    .schedule-card .list-group-item:last-child {
+      border-bottom: none;
+    }
+
+    .schedule-card .time {
       font-weight: 700;
-      line-height: 1;
-      color: #0F3222;
-    }
-
-    .toast-zone {
-      font-size: 0.6rem;
-      font-weight: 500;
-      color: rgba(15, 50, 34, 0.8);
-      margin-left: 4px;
-    }
-
-    .toast-countdown {
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: rgba(15, 50, 34, 0.8);
+      color: #212529;
       letter-spacing: 0.5px;
     }
 
-    .location {
-      position: relative;
-      display: flex;
-      align-items: center;
-      width: 100%;
-      max-width: 500px;
-      margin: 0 auto;
-      height: 64px;
-      padding: 6px;
-      background-color: rgba(255, 255, 255, 0.25); /* Efek transparan semi-putih */
-      border: 1.5px solid rgba(255, 255, 255, 0.4); /* Border terang transparan */
-      border-radius: 50px;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    /* Item Aktif (Dzuhur) */
+    .schedule-card .list-group-item.prayer-item.active-prayer {
+      background-color: #f0fdf4;
+      border-left: 5px solid #008744;
+      color: #008744;
+      font-weight: 600;
     }
 
-    .icon-btn {
-      width: 50px;
-      height: 50px;
-      background-color: #ffffff;
-      border: none;
-      border-radius: 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
-      flex-shrink: 0;
-      transition: transform 0.2s ease;
+    /* .schedule-card .list-group-item.prayer-item.active-prayer .icon {
+      filter: brightness(0) saturate(100%) invert(38%) sepia(85%) saturate(542%) hue-rotate(119deg) brightness(94%) contrast(97%);
+    } */
+
+    .schedule-card .list-group-item.prayer-item.active-prayer .time {
+      color: #212529;
     }
 
-    .icon-btn:hover {
-      transform: scale(1.05);
-    }
-
-    .icon-btn svg {
-      width: 22px;
-      height: 22px;
-      fill: none;
-      stroke: #c5a059;
-      stroke-width: 2.5;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-
-    .location-label{
-      flex: 1;
-      height: 100%;
-      background: transparent;
-      border: none;
-      outline: none;
+    /* Footer Card */
+    .schedule-card .card-footer {
+      background-color: #f8f9fa;
+      border-top: 1px solid #f1f3f5;
       text-align: center;
-      font-size: 1rem;
-      font-weight: 400;
-      color: rgb(15, 50, 34);
-      padding: 0 10px;
+      color: #868e96;
+      font-size: 13px;
+      padding: 12px;
+    }
+
+    .schedule-card .card-footer a {
+      color: #868e96;
+      text-decoration: underline;
+      text-style: dotted;
     }
     

@@ -13,70 +13,57 @@
             </p>
          </div>
     </div>
-    <div class="location mb-3">
-            <!-- Ikon Navigasi / Lokasi (Kiri) -->
-            <button class="icon-btn" aria-label="Lokasi">
-            <svg viewBox="0 0 24 24">
-                <path d="M3 11l19-9-9 19-2-8-8-2z" fill="#184D47" stroke="none" />
-            </svg>
-            </button>
 
-            <!-- Input Teks -->
-             <span class="location-label">{{ nama_lokasi }} ({{ "%.4f"|format(lokasi.lintang) }}, {{ "%.4f"|format(lokasi.bujur) }})</span>
-    </div>
 
-    <!-- Floating Card Bottom Center -->
-  
-<div class="toast-container-bottom mb-4">
-  <div class="toast toast-glass show w-100" id="toast-countdown" role="alert"maria-live="assertive" aria-atomic="true">
-    <div class="toast-body px-3 py-2">
-      <div class="d-flex align-items-center justify-content-between">
-        <!-- Sisi Kiri: Label & Jam Waktu Salat -->
-        <div>
-          <div class="toast-label mb-0" id="countdown-label">
-            Menuju Zuhur
-          </div>
-          <div class="d-flex align-items-baseline">
-            <span class="toast-time" id="jam-sekarang">
-              --:--
-            </span>
-            <span class="toast-zone">WIB</span>
+    
+    <!-- elemen baru -->
+     <div class="card schedule-card">
+    <!-- Header -->
+    <div class="card-header">
+      <!-- Search Bar -->
+      <div class="search-pill">
+        <button class="search-btn" aria-label="Lokasi">
+          <svg viewBox="0 0 24 24"><path d="M3 11l19-9-9 19-2-8-8-2z" fill="#008744" stroke="none"/></svg>
+        </button>
+        <p class="search-input mb-0">{{ nama_lokasi }} ({{ "%.4f"|format(lokasi.lintang) }}, {{ "%.4f"|format(lokasi.bujur) }})</p>
+      </div>
+
+      <!-- pencarian -->
+      <div class="search-container mb-4">
+        <form method="get" action="{{ url_for('jadwalsholat') }}">
+            <div class="custom-search-group">
+                <div class="search-input-wrapper">
+                    <i class="fi fi-br-calendar-day"></i>
+                    <input type="date" name="tanggal" value="{{ tanggal.strftime('%Y-%m-%d') if tanggal else '' }}" id="myDateInput" class="form-control custom-input" placeholder="cari tanggal...">
+                </div>
+                <button class="btn btn-filter" type="submit">
+                    <i class="fi fi-br-search"></i>
+                </button>
+            </div>
+        </form>
+      </div>
+      <!-- pencarian -->
+
+
+      <!-- Banner Menuju Sholat -->
+      <div class="next-prayer-banner">
+        <div class="left-section">
+          <span class="label" id="countdown-label">Menuju Zuhur</span>
+          <div class="time-wrapper">
+            <span class="main-time" id="jam-sekarang">11:37</span>
+            <span class="tz">WIB</span>
           </div>
         </div>
-        <!-- Sisi Kanan: Countdown & Tombol Close -->
-        <div class="d-flex align-items-center gap-3">
-          <div class="toast-countdown" id="countdown-waktu" aria-live="off">
-            00 : 00 : 00
-          </div>
-          <button type="button"class="btn-close btn-close-secondary opacity-75" data-bs-dismiss="toast" aria-label="Tutup countdown" style="font-size: 0.75rem;"></button>
+        <div class="right-section">
+          <span class="countdown" id="countdown-waktu">- 01 : 19 : 55</span>
         </div>
       </div>
+
     </div>
-  </div>
-</div>
 
-    <section class="container image-container">
-
-        <!-- pencarian -->
-                <div class="search-container">
-                    <form method="get" action="{{ url_for('jadwalsholat') }}">
-                    <div class="custom-search-group">
-
-                        <div class="search-input-wrapper">
-                            <i class="fi fi-br-calendar-day"></i>
-                            <input type="date" name="tanggal" value="{{ tanggal.strftime('%Y-%m-%d') if tanggal else '' }}" id="myDateInput" class="form-control custom-input" placeholder="cari tanggal...">
-                        </div>
-
-                        <button class="btn btn-filter" type="submit">
-                            <i class="fi fi-br-search"></i>
-                        </button>
-                    </div>
-                    </form>
-                </div>
-                <!-- pencarian -->
-
-        <ul class="list-group list-group-flush mt-4">
-            {% set daftar_waktu = [
+    <!-- List Group Jadwal Sholat -->
+    <ul class="list-group list-group-flush mt-5">
+        {% set daftar_waktu = [
                 ("Imsak", "imsak", "https://masarmuttaqi.github.io/masjid-info/src/icon/icon-Imsak.svg"),
                 ("Subuh", "subuh_alt.svg", "https://masarmuttaqi.github.io/masjid-info/src/icon/icon-Subuh.svg"),
                 ("Terbit", "terbit_alt.svg", "https://masarmuttaqi.github.io/masjid-info/src/icon/icon-Terbit.svg"),
@@ -86,170 +73,301 @@
                 ("Magrib", "magrib_alt.svg", "https://masarmuttaqi.github.io/masjid-info/src/icon/icon-Magrib.svg"),
                 ("Isya", "isya_alt.svg", "https://masarmuttaqi.github.io/masjid-info/src/icon/icon-Isya.svg")
             ] %}
-
-            {% for nama, ikon, url_ikon in daftar_waktu %}
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-                <span class="d-flex align-items-center gap-3 text-base font-medium">
-                    <img src="{{ url_ikon }}" width="20" height="20" alt="">
-                    {{ nama }}
-                </span>
-
-                <span class="fw-bold">
-                    {% if nama == "Imsak" %}
+      {% for nama, ikon, url_ikon in daftar_waktu %}
+      <li class="list-group-item prayer-item" data-prayer="{{ nama }}">
+        <span class="d-flex align-items-center gap-3 text-base font-medium">
+            <img src="{{ url_ikon }}" width="20" height="20" alt="">
+            {{ nama }}
+        </span>
+        <span class="time">
+            {% if nama == "Imsak" %}
                         {{ jadwal.get("Imsak", "--:--:--") or "--:--:--" }}
                     {% else %}
                         {{ jadwal.get(nama, "--:--:--") or "--:--:--" }}
                     {% endif %}
-                </span>
-            </li>
-            {% endfor %}
-        </ul>
+        </span>
+      </li>
+      {% endfor %}
+     
+    </ul>
 
-        <p class="mt-3 pasaran">Perhitungan otomatis berdasarkan koordinat lokasi. Silakan cek jadwal di masjid setempat untuk memastikan atau sumber referensi <a href="https://jadwalsholat.nu.or.id/" target="_blank" class="nm-ws-footer">Lembaga Falakiyah NU</a>, <a href="https://khgt.muhammadiyah.or.id/" target="_blank" class="nm-ws-footer">Majelis Tarjih Tajdid PP Muhammadiyah</a>, <a href="https://bimasislam.kemenag.go.id/jadwal-sholat" target="_blank" class="nm-ws-footer">Bimbingan Masyarakat Islam Kemenag RI</a>.</p>
+    <!-- Footer -->
+    <div class="card-footer">
+      <b>Referensi:</b> <span>Soelaiman, M.Sy (2026) <em>Ilmu Falak:Perhitungan Waktu Sholat Syar'iyyah & Arah Kiblat dengan Logaritma 4 Desimal</em>, Surabaya: PDF Ulya Al Fithrah</span>
+    </div>
+  </div>
+     <!-- elemen baru -->
+  
         
-    </section>
-    <p class="text-justify text-muted mt-4 jadwalsholat"><b>Referensi:</b> Soelaiman, M.Sy (2026) <em>Ilmu Falak:Perhitungan Waktu Sholat Syar'iyyah & Arah Kiblat dengan Logaritma 4 Desimal</em>, Surabaya: PDF Ulya Al Fithrah</p>
-    <p class="text-justify text-muted mt-2 jadwalsholat"><b>Metode Perhitungan:</b><br>
-        Metode perhitungan waktu sholat menggunakan rumus astronomi dan parameter berikut:
-    </p>
-        <div class="table-responsive">
-        <table class="table text-muted jadwalsholat">
-            <thead>
-            <tr>
-                <th scope="col" style="width: 30%;" class="bg-transparent">Parameter</th>
-                <th scope="col" class="bg-transparent">Fungsi</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td class="bg-transparent">Bu'dul Darojah</td>
-                <td class="bg-transparent">Jarak posisi Matahari dari titik i'tidal terdekat.</td>
-            </tr>
-            <tr>
-                <td class="bg-transparent">Mail Awal</td>
-                <td class="bg-transparent">Deklinasi Matahari: Jarak sudut atau kemiringan posisi matahari dari garis ekuator langit (khatulistiwa langit) menuju ke arah utara atau selatan. Nilai Sudut: Nilainya berkisar antara 0° hingga ±23,5° (atau secara presisi kisaran 23° 27').</td>
-            </tr>
-            <tr>
-                <td class="bg-transparent">Ardul Balad</td>
-                <td class="bg-transparent">Lintang tempat pengamatan.</td>
-            </tr>
-            <tr>
-                <td class="bg-transparent">Bu'dul Quthri</td>
-                <td class="bg-transparent">Parameter yang menggabungkan Mail Awal dan lintang tempat pengamatan.</td>
-            </tr>
-            <tr>
-                <td class="bg-transparent">Asal Mutlaq</td>
-                <td class="bg-transparent">Parameter perhitungan berdasarkan tamam Mail Awal dan tamam Ardul Balad.</td>
-            </tr>
-            <tr>
-                <td class="bg-transparent">Nisful Fudlah</td>
-                <td class="bg-transparent">Parameter lanjutan untuk menghitung waktu terbenam dan waktu lainnya.</td>
-            </tr>
-            </tbody>
-        </table>
+    <div class="accordion accordion-transparan mt-5" id="accordionExample">
+    <div class="accordion-item">
+        <h2 class="accordion-header">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            Susunan Metode
+        </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+            <ol class="list-group list-group-numbered list-group-flush">
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                <div class="fw-bold">Input perhitungan</div>
+                Tanggal, bulan, lintang, bujur, dan markaz
+                </div>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                <div class="fw-bold">Darojatus Syams</div>
+                Menentukan posisi Matahari dalam buruj
+                </div>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                <div class="fw-bold">Parameter astronomis</div>
+                Bu'dul Darojah, Mail Awal, Bu'dul Quthri, Asal Mutlaq, dan Nisful Fudlah
+                </div>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                <div class="fw-bold">Perhitungan waktu sholat</div>
+                Imsak, Subuh, Terbit, Dhuha, Zuhur, Asar, Magrib, dan Isya
+                </div>
+            </li>
+            </ol>
         </div>
-    <p class="text-justify text-muted mt-2 jadwalsholat"><b>Aturan waktu shalat</b></p>
-    <div class="table-responsive">
-    <table class="table table-hover align-middle mb-0 jadwalsholat">
-        <thead>
-        <tr style="border-bottom: 2px solid rgba(0, 0, 0, 0.1);">
-            <th scope="col" class="bg-transparent fw-bold" style="width: 25%;">Waktu</th>
-            <th scope="col" class="bg-transparent fw-bold">Ketentuan</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr style="border-color: rgba(0, 0, 0, 0.05);">
-            <td class="bg-transparent">Magrib</td>
-            <td class="bg-transparent">Menggunakan Nisful Fudlah, konversi sudut waktu menjadi menit, dan tambahan tamkin 3 menit 30 detik.</td>
-        </tr>
-        <tr style="border-color: rgba(0, 0, 0, 0.05);">
-            <td class="bg-transparent">Isya</td>
-            <td class="bg-transparent">Menggunakan Irtifa&apos; 17&deg;.</td>
-        </tr>
-        <tr style="border-color: rgba(0, 0, 0, 0.05);">
-            <td class="bg-transparent">Subuh</td>
-            <td class="bg-transparent">Menggunakan Irtifa&apos; 19&deg;.</td>
-        </tr>
-        <tr style="border-color: rgba(0, 0, 0, 0.05);">
-            <td class="bg-transparent">Imsak</td>
-            <td class="bg-transparent">Waktu Subuh dikurangi interval ihtiyat.</td>
-        </tr>
-        <tr style="border-color: rgba(0, 0, 0, 0.05);">
-            <td class="bg-transparent">Dhuha</td>
-            <td class="bg-transparent">Menggunakan Irtifa&apos; 4&deg;30&apos;.</td>
-        </tr>
-        <tr style="border-color: rgba(0, 0, 0, 0.05);">
-            <td class="bg-transparent">Zuhur</td>
-            <td class="bg-transparent">Saat Matahari melewati meridian atau zawal.</td>
-        </tr>
-        <tr style="border-color: rgba(0, 0, 0, 0.05);">
-            <td class="bg-transparent">Asar</td>
-            <td class="bg-transparent">Menggunakan Ghoyah Irtifa', cotangen, dan faktor bayangan.</td>
-        </tr>
-        </tbody>
-    </table>
+        </div>
     </div>
-    <p class="text-justify text-muted mt-2 jadwalsholat"><b>Penyesuaian antara metode asli dan implementasi <em>script</em></b><br>
-        Menggunakan pendekatan astronomi trigonometri modern, bukan tabel log-sin klasik secara persis. Pendekatan ini memungkinkan perhitungan dijalankan tanpa tabel logaritma manual. Algoritma intinya:
-        <ol class="list-group list-group-numbered list-group-flush jadwalsholat">
-        <li class="list-group-item">Menerima tanggal, lintang, bujur, dan zona waktu.</li>
-        <li class="list-group-item">Menghitung deklinasi Matahari dan <em>equation of time</em> (selisih antara waktu matahari tampak (apparent solar time—yang ditunjukkan oleh jam matahari) dan waktu matahari rata-rata (mean solar time—yang ditunjukkan oleh jam mekanik atau digital biasa) dalam satuan menit).</li>
-        <li class="list-group-item">Menentukan waktu kulminasi Matahari atau Zuhur.</li>
-        <li class="list-group-item">Menghitung sudut waktu untuk Subuh, Terbit, Dhuha, Magrib, dan Isya.</li>
-        <li class="list-group-item">Menghitung Asar berdasarkan faktor panjang bayangan.</li>
-        <li class="list-group-item">Menghitung Imsak berdasarkan interval sebelum Subuh.</li>
-        <li class="list-group-item">Menerapkan koreksi tamkin Magrib dan ihtiyat sesuai parameter.</li>
-        <li class="list-group-item">Menghasilkan jadwal dalam format <code>HH:MM:SS</code>.</li>
-        </ol>
-    </p>
-    <div class="table-responsive">
-    <table class="table table-hover align-middle mb-0 text-muted jadwalsholat">
-        <thead>
-        <tr style="border-bottom: 2px solid rgba(0, 0, 0, 0.1);">
-            <th scope="col" class="bg-transparent fw-bold" style="width: 25%;">Aspek</th>
-            <th scope="col" class="bg-transparent fw-bold" style="width: 37.5%;">Metode Baku</th>
-            <th scope="col" class="bg-transparent fw-bold" style="width: 37.5%;">Implementasi</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr style="border-color: rgba(0, 0, 0, 0.05);">
-            <td class="bg-transparent">Posisi Matahari</td>
-            <td class="bg-transparent">Darojatus Syams dan tabel buruj</td>
-            <td class="bg-transparent">Deklinasi Matahari dengan aproksimasi astronomis</td>
-        </tr>
-        <tr style="border-color: rgba(0, 0, 0, 0.05);">
-            <td class="bg-transparent">Operasi hitung</td>
-            <td class="bg-transparent">Logaritma sinus dan kaidah klasik</td>
-            <td class="bg-transparent">Fungsi trigonometri</td>
-        </tr>
-        <tr style="border-color: rgba(0, 0, 0, 0.05);">
-            <td class="bg-transparent">Waktu Zuhur</td>
-            <td class="bg-transparent">Konsep zawal</td>
-            <td class="bg-transparent">Kulminasi berdasarkan bujur dan equation of time</td>
-        </tr>
-        <tr style="border-color: rgba(0, 0, 0, 0.05);">
-            <td class="bg-transparent">Waktu Subuh/Isya</td>
-            <td class="bg-transparent">Irtifa&apos; 19&deg;/17&deg;</td>
-            <td class="bg-transparent">Sudut Matahari &minus;19&deg;/&minus;17&deg;</td>
-        </tr>
-        <tr style="border-color: rgba(0, 0, 0, 0.05);">
-            <td class="bg-transparent">Waktu Dhuha</td>
-            <td class="bg-transparent">Irtifa&apos; 4&deg;30&apos;</td>
-            <td class="bg-transparent">Tinggi Matahari +4,5&deg;</td>
-        </tr>
-        <tr style="border-color: rgba(0, 0, 0, 0.05);">
-            <td class="bg-transparent">Waktu Asar</td>
-            <td class="bg-transparent">Ghoyah Irtifa' dan cotangen</td>
-            <td class="bg-transparent">Rumus tinggi Matahari berdasarkan faktor bayangan</td>
-        </tr>
-        <tr style="border-color: rgba(0, 0, 0, 0.05);">
-            <td class="bg-transparent">Koreksi Magrib</td>
-            <td class="bg-transparent">Tamkin 3 menit 30 detik</td>
-            <td class="bg-transparent">Parameter tambahan 3,5 menit</td>
-        </tr>
-        </tbody>
-    </table>
+    <div class="accordion-item">
+        <h2 class="accordion-header">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            Parameter Perhitungan Astronomis
+        </button>
+        </h2>
+        <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+            <div class="table-responsive">
+            <table class="table text-muted jadwalsholat">
+                <thead>
+                <tr>
+                    <th scope="col" style="width: 30%;" class="bg-transparent">Parameter</th>
+                    <th scope="col" class="bg-transparent">Fungsi</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="bg-transparent">Bu'dul Darojah</td>
+                    <td class="bg-transparent">Jarak posisi Matahari dari titik i'tidal terdekat.</td>
+                </tr>
+                <tr>
+                    <td class="bg-transparent">Mail Awal</td>
+                    <td class="bg-transparent">Deklinasi Matahari: Jarak sudut atau kemiringan posisi matahari dari garis ekuator langit (khatulistiwa langit) menuju ke arah utara atau selatan. Nilai Sudut: Nilainya berkisar antara 0° hingga ±23,5° (atau secara presisi kisaran 23° 27').</td>
+                </tr>
+                <tr>
+                    <td class="bg-transparent">Ardul Balad</td>
+                    <td class="bg-transparent">Lintang tempat pengamatan.</td>
+                </tr>
+                <tr>
+                    <td class="bg-transparent">Bu'dul Quthri</td>
+                    <td class="bg-transparent">Parameter yang menggabungkan Mail Awal dan lintang tempat pengamatan.</td>
+                </tr>
+                <tr>
+                    <td class="bg-transparent">Asal Mutlaq</td>
+                    <td class="bg-transparent">Parameter perhitungan berdasarkan tamam Mail Awal dan tamam Ardul Balad.</td>
+                </tr>
+                <tr>
+                    <td class="bg-transparent">Nisful Fudlah</td>
+                    <td class="bg-transparent">Parameter lanjutan untuk menghitung waktu terbenam dan waktu lainnya.</td>
+                </tr>
+                </tbody>
+            </table>
+            </div>
+        </div>
+        </div>
     </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+            Aturan Waktu Sholat
+        </button>
+        </h2>
+        <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+            <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0 jadwalsholat">
+                <thead>
+                <tr style="border-bottom: 2px solid rgba(0, 0, 0, 0.1);">
+                    <th scope="col" class="bg-transparent fw-bold" style="width: 25%;">Waktu</th>
+                    <th scope="col" class="bg-transparent fw-bold">Ketentuan</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr style="border-color: rgba(0, 0, 0, 0.05);">
+                    <td class="bg-transparent">Magrib</td>
+                    <td class="bg-transparent">Menggunakan Nisful Fudlah, konversi sudut waktu menjadi menit, dan tambahan tamkin 3 menit 30 detik.</td>
+                </tr>
+                <tr style="border-color: rgba(0, 0, 0, 0.05);">
+                    <td class="bg-transparent">Isya</td>
+                    <td class="bg-transparent">Menggunakan Irtifa&apos; 17&deg;.</td>
+                </tr>
+                <tr style="border-color: rgba(0, 0, 0, 0.05);">
+                    <td class="bg-transparent">Subuh</td>
+                    <td class="bg-transparent">Menggunakan Irtifa&apos; 19&deg;.</td>
+                </tr>
+                <tr style="border-color: rgba(0, 0, 0, 0.05);">
+                    <td class="bg-transparent">Imsak</td>
+                    <td class="bg-transparent">Waktu Subuh dikurangi interval ihtiyat.</td>
+                </tr>
+                <tr style="border-color: rgba(0, 0, 0, 0.05);">
+                    <td class="bg-transparent">Dhuha</td>
+                    <td class="bg-transparent">Menggunakan Irtifa&apos; 4&deg;30&apos;.</td>
+                </tr>
+                <tr style="border-color: rgba(0, 0, 0, 0.05);">
+                    <td class="bg-transparent">Zuhur</td>
+                    <td class="bg-transparent">Saat Matahari melewati meridian atau zawal.</td>
+                </tr>
+                <tr style="border-color: rgba(0, 0, 0, 0.05);">
+                    <td class="bg-transparent">Asar</td>
+                    <td class="bg-transparent">Menggunakan Ghoyah Irtifa', cotangen, dan faktor bayangan.</td>
+                </tr>
+                </tbody>
+            </table>
+            </div>
+            <p class="jadwalsholat mt-3">Ketentuan tersebut merupakan pembacaan terhadap dokumen. Nilai sudut, interval ihtiyat, serta aturan koreksi sebaiknya tetap dapat dikonfigurasi dalam kode.</p>
+        </div>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+            Penyesuaian metode asli ke implementasi script
+        </button>
+        </h2>
+        <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+            <p class="text-justify text-muted mt-2 jadwalsholat">Menggunakan pendekatan astronomi trigonometri modern, bukan tabel log-sin klasik secara persis. Pendekatan ini memungkinkan perhitungan dijalankan tanpa tabel logaritma manual. dengan algoritma komputasionalnya:</p>
+            <ol class="list-group list-group-numbered list-group-flush jadwalsholat">
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                    Menerima tanggal, lintang, bujur, dan zona waktu.
+                </div>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                    Menghitung deklinasi Matahari dan <em>equation of time</em> (selisih antara waktu matahari tampak (apparent solar time—yang ditunjukkan oleh jam matahari) dan waktu matahari rata-rata (mean solar time—yang ditunjukkan oleh jam mekanik atau digital biasa) dalam satuan menit).
+                </div>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                    Menentukan waktu kulminasi Matahari atau Zuhur.
+                </div>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                    Menghitung sudut waktu untuk Subuh, Terbit, Dhuha, Magrib, dan Isya.
+                </div>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                    Menghitung Asar berdasarkan faktor panjang bayangan.
+                </div>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                    Menghitung Imsak berdasarkan interval sebelum Subuh.
+                </div>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                    Menerapkan koreksi tamkin Magrib dan ihtiyat sesuai parameter.
+                </div>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                    Menghasilkan jadwal dalam format <code>HH:MM:SS</code>.
+                </div>
+            </li>
+            </ol>
+            
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0 text-muted jadwalsholat">
+                    <thead>
+                    <tr style="border-bottom: 2px solid rgba(0, 0, 0, 0.1);">
+                        <th scope="col" class="bg-transparent fw-bold" style="width: 25%;">Aspek</th>
+                        <th scope="col" class="bg-transparent fw-bold" style="width: 37.5%;">Metode Baku</th>
+                        <th scope="col" class="bg-transparent fw-bold" style="width: 37.5%;">Implementasi</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr style="border-color: rgba(0, 0, 0, 0.05);">
+                        <td class="bg-transparent">Posisi Matahari</td>
+                        <td class="bg-transparent">Darojatus Syams dan tabel buruj</td>
+                        <td class="bg-transparent">Deklinasi Matahari dengan aproksimasi astronomis</td>
+                    </tr>
+                    <tr style="border-color: rgba(0, 0, 0, 0.05);">
+                        <td class="bg-transparent">Operasi hitung</td>
+                        <td class="bg-transparent">Logaritma sinus dan kaidah klasik</td>
+                        <td class="bg-transparent">Fungsi trigonometri</td>
+                    </tr>
+                    <tr style="border-color: rgba(0, 0, 0, 0.05);">
+                        <td class="bg-transparent">Waktu Zuhur</td>
+                        <td class="bg-transparent">Konsep zawal</td>
+                        <td class="bg-transparent">Kulminasi berdasarkan bujur dan equation of time</td>
+                    </tr>
+                    <tr style="border-color: rgba(0, 0, 0, 0.05);">
+                        <td class="bg-transparent">Waktu Subuh/Isya</td>
+                        <td class="bg-transparent">Irtifa' 19°/17°</td>
+                        <td class="bg-transparent">Sudut Matahari −19°/−17°</td>
+                    </tr>
+                    <tr style="border-color: rgba(0, 0, 0, 0.05);">
+                        <td class="bg-transparent">Waktu Dhuha</td>
+                        <td class="bg-transparent">Irtifa' 4°30'</td>
+                        <td class="bg-transparent">Tinggi Matahari +4,5°</td>
+                    </tr>
+                    <tr style="border-color: rgba(0, 0, 0, 0.05);">
+                        <td class="bg-transparent">Waktu Asar</td>
+                        <td class="bg-transparent">Ghoyah Irtifa' dan cotangen</td>
+                        <td class="bg-transparent">Rumus tinggi Matahari berdasarkan faktor bayangan</td>
+                    </tr>
+                    <tr style="border-color: rgba(0, 0, 0, 0.05);">
+                        <td class="bg-transparent">Koreksi Magrib</td>
+                        <td class="bg-transparent">Tamkin 3 menit 30 detik</td>
+                        <td class="bg-transparent">Parameter tambahan 3,5 menit</td>
+                    </tr>
+                    </tbody>
+                </table>
+                </div>
+        </div>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+            Validasi hasil komputasi dengan referensi
+        </button>
+        </h2>
+        <div id="collapseFive" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+            <p class="jadwalsholat">Perhitungan otomatis berdasarkan koordinat lokasi dari perambangan pada perangkat. Untuk validasi jadwal sholat hasil komputasi menggunakan sumber referensi dari:</p> 
+            <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                <a href="https://jadwalsholat.nu.or.id/" target="_blank" class="nm-ws-footer">Lembaga Falakiyah NU</a>
+            </li>
+            <li class="list-group-item">
+                <a href="https://khgt.muhammadiyah.or.id/" target="_blank" class="nm-ws-footer">Majelis Tarjih Tajdid PP Muhammadiyah</a>
+            </li>
+            <li class="list-group-item">
+                <a href="https://bimasislam.kemenag.go.id/jadwal-sholat" target="_blank" class="nm-ws-footer">Bimbingan Masyarakat Islam Kemenag RI</a>
+            </li>
+            </ul>
+            
+        </div>
+        </div>
+    </div>
+
+
+    </div>
+    
+
 </section>
 
 
@@ -595,40 +713,49 @@ $(function () {
     // ==================================================
     // 8. MEMPERBARUI TAMPILAN
     // ==================================================
-    function perbaruiCountdown() {
-        const sekarang = Date.now();
-        const bagian = waktuWIB();
-        const tanggal = tanggalWIB(bagian);
+    
+function perbaruiCountdown() {
+    const sekarang = Date.now();
+    const bagian = waktuWIB();
+    const tanggal = tanggalWIB(bagian);
 
-        const target = cariTarget(sekarang, tanggal);
+    const target = cariTarget(sekarang, tanggal);
 
-        if (!target) {
-            $jam.text("--:--");
-            $label.text("Jadwal tidak tersedia");
-            $countdown.text("-- : -- : --");
-            return;
-        }
+    // Hapus active-prayer dari semua waktu salat
+    $(".prayer-item").removeClass("active-prayer");
 
-        // Jam kiri menunjukkan JAM WAKTU SALAT TARGET
-        $jam.text(formatJam(target.jam));
-
-        if (target.mode === "jeda") {
-
-            // Waktu salat sedang berlangsung
-            $label.text("Waktu " + target.nama);
-            $countdown.text("Sekarang");
-
-        } else {
-
-            // Menuju waktu salat berikutnya
-            $label.text("Menuju " + target.nama);
-
-            $countdown.text(
-                formatCountdown(target.target - sekarang)
-            );
-        }
-
+    if (!target) {
+        $jam.text("--:--");
+        $label.text("Jadwal tidak tersedia");
+        $countdown.text("-- : -- : --");
+        return;
     }
+
+    // Jam kiri menunjukkan JAM WAKTU SALAT TARGET
+    $jam.text(formatJam(target.jam));
+
+    if (target.mode === "jeda") {
+
+        // Waktu salat sedang berlangsung
+        $label.text("Waktu " + target.nama);
+        $countdown.text("Sekarang");
+
+    } else {
+
+        // Menuju waktu salat berikutnya
+        $label.text("Menuju " + target.nama);
+
+        $countdown.text(
+            formatCountdown(target.target - sekarang)
+        );
+    }
+
+    // Aktifkan baris waktu salat sesuai target
+    $(".prayer-item").filter(function () {
+        return $(this).data("prayer") === target.nama;
+    }).addClass("active-prayer");
+}
+
 
     // ==================================================
     // 9. TIMER
