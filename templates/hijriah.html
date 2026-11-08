@@ -26,6 +26,25 @@
     </div>
     <!-- pencarian -->
 
+    <!-- markaz -->
+     <div class="search-container mt-4" id="markaz-search">
+            <span class="text-muted small">Lokasi pengamatan/hisab (markaz) : </span>
+            
+        <div class="d-flex justify-content-between align-items-center gap-2">
+            <div class="d-flex flex-column">
+                <span id="nama-kota" class="fw-bold text-dark">{{nama_kota}}</span>
+                <span id="koordinat-lokasi" class="small text-muted">{{ "%.7f"|format(lat) }}, {{ "%.7f"|format(lon) }}</span>
+            </div>
+            <!-- Kode Tombol -->
+            <button type="button" class="btn btn-sm rounded-pill btn-glass-white d-flex align-items-center gap-2" id="btn-lokasi">
+                <i class="fi fi-br-location-crosshairs"></i>
+                <span>Lokasi saat ini</span>
+            </button>
+        </div>
+        <span id="teks-lokasi" class="small text-muted mt-1"></span>
+     </div>
+    <!-- markaz -->
+
     <!--        kategori kalender-->
         <div class="nav nav-pills nav-custom-wrapper mx-auto mt-4" id="tempTab" role="tablist">
             <button class="nav-link active" id="falakiyah-tab" data-bs-toggle="pill" data-bs-target="#falakiyah" type="button" role="tab">
@@ -65,7 +84,7 @@
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center py-2 btn-detail" data-bs-toggle="modal" data-bs-target="#glosariumModal" data-id="0">
                         <span class="small text-muted">Waktu Terbenam Matahari (Ghurub)</span>
-                        <span class="small font-monospace text-end">{{ data1.data_ufuk['ghurub_wib'] }} WIB</span>
+                        <span class="small font-monospace text-end">{{ data1.data_ufuk['ghurub_wib'] }} WIB (UTC+{{ tz | int }})</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center py-2 btn-detail" data-bs-toggle="modal" data-bs-target="#glosariumModal" data-id="8">
                         <span class="small text-muted">Waktu Terbit Bulan (Moonrise)</span>
@@ -130,8 +149,9 @@
                     {% endif %}
                 </ul>
 
-                <p class="text-justify text-muted mt-4">Menggunakan kombinasi metode hisab dan rukyah Lembaga Falakiyah PBNU dengan lokasi acuan <b>Kota Yogyakarta</b> <span class="small font-monospace">Lintang -7.7974565 dan Bujur 110.370697</span>.
-                    <button type="button" class="btn btn-sm" data-bs-toggle="offcanvas" data-bs-target="#offcanvasHilal" aria-controls="offcanvasBottom" style="background: #0f3222; color: #fafafa;">🔭 Riwayat Rukyatul Hilal</button>
+                <p class="text-justify text-muted mt-4">Menggunakan kombinasi metode hisab dan rukyah Lembaga Falakiyah PBNU dengan 
+                <!-- lokasi acuan <b>Kota Yogyakarta</b> <span class="small font-monospace">Lintang -7.7974565 dan Bujur 110.370697</span>. -->
+                    <button type="button" class="btn btn-sm btn-glass-white" data-bs-toggle="offcanvas" data-bs-target="#offcanvasHilal" aria-controls="offcanvasBottom">🔭 Riwayat Rukyatul Hilal</button>
                 </p>
                 
 
@@ -175,7 +195,7 @@
                     </li>
                 </ul>
 
-           <p class="text-muted mt-3">Hasil hisab disesuaikan dengan standar waktu dan posisi wilayah <b>Kota Yogyakarta</b> <span class="small font-monospace">Lintang -7.7974565 dan Bujur 110.370697</span>.</p>
+           <!-- <p class="text-muted mt-3">Hasil hisab disesuaikan dengan standar waktu dan posisi wilayah <b>Kota Yogyakarta</b> <span class="small font-monospace">Lintang -7.7974565 dan Bujur 110.370697</span>.</p> -->
 
         </div>
          <div class="tab-pane fade" id="kgth" role="tabpanel">
@@ -476,6 +496,8 @@ kgthTab.addEventListener('shown.bs.tab', function () {
     }
     // 3. Set the input value
     $('#myDateInput').val(dateValue);
+
+    
 });
 
 $(document).ready(function() {
@@ -609,6 +631,129 @@ $(document).ready(function () {
     });
 
 });
+
+$(document).ready(function() {
+  // Sembunyikan #markaz-search saat #kgth-tab diklik
+  $('#kgth-tab').on('click', function() {
+    $('#markaz-search').hide(); // atau menggunakan .css('display', 'none')
+  });
+
+  // Tampilkan #markaz-search saat #falakiyah-tab atau #hisab-tab diklik
+  $('#falakiyah-tab, #hisab-tab').on('click', function() {
+    $('#markaz-search').show(); // atau menggunakan .css('display', 'block')
+  });
+});
+
+
+
+$(document).ready(function () {
+
+    $("#btn-lokasi").on("click", function () {
+
+        const $btn = $("#btn-lokasi");
+        const $teks = $("#teks-lokasi");
+
+        // Status awal
+        $btn.prop("disabled", true);
+        $teks.text("Mengambil data lokasi...");
+
+        if (!navigator.geolocation) {
+            $teks.text("GPS tidak didukung browser");
+            $btn.prop("disabled", false);
+            return;
+        }
+
+        navigator.geolocation.getCurrentPosition(
+
+            function (posisi) {
+
+                const lat = posisi.coords.latitude;
+                const lon = posisi.coords.longitude;
+
+                $teks.text("Mencari nama kota...");
+
+                // Estimasi zona waktu berdasarkan longitude
+                const tz = Math.round(lon / 15);
+
+                // Ambil nama kota
+                $.getJSON(
+                    "https://nominatim.openstreetmap.org/reverse",
+                    {
+                        format: "jsonv2",
+                        lat: lat,
+                        lon: lon,
+                        zoom: 10
+                    }
+                )
+
+                .done(function (data) {
+
+                    const a = data.address || {};
+
+                    const kota =
+                        a.city ||
+                        a.town ||
+                        a.municipality ||
+                        a.county ||
+                        a.village ||
+                        "Lokasi saat ini";
+
+                    $teks.text("Lokasi ditemukan, memuat kalender...");
+
+                    // Ambil parameter URL yang sudah ada
+                    const params = new URLSearchParams(
+                        window.location.search
+                    );
+
+                    // Tambahkan atau perbarui lokasi
+                    params.set("nama_kota", kota);
+                    params.set("lat", lat);
+                    params.set("lon", lon);
+                    params.set("tz", tz);
+
+                    // Kirim ke Flask
+                    window.location.href =
+                        `/kalenderhijriah?${params.toString()}`;
+
+                })
+
+                .fail(function () {
+
+                    $teks.text("Gagal mengambil nama kota");
+                    $btn.prop("disabled", false);
+
+                });
+
+            },
+
+            function (error) {
+
+                let pesan = "Gagal mengambil lokasi GPS";
+
+                if (error.code === 1) {
+                    pesan = "Izin lokasi ditolak";
+                } else if (error.code === 2) {
+                    pesan = "Lokasi GPS tidak tersedia";
+                } else if (error.code === 3) {
+                    pesan = "Waktu pengambilan lokasi habis";
+                }
+
+                $teks.text(pesan);
+                $btn.prop("disabled", false);
+
+            },
+
+            {
+                enableHighAccuracy: true,
+                maximumAge: 0,
+                timeout: 15000
+            }
+        );
+
+    });
+
+});
+
 </script>
 
 {% endblock %}

@@ -8,9 +8,28 @@ from konversitanggal import format_tanggal_indonesia
 # KONFIGURASI LOKASI
 # ============================================================
 
-LAT = -7.7974565
-LON = 110.370697
-TZ = 7
+# LAT = -7.7974565
+# LON = 110.370697
+# TZ = 7
+
+# ============================================================
+# KONFIGURASI MARKAZ
+# ============================================================
+
+from konfigurasi_markaz import MARKAZ_DEFAULT
+
+LAT = MARKAZ_DEFAULT["lat"]
+LON = MARKAZ_DEFAULT["lon"]
+TZ = MARKAZ_DEFAULT["tz"]
+
+
+def set_markaz(data):
+
+    global LAT, LON, TZ
+
+    LAT = data["lat"]
+    LON = data["lon"]
+    TZ = data["tz"]
 
 
 # ============================================================
@@ -1411,7 +1430,7 @@ def hisab_nu(y, m, d):
         else:
 
             kesimpulan = {
-                "status":"Istikmal 30 Hari",
+                "status":"Istikmal: digenapkan 30 Hari",
                 "kriteria":"Tidak memenuhi kriteria Imkanur Rukyah",
                 "informasi": "Parameter astronomis tidak memenuhi kriteria."
             }

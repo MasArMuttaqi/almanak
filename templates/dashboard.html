@@ -236,6 +236,24 @@
             </div>
           </li>
 
+          <li class="list-group-item d-flex flex-column">
+           <span class="fw-bold text-muted">Kala Ider Sunda</span>
+            <div class="d-flex justify-content-between">
+
+              <div class="d-flex flex-column">
+                Kala Candra Sunda <span class="fw-bold" id="oc-kala-candra-sunda">belum tersedia</span>
+                Kala Surya Sunda <span class="fw-bold" id="oc-kala-surya-sunda">belum tersedia</span>
+              </div>
+
+                <a href="/kalendersunda" class="text-muted" style="text-decoration: none;">
+                  Detail <i class="fi fi-br-arrow-up-right-from-square"></i>
+                </a>
+
+            </div>
+          </li>
+
+          
+
         </ul>
       </div>
 
@@ -344,6 +362,10 @@ $(document).on('click', 'td[data-tgl]', function () {
         $('#oc-wuku').text(res.wuku);
         const hari_bookmark = ["Senen Kliwon", "Senen Wage", "Senen Pahing", "Selasa Legi", "Rebo Kliwon", "Rebo Pahing", "Kemis Wage","Setu Legi","Setu Wage","Ahad Pon", "Ahad Kliwon"];
         $('#bookmark').toggle(hari_bookmark.includes(res.hari_pasaran));
+        $('#oc-kala-surya-sunda').text(res.kala_surya_sunda);
+        $('a[href="/kalendersunda"]').attr('href', function(i, val) {
+            return val + '?tanggal=' + formatTanggal(tanggal);
+        });
     });
 });
 

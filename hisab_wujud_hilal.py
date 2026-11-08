@@ -5,9 +5,27 @@ from konversitanggal import format_tanggal_indonesia
 # ==========================================
 # LOKASI
 # ==========================================
-LAT = -7.7974565
-LON = 110.370697
-TZ = 7
+# LAT = -7.7974565
+# LON = 110.370697
+# TZ = 7
+# ============================================================
+# KONFIGURASI MARKAZ
+# ============================================================
+
+from konfigurasi_markaz import MARKAZ_DEFAULT
+
+LAT = MARKAZ_DEFAULT["lat"]
+LON = MARKAZ_DEFAULT["lon"]
+TZ = MARKAZ_DEFAULT["tz"]
+
+
+def set_markaz(data):
+
+    global LAT, LON, TZ
+
+    LAT = data["lat"]
+    LON = data["lon"]
+    TZ = data["tz"]
 
 # ==========================================
 # AWAL BULAN WUJUDUL HILAL
@@ -350,14 +368,14 @@ def keputusan(jd_ss, jd_ij, alt):
     if jd_ij is None:
         # return "ISTIKMAL (Ijtimak tidak terjadi)"
         return {
-            "status": "Istikmal",
+            "status": "Istikmal: digenapkan 30 hari",
             "keterangan": "Ijtimak tidak terjadi"
         }
 
     if jd_ij > jd_ss:
         # return "ISTIKMAL (Ijtimak setelah maghrib)"
         return {
-            "status": "Istikmal",
+            "status": "Istikmal: digenapkan 30 hari",
             "keterangan": "Ijtimak terjadi setelah magrib"
         }
 

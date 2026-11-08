@@ -8,6 +8,7 @@ import pyotp
 import qrcode
 from datetime import date
 from zoneinfo import ZoneInfo
+import math
 
 from flask import (Flask,render_template,request,redirect,url_for,session,flash,send_file,jsonify)
 
@@ -16,9 +17,11 @@ from bs4 import BeautifulSoup
 
 from kalender import *
 from kalender_jawa_sultan_agungan import *
-from hisab_rukyah_nu import *
-from hisab_wujud_hilal import *
+import konfigurasi_markaz
+from hisab_rukyah_nu import hisab_nu, set_markaz as set_markaz_rukyah
+from hisab_wujud_hilal import set_markaz as set_markaz_wujud, hisab
 from hijriah_kgth import get_hijriah
+from surya_kala_sunda import *
 from generate_version import write_version_file
 from jadwalsholat import Lokasi, ParameterSalat,hitung_jadwal
 
@@ -56,6 +59,7 @@ def detail_kalender():
 
         jawa = kalender_jawa(tanggal)
         hijriah = hisab_nu(tanggal.year, tanggal.month, tanggal.day)
+        kala_surya_sunda = konversi_masehi_ke_sunda(tanggal.year, tanggal.month, tanggal.day)
 
         return jsonify({
             "masehi": format_tanggal_indonesia(tanggal),
@@ -65,7 +69,8 @@ def detail_kalender():
             "hijriah": f"{hijriah.get('tanggal_hijriah', {}).get('full', '-')}",
             "jawa": f"{jawa.get('tanggal_jawa', '-')}",
             "wuku": f"{jawa.get('wuku', '-')}",
-            "sadwara": f"{jawa.get('sadwara', '-')}"
+            "sadwara": f"{jawa.get('sadwara', '-')}",
+            "kala_surya_sunda": f"{kala_surya_sunda.get('tanggal_sunda', '-')}",
         })
 
     except Exception as e:
@@ -132,22 +137,43 @@ def kalenderjawa():
 
 @app.route("/kalenderhijriah")
 def kalenderhijriah():
-    # ambil parameter dari URL (?tanggal=2026-04-14)
+    
+    # =========================================
+    # PARAMETER TANGGAL
+    # =========================================
     tanggal_str = request.args.get("tanggal")
 
     if tanggal_str:
         try:
-            # parsing string ke date
-            tanggal = datetime.strptime(tanggal_str, "%Y-%m-%d").date()
+            tanggal = datetime.strptime(
+                tanggal_str, "%Y-%m-%d"
+            ).date()
+
         except ValueError:
-            # fallback jika format salah
             tanggal = datetime.now().date()
+
     else:
-        # default hari ini
         tanggal = datetime.now().date()
 
-    # now = datetime.now()
+     # ========================================================
+    # AMBIL MARKAZ
+    # ========================================================
 
+    markaz = konfigurasi_markaz.get_markaz(
+        nama_kota=request.args.get("nama_kota"),
+        lat=request.args.get("lat", type=float),
+        lon=request.args.get("lon", type=float),
+        tz=request.args.get("tz", type=float)
+    )
+
+
+    # ========================================================
+    # TERAPKAN MARKAZ KE MESIN HISAB
+    # ========================================================
+
+    set_markaz_rukyah(markaz)
+    set_markaz_wujud(markaz)
+    
     #data render
     hisab_rukyah = hisab_nu(tanggal.year, tanggal.month, tanggal.day)
     hisab_wujud_hilal = hisab(tanggal.year, tanggal.month, tanggal.day)
@@ -178,11 +204,28 @@ def kalenderhijriah():
     with open("data/glosarium_hijriah.json", "r") as raw_glosarium:
             desc = json.load(raw_glosarium)
 
-    return render_template("hijriah.html", data1=hisab_rukyah, data2=hisab_wujud_hilal, data3=hijriah_kgth,datahilal=rukyahhijriah,tanggal_khgt=tanggal_text,raw_glosarium=desc)
+    return render_template("hijriah.html", data1=hisab_rukyah, data2=hisab_wujud_hilal, data3=hijriah_kgth,datahilal=rukyahhijriah,tanggal_khgt=tanggal_text,nama_kota=markaz["nama_kota"],lat=markaz["lat"],lon=markaz["lon"],tz=markaz["tz"],raw_glosarium=desc)
 
-# @app.route("/kalendersunda")
-# def kalendersunda():
-#     return render_template("kalendersunda.html")
+@app.route("/kalendersunda")
+def kalendersunda():
+    # ambil parameter dari URL (?tanggal=2026-04-14)
+    tanggal_str = request.args.get("tanggal")
+    
+    if tanggal_str:
+        try:
+                # parsing string ke date
+            tanggal = datetime.strptime(tanggal_str, "%Y-%m-%d").date()
+        except ValueError:
+                # fallback jika format salah
+            tanggal = datetime.now().date()
+    else:
+            # default hari ini
+        tanggal = datetime.now().date()
+
+    tanggal_masehi = format_tanggal_indonesia(tanggal)
+    kala_surya_sunda = konversi_masehi_ke_sunda(tanggal.year, tanggal.month, tanggal.day)
+
+    return render_template("kalendersunda.html", tanggal_masehi=tanggal_masehi, kala_surya=kala_surya_sunda)
 
 def nama_lokasi_dari_koordinat(lintang, bujur):
     """Mengubah koordinat menjadi nama wilayah administratif."""

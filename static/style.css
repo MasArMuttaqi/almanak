@@ -385,6 +385,20 @@ td {
     z-index: 2;
 }
 
+.pattern-square-1.sundanese:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 66%;
+    height: 100%;
+    background-image: url('https://lh3.googleusercontent.com/d/1dMZQbEdMQWWc2qNT0ich0mN2xq_k4H5N=w800?authuser=1');
+    background-position: right center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    z-index: 2;
+}
+
 
 .heading-section {
     margin-bottom: 2.5rem;
@@ -723,6 +737,7 @@ td {
             width: 100%;
             height: 65vw;
         }
+        
         .heading-section {
             display: block;
             margin-bottom: 0.5rem;
@@ -922,4 +937,29 @@ td {
       text-decoration: underline;
       text-style: dotted;
     }
+
+    .btn-glass-white {
+    background: rgba(220, 225, 230, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    padding: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    color: rgb(24, 77, 71);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  .btn-glass-white:hover, 
+  .btn-glass-white:focus {
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.5);
+    color: #333;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  .btn-glass-white:active {
+    background: rgba(255, 255, 255, 0.35);
+    color: #333;
+  }
     
