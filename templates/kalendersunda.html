@@ -32,20 +32,13 @@
            <h5 class="noto-sans-sundanese">ᮘᮊᮜ᮪ ᮌᮔ᮪ᮎᮀ ᮙᮨᮓᮜ᮪</h5>
         </div>
         <p class="mt-3" style="font-weight: 300; text-align: center;">
-            Dalam proses pengembangan dan evaluasi algoritma sistem penanggalan Sunda: Kala Candra (Caka Sunda), dan Kala Sukra (Palintangan)<sup>**</sup>
+            Dalam proses pengembangan dan evaluasi algoritma sistem penanggalan Sunda berdasarkan sumber otoritatif: Kala Candra (Caka Sunda), dan Kala Sukra (Palintangan)<sup>**</sup>
         </p>
 
         <ul class="list-group list-group-flush mt-4">
             <li class="list-group-item d-flex flex-column flex-md-row justify-content-md-between align-items-md-center gap-2">
                 <span class="text-secondary fw-medium">Tanggal Masehi</span>
                 <span class="fw-bold text-dark">{{tanggal_masehi}}</span>
-            </li>
-            <li class="list-group-item d-flex flex-column flex-md-row justify-content-md-between align-items-md-center gap-2">
-                <div class="d-flex justify-content-between gap-2">
-                    <span class="text-secondary fw-medium">Kala Candra Sunda</span>
-                    <span class="text-secondary fw-medium noto-sans-sundanese">ᮊᮜ ᮎᮔ᮪ᮓᮢ ᮞᮥᮔ᮪ᮓ</span>
-                </div>
-                <span class="fw-bold text-success">belum tersedia</span>
             </li>
             <li class="list-group-item d-flex flex-column flex-md-row justify-content-md-between align-items-md-center gap-2">
                 <div class="d-flex justify-content-between gap-2">
@@ -57,8 +50,15 @@
                    <small class="text-secondary">{{kala_surya.jenis_tahun}}({{kala_surya.jumlah_hari_tahun}} hari)</small> 
                 </div> 
             </li>
+            <li class="list-group-item d-flex flex-column flex-md-row justify-content-md-between align-items-md-center gap-2">
+                <div class="d-flex justify-content-between gap-2">
+                    <span class="text-secondary fw-medium">Kala Candra Sunda</span>
+                    <span class="text-secondary fw-medium noto-sans-sundanese">ᮊᮜ ᮎᮔ᮪ᮓᮢ ᮞᮥᮔ᮪ᮓ</span>
+                </div>
+                <span class="fw-bold text-success">{{kala_candra.tanggal_caka}}</span>
+            </li>
             <li class="list-group-item bg-light py-2 text-center" style="border-top: 2px dashed #dee2e6; border-bottom: 2px dashed #dee2e6;">
-                <small class="text-uppercase fw-bold text-muted" style="letter-spacing: 1px;">Siklus tradisi</small>
+                <small class="fw-bold text-muted" style="letter-spacing: 1px;">Siklus Wewaran Candra Kala Sunda</small>
             </li>
             <li class="list-group-item p-3 border-light">
                 <div class="row g-3">
@@ -77,6 +77,27 @@
                             </a>
                         </small>
                         <span class="fw-bold">belum tersedia</span>
+                    </div>
+                </div>
+            </li>
+            <li class="list-group-item p-3 border-light">
+                <div class="row g-3">
+                    <div class="col-6 border-end">
+                        <small class="text-muted d-block small">Paksa (Fase Bulan)
+                            <a href="" class="btn-detail" data-bs-toggle="offcanvas" data-bs-target="#kalendersunda" aria-controls="offcanvasBottom" data-id="3">
+                                <i class="fi fi-br-info"></i>
+                            </a>
+                        </small>
+                        <span class="fw-bold">{{ kala_candra.paksa }}</span>
+                    </div>
+                    <div class="col-6 ps-3">
+                        <small class="text-muted d-block small">Fase rinci dalam {{ kala_candra.paksa }}
+                            <a href="" class="btn-detail" data-bs-toggle="offcanvas" data-bs-target="#kalendersunda" aria-controls="offcanvasBottom" data-id="2">
+                                <i class="fi fi-br-info"></i>
+                            </a>
+                        </small>
+                        <span class="fw-bold">{{fasebulan[0].padanan if fasebulan else "Belum tersedia"}} ({{fasebulan[0].Istilah_lokal}}) </span>
+                        <a href="" class="btn-wuku" data-bs-toggle="modal" data-bs-target="#fasebulan"><i class="fi fi-br-arrow-up-right-from-square"></i></a>
                     </div>
                 </div>
             </li>
@@ -105,20 +126,20 @@
             <li class="list-group-item p-3">
                 <div class="row g-3">
                         <div class="col-6 border-end">
-                                <small class="text-muted d-block small">Warsa
+                                <small class="text-muted d-block small">Dewataun
                                     <a href="" class="btn-detail" data-bs-toggle="offcanvas" data-bs-target="#kalenderjawa" aria-controls="offcanvasBottom" data-id="8">
                                     <i class="fi fi-br-info"></i>
                                     </a>
                                 </small>
-                            <span class="fw-bold">belum tersedia</span>
+                            <span class="fw-bold">{{kala_candra.dewataun}}</span>
                         </div>
                         <div class="col-6 ps-3">
-                                <small class="text-muted d-block small">Windu
+                                <small class="text-muted d-block small">Jenis taun
                                     <a href="" class="btn-detail" data-bs-toggle="offcanvas" data-bs-target="#kalenderjawa" aria-controls="offcanvasBottom" data-id="7">
                                     <i class="fi fi-br-info"></i>
                                     </a>
                                 </small>
-                            <span class="fw-bold">belum tersedia</span>
+                            <span class="fw-bold">{{kala_candra.jenis_tahun}} ({{kala_candra.panjang_tahun}} hari)</span>
                         </div>
 
                 </div>
@@ -129,7 +150,22 @@
       
     </section>
 </section>
-
+<!-- fase bulan -->
+ <div class="modal fade" id="fasebulan" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">{{fasebulan[0].padanan if fasebulan else "Belum tersedia"}} ({{fasebulan[0].Istilah_lokal}})</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center">
+        <img src="{{ fasebulan[0].url if fasebulan else '' }}" width="100px" alt="Fase Bulan Sunda">
+        <p class="text-muted mt-3" style="font-size: 0.87rem;">{{fasebulan[0].deskripsi if fasebulan else "Belum tersedia"}}</p>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- fase bulan -->
 <script>
     $(document).ready(function() {
 

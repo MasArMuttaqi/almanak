@@ -15,6 +15,7 @@ from flask import (Flask,render_template,request,redirect,url_for,session,flash,
 import requests
 from bs4 import BeautifulSoup
 
+
 from kalender import *
 from kalender_jawa_sultan_agungan import *
 import konfigurasi_markaz
@@ -22,6 +23,7 @@ from hisab_rukyah_nu import hisab_nu, set_markaz as set_markaz_rukyah
 from hisab_wujud_hilal import set_markaz as set_markaz_wujud, hisab
 from hijriah_kgth import get_hijriah
 from surya_kala_sunda import *
+from kala_candra_sunda import kalacandra_sunda
 from generate_version import write_version_file
 from jadwalsholat import Lokasi, ParameterSalat,hitung_jadwal
 
@@ -60,6 +62,7 @@ def detail_kalender():
         jawa = kalender_jawa(tanggal)
         hijriah = hisab_nu(tanggal.year, tanggal.month, tanggal.day)
         kala_surya_sunda = konversi_masehi_ke_sunda(tanggal.year, tanggal.month, tanggal.day)
+        kala_candra_sunda = kalacandra_sunda(tanggal)
 
         return jsonify({
             "masehi": format_tanggal_indonesia(tanggal),
@@ -71,6 +74,7 @@ def detail_kalender():
             "wuku": f"{jawa.get('wuku', '-')}",
             "sadwara": f"{jawa.get('sadwara', '-')}",
             "kala_surya_sunda": f"{kala_surya_sunda.get('tanggal_sunda', '-')}",
+            "kala_candra_sunda": f"{kala_candra_sunda.get('tanggal_caka', '-')}"
         })
 
     except Exception as e:
@@ -224,8 +228,20 @@ def kalendersunda():
 
     tanggal_masehi = format_tanggal_indonesia(tanggal)
     kala_surya_sunda = konversi_masehi_ke_sunda(tanggal.year, tanggal.month, tanggal.day)
+    kala_candra_sunda = kalacandra_sunda(tanggal)
+    
+    with open("data/fasebulan.json", "r") as fasebulan_file:
+        fasebulan = json.load(fasebulan_file)
+    
+    nomor_tanggal = kala_candra_sunda["tanggal"]
 
-    return render_template("kalendersunda.html", tanggal_masehi=tanggal_masehi, kala_surya=kala_surya_sunda)
+    fasebulan_hari_ini = [
+        item for item in fasebulan
+        if int(item["penomoran_tanggal"]) == int(nomor_tanggal)
+    ]
+
+    return render_template("kalendersunda.html", tanggal_masehi=tanggal_masehi, kala_surya=kala_surya_sunda, kala_candra=kala_candra_sunda, fasebulan=fasebulan_hari_ini)
+
 
 def nama_lokasi_dari_koordinat(lintang, bujur):
     """Mengubah koordinat menjadi nama wilayah administratif."""

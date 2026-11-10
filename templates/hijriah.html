@@ -30,16 +30,23 @@
      <div class="search-container mt-4" id="markaz-search">
             <span class="text-muted small">Lokasi pengamatan/hisab (markaz) : </span>
             
-        <div class="d-flex justify-content-between align-items-center gap-2">
+        <div class="d-flex flex-column flex-md-row justify-content-md-between gap-2">
             <div class="d-flex flex-column">
                 <span id="nama-kota" class="fw-bold text-dark">{{nama_kota}}</span>
                 <span id="koordinat-lokasi" class="small text-muted">{{ "%.7f"|format(lat) }}, {{ "%.7f"|format(lon) }}</span>
             </div>
             <!-- Kode Tombol -->
-            <button type="button" class="btn btn-sm rounded-pill btn-glass-white d-flex align-items-center gap-2" id="btn-lokasi">
-                <i class="fi fi-br-location-crosshairs"></i>
-                <span>Lokasi saat ini</span>
+             <div class="d-flex gap-1">
+            <button type="button" class="btn btn-sm rounded-pill btn-glass-white" id="btn-lokasi">
+                <span class="d-flex align-items-center gap-1">
+                    <i class="fi fi-br-location-crosshairs"></i>
+                    Gunakan Lokasi saat ini
+                </span>
             </button>
+            <button type="button" class="btn btn-sm rounded-pill text-secondary" id="btn-lokasi-reset">
+                <i class="fi fi-br-rotate-right"></i>
+            </button>
+            </div>
         </div>
         <span id="teks-lokasi" class="small text-muted mt-1"></span>
      </div>
@@ -252,7 +259,7 @@
                         {% elif data3.hijriah['status_kgth'] == 'PKG 1 (sebelum 24:00 UTC)' %}
                             <h6 class="small text-muted">matahari terbenam sebelum 24:00 UTC (tinggi ≥ 5&deg;, elongasi ≥ 8&deg;) <span class="badge rounded-pill text-bg-success text-white">PKG 1</span></h6>
                         {% elif data3.hijriah['status_kgth'] == 'Belum Memenuhi' %}
-                            <h6 class="small text-muted">belum memenuhi kriteria PKG 1 dan PKG 2 <span class="badge rounded-pill text-bg-primary text-white">istikmal 30 hari</span></h6>
+                            <h6 class="small text-muted">belum memenuhi kriteria PKG 1 dan PKG 2 <span class="badge rounded-pill text-bg-primary text-white">istikmal: digenapkan 30 hari</span></h6>
                         {% endif %}
                         </div>
                     </li>
@@ -440,7 +447,7 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content border-0">
       <div class="modal-header border-0">
-        <h5 class="modal-title fw-bold text-dark mb-2" id="modalKHGTLabel">📌 Catatan</h5>
+        <h5 class="modal-title fw-bold text-dark mb-2" id="modalKHGTLabel" style="background: #ededed;">📌 Catatan</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -751,6 +758,31 @@ $(document).ready(function () {
         );
 
     });
+
+    // =========================================
+// RESET KE LOKASI DEFAULT FLASK
+// =========================================
+
+$("#btn-lokasi-reset").on("click", function () {
+
+    const params = new URLSearchParams(window.location.search);
+
+    // Hapus parameter lokasi
+    params.delete("nama_kota");
+    params.delete("lat");
+    params.delete("lon");
+    params.delete("tz");
+
+    // Susun URL baru
+    const query = params.toString();
+
+    const url = window.location.pathname +
+                (query ? "?" + query : "");
+
+    // Kembali ke lokasi default Flask
+    window.location.href = url;
+
+});
 
 });
 
