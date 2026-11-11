@@ -55,7 +55,7 @@
                     <span class="text-secondary fw-medium">Kala Candra Sunda</span>
                     <span class="text-secondary fw-medium noto-sans-sundanese">ᮊᮜ ᮎᮔ᮪ᮓᮢ ᮞᮥᮔ᮪ᮓ</span>
                 </div>
-                <span class="fw-bold text-success">{{kala_candra.tanggal_caka}}</span>
+                <span class="fw-bold {{ 'text-success' if kala_candra.paksa == 'Suklapaksa' else '' }}">{{kala_candra.tanggal_caka}} Caka Sunda</span>
             </li>
             <li class="list-group-item bg-light py-2 text-center" style="border-top: 2px dashed #dee2e6; border-bottom: 2px dashed #dee2e6;">
                 <small class="fw-bold text-muted" style="letter-spacing: 1px;">Siklus Wewaran Candra Kala Sunda</small>
@@ -96,7 +96,7 @@
                                 <i class="fi fi-br-info"></i>
                             </a>
                         </small>
-                        <span class="fw-bold">{{fasebulan[0].padanan if fasebulan else "Belum tersedia"}} ({{fasebulan[0].Istilah_lokal}}) </span>
+                        <span class="fw-bold">{{fasebulan[0].padanan if fasebulan else "Belum tersedia"}} <span class="badge rounded-pill text-bg-light">({{fasebulan[0].istilah_lokal}})</span> </span>
                         <a href="" class="btn-wuku" data-bs-toggle="modal" data-bs-target="#fasebulan"><i class="fi fi-br-arrow-up-right-from-square"></i></a>
                     </div>
                 </div>
@@ -146,22 +146,57 @@
             </li>
         </ul>
 
-        
-      
     </section>
+
+    <p class="text-justify text-muted mt-4">  
+       <strong>​📌 Hal penting Kala Candra Sunda</strong>: Tanggal 1 Suklapaksa tidak sama dengan tanggal 1 Hijriah, hal yang sama pada tanggal 1 Kresnapaksa bukan tanggal 16 kalender Hijriah. Tradisi atau Kalender Caka Bali/Hindu dimulai dari bulan baru menuju purnama. sedangkan dalam kala candra sunda Suklapaksa justru dimulai pada fase separuh terang.
+    </p>
+    <table class="table">
+    <thead>
+        <tr>
+        <th scope="col">Penomoran tanggal</th>
+        <th scope="col">Hari ke</th>
+        <th scope="col">Keterangan</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th scope="row">1-15</th>
+            <td>1s-15s</td>
+            <td>Urutan hari pada Suklapaksa</td>
+        </tr>
+        <tr>
+            <th scope="row">16-30</th>
+            <td>1k-15k</td>
+            <td>Urutan hari pada Kresnapaksa</td>
+        </tr>
+    </tbody>
+    </table>
+
 </section>
 <!-- fase bulan -->
  <div class="modal fade" id="fasebulan" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="staticBackdropLabel">{{fasebulan[0].padanan if fasebulan else "Belum tersedia"}} ({{fasebulan[0].Istilah_lokal}})</h1>
+        <h3 class="modal-title fs-5" id="staticBackdropLabel">{{fasebulan[0].padanan if fasebulan else "Belum tersedia"}}</h3><span class="badge rounded-pill text-bg-light">({{fasebulan[0].istilah_lokal}})</span>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body text-center">
-        <img src="{{ fasebulan[0].url if fasebulan else '' }}" width="100px" alt="Fase Bulan Sunda">
-        <p class="text-muted mt-3" style="font-size: 0.87rem;">{{fasebulan[0].deskripsi if fasebulan else "Belum tersedia"}}</p>
+      <div class="modal-body" style="font-size: 0.7rem;">
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>Perhatian!</strong> Deskripsi astronomis konseptual. Fase astronomis sebenarnya harus dihitung dari elongasi dan iluminasi Bulan, bukan ditentukan hanya dari nomor tanggal.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <div class="d-flex align-items-center gap-3">
+           <img src="{{ fasebulan[0].url if fasebulan else '' }}" width="100px" alt="Fase Bulan Sunda">
+           <div class="d-flex flex-column">
+                <span class="text-muted fw-bold" style="font-size: 0.87rem;">{{fasebulan[0].fase_bulan}}</span> 
+                <p class="text-muted mt-3" style="font-size: 0.87rem;">{{fasebulan[0].deskripsi if fasebulan else "Belum tersedia"}}</p>
+            </div>
+        </div>
       </div>
+      <div class="modal-footer">
+        <span class="badge text-bg-success">{{fasebulan[0].status_istilah if fasebulan else "Belum tersedia"}}</span>
     </div>
   </div>
 </div>

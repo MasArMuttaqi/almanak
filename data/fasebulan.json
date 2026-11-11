@@ -1,242 +1,304 @@
+
 [
   {
     "penomoran_tanggal": 1,
     "hari_ke": "1s",
-    "Istilah_lokal": "Sasih Ngora / Hilal",
+    "paksa": "Suklapaksa",
+    "istilah_lokal": "Parocaang",
     "padanan": "Pratama",
-    "deskripsi": "Munculnya sabit sangat tipis di ufuk barat sesaat setelah matahari terbenam. Menandai hari pertama bulan baru dalam penanggalan tradisional.",
-    "url": "https://lh3.googleusercontent.com/d/1GNN9d5U41wRSrGUMOXN5rWao8Mbvfg9y=w800?authuser=1"
+    "fase_bulan": "Kuartal Awal",
+    "deskripsi": "Bulan separuh terang sempurna. Bagian piringan Bulan yang menghadap Bumi tampak setengah terang dan setengah gelap.",
+    "status_istilah": "terdokumentasi"
   },
   {
     "penomoran_tanggal": 2,
     "hari_ke": "2s",
-    "Istilah_lokal": "Sasih Ngora Mentiyung",
+    "paksa": "Suklapaksa",
+    "istilah_lokal": "Parocaang",
     "padanan": "Dwitiya",
-    "deskripsi": "Sabit sedikit lebih tebal dan posisinya sedikit lebih tinggi dari ufuk barat dibandingkan hari sebelumnya.",
-    "url": "https://lh3.googleusercontent.com/d/1yD9KczkWdEaxWcybDYcComrMSzm29U-J=w800?authuser=1"
+    "fase_bulan": "Cembung Membesar",
+    "deskripsi": "Bagian Bulan yang terang bertambah luas setelah melewati fase kuartal awal.",
+    "status_istilah": "terdokumentasi"
   },
   {
     "penomoran_tanggal": 3,
     "hari_ke": "3s",
-    "Istilah_lokal": "Sasih Ngora Nangkuban",
+    "paksa": "Suklapaksa",
+    "istilah_lokal": "Parocaang",
     "padanan": "Tritiya",
-    "deskripsi": "Busur sabit semakin jelas, durasi kemunculannya di langit senja bertambah panjang sebelum ikut terbenam.",
-    "url": "https://lh3.googleusercontent.com/d/1YTQv8uWSfWJRFeJro0VqHT5m7fvxgREv=w800?authuser=1"
+    "fase_bulan": "Cembung Membesar",
+    "deskripsi": "Piringan Bulan tampak semakin cembung karena bagian yang diterangi Matahari semakin luas.",
+    "status_istilah": "terdokumentasi"
   },
   {
     "penomoran_tanggal": 4,
     "hari_ke": "4s",
-    "Istilah_lokal": "Sasih Nengah Leutik",
+    "paksa": "Suklapaksa",
+    "istilah_lokal": "Parocaang",
     "padanan": "Caturti",
-    "deskripsi": "Piringan sabit kian melebar; bagian bulan yang terkena pantulan sinar matahari mulai mencakup sekitar seperempat bagian.",
-    "url": "https://lh3.googleusercontent.com/d/1BRxlnKf00QCmvbKEBYaiDnQSd0lZkZr0=w800?authuser=1"
+    "fase_bulan": "Cembung Membesar",
+    "deskripsi": "Bagian piringan Bulan yang terang semakin luas dan mendekati fase purnama.",
+    "status_istilah": "terdokumentasi"
   },
   {
     "penomoran_tanggal": 5,
     "hari_ke": "5s",
-    "Istilah_lokal": "Sasih Ngancik",
+    "paksa": "Suklapaksa",
+    "istilah_lokal": "Parocaang",
     "padanan": "Pancami",
-    "deskripsi": "Sabit awal yang tebal, mulai bergeser posisinya lebih tinggi ke arah zenith barat saat senja.",
-    "url": "https://lh3.googleusercontent.com/d/1J5vV4W4l-GGsNbASOjS5HSzgEGdT0cg9=w800?authuser=1"
+    "fase_bulan": "Cembung Membesar",
+    "deskripsi": "Bulan tampak semakin mendekati bentuk bundar penuh dengan bagian gelap yang semakin menyempit.",
+    "status_istilah": "terdokumentasi"
   },
   {
     "penomoran_tanggal": 6,
     "hari_ke": "6s",
-    "Istilah_lokal": "Sinar Mitemahan",
+    "paksa": "Suklapaksa",
+    "istilah_lokal": "Parocaang",
     "padanan": "Sasti",
-    "deskripsi": "Bentuk bulan mulai memasuki fase cembung awal (menuju setengah lingkaran), cahaya malam mulai terasa lebih terang.",
-    "url": "https://lh3.googleusercontent.com/d/1WgQUA4DeuUc6eNgoTubck4Qg7EDzMaCI=w800?authuser=1"
+    "fase_bulan": "Cembung Membesar",
+    "deskripsi": "Piringan Bulan hampir seluruhnya tampak terang dan semakin mendekati purnama.",
+    "status_istilah": "terdokumentasi"
   },
   {
     "penomoran_tanggal": 7,
     "hari_ke": "7s",
-    "Istilah_lokal": "Kilas Lemah Awal",
+    "paksa": "Suklapaksa",
+    "istilah_lokal": "Parocaang",
     "padanan": "Saptami",
-    "deskripsi": "Sisi bulan yang bersinar sudah mencakup lebih dari separuh piringan, mendekati kuartal awal.",
-    "url": "https://lh3.googleusercontent.com/d/1ccvkUQYTZToqomFkgYLJbwYPXtSIiAOr=w800?authuser=1"
+    "fase_bulan": "Menjelang Purnama",
+    "deskripsi": "Bulan tampak hampir penuh dengan bagian gelap yang tinggal sedikit.",
+    "status_istilah": "terdokumentasi"
   },
   {
     "penomoran_tanggal": 8,
     "hari_ke": "8s",
-    "Istilah_lokal": "Kilas Caang (Kuartal Awal)",
+    "paksa": "Suklapaksa",
+    "istilah_lokal": "Parocaang",
     "padanan": "Astami",
-    "deskripsi": "Kuartal Awal (First Quarter): Tepat separuh piringan bulan (50%) bersinar terang di sisi kanan, membentuk sudut siku-siku dengan posisi matahari.",
-    "url": "https://lh3.googleusercontent.com/d/17MlslsGGm7j12z-EyEE76PEYdsnD7iFK=w800?authuser=1"
+    "fase_bulan": "Purnama",
+    "deskripsi": "Bulan purnama. Seluruh permukaan Bulan yang menghadap Bumi tampak terang.",
+    "status_istilah": "terdokumentasi"
   },
   {
     "penomoran_tanggal": 9,
     "hari_ke": "9s",
-    "Istilah_lokal": "Kilas Ngembung",
+    "paksa": "Suklapaksa",
+    "istilah_lokal": "Parocaang",
     "padanan": "Nawami",
-    "deskripsi": "Piringan bulan melewati batas setengah, mulai menebal menjadi bentuk cembung (gibbous) yang dominan.",
-    "url": "https://lh3.googleusercontent.com/d/1j668DfoGI9T5m-eLL7l0lxgvP_KBn42u=w800?authuser=1"
+    "fase_bulan": "Cembung Menyusut",
+    "deskripsi": "Setelah purnama, bagian Bulan yang tampak terang mulai berkurang dan memasuki fase cembung menyusut.",
+    "status_istilah": "terdokumentasi"
   },
   {
     "penomoran_tanggal": 10,
     "hari_ke": "10s",
-    "Istilah_lokal": "Caang Ngalegaan",
+    "paksa": "Suklapaksa",
+    "istilah_lokal": "Parocaang",
     "padanan": "Dasami",
-    "deskripsi": "Permukaan bulan yang bercahaya semakin luas, mendominasi langit malam sejak sore hingga tengah malam.",
-    "url": "https://lh3.googleusercontent.com/d/121y0q68jx9H8-x_w9UjBRScZGDNPrXLr=w800?authuser=1"
+    "fase_bulan": "Cembung Menyusut",
+    "deskripsi": "Bagian piringan Bulan yang terang semakin berkurang setelah melewati purnama.",
+    "status_istilah": "terdokumentasi"
   },
   {
     "penomoran_tanggal": 11,
     "hari_ke": "11s",
-    "Istilah_lokal": "Caang Calir",
+    "paksa": "Suklapaksa",
+    "istilah_lokal": "Parocaang",
     "padanan": "Ekadasi",
-    "deskripsi": "Bulan tampak hampir penuh; cahaya yang dipancarkan sudah sangat terang menyinari bumi.",
-    "url": "https://lh3.googleusercontent.com/d/121y0q68jx9H8-x_w9UjBRScZGDNPrXLr=w800?authuser=1"
+    "fase_bulan": "Cembung Menyusut",
+    "deskripsi": "Bentuk Bulan yang sebelumnya hampir penuh semakin menyusut dan bagian gelap semakin luas.",
+    "status_istilah": "terdokumentasi"
   },
   {
     "penomoran_tanggal": 12,
     "hari_ke": "12s",
-    "Istilah_lokal": "Caang Ngempok",
-    "padanan": "Dwadahi",
-    "deskripsi": "Bentuk cembung hampir sempurna, hanya menyisakan sedikit sisi gelap yang sangat tipis di bagian tepi.",
-    "url": "https://lh3.googleusercontent.com/d/121y0q68jx9H8-x_w9UjBRScZGDNPrXLr=w800?authuser=1"
+    "paksa": "Suklapaksa",
+    "istilah_lokal": "Parocaang",
+    "padanan": "Dwadasi",
+    "fase_bulan": "Cembung Menyusut",
+    "deskripsi": "Bagian Bulan yang terang terus berkurang dan mendekati bentuk setengah lingkaran.",
+    "status_istilah": "terdokumentasi"
   },
   {
     "penomoran_tanggal": 13,
     "hari_ke": "13s",
-    "Istilah_lokal": "Sinar Nembrak",
+    "paksa": "Suklapaksa",
+    "istilah_lokal": "Parocaang",
     "padanan": "Trayodasi",
-    "deskripsi": "Piringan bulan tampak nyaris bundar seutuhnya, terbit lebih awal di ufuk timur saat sore hari.",
-    "url": "https://lh3.googleusercontent.com/d/1V69hwy8j7rQ6vNLNJmBnHzaI4vtW1UIX=w800?authuser=1"
+    "fase_bulan": "Menuju Kuartal Akhir",
+    "deskripsi": "Bulan semakin menyusut dan mendekati fase separuh gelap.",
+    "status_istilah": "terdokumentasi"
   },
   {
     "penomoran_tanggal": 14,
     "hari_ke": "14s",
-    "Istilah_lokal": "Prapurnama",
+    "paksa": "Suklapaksa",
+    "istilah_lokal": "Parocaang",
     "padanan": "Caturdasi",
-    "deskripsi": "Malam prapurnama; bulan tampak bulat penuh dengan pendar cahaya maksimal di seluruh permukaan.",
-    "url": "https://lh3.googleusercontent.com/d/1d7usSJL6n5krjE2zmRxiEOE3U7PiJLKc=w800?authuser=1"
+    "fase_bulan": "Menuju Kuartal Akhir",
+    "deskripsi": "Bagian Bulan yang terang mendekati setengah piringan sebelum memasuki kuartal akhir.",
+    "status_istilah": "terdokumentasi"
   },
   {
     "penomoran_tanggal": 15,
     "hari_ke": "15s",
-    "Istilah_lokal": "Purnama / Tilem Gede",
+    "paksa": "Suklapaksa",
+    "istilah_lokal": "Parocaang",
     "padanan": "Pancadasi",
-    "deskripsi": "Puncak Suklapaksa: Bulan berada tepat di oposisi matahari. Piringan bundar sempurna, bersinar paling terang sepanjang malam dari terbit hingga terbenam.",
-    "url": "https://lh3.googleusercontent.com/d/1TW2YqLamD6e_ouOUQxzeGfu_fpziVZnn=w800?authuser=1"
+    "fase_bulan": "Kuartal Akhir",
+    "deskripsi": "Bulan separuh gelap sempurna. Bagian piringan Bulan yang tampak terang tinggal setengah.",
+    "status_istilah": "terdokumentasi"
   },
   {
     "penomoran_tanggal": 16,
     "hari_ke": "1k",
-    "Istilah_lokal": "Sasih Surut",
+    "paksa": "Kresnapaksa",
+    "istilah_lokal": "Paropoek",
     "padanan": "Pratama",
-    "deskripsi": "Hari pertama pasca-purnama. Piringan bulan yang tadinya utuh mulai tampak sedikit berkurang atau berbayang tipis di salah satu sisinya.",
-    "url": "https://lh3.googleusercontent.com/d/14DVSiYDxDFW_rJwYPgSSBoTlWdJEYum6=w800?authuser=1"
+    "fase_bulan": "Kuartal Akhir",
+    "deskripsi": "Bulan separuh gelap sempurna. Bagian piringan Bulan yang tampak terang tinggal setengah.",
+    "status_istilah": "terdokumentasi"
   },
   {
     "penomoran_tanggal": 17,
     "hari_ke": "2k",
-    "Istilah_lokal": "Surut Meredup",
+    "paksa": "Kresnapaksa",
+    "istilah_lokal": "Paropoek",
     "padanan": "Dwitika",
-    "deskripsi": "Pengurangan cahaya di sisi piringan semakin nyata; bentuk cembung bulan mulai melandai.",
-    "url": "https://lh3.googleusercontent.com/d/1SkNuZwhRY6V0OEQfogMQY7JjcHy2NRuM=w800?authuser=1"
+    "fase_bulan": "Sabit Tua",
+    "deskripsi": "Bagian Bulan yang terang semakin menyusut dan mulai membentuk sabit tua.",
+    "status_istilah": "terdokumentasi"
   },
   {
     "penomoran_tanggal": 18,
     "hari_ke": "3k",
-    "Istilah_lokal": "Cembung Surut",
+    "paksa": "Kresnapaksa",
+    "istilah_lokal": "Paropoek",
     "padanan": "Tritiya",
-    "deskripsi": "Piringan cembung bulan semakin menyusut, terbit lebih lambat di ufuk timur pada malam hari.",
-    "url": "https://lh3.googleusercontent.com/d/1SkNuZwhRY6V0OEQfogMQY7JjcHy2NRuM=w800?authuser=1"
+    "fase_bulan": "Sabit Tua",
+    "deskripsi": "Bulan tampak semakin tipis dan berbentuk sabit tua menjelang bulan baru.",
+    "status_istilah": "terdokumentasi"
   },
   {
     "penomoran_tanggal": 19,
     "hari_ke": "4k",
-    "Istilah_lokal": "Surut Nyongclo",
-    "padanan": "Carturti",
-    "deskripsi": "Bagian bulan yang bercahaya semakin berkurang secara signifikan, menyisakan porsi cembung yang menipis.",
-    "url": "https://lh3.googleusercontent.com/d/1RuMuguVAkflQazbT6StRxRGt0Q5O2Dy6=w800?authuser=1"
+    "paksa": "Kresnapaksa",
+    "istilah_lokal": "Paropoek",
+    "padanan": "Caturti",
+    "fase_bulan": "Sabit Tua",
+    "deskripsi": "Bagian Bulan yang terang semakin sedikit dan sabit tua semakin tipis.",
+    "status_istilah": "terdokumentasi"
   },
   {
     "penomoran_tanggal": 20,
     "hari_ke": "5k",
-    "Istilah_lokal": "Tiga Prapatan Peteng",
+    "paksa": "Kresnapaksa",
+    "istilah_lokal": "Paropoek",
     "padanan": "Pancami",
-    "deskripsi": "Bentuk bulan turun ke tiga perempat bagian, memancarkan cahaya yang mulai meredup dibanding saat purnama.",
-    "url": "https://lh3.googleusercontent.com/d/1egzZiEAtX_XELOq6UkwLz4iX9h-3fkU7=w800?authuser=1"
+    "fase_bulan": "Sabit Tua",
+    "deskripsi": "Bulan tampak sebagai sabit tua dengan bagian terang yang semakin menyempit.",
+    "status_istilah": "terdokumentasi"
   },
   {
     "penomoran_tanggal": 21,
     "hari_ke": "6k",
-    "Istilah_lokal": "Nuju Kilas Peteng",
+    "paksa": "Kresnapaksa",
+    "istilah_lokal": "Paropoek",
     "padanan": "Sasti",
-    "deskripsi": "Penyusutan berlanjut menuju bentuk setengah lingkaran, terlihat menjelang tengah malam.",
-    "url": "https://lh3.googleusercontent.com/d/1oqqjUHMIqLNKK5ltKghFFcG45-KGhPY5=w800?authuser=1"
+    "fase_bulan": "Sabit Tua",
+    "deskripsi": "Sabit Bulan semakin tipis dan mendekati fase bulan baru.",
+    "status_istilah": "terdokumentasi"
   },
   {
     "penomoran_tanggal": 22,
     "hari_ke": "7k",
-    "Istilah_lokal": "Kilas Lemah Surut",
+    "paksa": "Kresnapaksa",
+    "istilah_lokal": "Paropoek",
     "padanan": "Saptami",
-    "deskripsi": "Piringan bulan menyisakan sedikit lebih dari separuh bagian yang terang.",
-    "url": "https://lh3.googleusercontent.com/d/1KNFnjI1312HgxXgmh0qFYXgVkzW2ODX8=w800?authuser=1"
+    "fase_bulan": "Menjelang Bulan Baru",
+    "deskripsi": "Cahaya Bulan semakin sedikit dan mendekati fase bulan baru.",
+    "status_istilah": "terdokumentasi"
   },
   {
     "penomoran_tanggal": 23,
     "hari_ke": "8k",
-    "Istilah_lokal": "Kilas Peteng (Kuartal Akhir)",
+    "paksa": "Kresnapaksa",
+    "istilah_lokal": "Paropoek",
     "padanan": "Astami",
-    "deskripsi": "Kuartal Akhir (Last Quarter): Tepat separuh piringan sebelah kiri bersinar terang, sementara separuh lainnya gelap gulita. Terbit menjelang tengah malam.",
-    "url": "https://lh3.googleusercontent.com/d/17MlslsGGm7j12z-EyEE76PEYdsnD7iFK=w800?authuser=1"
+    "fase_bulan": "Bulan Baru",
+    "deskripsi": "Fase bulan baru atau konjungsi astronomis. Bagian Bulan yang menghadap Bumi hampir tidak tampak memperoleh cahaya Matahari.",
+    "status_istilah": "terdokumentasi",
+    "url": "https://lh3.googleusercontent.com/d/14DVSiYDxDFW_rJwYPgSSBoTlWdJEYum6=w800?authuser=1"
   },
   {
     "penomoran_tanggal": 24,
     "hari_ke": "9k",
-    "Istilah_lokal": "Sabit Tua Awal",
+    "paksa": "Kresnapaksa",
+    "istilah_lokal": "Paropoek",
     "padanan": "Nawami",
-    "deskripsi": "Bulan menyusut menjadi bentuk sabit tua, hanya bisa disaksikan menjelang dini hari di langit timur.",
-    "url": "https://lh3.googleusercontent.com/d/1ej6wTDKsEZncuADPkyYuQRRittBuDABx=w800?authuser=1"
+    "fase_bulan": "Sabit Muda",
+    "deskripsi": "Setelah bulan baru, bagian Bulan yang terang mulai bertambah dan membentuk sabit muda.",
+    "status_istilah": "terdokumentasi"
   },
   {
     "penomoran_tanggal": 25,
     "hari_ke": "10k",
-    "Istilah_lokal": "Sabit Tua Nipis",
+    "paksa": "Kresnapaksa",
+    "istilah_lokal": "Paropoek",
     "padanan": "Dasami",
-    "deskripsi": "Sabit tua semakin menipis, durasi kemunculannya semakin singkat sebelum fajar menyingsing.",
-    "url": "https://lh3.googleusercontent.com/d/10zTKPZX0LANhWfsa35WtRrOElqkkiEy8=w800?authuser=1"
+    "fase_bulan": "Sabit Muda",
+    "deskripsi": "Sabit muda mulai bertambah tebal dan dapat terlihat setelah Matahari terbenam apabila kondisi pengamatan memungkinkan.",
+    "status_istilah": "terdokumentasi"
   },
   {
     "penomoran_tanggal": 26,
     "hari_ke": "11k",
-    "Istilah_lokal": "Sinar Panungtung",
+    "paksa": "Kresnapaksa",
+    "istilah_lokal": "Paropoek",
     "padanan": "Ekadasi",
-    "deskripsi": "Sabit bulan kian tipis dan melengkung tajam, hanya muncul di ufuk timur sesaat sebelum matahari terbit.",
-    "url": "https://lh3.googleusercontent.com/d/17cIo32CseuGjN5JbAz3WH6Dv_T8js-Mp=w800?authuser=1"
+    "fase_bulan": "Sabit Muda",
+    "deskripsi": "Bagian Bulan yang terang semakin bertambah dan bentuk sabit muda semakin jelas.",
+    "status_istilah": "terdokumentasi"
   },
   {
     "penomoran_tanggal": 27,
     "hari_ke": "12k",
-    "Istilah_lokal": "Benang Sinar",
+    "paksa": "Kresnapaksa",
+    "istilah_lokal": "Paropoek",
     "padanan": "Dwadasi",
-    "deskripsi": "Garis cahaya bulan sangat tipis, hampir menyatu dengan terangnya cahaya fajar pagi hari.",
-    "url": "https://lh3.googleusercontent.com/d/18uvG98lfjlAQNDDUR_ma1d69NKw-szUN=w800?authuser=1"
+    "fase_bulan": "Sabit Muda",
+    "deskripsi": "Sabit muda semakin tebal dan mendekati bentuk setengah lingkaran.",
+    "status_istilah": "terdokumentasi"
   },
   {
     "penomoran_tanggal": 28,
     "hari_ke": "13k",
-    "Istilah_lokal": "Sinar Nyaring",
+    "paksa": "Kresnapaksa",
+    "istilah_lokal": "Paropoek",
     "padanan": "Trayodasi",
-    "deskripsi": "Sisa cahaya bulan berupa benang sabit yang sangat halus dan sulit dilihat dengan mata telanjang.",
-    "url": "https://lh3.googleusercontent.com/d/1Eiyck9D8c4yUE2CwkiRYMUaHysCPoOQo=w800?authuser=1"
+    "fase_bulan": "Menuju Kuartal Awal",
+    "deskripsi": "Bagian Bulan yang terang terus bertambah dan mendekati fase separuh terang.",
+    "status_istilah": "terdokumentasi"
   },
   {
     "penomoran_tanggal": 29,
     "hari_ke": "14k",
-    "Istilah_lokal": "Tilem Nembé",
+    "paksa": "Kresnapaksa",
+    "istilah_lokal": "Paropoek",
     "padanan": "Caturdasi",
-    "deskripsi": "Malam terakhir menjelang bulan mati; sisa cahaya bulan nyaris tidak terlihat di ufuk timur menjelang matahari terbit.",
-    "url": "https://lh3.googleusercontent.com/d/1RuMuguVAkflQazbT6StRxRGt0Q5O2Dy6=w800?authuser=1"
+    "fase_bulan": "Menuju Kuartal Awal",
+    "deskripsi": "Bulan semakin mendekati fase separuh terang setelah melewati bulan baru.",
+    "status_istilah": "terdokumentasi"
   },
   {
     "penomoran_tanggal": 30,
     "hari_ke": "15k",
-    "Istilah_lokal": "Tilem / Sasih Kolot",
+    "paksa": "Kresnapaksa",
+    "istilah_lokal": "Paropoek",
     "padanan": "Pancadasi",
-    "deskripsi": "Puncak Akhir Kresnapaksa: Bulan mati total (New Moon). Sisi bulan yang menghadap bumi sepenuhnya membelakangi matahari, membuat langit malam gelap gulita tanpa cahaya pantulan bulan.",
-    "url": "https://lh3.googleusercontent.com/d/1iHKFhsFpBkEi8meQePzVfuCDaBlhXsDm=w800?authuser=1"
+    "fase_bulan": "Kuartal Awal",
+    "deskripsi": "Bulan separuh terang sempurna. Bagian piringan Bulan yang menghadap Bumi tampak setengah terang dan setengah gelap.",
+    "status_istilah": "terdokumentasi"
   }
 ]

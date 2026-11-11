@@ -437,8 +437,8 @@ def masehi_to_caka(tanggal_masehi):
         "tahun": tahun,
         "bulan": bulan,
         "nama_bulan": NAMA_BULAN[bulan - 1],
+        "umur_bulan": panjang_bulan(tahun, bulan),
         "tanggal": tanggal,
-
         "hari_ke_tahun": hari_ke_tahun,
         "panjang_tahun": jumlah_hari_tahun,
 
@@ -449,7 +449,6 @@ def masehi_to_caka(tanggal_masehi):
         ),
 
         "dewataun": info_dewataun["nama"],
-
         "tunggul_taun": info_tunggul["nomor"],
         "posisi_tunggul": info_tunggul["posisi"],
     }
@@ -570,21 +569,32 @@ def format_tanggal_caka(hasil):
     Contoh:
     Tanggal 19 Asada menjadi 4k Asada.
     """
-
+    
     tanggal = hasil["tanggal"]
+    umur_bulan = hasil["umur_bulan"]
+
+    if umur_bulan not in (29, 30):
+        raise ValueError("Umur bulan harus 29 atau 30")
+
+    if not 1 <= tanggal <= umur_bulan:
+        raise ValueError("Tanggal di luar umur bulan")
 
     if tanggal <= 15:
         tanggal_paksa = tanggal
-        paksa = "s"
+        paksa = "Suklapaksa",
+        singkatan = "s",
+        istilah = "Parocaang"
     else:
         tanggal_paksa = tanggal - 15
-        paksa = "k"
+        paksa = "Kresnapaksa"
+        singkatan = "k"
+        istilah = "Paropoek"
 
-    return (
-        f"{tanggal_paksa}{paksa} "
-        f"{hasil['nama_bulan']} "
-        f"{hasil['tahun']}"
-    )
+    return {
+        "tanggal_paksa": f"{tanggal_paksa}{singkatan}",
+        "paksa": paksa,
+        "istilah": istilah
+    }
 
 
 # ============================================================
@@ -932,20 +942,15 @@ def audit_batas_tunggul(tahun):
     return hasil
 
 def kalacandra_sunda(tanggal_masehi):
-    hasil = masehi_to_caka(tanggal_masehi)
 
-    if hasil["tanggal"] <= 15:
-        tanggal_paksa = hasil["tanggal"]
-        paksa = "Suklapaksa"
-    else:
-        tanggal_paksa = hasil["tanggal"] - 15
-        paksa = "Kresnapaksa"
+    hasil = masehi_to_caka(tanggal_masehi)
+    tanggal_paksa = format_tanggal_caka(hasil)
     
     return {
         "tanggal_masehi": tanggal_masehi,
-        "tanggal_caka": f"{format_tanggal_caka(hasil)} Caka Sunda",
-        "tahun": hasil["tahun"],
+        "tanggal_caka": f"{tanggal_paksa['tanggal_paksa']} {hasil['nama_bulan']} {hasil['tahun']}",
         "bulan": hasil["nama_bulan"],
+        "tahun": hasil["tahun"],
         "tanggal": hasil["tanggal"],
         "hari_ke_tahun": hasil["hari_ke_tahun"],
         "panjang_tahun": hasil["panjang_tahun"],
@@ -953,8 +958,10 @@ def kalacandra_sunda(tanggal_masehi):
         "dewataun": hasil["dewataun"],
         "tunggul_taun": hasil["tunggul_taun"],
         "posisi_tunggul": hasil["posisi_tunggul"],
+        "umur_bulan": hasil["umur_bulan"],
         "tanggal_paksa": tanggal_paksa,
-        "paksa": paksa
+        "paksa": tanggal_paksa["paksa"],
+        "istilah": tanggal_paksa["istilah"]
     }
 
 
@@ -975,9 +982,10 @@ if __name__ == "__main__":
 
         print()
         print("Tanggal Masehi :", tanggal_masehi)
-        print("Tanggal Caka   :", f"{format_tanggal_caka(hasil)} Caka Sunda")
+        print("Tanggal Caka   :", f"{format_tanggal_caka(hasil)}")
         print("Tahun          :", hasil["tahun"])
         print("Bulan          :", hasil["nama_bulan"])
+        print("Umur Bulan     :", hasil["umur_bulan"])
         print("Tanggal        :", hasil["tanggal"])
         print("Hari ke tahun  :", hasil["hari_ke_tahun"])
         print("Panjang tahun  :", hasil["panjang_tahun"])
@@ -991,32 +999,32 @@ if __name__ == "__main__":
     print("PENGUJIAN SELESAI")
     print("=" * 60)
 
-    jalankan_pengujian_batas()
-    uji_caka_to_masehi()
-    uji_round_trip()
+    # jalankan_pengujian_batas()
+    # uji_caka_to_masehi()
+    # uji_round_trip()
 
-    print("=" * 60)
-    print("PENGUJIAN BATAS TUNGGUL KALA CANDRA SUNDA")
-    print("=" * 60)
-    audit_batas_tunggul(2040)
-    audit_batas_tunggul(2160)
+    # print("=" * 60)
+    # print("PENGUJIAN BATAS TUNGGUL KALA CANDRA SUNDA")
+    # print("=" * 60)
+    # audit_batas_tunggul(2040)
+    # audit_batas_tunggul(2160)
 
-    for tgl in [
-        date(2054, 5, 27),
-        date(2055, 5, 16),
-    ]:
-        hasil = masehi_to_caka(tgl)
+    # for tgl in [
+    #     date(2054, 5, 27),
+    #     date(2055, 5, 16),
+    # ]:
+    #     hasil = masehi_to_caka(tgl)
 
-        awal = tanggal_awal_tahun_masehi(
-            hasil["tahun"]
-        )
+    #     awal = tanggal_awal_tahun_masehi(
+    #         hasil["tahun"]
+    #     )
 
-        hari_absolut = (tgl - awal).days + 1
+    #     hari_absolut = (tgl - awal).days + 1
 
-        print("-" * 50)
-        print("Tanggal Masehi :", tgl)
-        print("Tahun Caka     :", hasil["tahun"])
-        print("Awal tahun     :", awal)
-        print("Hari ke tahun  :", hasil["hari_ke_tahun"])
-        print("Hari absolut   :", hari_absolut)
-        print("Panjang tahun  :", hasil["panjang_tahun"])
+    #     print("-" * 50)
+    #     print("Tanggal Masehi :", tgl)
+    #     print("Tahun Caka     :", hasil["tahun"])
+    #     print("Awal tahun     :", awal)
+    #     print("Hari ke tahun  :", hasil["hari_ke_tahun"])
+    #     print("Hari absolut   :", hari_absolut)
+    #     print("Panjang tahun  :", hasil["panjang_tahun"])
