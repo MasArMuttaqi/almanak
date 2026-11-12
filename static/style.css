@@ -962,4 +962,16 @@ td {
     background: rgba(255, 255, 255, 0.35);
     color: #333;
   }
-    
+
+  .tentang p{
+    font-size: 1rem !important;
+    font-family: "Rajdhani", sans-serif;
+    text-align: justify;
+    text-justify: inter-word;
+  }
+  .tentang .dropdown-item{
+    font-size:0.5rem; 
+    font-weight:300; 
+    white-space: normal; 
+    word-wrap: break-word;
+  }
