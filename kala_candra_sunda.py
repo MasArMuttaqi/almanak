@@ -1,7 +1,6 @@
 
 from datetime import date, datetime,timedelta
 
-
 # ============================================================
 # 1. KONFIGURASI EPOCH
 # ============================================================
@@ -39,7 +38,7 @@ TANGGAL_EPOCH = 1
 # 2. NAMA DAN PANJANG BULAN
 # ============================================================
 
-NAMA_BULAN = [
+BULAN_CAKA = [
     "Kartika",
     "Margasira",
     "Posya",
@@ -54,31 +53,23 @@ NAMA_BULAN = [
     "Asuji",
 ]
 
-# Panjang bulan 1 sampai 11
-# Bulan ke-12 (Asuji) mengikuti panjang tahun.
-PANJANG_BULAN_NORMAL = [
-    30,  # Kartika
-    29,  # Margasira
-    30,  # Posya
-    29,  # Maga
-    30,  # Palguna
-    29,  # Setra
-    30,  # Wesaka
-    29,  # Yesta
-    30,  # Asada
-    29,  # Srawana
-    30,  # Badra
+# Tahun Wastu = 354 hari
+PANJANG_BULAN_WASTU = [
+    30, 29, 30, 29, 30, 29,
+    30, 29, 30, 29, 30, 29
 ]
+
+# Tahun Wuntu = 355 hari
+PANJANG_BULAN_WUNTU = [
+    30, 29, 30, 29, 30, 29,
+    30, 29, 30, 29, 30, 30
+]
+
 
 
 # ============================================================
 # 3. SIKLUS DEWATAUN (8 TAHUN)
 # ============================================================
-
-# Urutan siklus dimulai dari tahun 1921 = Kebo.
-#
-# Format:
-# (nama_dewataun, jenis_tahun, jumlah_hari)
 
 DEWATAUN = [
     ("Kebo", "Wastu", 354),
@@ -91,17 +82,13 @@ DEWATAUN = [
     ("Hurang Tutug", "Wuntu", 355),
 ]
 
-PANJANG_WINDU = 5 * 354 + 3 * 355
+PANJANG_WINDU = sum(item[2] for item in DEWATAUN)
 
 assert PANJANG_WINDU == 2835
 
 
 def dewataun(tahun):
-    """
-    Menghasilkan informasi Dewataun berdasarkan siklus 8 tahun.
-
-    Tahun 1921 merupakan tahun pertama Dewataun, yaitu Kebo.
-    """
+    """Menentukan Dewataun berdasarkan tahun Caka."""
 
     indeks = (tahun - TAHUN_EPOCH) % 8
 
@@ -116,13 +103,149 @@ def dewataun(tahun):
 
 
 # ============================================================
+# 9. SIKLUS WINDU KALA CANDRA SUNDA
+# ============================================================
+
+NAMA_WINDU = [
+    "Adi",
+    "Kuntara",
+    "Sangara",
+    "Sancaya",
+]
+
+PANJANG_WINDU_NORMAL = 8
+JUMLAH_WINDU_TUNGGUL = 15
+
+assert len(NAMA_WINDU) == 4
+
+
+def windu(tahun):
+    """
+    Menentukan informasi Windu Kala Candra Sunda.
+
+    Ketentuan:
+    - Satu windu terdiri dari 8 tahun.
+    - Nama windu: Adi, Kuntara, Sangara, Sancaya.
+    - Nama windu berulang setiap 4 windu.
+    - Satu Tunggul Taun terdiri dari 15 windu.
+    - Tahun ke-120 merupakan tahun pendek pengecualian.
+
+    Acuan:
+    - Tahun Caka 1 = Windu Adi.
+    - Tahun Caka 1921 = Windu Adi.
+    """
+
+    if not isinstance(tahun, int) or isinstance(tahun, bool):
+        raise TypeError("Tahun harus berupa bilangan bulat.")
+
+    if tahun < 1:
+        raise ValueError("Tahun Caka harus minimal 1.")
+
+    # --------------------------------------------------------
+    # A. NOMOR WINDU GLOBAL
+    # --------------------------------------------------------
+
+    nomor_windu = ((tahun - 1) // 8) + 1
+
+    tahun_ke_windu = ((tahun - 1) % 8) + 1
+
+    indeks_windu = (nomor_windu - 1) % 4
+
+    nama_windu = NAMA_WINDU[indeks_windu]
+
+    # --------------------------------------------------------
+    # B. POSISI DALAM TUNGGUL TAUN
+    # --------------------------------------------------------
+
+    info_tunggul = tunggul_taun(tahun)
+
+    posisi_tunggul = info_tunggul["posisi"]
+
+    nomor_windu_tunggul = (
+        (posisi_tunggul - 1) // 8
+    ) + 1
+
+    tahun_ke_windu_tunggul = (
+        (posisi_tunggul - 1) % 8
+    ) + 1
+
+    # --------------------------------------------------------
+    # C. RENTANG TAHUN DALAM WINDU
+    # --------------------------------------------------------
+
+    tahun_awal_windu = (
+        tahun - tahun_ke_windu + 1
+    )
+
+    tahun_akhir_windu = (
+        tahun_awal_windu + 7
+    )
+
+    # --------------------------------------------------------
+    # D. AKUMULASI HARI WINDU
+    # --------------------------------------------------------
+
+    jumlah_hari = sum(
+        panjang_tahun(th)
+        for th in range(
+            tahun_awal_windu,
+            tahun_akhir_windu + 1
+        )
+    )
+
+    # --------------------------------------------------------
+    # E. INFORMASI TAHUN DALAM WINDU
+    # --------------------------------------------------------
+
+    info_dewataun = dewataun(tahun)
+
+    panjang_tahun_ini = panjang_tahun(tahun)
+
+    # --------------------------------------------------------
+    # F. STATUS PENGECUALIAN
+    # --------------------------------------------------------
+
+    tahun_pengecualian = (
+        info_tunggul["posisi"] == 120
+    )
+
+    # --------------------------------------------------------
+    # G. HASIL
+    # --------------------------------------------------------
+
+    return {
+        "nomor": nomor_windu,
+        "nama": nama_windu,
+        "indeks": indeks_windu + 1,
+
+        "tahun_awal": tahun_awal_windu,
+        "tahun_akhir": tahun_akhir_windu,
+
+        "tahun_ke": tahun_ke_windu,
+
+        "nomor_tunggul": info_tunggul["nomor"],
+        "windu_ke_tunggul": nomor_windu_tunggul,
+        "tahun_ke_tunggul_windu": tahun_ke_windu_tunggul,
+
+        "jumlah_tahun": 8,
+        "panjang_normal": PANJANG_WINDU_NORMAL,
+        "jumlah_hari": jumlah_hari,
+
+        "tahun_caka": tahun,
+        "dewataun": info_dewataun["nama"],
+        "panjang_tahun": panjang_tahun_ini,
+
+        "pengecualian_tunggul": tahun_pengecualian,
+    }
+# ============================================================
 # 4. SIKLUS TUNGGUL TAUN (120 TAHUN)
 # ============================================================
 
 PANJANG_TUNGGUL_TAUN = 120
 
-# 15 windu dikurangi 1 hari
-PANJANG_TUNGGUL = 15 * PANJANG_WINDU - 1
+PANJANG_TUNGGUL = (
+    15 * PANJANG_WINDU - 1
+)
 
 assert PANJANG_TUNGGUL == 42524
 
@@ -131,28 +254,38 @@ def tunggul_taun(tahun):
     """
     Menentukan posisi tahun dalam siklus Tunggul Taun.
 
-    Tahun ke-120 dalam setiap siklus merupakan tahun
-    pengecualian yang menggunakan panjang 354 hari.
+    Tunggul Taun ke-17:
+        1921–2040 Caka
+        Indung Poe: Sabtu Keliwon
+        Tahun 2040: tahun pendek pengecualian.
     """
 
-    if tahun < 1:
-        raise ValueError("Tahun Caka harus lebih besar atau sama dengan 1.")
+    if not isinstance(tahun, int) or tahun < 1:
+        raise ValueError(
+            "Tahun Caka harus bilangan bulat >= 1."
+        )
 
-    nomor = ((tahun - 1) // PANJANG_TUNGGUL_TAUN) + 1
+    nomor = ((tahun - 1) // 120) + 1
 
-    tahun_awal = (
-        (nomor - 1) * PANJANG_TUNGGUL_TAUN
-    ) + 1
-
-    tahun_akhir = nomor * PANJANG_TUNGGUL_TAUN
+    tahun_awal = ((nomor - 1) * 120) + 1
+    tahun_akhir = nomor * 120
 
     posisi = tahun - tahun_awal + 1
+
+    windu_ke = ((posisi - 1) // 8) + 1
+    tahun_ke_windu = ((posisi - 1) % 8) + 1
+
+    pengecualian = posisi == 120
 
     return {
         "nomor": nomor,
         "tahun_awal": tahun_awal,
         "tahun_akhir": tahun_akhir,
         "posisi": posisi,
+        "windu_ke": windu_ke,
+        "tahun_ke_windu": tahun_ke_windu,
+        "pengecualian": pengecualian,
+        "panjang_tunggul": PANJANG_TUNGGUL,
     }
 
 
@@ -161,26 +294,144 @@ def tunggul_taun(tahun):
 # ============================================================
 
 def panjang_tahun(tahun):
-    """
-    Menghasilkan jumlah hari dalam satu tahun Caka Sunda.
+    """Menentukan panjang tahun Caka Sunda."""
 
-    Wastu = 354 hari
-    Wuntu = 355 hari
+    info = tunggul_taun(tahun)
 
-    Pengecualian:
-    Tahun ke-120 dalam siklus Tunggul Taun = 354 hari.
-    """
-
-    info_tunggul = tunggul_taun(tahun)
-
-    # Tahun terakhir dalam siklus 120 tahun
-    if info_tunggul["posisi"] == 120:
+    # Tahun ke-120 dalam satu Tunggul Taun
+    if info["pengecualian"]:
         return 354
 
-    info_dewataun = dewataun(tahun)
+    return dewataun(tahun)["panjang_normal"]
 
-    return info_dewataun["panjang_normal"]
 
+import unicodedata
+
+
+# ============================================================
+# DAFTAR BULAN KALA CANDRA SUNDA
+# ============================================================
+
+BULAN_CANDRA = [
+    "Kartika",
+    "Margasira",
+    "Posya",
+    "Maga",
+    "Palguna",
+    "Sétra",
+    "Wesaka",
+    "Yesta",
+    "Asada",
+    "Srawana",
+    "Badra",
+    "Asuji",
+]
+
+# Panjang 11 bulan pertama.
+# Bulan Asuji dihitung berdasarkan panjang aktual tahun.
+PANJANG_BULAN_CANDRA = [
+    30, 29, 30, 29, 30, 29,
+    30, 29, 30, 29, 30,
+]
+
+
+# ============================================================
+# NORMALISASI NAMA BULAN
+# ============================================================
+
+def normalisasi_bulan(bulan):
+    """
+    Normalisasi nama atau nomor bulan Kala Candra Sunda.
+
+    Hasil nomor bulan:
+    Kartika   = 1
+    Margasira = 2
+    ...
+    Asuji     = 12
+    """
+
+    if isinstance(bulan, int):
+        if 1 <= bulan <= 12:
+            return bulan
+
+        raise ValueError(
+            f"Nomor bulan tidak valid: {bulan}"
+        )
+
+    nama_bulan = [
+        "kartika",
+        "margasira",
+        "posya",
+        "maga",
+        "palguna",
+        "setra",
+        "wesaka",
+        "yesta",
+        "asada",
+        "srawana",
+        "badra",
+        "asuji",
+    ]
+
+    nama = str(bulan).strip().lower()
+
+    if nama not in nama_bulan:
+        raise ValueError(
+            f"Nama bulan tidak dikenal: {bulan}"
+        )
+
+    return nama_bulan.index(nama) + 1
+
+
+# ============================================================
+# PANJANG BULAN KALA CANDRA
+# ============================================================
+
+def panjang_bulan_candra(tahun, bulan):
+    """
+    Menghasilkan panjang bulan berdasarkan tahun Caka Sunda.
+
+    Asuji dihitung dari panjang aktual tahun sehingga
+    pengecualian Tunggul Taun ikut diperhitungkan.
+    """
+
+    indeks_bulan = normalisasi_bulan(bulan)
+
+    if indeks_bulan < 11:
+        return PANJANG_BULAN_CANDRA[indeks_bulan]
+
+    # Asuji = panjang tahun aktual - jumlah 11 bulan pertama.
+    return (
+        panjang_tahun(tahun)
+        - sum(PANJANG_BULAN_CANDRA)
+    )
+
+
+# ============================================================
+# HITUNG HARI KE DALAM TAHUN
+# ============================================================
+def hitung_hari_ke_tahun(tahun, bulan, tanggal):
+    """
+    Menghitung jumlah hari sejak 1 Kartika.
+    1 Kartika = 0.
+    """
+
+    nomor_bulan = normalisasi_bulan(bulan)
+
+    maksimum = panjang_bulan(tahun, nomor_bulan)
+
+    if not 1 <= tanggal <= maksimum:
+        raise ValueError(
+            f"Tanggal {tanggal} tidak valid "
+            f"untuk bulan {bulan} tahun {tahun}"
+        )
+
+    jumlah_hari = sum(
+        panjang_bulan(tahun, nomor)
+        for nomor in range(1, nomor_bulan)
+    )
+
+    return jumlah_hari + tanggal - 1
 
 # ============================================================
 # 6. MENENTUKAN PANJANG BULAN
@@ -188,23 +439,24 @@ def panjang_tahun(tahun):
 
 def panjang_bulan(tahun, bulan):
     """
-    Menentukan panjang bulan berdasarkan tahun Caka.
+    Mengembalikan jumlah hari dalam bulan Kala Candra Sunda.
 
-    Bulan 1 sampai 11 mengikuti panjang tetap.
-    Bulan 12 (Asuji) menyesuaikan panjang tahun.
+    Wastu = 354 hari
+    Wuntu = 355 hari
+
+    Mengikuti panjang tahun aktual, termasuk
+    pengecualian Tunggul Taun.
     """
 
-    if not isinstance(bulan, int) or not 1 <= bulan <= 12:
-        raise ValueError("Nomor bulan harus berupa bilangan 1 sampai 12.")
+    if not 1 <= bulan <= 12:
+        raise ValueError(f"Nomor bulan tidak valid: {bulan}")
 
-    if bulan <= 11:
-        return PANJANG_BULAN_NORMAL[bulan - 1]
+    if panjang_tahun(tahun) == 355:
+        daftar_bulan = PANJANG_BULAN_WUNTU
+    else:
+        daftar_bulan = PANJANG_BULAN_WASTU
 
-    # Asuji
-    if panjang_tahun(tahun) == 354:
-        return 29
-
-    return 30
+    return daftar_bulan[bulan - 1]
 
 
 # ============================================================
@@ -213,10 +465,7 @@ def panjang_bulan(tahun, bulan):
 
 def jumlah_hari_sebelum_tahun(tahun):
     """
-    Menghitung jumlah hari dari epoch sampai awal tahun tertentu.
-
-    Nilai positif berarti tahun berada setelah epoch.
-    Nilai negatif berarti tahun berada sebelum epoch.
+    Menghitung selisih hari dari awal tahun epoch.
     """
 
     total = 0
@@ -237,19 +486,414 @@ def jumlah_hari_sebelum_tahun(tahun):
 # ============================================================
 
 def jumlah_hari_sebelum_bulan(tahun, bulan):
-    """
-    Menghitung jumlah hari dari awal tahun sampai awal bulan.
-    """
+    """Menghitung jumlah hari dari awal tahun sampai awal bulan."""
 
     if not isinstance(bulan, int) or not 1 <= bulan <= 12:
-        raise ValueError("Nomor bulan harus berupa bilangan 1 sampai 12.")
+        raise ValueError("Nomor bulan harus bilangan 1 sampai 12.")
 
-    total = 0
+    return sum(
+        panjang_bulan(tahun, bln)
+        for bln in range(1, bulan)
+    )
 
-    for bln in range(1, bulan):
-        total += panjang_bulan(tahun, bln)
+# ============================================================
+# 8A. INDUNG POE
+# ============================================================
+HARI_SUNDA = [
+    "Senin",
+    "Selasa",
+    "Rabu",
+    "Kamis",
+    "Jumat",
+    "Sabtu",
+    "Minggu",
+]
 
-    return total
+PASARAN_SUNDA = [
+    "Manis",
+    "Pahing",
+    "Pon",
+    "Wage",
+    "Keliwon",
+]
+
+# ============================================================
+# PEMETAAN INDUNG POE KE SAPTAWARA
+# ============================================================
+
+INDUNG_POE_KE_SAPTAWARA = {
+    "Minggu": "Dite",
+    "Senin": "Soma",
+    "Selasa": "Anggara",
+    "Rabu": "Buda",
+    "Kamis": "Respati",
+    "Jumat": "Sukra",
+    "Sabtu": "Tumpek",
+}
+
+# Alias nama Saptawara
+SAPTAWARA_ALIAS = {
+    "Radite": "Dite",
+}
+
+SAPTAWARA = [
+    "Dite",
+    "Soma",
+    "Anggara",
+    "Buda",
+    "Respati",
+    "Sukra",
+    "Tumpek",
+]
+
+HARI_MASEHI_KE_SUNDA = {
+    0: "Senin",
+    1: "Selasa",
+    2: "Rabu",
+    3: "Kamis",
+    4: "Jumat",
+    5: "Sabtu",
+    6: "Minggu",
+}
+
+# Urutan Pancawara
+PANCAWARA = [
+    "Manis",
+    "Pahing",
+    "Pon",
+    "Wage",
+    "Kaliwon",
+]
+# Jangkar Indung Poe
+TAHUN_JANGKAR_INDUNG_POE = 1921
+
+INDEKS_HARI_JANGKAR = HARI_SUNDA.index("Sabtu")
+INDEKS_PASARAN_JANGKAR = PASARAN_SUNDA.index("Keliwon")
+
+
+def hitung_indung_poe(tahun):
+    """
+    Menghitung Indung Poe pada awal tahun Caka Sunda.
+
+    Jangkar:
+        1 Kartika 1921 = Sabtu Keliwon
+
+    Perhitungan:
+        Hari    = jumlah hari modulo 7
+        Pasaran = jumlah hari modulo 5
+
+    Panjang tahun menggunakan fungsi panjang_tahun()
+    yang sudah memperhitungkan pengecualian Tunggul Taun.
+    """
+
+    if not isinstance(tahun, int):
+        raise TypeError("Tahun harus berupa bilangan integer.")
+
+    if tahun < 1:
+        raise ValueError("Tahun Caka Sunda harus lebih besar dari 0.")
+
+    tahun_jangkar = TAHUN_JANGKAR_INDUNG_POE
+
+    # Menghitung jumlah hari dari tahun jangkar
+    # menuju awal tahun yang dicari.
+    if tahun > tahun_jangkar:
+        jumlah_hari = sum(
+            panjang_tahun(t)
+            for t in range(tahun_jangkar, tahun)
+        )
+
+    elif tahun < tahun_jangkar:
+        jumlah_hari = -sum(
+            panjang_tahun(t)
+            for t in range(tahun, tahun_jangkar)
+        )
+
+    else:
+        jumlah_hari = 0
+
+    # Menghitung indeks hari dan pasaran.
+    indeks_hari = (
+        INDEKS_HARI_JANGKAR + jumlah_hari
+    ) % 7
+
+    indeks_pasaran = (
+        INDEKS_PASARAN_JANGKAR + jumlah_hari
+    ) % 5
+
+    return {
+        "tahun": tahun,
+        "hari": HARI_SUNDA[indeks_hari],
+        "pasaran": PASARAN_SUNDA[indeks_pasaran],
+        "indung_poe": (
+            f"{HARI_SUNDA[indeks_hari]} "
+            f"{PASARAN_SUNDA[indeks_pasaran]}"
+        ),
+        "jumlah_hari_dari_jangkar": jumlah_hari,
+    }
+
+def konversi_indung_poe_ke_saptawara(hari):
+    """
+    Mengonversi nama hari Indung Poe
+    menjadi nama Saptawara Sunda.
+    """
+
+    if not isinstance(hari, str):
+        raise TypeError("Hari harus berupa string.")
+
+    hari = hari.strip().capitalize()
+
+    try:
+        return INDUNG_POE_KE_SAPTAWARA[hari]
+
+    except KeyError:
+        raise ValueError(
+            f"Nama hari Indung Poe tidak dikenal: {hari}"
+        )
+
+def hitung_saptawara_caka(tahun, bulan, tanggal):
+    indung_poe = hitung_indung_poe(tahun)
+
+    hari_awal = indung_poe["hari"]
+
+    hari_ke_tahun = hitung_hari_ke_tahun(
+        tahun,
+        bulan,
+        tanggal
+    )
+
+    indeks_awal = HARI_SUNDA.index(hari_awal)
+
+    indeks_hari = (
+        indeks_awal + hari_ke_tahun
+    ) % 7
+
+    hari_sunda = HARI_SUNDA[indeks_hari]
+
+    return {
+        "hari": INDUNG_POE_KE_SAPTAWARA[hari_sunda],
+        "index": indeks_hari
+    }
+
+
+def hitung_pancawara_caka(tahun, bulan, tanggal):
+    """
+    Menghitung Pancawara berdasarkan Indung Poe
+    pada 1 Kartika tahun yang bersangkutan.
+    """
+
+    indung_poe = hitung_indung_poe(tahun)
+
+    pasaran_awal = indung_poe["pasaran"]
+    selisih_hari = hitung_hari_ke_tahun(
+        tahun, bulan, tanggal
+    )
+
+    if pasaran_awal not in PASARAN_SUNDA:
+        raise ValueError(
+            f"Nama pasaran Indung Poe tidak dikenal: {pasaran_awal}"
+        )
+
+    indeks_awal = PASARAN_SUNDA.index(pasaran_awal)
+
+    indeks_pasaran = (
+        indeks_awal + selisih_hari
+    ) % 5
+
+    return {
+        "nama": PANCAWARA[indeks_pasaran],
+        "index": indeks_pasaran
+    }
+
+
+
+
+# ============================================================
+# SADWARA
+# ============================================================
+
+SADWARA = [
+    "Tungleh",
+    "Ariang",
+    "Urukung",
+    "Paniron",
+    "Was",
+    "Maulu",
+]
+
+
+# Variasi penulisan dari sumber
+SADWARA_ALIAS = {
+    "tungle": "Tungleh",
+    "tungleh": "Tungleh",
+
+    "aryang": "Ariang",
+    "ariang": "Ariang",
+    "hariyang": "Ariang",
+
+    "wurukung": "Urukung",
+    "urukung": "Urukung",
+
+    "paniron": "Paniron",
+
+    "uwas": "Was",
+    "was": "Was",
+
+    "mawulu": "Maulu",
+    "maulu": "Maulu",
+}
+
+
+# ============================================================
+# JANGKAR SADWARA
+# ============================================================
+
+TANGGAL_JANGKAR_SADWARA = date(2025, 4, 26)
+
+SADWARA_JANGKAR = "Paniron"
+
+
+# ============================================================
+# NORMALISASI NAMA SADWARA
+# ============================================================
+
+def normalisasi_sadwara(nama):
+    nama_normal = nama.strip().lower()
+
+    try:
+        return SADWARA_ALIAS[nama_normal]
+    except KeyError:
+        raise ValueError(
+            f"Nama Sadwara tidak dikenal: {nama}"
+        )
+
+
+# ============================================================
+# HITUNG SADWARA
+# ============================================================
+
+def hitung_sadwara(tanggal):
+    """
+    Menghitung Sadwara berdasarkan jangkar tanggal.
+
+    Jangkar:
+        26 April 2025 = Paniron
+    """
+
+    if not isinstance(tanggal, date):
+        raise TypeError(
+            "Tanggal harus berupa datetime.date."
+        )
+
+    indeks_awal = SADWARA.index(
+        normalisasi_sadwara(SADWARA_JANGKAR)
+    )
+
+    selisih_hari = (
+        tanggal - TANGGAL_JANGKAR_SADWARA
+    ).days
+
+    indeks = (
+        indeks_awal + selisih_hari
+    ) % len(SADWARA)
+
+    # return SADWARA[indeks]
+    return {
+        "sadwara": SADWARA[indeks],
+        "sadwara_indeks": indeks
+    }
+
+# ============================================================
+# DAFTAR WUKU SUNDA
+# ============================================================
+
+WUKU = [
+    "Sinta",
+    "Landep",
+    "Wukir",
+    "Kurantil",
+    "Telu",
+    "Gumbreg",
+    "Warigalit",
+    "Warigagung",
+    "Jungjungwang",
+    "Sungsang",
+    "Galungan",
+    "Kuningan",
+    "Langkir",
+    "Madasiya",
+    "Julungpujud",
+    "Pahang",
+    "Kuruwelit",
+    "Marakeh",
+    "Tambir",
+    "Madangkungan",
+    "Maktal",
+    "Wuye",
+    "Manahil",
+    "Prangbakat",
+    "Bala",
+    "Wugu",
+    "Wayang",
+    "Kulawu",
+    "Dukut",
+    "Watugunung",
+]
+
+
+# ============================================================
+# JANGKAR WUKU
+# ============================================================
+
+TANGGAL_JANGKAR_WUKU = date(2025, 4, 26)
+
+WUKU_JANGKAR = "Maktal"
+
+# Sabtu adalah posisi ke-7, atau indeks 6
+POSISI_HARI_JANGKAR = 6
+
+
+# ============================================================
+# HITUNG WUKU
+# ============================================================
+
+def hitung_wuku(tanggal):
+    """
+    Menghitung Wuku berdasarkan jangkar proyek.
+
+    Jangkar:
+        26 April 2025 = Sabtu, Wuku Maktal.
+
+    Pergantian Wuku berlangsung setiap Ahad.
+    """
+
+    if not isinstance(tanggal, date):
+        raise TypeError(
+            "Tanggal harus berupa datetime.date."
+        )
+
+    indeks_jangkar = WUKU.index(WUKU_JANGKAR)
+
+    selisih_hari = (
+        tanggal - TANGGAL_JANGKAR_WUKU
+    ).days
+
+    jumlah_pergantian_wuku = (
+        selisih_hari + POSISI_HARI_JANGKAR
+    ) // 7
+
+    indeks_wuku = (
+        indeks_jangkar + jumlah_pergantian_wuku
+    ) % len(WUKU)
+
+    posisi_hari = (
+        POSISI_HARI_JANGKAR + selisih_hari
+    ) % 7
+
+    return {
+        "wuku": WUKU[indeks_wuku],
+        "nomor_wuku": indeks_wuku + 1,
+        "hari_ke_wuku": posisi_hari + 1,
+    }
 
 
 # ============================================================
@@ -285,6 +929,7 @@ def validasi_tanggal_masehi(tanggal_masehi):
         )
 
     return tanggal_masehi
+
 
 
 # ============================================================
@@ -414,20 +1059,6 @@ def masehi_to_caka(tanggal_masehi):
             f"{hari_ke_tahun}/{jumlah_hari_tahun}"
         )
 
-    # print({
-    #     "tanggal_masehi": tanggal_masehi,
-    #     "tahun_hasil": tahun,
-    #     "tahun_epoch": TAHUN_EPOCH,
-    #     "selisih_epoch": (
-    #             tanggal_masehi - TANGGAL_EPOCH_MASEHI
-    #     ).days,
-    #     "awal_tahun": tanggal_awal_tahun_masehi(tahun),
-    #     "hari_ke_tahun": hari_ke_tahun,
-    #     "panjang_tahun": jumlah_hari_tahun,
-    #     "dewataun": info_dewataun["nama"],
-    #     "tunggul": info_tunggul,
-    # })
-
 
     # --------------------------------------------------------
     # F. HASIL KONVERSI
@@ -436,9 +1067,9 @@ def masehi_to_caka(tanggal_masehi):
     return {
         "tahun": tahun,
         "bulan": bulan,
-        "nama_bulan": NAMA_BULAN[bulan - 1],
-        "umur_bulan": panjang_bulan(tahun, bulan),
+        "nama_bulan": BULAN_CAKA[bulan - 1],
         "tanggal": tanggal,
+        "umur_bulan": panjang_bulan(tahun, bulan),
         "hari_ke_tahun": hari_ke_tahun,
         "panjang_tahun": jumlah_hari_tahun,
 
@@ -449,6 +1080,7 @@ def masehi_to_caka(tanggal_masehi):
         ),
 
         "dewataun": info_dewataun["nama"],
+
         "tunggul_taun": info_tunggul["nomor"],
         "posisi_tunggul": info_tunggul["posisi"],
     }
@@ -569,7 +1201,7 @@ def format_tanggal_caka(hasil):
     Contoh:
     Tanggal 19 Asada menjadi 4k Asada.
     """
-    
+
     tanggal = hasil["tanggal"]
     umur_bulan = hasil["umur_bulan"]
 
@@ -607,8 +1239,6 @@ def tanggal_awal_tahun_masehi(tahun):
     pada tahun Caka tertentu berdasarkan epoch.
     """
 
-    from datetime import timedelta
-
     selisih = jumlah_hari_sebelum_tahun(tahun)
 
     return TANGGAL_EPOCH_MASEHI + timedelta(days=selisih)
@@ -619,351 +1249,66 @@ def tanggal_awal_bulan_masehi(tahun, bulan):
     Menghitung tanggal Masehi untuk tanggal 1
     pada bulan Caka tertentu.
     """
-
-    from datetime import timedelta
-
     awal_tahun = tanggal_awal_tahun_masehi(tahun)
     selisih = jumlah_hari_sebelum_bulan(tahun, bulan)
 
     return awal_tahun + timedelta(days=selisih)
 
-
-def uji_batas_bulan(tahun, bulan):
-    """
-    Menguji hari terakhir suatu bulan dan hari pertama
-    bulan berikutnya.
-    """
-
-    from datetime import timedelta
-
-    awal_bulan = tanggal_awal_bulan_masehi(tahun, bulan)
-
-    akhir_bulan = (
-        awal_bulan
-        + timedelta(days=panjang_bulan(tahun, bulan) - 1)
-    )
-
-    bulan_berikutnya = bulan + 1
-    tahun_berikutnya = tahun
-
-    if bulan_berikutnya > 12:
-        bulan_berikutnya = 1
-        tahun_berikutnya += 1
-
-    awal_berikutnya = tanggal_awal_bulan_masehi(
-        tahun_berikutnya,
-        bulan_berikutnya
-    )
-
-    hasil_akhir = masehi_to_caka(akhir_bulan)
-    hasil_awal = masehi_to_caka(awal_berikutnya)
-
-    assert hasil_akhir["tahun"] == tahun
-    assert hasil_akhir["bulan"] == bulan
-    assert hasil_akhir["tanggal"] == panjang_bulan(tahun, bulan)
-
-    assert hasil_awal["tahun"] == tahun_berikutnya
-    assert hasil_awal["bulan"] == bulan_berikutnya
-    assert hasil_awal["tanggal"] == 1
-
-    assert awal_berikutnya == akhir_bulan + timedelta(days=1)
-
-    return {
-        "akhir_bulan_masehi": akhir_bulan,
-        "awal_bulan_berikutnya": awal_berikutnya,
-        "hasil_akhir": hasil_akhir,
-        "hasil_awal": hasil_awal,
-    }
-
-
-def uji_batas_tahun(tahun):
-    """
-    Menguji akhir Asuji dan awal Kartika tahun berikutnya.
-    """
-
-    from datetime import timedelta
-
-    awal_tahun = tanggal_awal_tahun_masehi(tahun)
-
-    akhir_tahun = (
-        awal_tahun
-        + timedelta(days=panjang_tahun(tahun) - 1)
-    )
-
-    awal_tahun_berikutnya = tanggal_awal_tahun_masehi(
-        tahun + 1
-    )
-
-    hasil_akhir = masehi_to_caka(akhir_tahun)
-    hasil_awal = masehi_to_caka(awal_tahun_berikutnya)
-
-    assert hasil_akhir["bulan"] == 12
-    assert hasil_akhir["tanggal"] == panjang_bulan(tahun, 12)
-
-    assert hasil_awal["tahun"] == tahun + 1
-    assert hasil_awal["bulan"] == 1
-    assert hasil_awal["tanggal"] == 1
-
-    assert awal_tahun_berikutnya == akhir_tahun + timedelta(days=1)
-
-    return {
-        "tahun": tahun,
-        "jenis_tahun": (
-            "Wastu" if panjang_tahun(tahun) == 354 else "Wuntu"
-        ),
-        "akhir_asuji": akhir_tahun,
-        "awal_kartika": awal_tahun_berikutnya,
-        "tanggal_akhir": hasil_akhir["tanggal"],
-    }
-
-
-def uji_transisi_dewataun():
-    """
-    Menguji tiga peralihan Wastu ke Wuntu
-    dalam satu siklus Dewataun.
-    """
-
-    tahun_wastu = [1921, 1924, 1927]
-
-    for tahun in tahun_wastu:
-
-        tahun_wuntu = tahun + 1
-
-        assert panjang_tahun(tahun) == 354
-        assert panjang_tahun(tahun_wuntu) == 355
-
-        akhir_wastu = uji_batas_tahun(tahun)
-        awal_wuntu = tanggal_awal_tahun_masehi(tahun_wuntu)
-
-        assert akhir_wastu["tanggal_akhir"] == 29
-        assert (
-            akhir_wastu["awal_kartika"] == awal_wuntu
-        )
-
-    return True
-
-
-def uji_tunggul_taun():
-    """
-    Menguji tahun ke-120 pada blok Tunggul Taun.
-    """
-
-    tahun = 2040
-
-    info = tunggul_taun(tahun)
-
-    assert info["nomor"] == 17
-    assert info["posisi"] == 120
-
-    # Tahun ke-120 dipaksa menjadi Wastu
-    assert panjang_tahun(tahun) == 354
-    assert panjang_bulan(tahun, 12) == 29
-
-    hasil = uji_batas_tahun(tahun)
-
-    assert hasil["tanggal_akhir"] == 29
-
-    return hasil
-
-
-def jalankan_pengujian_batas():
-
-    print("\n" + "=" * 60)
-    print("PENGUJIAN BATAS KALA CANDRA SUNDA")
-    print("=" * 60)
-
-    # 1. Kartika ke Margasira
-    print("\n1. Batas Kartika ke Margasira")
-
-    hasil = uji_batas_bulan(1921, 1)
-
-    print("30 Kartika :", hasil["akhir_bulan_masehi"])
-    print("1 Margasira:", hasil["awal_bulan_berikutnya"])
-
-    # 2. Pergantian tahun Wastu ke Wuntu
-    print("\n2. Pergantian Wastu ke Wuntu")
-
-    for tahun in [1921, 1924, 1927]:
-
-        hasil = uji_batas_tahun(tahun)
-
-        print(
-            f"{tahun} Wastu -> {tahun + 1} Wuntu:",
-            hasil["akhir_asuji"],
-            "->",
-            hasil["awal_kartika"]
-        )
-
-    # 3. Pergantian tahun Wuntu ke Wastu
-    print("\n3. Pergantian Wuntu ke Wastu")
-
-    for tahun in [1922, 1925, 1928]:
-
-        hasil = uji_batas_tahun(tahun)
-
-        print(
-            f"{tahun} Wuntu -> {tahun + 1} Wastu:",
-            hasil["akhir_asuji"],
-            "->",
-            hasil["awal_kartika"]
-        )
-
-    # 4. Tunggul Taun tahun 2040
-    print("\n4. Pengujian Tunggul Taun 2040")
-
-    hasil = uji_tunggul_taun()
-
-    print("Tahun Caka :", hasil["tahun"])
-    print("Jenis      :", hasil["jenis_tahun"])
-    print("29 Asuji   :", hasil["akhir_asuji"])
-    print("1 Kartika  :", hasil["awal_kartika"])
-
-    # 5. Pengujian transisi Dewataun
-    print("\n5. Pengujian transisi Dewataun")
-
-    assert uji_transisi_dewataun()
-
-    print("Transisi Wastu ke Wuntu: LULUS")
-
-    print("\n" + "=" * 60)
-    print("SELURUH PENGUJIAN BATAS BERHASIL")
-    print("=" * 60)
-
-def uji_caka_to_masehi():
-
-    print("\n" + "=" * 60)
-    print("PENGUJIAN CAKA SUNDA KE MASEHI")
-    print("=" * 60)
-
-    daftar_uji = [
-        (1921, 1, 1),    # Epoch
-        (1921, 1, 30),   # Akhir Kartika
-        (1921, 2, 1),    # Awal Margasira
-        (1921, 12, 29),  # Akhir Asuji Wastu
-        (1922, 12, 30),  # Akhir Asuji Wuntu
-        (1948, 9, 19),   # 19 Asada
-        (2040, 12, 29),  # Akhir Tunggul Taun
-        (2041, 1, 1),    # Awal tahun berikutnya
-    ]
-
-    for tahun, bulan, tanggal in daftar_uji:
-
-        hasil = caka_to_masehi(
-            tahun,
-            bulan,
-            tanggal
-        )
-
-        print(
-            f"{tanggal} {NAMA_BULAN[bulan - 1]} {tahun}"
-            f" -> {hasil}"
-        )
-
-    print("\nPENGUJIAN SELESAI")
-
-
-def uji_round_trip():
-
-    print("\n" + "=" * 60)
-    print("PENGUJIAN ROUND-TRIP")
-    print("=" * 60)
-
-    daftar_uji = [
-        (1921, 1, 1),
-        (1921, 1, 30),
-        (1921, 2, 1),
-        (1921, 12, 29),
-        (1922, 12, 30),
-        (1948, 9, 19),
-        (2040, 12, 29),
-        (2041, 1, 1),
-    ]
-
-    for tahun, bulan, tanggal in daftar_uji:
-
-        # Caka -> Masehi
-        masehi = caka_to_masehi(
-            tahun,
-            bulan,
-            tanggal
-        )
-
-        # Masehi -> Caka
-        hasil = masehi_to_caka(masehi)
-
-        # Periksa kesamaan
-        assert hasil["tahun"] == tahun
-        assert hasil["bulan"] == bulan
-        assert hasil["tanggal"] == tanggal
-
-        print(
-            f"{tanggal} {NAMA_BULAN[bulan - 1]} {tahun}"
-            f" <-> {masehi} : LULUS"
-        )
-
-    print("\nSELURUH ROUND-TRIP LULUS")
-
-def audit_batas_tunggul(tahun):
-    """
-    Memeriksa tahun terakhir suatu Tunggul dan
-    tahun pertama Tunggul berikutnya.
-    """
-
-    awal = tanggal_awal_tahun_masehi(tahun)
-    panjang = panjang_tahun(tahun)
-
-    akhir = awal + timedelta(days=panjang - 1)
-    awal_berikutnya = tanggal_awal_tahun_masehi(tahun + 1)
-
-    hasil = {
-        "tahun": tahun,
-        "awal_tahun": awal,
-        "panjang_tahun": panjang,
-        "akhir_tahun": akhir,
-        "awal_tahun_berikutnya": awal_berikutnya,
-        "selisih": (
-            awal_berikutnya - (akhir + timedelta(days=1))
-        ).days,
-        "tunggul": tunggul_taun(tahun),
-        "dewataun": dewataun(tahun),
-    }
-
-    print("=" * 60)
-    print(f"AUDIT TAHUN {tahun}")
-    print("=" * 60)
-    print("Awal tahun          :", hasil["awal_tahun"])
-    print("Panjang tahun       :", hasil["panjang_tahun"])
-    print("Akhir tahun         :", hasil["akhir_tahun"])
-    print("Awal tahun berikut  :", hasil["awal_tahun_berikutnya"])
-    print("Selisih             :", hasil["selisih"], "hari")
-    print("Tunggul             :", hasil["tunggul"])
-    print("Dewataun            :", hasil["dewataun"])
-
-    return hasil
-
 def kalacandra_sunda(tanggal_masehi):
+    """
+    Mengonversi tanggal Masehi menjadi Kala Candra Sunda.
+
+    Parameter:
+        tanggal_masehi : datetime.date atau string YYYY-MM-DD
+
+    Hasil:
+        dict dengan informasi tanggal Caka Sunda.
+    """
 
     hasil = masehi_to_caka(tanggal_masehi)
+
+    tanggal_uji = validasi_tanggal_masehi(tanggal_masehi)
     tanggal_paksa = format_tanggal_caka(hasil)
-    
+    saptawara = hitung_saptawara_caka(
+        hasil["tahun"],
+        hasil["bulan"],
+        hasil["tanggal"]
+    )
+    pancawara = hitung_pancawara_caka(
+        hasil["tahun"],
+        hasil["bulan"],
+        hasil["tanggal"]
+    )
+    sadwara = hitung_sadwara(tanggal_uji)
+    wuku = hitung_wuku(tanggal_uji)
+    info_windu = windu(hasil["tahun"])
+    indung_poe = hitung_indung_poe(hasil["tahun"])
+    hari_ke_tahun = hitung_hari_ke_tahun(
+        hasil["tahun"],
+        hasil["bulan"],
+        hasil["tanggal"]
+    )
+
     return {
-        "tanggal_masehi": tanggal_masehi,
-        "tanggal_caka": f"{tanggal_paksa['tanggal_paksa']} {hasil['nama_bulan']} {hasil['tahun']}",
-        "bulan": hasil["nama_bulan"],
+        "tanggal_masehi": tanggal_uji,
+        "tanggal_caka": f"{tanggal_paksa['tanggal_paksa']} {hasil['nama_bulan']} {hasil['tahun']} Caka Sunda",
         "tahun": hasil["tahun"],
+        "bulan": hasil["nama_bulan"],
         "tanggal": hasil["tanggal"],
-        "hari_ke_tahun": hasil["hari_ke_tahun"],
+        "tanggal_paksa": tanggal_paksa,
+        "saptawara": saptawara,
+        "pancawara": pancawara,
+        "sadwara": sadwara,
+        "wuku": wuku,
+        "hari_ke_tahun": hari_ke_tahun,
         "panjang_tahun": hasil["panjang_tahun"],
         "jenis_tahun": hasil["jenis_tahun"],
         "dewataun": hasil["dewataun"],
         "tunggul_taun": hasil["tunggul_taun"],
         "posisi_tunggul": hasil["posisi_tunggul"],
-        "umur_bulan": hasil["umur_bulan"],
-        "tanggal_paksa": tanggal_paksa,
-        "paksa": tanggal_paksa["paksa"],
-        "istilah": tanggal_paksa["istilah"]
+        "windu": info_windu,
+        "indung_poe": indung_poe
     }
-
 
 if __name__ == "__main__":
 
@@ -973,58 +1318,52 @@ if __name__ == "__main__":
 
     daftar_uji = [
         "1999-12-11", "2000-11-29", "2001-11-18", "2002-11-07", "2003-10-27", "2004-10-16", "2005-10-05", "2006-09-24",
-    "2007-09-15", "2006-09-03","2114-06-16", "2115-05-27", "2116-05-16"
+    "2007-09-15", "2006-09-03","2114-06-16", "2115-05-27", "2116-05-16","2026-11-11"
     ]
 
     for tanggal_masehi in daftar_uji:
 
         hasil = masehi_to_caka(tanggal_masehi)
 
-        print()
+        tanggal_uji = datetime.strptime(tanggal_masehi, "%Y-%m-%d").date()
+        tanggal_paksa = format_tanggal_caka(hasil)
+        saptawara = saptawara_caka = hitung_saptawara_caka(hasil["tahun"],hasil["bulan"],hasil["tanggal"])
+        pancawara = hitung_pancawara_caka(tanggal_uji.year, tanggal_uji.month, tanggal_uji.day)
+        sadwara = hitung_sadwara(tanggal_uji)
+        wuku = hitung_wuku(tanggal_uji)
+        info_windu = windu(hasil["tahun"])
+        indung_poe = hitung_indung_poe(hasil["tahun"])
+        tahun = hasil["tahun"]
+        bulan = hasil["bulan"]
+        tanggal = hasil["tanggal"]
+
+        hari_ke_tahun = hitung_hari_ke_tahun(
+            tahun,
+            bulan,
+            tanggal)
+
         print("Tanggal Masehi :", tanggal_masehi)
-        print("Tanggal Caka   :", f"{format_tanggal_caka(hasil)}")
+        print("Tanggal Caka   :", f"{tanggal_paksa['tanggal_paksa']} {hasil['nama_bulan']} {hasil['tahun']} Caka Sunda")
         print("Tahun          :", hasil["tahun"])
         print("Bulan          :", hasil["nama_bulan"])
-        print("Umur Bulan     :", hasil["umur_bulan"])
         print("Tanggal        :", hasil["tanggal"])
-        print("Hari ke tahun  :", hasil["hari_ke_tahun"])
+        print("tanggal_paksa  :", tanggal_paksa)
+        # print("Saptawara_masehi      :", saptawara_masehi)
+        print("Saptawara_caka          :", saptawara)
+        print("Pancawara      :", pancawara)
+        print("Sadwara        :", sadwara)
+        print("Wuku           :", wuku)
+        print("Hari ke tahun  :", hari_ke_tahun)
         print("Panjang tahun  :", hasil["panjang_tahun"])
         print("Jenis tahun    :", hasil["jenis_tahun"])
         print("Dewataun       :", hasil["dewataun"])
         print("Tunggul Taun   :", hasil["tunggul_taun"])
         print("Posisi Tunggul :", hasil["posisi_tunggul"])
+        print("windu          :", info_windu)
+        print("indung_poe      :", indung_poe)
+
 
     print()
     print("=" * 60)
     print("PENGUJIAN SELESAI")
     print("=" * 60)
-
-    # jalankan_pengujian_batas()
-    # uji_caka_to_masehi()
-    # uji_round_trip()
-
-    # print("=" * 60)
-    # print("PENGUJIAN BATAS TUNGGUL KALA CANDRA SUNDA")
-    # print("=" * 60)
-    # audit_batas_tunggul(2040)
-    # audit_batas_tunggul(2160)
-
-    # for tgl in [
-    #     date(2054, 5, 27),
-    #     date(2055, 5, 16),
-    # ]:
-    #     hasil = masehi_to_caka(tgl)
-
-    #     awal = tanggal_awal_tahun_masehi(
-    #         hasil["tahun"]
-    #     )
-
-    #     hari_absolut = (tgl - awal).days + 1
-
-    #     print("-" * 50)
-    #     print("Tanggal Masehi :", tgl)
-    #     print("Tahun Caka     :", hasil["tahun"])
-    #     print("Awal tahun     :", awal)
-    #     print("Hari ke tahun  :", hasil["hari_ke_tahun"])
-    #     print("Hari absolut   :", hari_absolut)
-    #     print("Panjang tahun  :", hasil["panjang_tahun"])

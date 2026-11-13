@@ -62,39 +62,23 @@
             <li class="list-group-item p-3 border-light">
                 <div class="row g-3">
                     <div class="col-6 border-end">
-                        <small class="text-muted d-block small">Saptawara
-                            <a href="" class="btn-detail" data-bs-toggle="offcanvas" data-bs-target="#kalendersunda" aria-controls="offcanvasBottom" data-id="3">
-                                <i class="fi fi-br-info"></i>
-                            </a>
-                        </small>
-                        <span class="fw-bold">{{wewaran.saptawara}}</span>
+                        <small class="text-muted d-block small">Saptawara</small>
+                        <span class="fw-bold">{{kala_candra.saptawara["hari"]}}</span>
                     </div>
                     <div class="col-6 ps-3">
-                        <small class="text-muted d-block small">Pancawara
-                            <a href="" class="btn-detail" data-bs-toggle="offcanvas" data-bs-target="#kalendersunda" aria-controls="offcanvasBottom" data-id="2">
-                                <i class="fi fi-br-info"></i>
-                            </a>
-                        </small>
-                        <span class="fw-bold">{{wewaran.pancawara}}</span>
+                        <small class="text-muted d-block small">Pancawara</small>
+                        <span class="fw-bold">{{kala_candra.pancawara["nama"]}}</span>
                     </div>
                 </div>
             </li>
             <li class="list-group-item p-3 border-light">
                 <div class="row g-3">
                     <div class="col-6 border-end">
-                        <small class="text-muted d-block small">Paksa (Fase Bulan)
-                            <a href="" class="btn-detail" data-bs-toggle="offcanvas" data-bs-target="#kalendersunda" aria-controls="offcanvasBottom" data-id="3">
-                                <i class="fi fi-br-info"></i>
-                            </a>
-                        </small>
-                        <span class="fw-bold">{{ kala_candra.paksa }}</span>
+                        <small class="text-muted d-block small">Paksa (Fase Bulan)</small>
+                        <span class="fw-bold">{{ kala_candra.tanggal_paksa["paksa"] }}</span>
                     </div>
                     <div class="col-6 ps-3">
-                        <small class="text-muted d-block small">Fase rinci dalam {{ kala_candra.paksa }}
-                            <a href="" class="btn-detail" data-bs-toggle="offcanvas" data-bs-target="#kalendersunda" aria-controls="offcanvasBottom" data-id="2">
-                                <i class="fi fi-br-info"></i>
-                            </a>
-                        </small>
+                        <small class="text-muted d-block small">Fase rinci dalam {{ kala_candra.paksa }}</small>
                         <span class="fw-bold">{{fasebulan[0].padanan if fasebulan else "Belum tersedia"}} <span class="badge rounded-pill text-bg-light">({{fasebulan[0].istilah_lokal}})</span> </span>
                         <a href="" class="btn-wuku" data-bs-toggle="modal" data-bs-target="#fasebulan"><i class="fi fi-br-arrow-up-right-from-square"></i></a>
                     </div>
@@ -104,46 +88,99 @@
                 <div class="row g-3">
                     <div class="col-6 border-end">
                         <small class="text-muted d-block small">Wuku
-                            <a href="" class="btn-detail" data-bs-toggle="offcanvas" data-bs-target="#kalenderjawa" aria-controls="offcanvasBottom" data-id="4">
-                                <i class="fi fi-br-info"></i>
-                            </a>
                         </small>
-                        <span class="fw-bold">{{wewaran.wuku}}</span>
-                        <a href="" class="btn-wuku" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWuku" aria-controls="offcanvasBottom" data-id="1"><i class="fi fi-br-arrow-up-right-from-square"></i></a>
+                        <span class="fw-bold">{{kala_candra.wuku["wuku"]}}</span>
                     </div>
                     <div class="col-6 ps-3">
-                        <small class="text-muted d-block small"> Sadwara
-                            <a href="" class="btn-detail" data-bs-toggle="offcanvas" data-bs-target="#kalenderjawa" aria-controls="offcanvasBottom" data-id="5">
-                                <i class="fi fi-br-info"></i>
-                            </a>
-                        </small>
-                        <span class="fw-bold">{{wewaran.sadwara}}</span>
+                        <small class="text-muted d-block small"> Sadwara</small>
+                        <span class="fw-bold">{{kala_candra.sadwara["sadwara"]}}</span>
                     </div>
                 </div>
             </li>
             
             <li class="list-group-item p-3">
                 <div class="row g-3">
+                    <div class="col-6 border-end">
+                        <small class="text-muted d-block small">Dewataun</small>
+                        <span class="fw-bold">{{kala_candra.dewataun}}</span>
+                    </div>
+                    <div class="col-6 ps-3">
+                        <small class="text-muted d-block small">Jenis taun</small>
+                        <span class="fw-bold">{{kala_candra.jenis_tahun}}</span>
+                        <small class="text-secondary">({{kala_candra.panjang_tahun}} hari)</small>
+                    </div>
+                </div>
+            </li>
+
+            <li class="list-group-item p-3">
+                <div class="row g-3">
                         <div class="col-6 border-end">
-                                <small class="text-muted d-block small">Dewataun
-                                    <a href="" class="btn-detail" data-bs-toggle="offcanvas" data-bs-target="#kalenderjawa" aria-controls="offcanvasBottom" data-id="8">
-                                    <i class="fi fi-br-info"></i>
-                                    </a>
-                                </small>
-                            <span class="fw-bold">{{kala_candra.dewataun}}</span>
+                            <small class="text-muted d-block small">Windu</small>
+                            <span class="fw-bold">{{kala_candra.windu["nama"]}}</span>
+                            <small class="text-secondary">({{kala_candra.windu["tahun_awal"]}} - {{kala_candra.windu["tahun_akhir"]}}, tunggul ke {{kala_candra.windu["nomor_tunggul"]}})</small> 
                         </div>
                         <div class="col-6 ps-3">
-                                <small class="text-muted d-block small">Jenis taun
-                                    <a href="" class="btn-detail" data-bs-toggle="offcanvas" data-bs-target="#kalenderjawa" aria-controls="offcanvasBottom" data-id="7">
-                                    <i class="fi fi-br-info"></i>
-                                    </a>
-                                </small>
-                            <span class="fw-bold">{{kala_candra.jenis_tahun}} ({{kala_candra.panjang_tahun}} hari)</span>
+                                <small class="text-muted d-block small">Indung Poe</small>
+                                <span class="fw-bold">{{kala_candra.indung_poe["indung_poe"]}}</span>
                         </div>
 
                 </div>
             </li>
         </ul>
+
+        <!-- <span class="fw-bold mt-2">Poé-poé Hadé jeung Goréng</span>
+        <small class="text-muted d-block small">
+            Hari baik dan buruk (Poé-poé hadé jeung goréng) ditentukan berdasarkan perhitungan paririmbon (kalender tradisional) Caka Sunda yang dapat dijadikan rujukan dalam menjalani kehidupan sehari-hari, termasuk saat hendak melaksanakan berbagai hajat atau pekerjaan penting.
+        </small>
+        <div class="border rounded-3 overflow-auto">
+        <table class="table table-striped mb-0" style="font-size: 0.8rem;">
+          <thead>
+            <tr>
+              <th scope="col" colspan="2" class="text-center">Dawuh 1</th>
+              <th scope="col" colspan="2" class="text-center">Dawuh 2</th>
+              <th scope="col" colspan="2" class="text-center">Dawuh 3</th>
+              <th scope="col" colspan="2" class="text-center">Dawuh 4</th>
+              <th scope="col" colspan="2" class="text-center">Dawuh 5</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-center fw-medium">Salamet</td>
+              <td class="text-center fw-medium">Rejeki</td>
+              <td class="text-center fw-medium">Salamet</td>
+              <td class="text-center fw-medium">Rejeki</td>
+              <td class="text-center fw-medium">Salamet</td>
+              <td class="text-center fw-medium">Rejeki</td>
+              <td class="text-center fw-medium">Salamet</td>
+              <td class="text-center fw-medium">Rejeki</td>
+              <td class="text-center fw-medium">Salamet</td>
+              <td class="text-center fw-medium">Rejeki</td>
+            </tr>
+            <tr>
+              <td class="text-center">Salamet</td>
+              <td class="text-center">Rejeki</td>
+              <td class="text-center">Salamet</td>
+              <td class="text-center">Rejeki</td>
+              <td class="text-center">Salamet</td>
+              <td class="text-center">Rejeki</td>
+              <td class="text-center">Salamet</td>
+              <td class="text-center">Rejeki</td>
+              <td class="text-center">Salamet</td>
+              <td class="text-center">Rejeki</td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+        
+        <div class="d-flex justify-content-center justify-content-center mt-3 gap-2">
+          <span class="badge text-bg-success">Poé Hadé</span>
+          <i class="fi fi-br-arrow-right"></i>
+          <span class="badge text-bg-warning">Poé Goréng</span>
+        </div>
+
+        <small class="text-muted d-block small mt-3">
+            Hal ini hanyalah sebatas pedoman dan tidak perlu dianggap sebagai sesuatu yang mutlak.
+        </small> -->
 
     </section>
 

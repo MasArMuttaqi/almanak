@@ -1,0 +1,1198 @@
+{
+  "nama_sistem": "Poé-poé Hadé jeung Goréng",
+  "sumber_data": "Transkripsi tabel Kartika 1959 dari pengguna",
+  "tahun": 1959,
+  "bulan": "Kartika",
+  "jumlah_data": 30,
+  "keterangan": {
+    "kode_paksa": {
+      "s": "Suklapaksa",
+      "k": "Kresnapaksa"
+    },
+    "urutan_waktu": [
+      "Dawuh 1 Salamet",
+      "Dawuh 1 Rejeki",
+      "Dawuh 2 Salamet",
+      "Dawuh 2 Rejeki",
+      "Dawuh 3 Salamet",
+      "Dawuh 3 Rejeki",
+      "Dawuh 4 Salamet",
+      "Dawuh 4 Rejeki",
+      "Dawuh 5 Salamet",
+      "Dawuh 5 Rejeki"
+    ],
+    "catatan": "Angka dan istilah dipertahankan sesuai tabel sumber. Waktu tidak diurutkan ulang secara kronologis."
+  },
+  "data": [
+    {
+      "kaping": 1,
+      "kode_kaping": "1s",
+      "paksa": "Suklapaksa",
+      "poe": "Sukra",
+      "pasar": "Pahing",
+      "dawuh": [
+        {
+          "nomor": 1,
+          "salamet": "8:00",
+          "rejeki": "5:36"
+        },
+        {
+          "nomor": 2,
+          "salamet": "9:36",
+          "rejeki": "10:00"
+        },
+        {
+          "nomor": 3,
+          "salamet": "11:12",
+          "rejeki": "11:36"
+        },
+        {
+          "nomor": 4,
+          "salamet": "12:48",
+          "rejeki": "17:00"
+        },
+        {
+          "nomor": 5,
+          "salamet": "14:36",
+          "rejeki": "15:12"
+        }
+      ],
+      "klasifikasi": {
+        "poe_hade": "jaya semah",
+        "poe_goreng": "manggih harja"
+      },
+      "status_verifikasi": "transkripsi_pengguna"
+    },
+    {
+      "kaping": 2,
+      "kode_kaping": "2s",
+      "paksa": "Suklapaksa",
+      "poe": "Tumpek",
+      "pasar": "Pon",
+      "dawuh": [
+        {
+          "nomor": 1,
+          "salamet": "5:36",
+          "rejeki": "6:12"
+        },
+        {
+          "nomor": 2,
+          "salamet": "10:00",
+          "rejeki": "8:24"
+        },
+        {
+          "nomor": 3,
+          "salamet": "11:36",
+          "rejeki": "12:00"
+        },
+        {
+          "nomor": 4,
+          "salamet": "10:24",
+          "rejeki": "12:36"
+        },
+        {
+          "nomor": 5,
+          "salamet": "15:12",
+          "rejeki": "15:48"
+        }
+      ],
+      "klasifikasi": {
+        "poe_hade": "pada jaya",
+        "poe_goreng": "manggih tuna"
+      },
+      "status_verifikasi": "transkripsi_pengguna"
+    },
+    {
+      "kaping": 3,
+      "kode_kaping": "3s",
+      "paksa": "Suklapaksa",
+      "poe": "Radité",
+      "pasar": "Wagé",
+      "dawuh": [
+        {
+          "nomor": 1,
+          "salamet": "6:12",
+          "rejeki": "6:48"
+        },
+        {
+          "nomor": 2,
+          "salamet": "8:24",
+          "rejeki": "8:48"
+        },
+        {
+          "nomor": 3,
+          "salamet": "12:00",
+          "rejeki": "10:24"
+        },
+        {
+          "nomor": 4,
+          "salamet": "12:36",
+          "rejeki": "14:00"
+        },
+        {
+          "nomor": 5,
+          "salamet": "15:48",
+          "rejeki": "16:24"
+        }
+      ],
+      "klasifikasi": {
+        "poe_hade": "jaya semah",
+        "poe_goreng": "manggih susah"
+      },
+      "status_verifikasi": "transkripsi_pengguna"
+    },
+    {
+      "kaping": 4,
+      "kode_kaping": "4s",
+      "paksa": "Suklapaksa",
+      "poe": "Soma",
+      "pasar": "Kaliwon",
+      "dawuh": [
+        {
+          "nomor": 1,
+          "salamet": "6:48",
+          "rejeki": "7:24"
+        },
+        {
+          "nomor": 2,
+          "salamet": "8:48",
+          "rejeki": "9:12"
+        },
+        {
+          "nomor": 3,
+          "salamet": "9:36",
+          "rejeki": "10:00"
+        },
+        {
+          "nomor": 4,
+          "salamet": "8:24",
+          "rejeki": "8:48"
+        },
+        {
+          "nomor": 5,
+          "salamet": "9:12",
+          "rejeki": "9:36"
+        }
+      ],
+      "klasifikasi": {
+        "poe_hade": "jaya pribumi",
+        "poe_goreng": "manggih wirang"
+      },
+      "status_verifikasi": "transkripsi_pengguna"
+    },
+    {
+      "kaping": 5,
+      "kode_kaping": "5s",
+      "paksa": "Suklapaksa",
+      "poe": "Anggara",
+      "pasar": "Manis",
+      "dawuh": [
+        {
+          "nomor": 1,
+          "salamet": "6:48",
+          "rejeki": "8:00"
+        },
+        {
+          "nomor": 2,
+          "salamet": "9:12",
+          "rejeki": "9:36"
+        },
+        {
+          "nomor": 3,
+          "salamet": "10:48",
+          "rejeki": "11:12"
+        },
+        {
+          "nomor": 4,
+          "salamet": "11:36",
+          "rejeki": "12:48"
+        },
+        {
+          "nomor": 5,
+          "salamet": "17:00",
+          "rejeki": "14:36"
+        }
+      ],
+      "klasifikasi": {
+        "poe_hade": "pada apes",
+        "poe_goreng": "manggih susah"
+      },
+      "status_verifikasi": "transkripsi_pengguna"
+    },
+    {
+      "kaping": 6,
+      "kode_kaping": "6s",
+      "paksa": "Suklapaksa",
+      "poe": "Buda",
+      "pasar": "Pahing",
+      "dawuh": [
+        {
+          "nomor": 1,
+          "salamet": "8:00",
+          "rejeki": "5:36"
+        },
+        {
+          "nomor": 2,
+          "salamet": "9:36",
+          "rejeki": "10:00"
+        },
+        {
+          "nomor": 3,
+          "salamet": "11:12",
+          "rejeki": "11:36"
+        },
+        {
+          "nomor": 4,
+          "salamet": "12:48",
+          "rejeki": "17:00"
+        },
+        {
+          "nomor": 5,
+          "salamet": "14:36",
+          "rejeki": "15:12"
+        }
+      ],
+      "klasifikasi": {
+        "poe_hade": "pada jaya",
+        "poe_goreng": "manggih harja"
+      },
+      "status_verifikasi": "transkripsi_pengguna"
+    },
+    {
+      "kaping": 7,
+      "kode_kaping": "7s",
+      "paksa": "Suklapaksa",
+      "poe": "Respati",
+      "pasar": "Pon",
+      "dawuh": [
+        {
+          "nomor": 1,
+          "salamet": "5:36",
+          "rejeki": "6:12"
+        },
+        {
+          "nomor": 2,
+          "salamet": "10:00",
+          "rejeki": "8:24"
+        },
+        {
+          "nomor": 3,
+          "salamet": "11:36",
+          "rejeki": "12:00"
+        },
+        {
+          "nomor": 4,
+          "salamet": "10:24",
+          "rejeki": "12:36"
+        },
+        {
+          "nomor": 5,
+          "salamet": "15:12",
+          "rejeki": "15:48"
+        }
+      ],
+      "klasifikasi": {
+        "poe_hade": "jaya semah",
+        "poe_goreng": "manggih tuna"
+      },
+      "status_verifikasi": "transkripsi_pengguna"
+    },
+    {
+      "kaping": 8,
+      "kode_kaping": "8s",
+      "paksa": "Suklapaksa",
+      "poe": "Sukra",
+      "pasar": "Wagé",
+      "dawuh": [
+        {
+          "nomor": 1,
+          "salamet": "6:12",
+          "rejeki": "6:48"
+        },
+        {
+          "nomor": 2,
+          "salamet": "8:24",
+          "rejeki": "8:48"
+        },
+        {
+          "nomor": 3,
+          "salamet": "12:00",
+          "rejeki": "10:24"
+        },
+        {
+          "nomor": 4,
+          "salamet": "12:36",
+          "rejeki": "14:00"
+        },
+        {
+          "nomor": 5,
+          "salamet": "15:48",
+          "rejeki": "16:24"
+        }
+      ],
+      "klasifikasi": {
+        "poe_hade": "jaya pribumi",
+        "poe_goreng": "manggih susah"
+      },
+      "status_verifikasi": "transkripsi_pengguna"
+    },
+    {
+      "kaping": 9,
+      "kode_kaping": "9s",
+      "paksa": "Suklapaksa",
+      "poe": "Tumpek",
+      "pasar": "Kaliwon",
+      "dawuh": [
+        {
+          "nomor": 1,
+          "salamet": "6:48",
+          "rejeki": "7:24"
+        },
+        {
+          "nomor": 2,
+          "salamet": "8:48",
+          "rejeki": "9:12"
+        },
+        {
+          "nomor": 3,
+          "salamet": "9:36",
+          "rejeki": "10:00"
+        },
+        {
+          "nomor": 4,
+          "salamet": "8:24",
+          "rejeki": "8:48"
+        },
+        {
+          "nomor": 5,
+          "salamet": "9:12",
+          "rejeki": "9:36"
+        }
+      ],
+      "klasifikasi": {
+        "poe_hade": "jaya semah",
+        "poe_goreng": "manggih wirang"
+      },
+      "status_verifikasi": "transkripsi_pengguna"
+    },
+    {
+      "kaping": 10,
+      "kode_kaping": "10s",
+      "paksa": "Suklapaksa",
+      "poe": "Radité",
+      "pasar": "Manis",
+      "dawuh": [
+        {
+          "nomor": 1,
+          "salamet": "6:48",
+          "rejeki": "8:00"
+        },
+        {
+          "nomor": 2,
+          "salamet": "9:12",
+          "rejeki": "9:36"
+        },
+        {
+          "nomor": 3,
+          "salamet": "10:48",
+          "rejeki": "11:12"
+        },
+        {
+          "nomor": 4,
+          "salamet": "11:36",
+          "rejeki": "12:48"
+        },
+        {
+          "nomor": 5,
+          "salamet": "17:00",
+          "rejeki": "14:36"
+        }
+      ],
+      "klasifikasi": {
+        "poe_hade": "pada jaya",
+        "poe_goreng": "manggih susah"
+      },
+      "status_verifikasi": "transkripsi_pengguna"
+    },
+    {
+      "kaping": 11,
+      "kode_kaping": "11s",
+      "paksa": "Suklapaksa",
+      "poe": "Soma",
+      "pasar": "Pahing",
+      "dawuh": [
+        {
+          "nomor": 1,
+          "salamet": "8:00",
+          "rejeki": "5:36"
+        },
+        {
+          "nomor": 2,
+          "salamet": "9:36",
+          "rejeki": "10:00"
+        },
+        {
+          "nomor": 3,
+          "salamet": "11:12",
+          "rejeki": "11:36"
+        },
+        {
+          "nomor": 4,
+          "salamet": "12:48",
+          "rejeki": "17:00"
+        },
+        {
+          "nomor": 5,
+          "salamet": "14:36",
+          "rejeki": "15:12"
+        }
+      ],
+      "klasifikasi": {
+        "poe_hade": "jaya semah",
+        "poe_goreng": "manggih harja"
+      },
+      "status_verifikasi": "transkripsi_pengguna"
+    },
+    {
+      "kaping": 12,
+      "kode_kaping": "12s",
+      "paksa": "Suklapaksa",
+      "poe": "Anggara",
+      "pasar": "Pon",
+      "dawuh": [
+        {
+          "nomor": 1,
+          "salamet": "5:36",
+          "rejeki": "6:12"
+        },
+        {
+          "nomor": 2,
+          "salamet": "10:00",
+          "rejeki": "8:24"
+        },
+        {
+          "nomor": 3,
+          "salamet": "11:36",
+          "rejeki": "12:00"
+        },
+        {
+          "nomor": 4,
+          "salamet": "10:24",
+          "rejeki": "12:36"
+        },
+        {
+          "nomor": 5,
+          "salamet": "15:12",
+          "rejeki": "15:48"
+        }
+      ],
+      "klasifikasi": {
+        "poe_hade": "jaya pribumi",
+        "poe_goreng": "manggih tuna"
+      },
+      "status_verifikasi": "transkripsi_pengguna"
+    },
+    {
+      "kaping": 13,
+      "kode_kaping": "13s",
+      "paksa": "Suklapaksa",
+      "poe": "Buda",
+      "pasar": "Wagé",
+      "dawuh": [
+        {
+          "nomor": 1,
+          "salamet": "6:12",
+          "rejeki": "6:48"
+        },
+        {
+          "nomor": 2,
+          "salamet": "8:24",
+          "rejeki": "8:48"
+        },
+        {
+          "nomor": 3,
+          "salamet": "12:00",
+          "rejeki": "10:24"
+        },
+        {
+          "nomor": 4,
+          "salamet": "12:36",
+          "rejeki": "14:00"
+        },
+        {
+          "nomor": 5,
+          "salamet": "15:48",
+          "rejeki": "16:24"
+        }
+      ],
+      "klasifikasi": {
+        "poe_hade": "pada apes",
+        "poe_goreng": "manggih susah"
+      },
+      "status_verifikasi": "transkripsi_pengguna"
+    },
+    {
+      "kaping": 14,
+      "kode_kaping": "14s",
+      "paksa": "Suklapaksa",
+      "poe": "Respati",
+      "pasar": "Kaliwon",
+      "dawuh": [
+        {
+          "nomor": 1,
+          "salamet": "6:48",
+          "rejeki": "7:24"
+        },
+        {
+          "nomor": 2,
+          "salamet": "8:48",
+          "rejeki": "9:12"
+        },
+        {
+          "nomor": 3,
+          "salamet": "9:36",
+          "rejeki": "10:00"
+        },
+        {
+          "nomor": 4,
+          "salamet": "8:24",
+          "rejeki": "8:48"
+        },
+        {
+          "nomor": 5,
+          "salamet": "9:12",
+          "rejeki": "9:36"
+        }
+      ],
+      "klasifikasi": {
+        "poe_hade": "pada jaya",
+        "poe_goreng": "manggih wirang"
+      },
+      "status_verifikasi": "transkripsi_pengguna"
+    },
+    {
+      "kaping": 15,
+      "kode_kaping": "15s",
+      "paksa": "Suklapaksa",
+      "poe": "Sukra",
+      "pasar": "Manis",
+      "dawuh": [
+        {
+          "nomor": 1,
+          "salamet": "6:48",
+          "rejeki": "8:00"
+        },
+        {
+          "nomor": 2,
+          "salamet": "9:12",
+          "rejeki": "9:36"
+        },
+        {
+          "nomor": 3,
+          "salamet": "10:48",
+          "rejeki": "11:12"
+        },
+        {
+          "nomor": 4,
+          "salamet": "11:36",
+          "rejeki": "12:48"
+        },
+        {
+          "nomor": 5,
+          "salamet": "17:00",
+          "rejeki": "14:36"
+        }
+      ],
+      "klasifikasi": {
+        "poe_hade": "jaya semah",
+        "poe_goreng": "manggih susah"
+      },
+      "status_verifikasi": "transkripsi_pengguna"
+    },
+    {
+      "kaping": 1,
+      "kode_kaping": "1k",
+      "paksa": "Kresnapaksa",
+      "poe": "Tumpek",
+      "pasar": "Pahing",
+      "dawuh": [
+        {
+          "nomor": 1,
+          "salamet": "8:00",
+          "rejeki": "5:36"
+        },
+        {
+          "nomor": 2,
+          "salamet": "9:36",
+          "rejeki": "10:00"
+        },
+        {
+          "nomor": 3,
+          "salamet": "11:12",
+          "rejeki": "11:36"
+        },
+        {
+          "nomor": 4,
+          "salamet": "12:48",
+          "rejeki": "17:00"
+        },
+        {
+          "nomor": 5,
+          "salamet": "14:36",
+          "rejeki": "15:12"
+        }
+      ],
+      "klasifikasi": {
+        "poe_hade": "jaya pribumi",
+        "poe_goreng": "manggih harja"
+      },
+      "status_verifikasi": "transkripsi_pengguna"
+    },
+    {
+      "kaping": 2,
+      "kode_kaping": "2k",
+      "paksa": "Kresnapaksa",
+      "poe": "Radité",
+      "pasar": "Pon",
+      "dawuh": [
+        {
+          "nomor": 1,
+          "salamet": "5:36",
+          "rejeki": "6:12"
+        },
+        {
+          "nomor": 2,
+          "salamet": "10:00",
+          "rejeki": "8:24"
+        },
+        {
+          "nomor": 3,
+          "salamet": "11:36",
+          "rejeki": "12:00"
+        },
+        {
+          "nomor": 4,
+          "salamet": "10:24",
+          "rejeki": "12:36"
+        },
+        {
+          "nomor": 5,
+          "salamet": "15:12",
+          "rejeki": "15:48"
+        }
+      ],
+      "klasifikasi": {
+        "poe_hade": "jaya semah",
+        "poe_goreng": "manggih tuna"
+      },
+      "status_verifikasi": "transkripsi_pengguna"
+    },
+    {
+      "kaping": 3,
+      "kode_kaping": "3k",
+      "paksa": "Kresnapaksa",
+      "poe": "Soma",
+      "pasar": "Wagé",
+      "dawuh": [
+        {
+          "nomor": 1,
+          "salamet": "6:12",
+          "rejeki": "6:48"
+        },
+        {
+          "nomor": 2,
+          "salamet": "8:24",
+          "rejeki": "8:48"
+        },
+        {
+          "nomor": 3,
+          "salamet": "12:00",
+          "rejeki": "10:24"
+        },
+        {
+          "nomor": 4,
+          "salamet": "12:36",
+          "rejeki": "14:00"
+        },
+        {
+          "nomor": 5,
+          "salamet": "15:48",
+          "rejeki": "16:24"
+        }
+      ],
+      "klasifikasi": {
+        "poe_hade": "pada jaya",
+        "poe_goreng": "manggih susah"
+      },
+      "status_verifikasi": "transkripsi_pengguna"
+    },
+    {
+      "kaping": 4,
+      "kode_kaping": "4k",
+      "paksa": "Kresnapaksa",
+      "poe": "Anggara",
+      "pasar": "Kaliwon",
+      "dawuh": [
+        {
+          "nomor": 1,
+          "salamet": "6:48",
+          "rejeki": "7:24"
+        },
+        {
+          "nomor": 2,
+          "salamet": "8:48",
+          "rejeki": "9:12"
+        },
+        {
+          "nomor": 3,
+          "salamet": "9:36",
+          "rejeki": "10:00"
+        },
+        {
+          "nomor": 4,
+          "salamet": "8:24",
+          "rejeki": "8:48"
+        },
+        {
+          "nomor": 5,
+          "salamet": "9:12",
+          "rejeki": "9:36"
+        }
+      ],
+      "klasifikasi": {
+        "poe_hade": "jaya semah",
+        "poe_goreng": "manggih wirang"
+      },
+      "status_verifikasi": "transkripsi_pengguna"
+    },
+    {
+      "kaping": 5,
+      "kode_kaping": "5k",
+      "paksa": "Kresnapaksa",
+      "poe": "Buda",
+      "pasar": "Manis",
+      "dawuh": [
+        {
+          "nomor": 1,
+          "salamet": "6:48",
+          "rejeki": "8:00"
+        },
+        {
+          "nomor": 2,
+          "salamet": "9:12",
+          "rejeki": "9:36"
+        },
+        {
+          "nomor": 3,
+          "salamet": "10:48",
+          "rejeki": "11:12"
+        },
+        {
+          "nomor": 4,
+          "salamet": "11:36",
+          "rejeki": "12:48"
+        },
+        {
+          "nomor": 5,
+          "salamet": "17:00",
+          "rejeki": "14:36"
+        }
+      ],
+      "klasifikasi": {
+        "poe_hade": "jaya pribumi",
+        "poe_goreng": "manggih susah"
+      },
+      "status_verifikasi": "transkripsi_pengguna"
+    },
+    {
+      "kaping": 6,
+      "kode_kaping": "6k",
+      "paksa": "Kresnapaksa",
+      "poe": "Respati",
+      "pasar": "Pahing",
+      "dawuh": [
+        {
+          "nomor": 1,
+          "salamet": "8:00",
+          "rejeki": "5:36"
+        },
+        {
+          "nomor": 2,
+          "salamet": "9:36",
+          "rejeki": "10:00"
+        },
+        {
+          "nomor": 3,
+          "salamet": "11:12",
+          "rejeki": "11:36"
+        },
+        {
+          "nomor": 4,
+          "salamet": "12:48",
+          "rejeki": "17:00"
+        },
+        {
+          "nomor": 5,
+          "salamet": "14:36",
+          "rejeki": "15:12"
+        }
+      ],
+      "klasifikasi": {
+        "poe_hade": "pada apes",
+        "poe_goreng": "manggih harja"
+      },
+      "status_verifikasi": "transkripsi_pengguna"
+    },
+    {
+      "kaping": 7,
+      "kode_kaping": "7k",
+      "paksa": "Kresnapaksa",
+      "poe": "Sukra",
+      "pasar": "Pon",
+      "dawuh": [
+        {
+          "nomor": 1,
+          "salamet": "5:36",
+          "rejeki": "6:12"
+        },
+        {
+          "nomor": 2,
+          "salamet": "10:00",
+          "rejeki": "8:24"
+        },
+        {
+          "nomor": 3,
+          "salamet": "11:36",
+          "rejeki": "12:00"
+        },
+        {
+          "nomor": 4,
+          "salamet": "10:24",
+          "rejeki": "12:36"
+        },
+        {
+          "nomor": 5,
+          "salamet": "15:12",
+          "rejeki": "15:48"
+        }
+      ],
+      "klasifikasi": {
+        "poe_hade": "pada jaya",
+        "poe_goreng": "manggih tuna"
+      },
+      "status_verifikasi": "transkripsi_pengguna"
+    },
+    {
+      "kaping": 8,
+      "kode_kaping": "8k",
+      "paksa": "Kresnapaksa",
+      "poe": "Tumpek",
+      "pasar": "Wagé",
+      "dawuh": [
+        {
+          "nomor": 1,
+          "salamet": "6:12",
+          "rejeki": "6:48"
+        },
+        {
+          "nomor": 2,
+          "salamet": "8:24",
+          "rejeki": "8:48"
+        },
+        {
+          "nomor": 3,
+          "salamet": "12:00",
+          "rejeki": "10:24"
+        },
+        {
+          "nomor": 4,
+          "salamet": "12:36",
+          "rejeki": "14:00"
+        },
+        {
+          "nomor": 5,
+          "salamet": "15:48",
+          "rejeki": "16:24"
+        }
+      ],
+      "klasifikasi": {
+        "poe_hade": "jaya semah",
+        "poe_goreng": "manggih susah"
+      },
+      "status_verifikasi": "transkripsi_pengguna"
+    },
+    {
+      "kaping": 9,
+      "kode_kaping": "9k",
+      "paksa": "Kresnapaksa",
+      "poe": "Radité",
+      "pasar": "Kaliwon",
+      "dawuh": [
+        {
+          "nomor": 1,
+          "salamet": "6:48",
+          "rejeki": "7:24"
+        },
+        {
+          "nomor": 2,
+          "salamet": "8:48",
+          "rejeki": "9:12"
+        },
+        {
+          "nomor": 3,
+          "salamet": "9:36",
+          "rejeki": "10:00"
+        },
+        {
+          "nomor": 4,
+          "salamet": "8:24",
+          "rejeki": "8:48"
+        },
+        {
+          "nomor": 5,
+          "salamet": "9:12",
+          "rejeki": "9:36"
+        }
+      ],
+      "klasifikasi": {
+        "poe_hade": "jaya pribumi",
+        "poe_goreng": "manggih wirang"
+      },
+      "status_verifikasi": "transkripsi_pengguna"
+    },
+    {
+      "kaping": 10,
+      "kode_kaping": "10k",
+      "paksa": "Kresnapaksa",
+      "poe": "Soma",
+      "pasar": "Manis",
+      "dawuh": [
+        {
+          "nomor": 1,
+          "salamet": "6:48",
+          "rejeki": "8:00"
+        },
+        {
+          "nomor": 2,
+          "salamet": "9:12",
+          "rejeki": "9:36"
+        },
+        {
+          "nomor": 3,
+          "salamet": "10:48",
+          "rejeki": "11:12"
+        },
+        {
+          "nomor": 4,
+          "salamet": "11:36",
+          "rejeki": "12:48"
+        },
+        {
+          "nomor": 5,
+          "salamet": "17:00",
+          "rejeki": "14:36"
+        }
+      ],
+      "klasifikasi": {
+        "poe_hade": "jaya semah",
+        "poe_goreng": "manggih susah"
+      },
+      "status_verifikasi": "transkripsi_pengguna"
+    },
+    {
+      "kaping": 11,
+      "kode_kaping": "11k",
+      "paksa": "Kresnapaksa",
+      "poe": "Anggara",
+      "pasar": "Pahing",
+      "dawuh": [
+        {
+          "nomor": 1,
+          "salamet": "8:00",
+          "rejeki": "5:36"
+        },
+        {
+          "nomor": 2,
+          "salamet": "9:36",
+          "rejeki": "10:00"
+        },
+        {
+          "nomor": 3,
+          "salamet": "11:12",
+          "rejeki": "11:36"
+        },
+        {
+          "nomor": 4,
+          "salamet": "12:48",
+          "rejeki": "17:00"
+        },
+        {
+          "nomor": 5,
+          "salamet": "14:36",
+          "rejeki": "15:12"
+        }
+      ],
+      "klasifikasi": {
+        "poe_hade": "pada jaya",
+        "poe_goreng": "manggih harja"
+      },
+      "status_verifikasi": "transkripsi_pengguna"
+    },
+    {
+      "kaping": 12,
+      "kode_kaping": "12k",
+      "paksa": "Kresnapaksa",
+      "poe": "Buda",
+      "pasar": "Pon",
+      "dawuh": [
+        {
+          "nomor": 1,
+          "salamet": "5:36",
+          "rejeki": "6:12"
+        },
+        {
+          "nomor": 2,
+          "salamet": "10:00",
+          "rejeki": "8:24"
+        },
+        {
+          "nomor": 3,
+          "salamet": "11:36",
+          "rejeki": "12:00"
+        },
+        {
+          "nomor": 4,
+          "salamet": "10:24",
+          "rejeki": "12:36"
+        },
+        {
+          "nomor": 5,
+          "salamet": "15:12",
+          "rejeki": "15:48"
+        }
+      ],
+      "klasifikasi": {
+        "poe_hade": "jaya semah",
+        "poe_goreng": "manggih tuna"
+      },
+      "status_verifikasi": "transkripsi_pengguna"
+    },
+    {
+      "kaping": 13,
+      "kode_kaping": "13k",
+      "paksa": "Kresnapaksa",
+      "poe": "Respati",
+      "pasar": "Wagé",
+      "dawuh": [
+        {
+          "nomor": 1,
+          "salamet": "6:12",
+          "rejeki": "6:48"
+        },
+        {
+          "nomor": 2,
+          "salamet": "8:24",
+          "rejeki": "8:48"
+        },
+        {
+          "nomor": 3,
+          "salamet": "12:00",
+          "rejeki": "10:24"
+        },
+        {
+          "nomor": 4,
+          "salamet": "12:36",
+          "rejeki": "14:00"
+        },
+        {
+          "nomor": 5,
+          "salamet": "15:48",
+          "rejeki": "16:24"
+        }
+      ],
+      "klasifikasi": {
+        "poe_hade": "jaya pribumi",
+        "poe_goreng": "manggih susah"
+      },
+      "status_verifikasi": "transkripsi_pengguna"
+    },
+    {
+      "kaping": 14,
+      "kode_kaping": "14k",
+      "paksa": "Kresnapaksa",
+      "poe": "Sukra",
+      "pasar": "Kaliwon",
+      "dawuh": [
+        {
+          "nomor": 1,
+          "salamet": "6:48",
+          "rejeki": "7:24"
+        },
+        {
+          "nomor": 2,
+          "salamet": "8:48",
+          "rejeki": "9:12"
+        },
+        {
+          "nomor": 3,
+          "salamet": "9:36",
+          "rejeki": "10:00"
+        },
+        {
+          "nomor": 4,
+          "salamet": "8:24",
+          "rejeki": "8:48"
+        },
+        {
+          "nomor": 5,
+          "salamet": "9:12",
+          "rejeki": "9:36"
+        }
+      ],
+      "klasifikasi": {
+        "poe_hade": "pada apes",
+        "poe_goreng": "manggih wirang"
+      },
+      "status_verifikasi": "transkripsi_pengguna"
+    },
+    {
+      "kaping": 15,
+      "kode_kaping": "15k",
+      "paksa": "Kresnapaksa",
+      "poe": "Tumpek",
+      "pasar": "Manis",
+      "dawuh": [
+        {
+          "nomor": 1,
+          "salamet": "6:48",
+          "rejeki": "8:00"
+        },
+        {
+          "nomor": 2,
+          "salamet": "9:12",
+          "rejeki": "9:36"
+        },
+        {
+          "nomor": 3,
+          "salamet": "10:48",
+          "rejeki": "11:12"
+        },
+        {
+          "nomor": 4,
+          "salamet": "11:36",
+          "rejeki": "12:48"
+        },
+        {
+          "nomor": 5,
+          "salamet": "17:00",
+          "rejeki": "14:36"
+        }
+      ],
+      "klasifikasi": {
+        "poe_hade": "pada jaya",
+        "poe_goreng": "manggih susah"
+      },
+      "status_verifikasi": "transkripsi_pengguna"
+    }
+  ]
+}

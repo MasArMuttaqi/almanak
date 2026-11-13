@@ -24,7 +24,7 @@ from hisab_wujud_hilal import set_markaz as set_markaz_wujud, hisab
 from hijriah_kgth import get_hijriah
 from surya_kala_sunda import *
 from kala_candra_sunda import kalacandra_sunda
-from wewaran_kala_candra_sunda import hitung_wara_sunda
+# from paririmbon_sunda import hitung_paririmbon_sunda
 from generate_version import write_version_file
 from jadwalsholat import Lokasi, ParameterSalat,hitung_jadwal
 
@@ -230,7 +230,15 @@ def kalendersunda():
     tanggal_masehi = format_tanggal_indonesia(tanggal)
     kala_surya_sunda = konversi_masehi_ke_sunda(tanggal.year, tanggal.month, tanggal.day)
     kala_candra_sunda = kalacandra_sunda(tanggal)
-    wewaran_sunda = hitung_wara_sunda(tanggal)
+
+    # data_paririmbon = {
+    #     "tanggal": kala_candra_sunda["tanggal"],
+    #     "bulan": kala_candra_sunda["bulan"],
+    #     "tahun": kala_candra_sunda["tahun"],
+    #     "paksa": kala_candra_sunda["tanggal_paksa"]["paksa"]
+    # }
+
+    # paririmbon_sunda = hitung_paririmbon_sunda(data_paririmbon)
     
     with open("data/fasebulan.json", "r") as fasebulan_file:
         fasebulan = json.load(fasebulan_file)
@@ -242,7 +250,9 @@ def kalendersunda():
         if int(item["penomoran_tanggal"]) == int(nomor_tanggal)
     ]
 
-    return render_template("kalendersunda.html", tanggal_masehi=tanggal_masehi, kala_surya=kala_surya_sunda, kala_candra=kala_candra_sunda, fasebulan=fasebulan_hari_ini, wewaran=wewaran_sunda)
+
+
+    return render_template("kalendersunda.html", tanggal_masehi=tanggal_masehi, kala_surya=kala_surya_sunda, kala_candra=kala_candra_sunda, fasebulan=fasebulan_hari_ini)
 
 
 def nama_lokasi_dari_koordinat(lintang, bujur):
