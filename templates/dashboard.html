@@ -363,7 +363,7 @@ $(document).on('click', 'td[data-tgl]', function () {
         const hari_bookmark = ["Senen Kliwon", "Senen Wage", "Senen Pahing", "Selasa Legi", "Rebo Kliwon", "Rebo Pahing", "Kemis Wage","Setu Legi","Setu Wage","Ahad Pon", "Ahad Kliwon"];
         $('#bookmark').toggle(hari_bookmark.includes(res.hari_pasaran));
         $('#oc-kala-surya-sunda').text(res.kala_surya_sunda);
-        $('#oc-kala-candra-sunda').text(res.kala_candra_sunda + " Caka Sunda");
+        $('#oc-kala-candra-sunda').text(res.kala_candra_sunda);
         $('a[href="/kalendersunda"]').attr('href', function(i, val) {
             return val + '?tanggal=' + formatTanggal(tanggal);
         });

@@ -54,7 +54,7 @@
                     <span class="text-secondary fw-medium">Kala Candra Sunda</span>
                     <span class="text-secondary fw-medium noto-sans-sundanese">ᮊᮜ ᮎᮔ᮪ᮓᮢ ᮞᮥᮔ᮪ᮓ</span>
                 </div>
-                <span class="fw-bold {{ 'text-success' if kala_candra.paksa == 'Suklapaksa' else '' }}">{{kala_candra.tanggal_caka}} Caka Sunda</span>
+                <span class="fw-bold {{ 'text-success' if kala_candra.tanggal_paksa["paksa"] == 'Suklapaksa' else '' }}">{{kala_candra.tanggal_caka}} Caka Sunda</span>
             </li>
             <li class="list-group-item bg-light py-2 text-center" style="border-top: 2px dashed #dee2e6; border-bottom: 2px dashed #dee2e6;">
                 <small class="fw-bold text-muted" style="letter-spacing: 1px;">Siklus Wewaran Candra Kala Sunda</small>
@@ -78,7 +78,7 @@
                         <span class="fw-bold">{{ kala_candra.tanggal_paksa["paksa"] }}</span>
                     </div>
                     <div class="col-6 ps-3">
-                        <small class="text-muted d-block small">Fase rinci dalam {{ kala_candra.paksa }}</small>
+                        <small class="text-muted d-block small">Fase rinci dalam {{ kala_candra.tanggal_paksa["paksa"] }}</small>
                         <span class="fw-bold">{{fasebulan[0].padanan if fasebulan else "Belum tersedia"}}</span> <small class="text-secondary">({{fasebulan[0].istilah_lokal}})</small>
                         <a href="" class="btn-wuku" data-bs-toggle="modal" data-bs-target="#fasebulan"><i class="fi fi-br-arrow-up-right-from-square"></i></a>
                     </div>
