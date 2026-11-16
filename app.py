@@ -174,14 +174,18 @@ def kalenderhijriah():
     # ========================================================
 
     markaz = konfigurasi_markaz.get_markaz(
-        nama_kota=request.args.get("nama_kota"),
+        # nama_kota=request.args.get("nama_kota"),
         lat=request.args.get("lat", type=float),
         lon=request.args.get("lon", type=float),
         tz=request.args.get("tz", type=float)
     )
 
-    # nama_lokasi = nama_lokasi_dari_koordinat(markaz["lat"], markaz["lon"])
+    nama_lokasi = nama_lokasi_dari_koordinat(markaz["lat"], markaz["lon"])
 
+    bagian_lokasi = [x.strip() for x in nama_lokasi.split(",")]
+
+    if len(bagian_lokasi) >= 3:
+        nama_lokasi = ", ".join(bagian_lokasi[-2:])
 
     # ========================================================
     # TERAPKAN MARKAZ KE MESIN HISAB
@@ -220,7 +224,7 @@ def kalenderhijriah():
     with open("data/glosarium_hijriah.json", "r") as raw_glosarium:
             desc = json.load(raw_glosarium)
 
-    return render_template("hijriah.html", data1=hisab_rukyah, data2=hisab_wujud_hilal, data3=hijriah_kgth,datahilal=rukyahhijriah,tanggal_khgt=tanggal_text,nama_kota=markaz["nama_kota"],lat=markaz["lat"],lon=markaz["lon"],tz=markaz["tz"],raw_glosarium=desc)
+    return render_template("hijriah.html", data1=hisab_rukyah, data2=hisab_wujud_hilal, data3=hijriah_kgth,datahilal=rukyahhijriah,tanggal_khgt=tanggal_text,nama_kota=nama_lokasi,lat=markaz["lat"],lon=markaz["lon"],tz=markaz["tz"],raw_glosarium=desc)
 
 @app.route("/kalendersunda")
 def kalendersunda():
@@ -1598,4 +1602,4 @@ def inject_app_metadata():
 
 if __name__ == "__main__":
     # app.run(debug=True)
-    app.run(host="0.0.0.0", port=5001, debug=True)
+    app.run(host="0.0.0.0", port=5003, debug=True)
