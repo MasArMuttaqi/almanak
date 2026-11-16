@@ -1,215 +1,536 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="https://drive.google.com/thumbnail?id=1D5qR0dw-d773IpiNB9uzmKZ81uGyBOq1&amp;sz=w1000">
-    <title>Alamak</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/4.0.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Almanak - Kalender Jawa dan Hijriah</title>
+    <link rel="icon" type="image/x-icon" href="https://drive.google.com/thumbnail?id=1D5qR0dw-d773IpiNB9uzmKZ81uGyBOq1&sz=w1000">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        /* Gaya Kustom untuk mencocokkan desain gambar */
-        /* font */
-        @import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Cairo+Play:wght@200..1000&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&family=Rajdhani:wght@300;400;500;600;700&display=swap');
-        @font-face {
-            font-family: aksara;
-            src:url("https://masarmuttaqi.github.io/almanak/static/nykNgayogyanNew.woff2");
-        }
-        /* font */
-        .aksara{
-             font-family: aksara, serif;
-             /* font-size: 1rem;*/
-             font-variant-ligatures: normal;
-            font-feature-settings: "liga" on, "clig" on, "ccmp" on;
-            -webkit-font-feature-settings: "liga" on, "clig" on, "ccmp" on;
-            text-rendering: optimizeLegibility;
-         }
+      /* Font Imports */
+      @import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Cairo+Play:wght@200..1000&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+      
+      @font-face {
+        font-family: aksara;
+        src: url("https://masarmuttaqi.github.io/almanak/static/nykNgayogyanNew.woff2");
+      }
 
+      body {
+        font-family: 'Plus Jakarta Sans', 'Montserrat', sans-serif;
+        color: #1e293b;
+        overflow-x: hidden;
+      }
 
-        .arabic{
-             font-family: "Cairo Play", sans-serif;
-         }
+      .aksara {
+        font-family: aksara, serif;
+        font-variant-ligatures: normal;
+        font-feature-settings: "liga" on, "clig" on, "ccmp" on;
+        text-rendering: optimizeLegibility;
+      }
 
-        body {
-            /*background-color: #f0f2f5; */
-            /* Latar belakang abu-abu terang */
-            background-image: url("https://i.pinimg.com/736x/83/a7/8c/83a78ca2b6938b14dc6af1a46258af18.jpg");
+      .arabic {
+        font-family: "Cairo Play", sans-serif;
+      }
+
+      /* Navbar Styling */
+      .navbar {
+        background-color: #ffffff;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        padding: 0.75rem 0;
+      }
+
+      .app-icon-container {
+        background-color: #f1f8ff;
+        border: 1px solid #e1e8ed;
+        border-radius: 12px;
+        width: 44px;
+        height: 44px;
+        object-fit: cover;
+      }
+
+      .card-title-text {
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: #333333;
+        margin: 0;
+        min-width: 110px;
+      }
+
+      /* =========================================
+         HERO SECTION (Sesuai Gambar 1)
+         ========================================= */
+      #home {
+        /* background: linear-gradient(135deg, #059669 0%, #047857 100%);*/
+       background-image: url("https://i.pinimg.com/736x/83/a7/8c/83a78ca2b6938b14dc6af1a46258af18.jpg");
             background-size: cover;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+        color: #333333;
+        padding: 5rem 0 4rem 0;
+        position: relative;
+        overflow: hidden;
+      }
 
-        .custom-card {
-            /*background-color: #fff;*/
-            background: rgba(255, 255, 255, 0.45);
-            backdrop-filter: blur(6px);
-            -webkit-backdrop-filter: blur(6px);
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            border-radius: 20px; /* Sudut melengkung halus */
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.1); /* Bayangan lembut */
-            width: 320px;
-            overflow: hidden; /* Memastikan pola latar belakang tetap di dalam */
-            position: relative;
-        }
+      .hero-title {
+        font-size: 2.75rem;
+        font-weight: 700;
+        line-height: 1.2;
+        margin-bottom: 1.25rem;
+      }
 
-        /* Ikon Aplikasi Buatan Kustom menggunakan SVG */
-        .app-icon-container {
-            background-color: #f1f8ff; /* Latar belakang biru yang sangat terang untuk ikon */
-            border: 1px solid #e1e8ed;
-            border-radius: 12px;
-            width: 48px;
-            height: 48px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 24px;
-        }
+      .hero-desc {
+        font-size: 1.05rem;
+        line-height: 1.7;
+        /*color: rgba(255, 255, 255, 0.9);*/
+        margin-bottom: 2rem;
+      }
 
+      .btn-hero-primary {
+        background-color: #111827;
+        color: #ffffff;
+        border: 1px solid #374151;
+        padding: 0.75rem 1.5rem;
+        border-radius: 10px;
+        font-weight: 600;
+        transition: all 0.2s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
 
+      .btn-hero-primary:hover {
+        background-color: #1f2937;
+        color: #ffffff;
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+      }
 
-        /* Penyesuaian tipografi untuk teks judul */
-        .card-title-text {
-            font-size: 20px;
-            font-weight: 500;
-            line-height: 1.3;
-            color: #333;
-            margin-bottom: 30px;
-        }
-        
-        .abstract {
-            font-size: 18px;
-            font-weight: 300;
-        }
+      /* Mockup Dua HP di Hero Section */
+      .hero-mockup-wrapper {
+        position: relative;
+        height: 440px;
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        margin-top: 2rem;
+      }
 
-        /* Tombol 'Buat Baru' yang tipis dan minimalis */
-        .btn-create-new {
-            border-radius: 8px;
-            border: 1px solid #e0e0e0;
-            background-color: #fcfcfc;
-            color: #333;
-            font-size: 1rem;
-            padding: 8px 16px;
-            transition: all 0.2s ease-in-out;
-        }
+      .phone-frame {
+        border-radius: 32px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+        overflow: hidden;
+        transition: transform 0.3s ease;
+      }
 
-        .btn-create-new:hover {
-            background-color: #f1f1f1;
-            border-color: #ccc;
-        }
+      .phone-light {
+        width: 240px;
+        height: 430px;
+        background: #ffffff;
+        border: 8px solid #f8fafc;
+        color: #1e293b;
+        z-index: 2;
+        position: relative;
+        transform: translateX(-25px);
+      }
 
-        .loading{
-            width: 140px;
-            height: 140px;
-            background: rgba(242, 229, 204, 0.45);
-            backdrop-filter: blur(6px);
-            -webkit-backdrop-filter: blur(6px);
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            box-shadow: 0 8px 32px 0 rgba(100, 80, 50, 0.12);
-            border-radius:50%;
+      .phone-dark {
+        width: 220px;
+        height: 390px;
+        background: #18181b;
+        border: 8px solid #27272a;
+        color: #f4f4f5;
+        z-index: 1;
+        position: absolute;
+        transform: translateX(95px) translateY(10px);
+      }
+
+      /* =========================================
+         CAROUSEL FITUR (Sesuai Gambar 2)
+         ========================================= */
+      #fitur {
+        background-color: #eff3f6;
+        padding: 5.5rem 0 4.5rem 0;
+      }
+
+      .feature-slide-content {
+        min-height: 380px;
+        display: flex;
+        align-items: center;
+        padding-bottom: 3rem;
+      }
+
+      /* Mockup HP Miring di Carousel */
+      .tilted-phone {
+        width: 220px;
+        height: 390px;
+        background: #ffffff;
+        border: 8px solid #ffffff;
+        border-radius: 30px;
+        box-shadow: -15px 20px 35px rgba(15, 23, 42, 0.08);
+        transform: rotate(-7deg);
+        margin: 0 auto;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .tilted-phone-header {
+        background-color: #059669;
+        color: white;
+        padding: 1rem;
+        font-size: 0.85rem;
+        font-weight: 600;
+        text-align: center;
+      }
+
+      .tilted-phone-body {
+        padding: 1rem;
+        flex: 1;
+        background: #f8fafc;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .feature-title {
+        font-size: 2.25rem;
+        font-weight: 700;
+        color: #0f292e;
+        margin-bottom: 1.25rem;
+        line-height: 1.25;
+      }
+
+      .feature-text {
+        font-size: 1.1rem;
+        line-height: 1.75;
+        color: #475569;
+        max-width: 500px;
+      }
+
+      /* Indikator Bulat di Bawah Carousel */
+      .custom-indicators {
+        position: relative;
+        margin-top: 1.5rem;
+        margin-bottom: 0;
+        gap: 8px;
+      }
+
+      .custom-indicators [data-bs-target] {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background-color: transparent;
+        border: 2px solid #94a3b8;
+        opacity: 1;
+        transition: all 0.3s ease;
+      }
+
+      .custom-indicators .active {
+        background-color: #64748b;
+        border-color: #64748b;
+        transform: scale(1.15);
+      }
+
+      /* Responsif Mobile */
+      @media (max-width: 768px) {
+        .hero-title {
+          font-size: 2.1rem;
         }
-        .loading img {
-            width: 80px;
-            height: 80px;
-            /*object-fit: contain;*/
+        .phone-light {
+          width: 200px;
+          height: 360px;
+          transform: translateX(-20px);
         }
-        .dropdown-item{
-            font-size: 14px;
+        .phone-dark {
+          width: 185px;
+          height: 330px;
+          transform: translateX(70px);
         }
+        .hero-mockup-wrapper {
+          height: 370px;
+        }
+        .tilted-phone {
+          transform: rotate(0deg);
+          margin-bottom: 2.5rem;
+          width: 200px;
+          height: 340px;
+        }
+        .feature-title {
+          font-size: 1.75rem;
+          text-align: center;
+        }
+        .feature-text {
+          text-align: center;
+          margin: 0 auto;
+        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
 
-    <div class="custom-card p-4">
-        
-        <div class="d-flex d-flex align-items-center gap-3">
-            <img src="https://lh3.googleusercontent.com/d/1D5qR0dw-d773IpiNB9uzmKZ81uGyBOq1=w800?authuser=1" alt="Logo" class="app-icon-container">
-
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg sticky-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">
+          <div class="d-flex align-items-center gap-3">
+            <img src="https://lh3.googleusercontent.com/d/1D5qR0dw-d773IpiNB9uzmKZ81uGyBOq1=w800?authuser=1" alt="Logo Almanak" class="app-icon-container">
             <div class="card-title-text">
-                <span id="brand-alfabet" class="brand-item">Almanak</span>
-                <span id="brand-aksara" class="brand-item aksara" style="display:none;">ꦄꦭ꧀ꦩꦤꦏ꧀</span>
-                <span id="brand-arab" class="brand-item arabic" style="display:none;">المنك</span>
+              <span id="brand-alfabet" class="brand-item">Almanak</span>
+              <span id="brand-aksara" class="brand-item aksara" style="display:none;">ꦄꦭ꧀ꦩꦤꦏ꧀</span>
+              <span id="brand-arab" class="brand-item arabic" style="display:none;">المنك</span>
             </div>
-        </div>
-        
-
-        <p class="text-secondary mb-4">Almanak: Kalender Jawa dan Hijriah. Dibuat untuk merangkum Kalender Jawa Sultan Agungan dan petung jawa atau populer sebutan primbon, serta dipadukan dengan kalender hijriah dengan 3 metode hisab rukyah, hisab wujudul hilal dan Kalender Hijriah Global Tunggal (KHGT).</p>
-
-        <div class="dropdown dropup-center dropup">
-            <button class="btn btn-light btn-create-new mb-2 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Akses Almanak
-            </button>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="https://almanak-tawny.vercel.app/">
-                    <img src="https://raw.githubusercontent.com/tandpfun/skill-icons/main/icons/Vercel-Dark.svg" width="15">
-                    Buka Laman (Tautan utama)</a>
-                </li>
-                <li><a class="dropdown-item" href="https://almanak-2jgo.onrender.com/">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQad04Zi8X5WSAqAJYrbtO3KNu8D1UISyBx_93K4YWQDpclOACPLdgdFeZ2&s=10" width="15" style="border-radius: 3px;">
-                    Buka Laman (Tautan alternatif)</a>
-                </li>
-              </ul>
-        </div>
-
-    </div>
-
-    <!-- Fullscreen White Overlay dengan Logo -->
-    <div id="loading-overlay" class="d-none position-fixed top-0 start-0 w-100 h-100 flex-column align-items-center justify-content-center" style="z-index: 9999;">
-        <div class="loading position-relative d-flex align-items-center justify-content-center">
-          <!-- Ring Spinner -->
-          <div class="spinner-border position-absolute w-100 h-100 opacity-50" role="status" style="border-width: 6px; color: #D7A84D;">
-            <span class="visually-hidden">Loading...</span>
           </div>
-          <!-- Gambar Logo (Ganti URL ini dengan path logo Anda) -->
-          <img src="https://lh3.googleusercontent.com/d/1D5qR0dw-d773IpiNB9uzmKZ81uGyBOq1=w800?authuser=1" alt="Logo" class="img-fluid p-1">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+          <ul class="navbar-nav gap-2">
+            <li class="nav-item">
+              <a class="nav-link active fw-semibold" aria-current="page" href="#home">Halaman Depan</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link fw-semibold" href="#fitur">Hasil Komputasi</a>
+            </li>
+          </ul>
         </div>
-    </div>
+      </div>
+    </nav>
 
+    <!-- HERO SECTION -->
+    <section id="home">
+      <div class="container">
+        <div class="row align-items-center">
+          <!-- Kolom Teks Kiri -->
+          <div class="col-lg-6 text-start">
+            <h1 class="hero-title">Almanak</h1>
+            <p class="hero-desc">
+              Kalender Jawa dan Hijriah. Dibuat untuk merangkum Kalender Jawa Sultan Agungan dan petung jawa atau populer sebutan primbon, serta dipadukan dengan kalender hijriah dengan 3 metode hisab rukyah, hisab wujudul hilal dan Kalender Hijriah Global Tunggal (KHGT). Tambahan pengembangan khazanah Kala Ider sunda dan metode penghitungan astronomis jadwal sholat.
+            </p>
+            <div class="d-flex flex-wrap gap-3">
+              <a class="btn btn-hero-primary" href="https://almanak-tawny.vercel.app/" target="_blank">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5"/>
+                  <path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0z"/>
+                </svg>
+                Buka Laman Almanak
+              </a>
+            </div>
+          </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+          <!-- Kolom Mockup Kanan (Ganti isi di dalam .phone-light & .phone-dark dengan screenshot aplikasi Anda) -->
+          <div class="col-lg-6">
+            <div class="hero-mockup-wrapper">
+              <!-- HP Depan (Light Mode) -->
+              <div class="phone-frame phone-light">
+                <div style="background:#059669; color:white; padding:24px 16px; text-align:center; border-bottom-left-radius:20px; border-bottom-right-radius:20px;">
+                  <div class="fw-bold fs-5">Almanak</div>
+                  <small class="opacity-75">Sabtu Pahing, 14 Nov 2026</small>
+                  <div class="mt-2 badge bg-white text-success">4 Jumadil Akhir 1448 H</div>
+                </div>
+                <div class="p-3">
+                  <div class="p-2 mb-2 rounded bg-light border text-center">
+                    <small class="text-muted d-block">Kalender Jawa</small>
+                    <strong class="text-dark">4 Jumadilakir 1960</strong>
+                  </div>
+                  <div class="p-2 mb-2 rounded bg-light border text-center">
+                    <small class="text-muted d-block">Neptu & Wuku</small>
+                    <strong class="text-success">Neptu 18 • Wuku Julungwangi</strong>
+                  </div>
+                  <div class="p-2 rounded bg-light border text-center">
+                    <small class="text-muted d-block">Waktu Sholat</small>
+                    <strong class="text-dark">Isya 19:04 WIB</strong>
+                  </div>
+                </div>
+              </div>
+
+              <!-- HP Belakang (Dark Mode) -->
+              <div class="phone-frame phone-dark">
+                <div style="background:#064e3b; color:white; padding:24px 16px; text-align:center; border-bottom-left-radius:20px; border-bottom-right-radius:20px;">
+                  <div class="fw-bold">Mode Gelap</div>
+                  <small class="opacity-75">Hisab & Rukyat</small>
+                </div>
+                <div class="p-3">
+                  <div class="p-2 mb-2 rounded" style="background:#27272a;">
+                    <small class="text-secondary d-block">KHGT</small>
+                    <span>4 Jumadil Akhir 1448</span>
+                  </div>
+                  <div class="p-2 rounded" style="background:#27272a;">
+                    <small class="text-secondary d-block">Wujudul Hilal</small>
+                    <span>4 Jumadil Akhir 1448</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CAROUSEL FITUR SECTION -->
+    <section id="fitur">
+      <div class="container">
+        <div id="carouselFitur" class="carousel slide" data-bs-ride="carousel">
+          
+          <div class="carousel-inner">
+            <!-- Slide 1 -->
+            <div class="carousel-item active">
+              <div class="row feature-slide-content justify-content-center">
+                <div class="col-md-5 text-center">
+                  <div class="tilted-phone">
+                    <div class="tilted-phone-header">Kalender Terpadu</div>
+                    <div class="tilted-phone-body">
+                      <!-- Ganti bagian ini dengan <img> screenshot fitur 1 -->
+                      <span class="badge bg-success mb-2">3 Sistem Penanggalan</span>
+                      <h5 class="fw-bold mb-1">Masehi</h5>
+                      <p class="small text-muted mb-2">Hijriah & Jawa Sultan Agungan</p>
+                      <div class="w-100 p-2 bg-white rounded border small">Tampilan Grid Bulanan</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <h2 class="feature-title">Kalender Terpadu</h2>
+                  <p class="feature-text">
+                    Menyajikan informasi Kalender Gregorian (Masehi), Hijriah, dan Jawa Sultan Agungan dalam satu tampilan terpadu yang mudah dibaca dan dipahami sehari-hari.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="carousel-item">
+              <div class="row feature-slide-content justify-content-center">
+                <div class="col-md-5 text-center">
+                  <div class="tilted-phone">
+                    <div class="tilted-phone-header">Jawa Sultan Agungan</div>
+                    <div class="tilted-phone-body">
+                      <!-- Ganti bagian ini dengan <img> screenshot fitur 2 -->
+                      <span class="aksara fs-3 text-success mb-2">ꦄꦭ꧀ꦩꦤꦏ꧀</span>
+                      <h5 class="fw-bold mb-1">Pasaran & Wuku</h5>
+                      <p class="small text-muted">Perhitungan Petung Jawa & Primbon lengkap beserta neptu.</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <h2 class="feature-title">Tanggal Jawa Sultan Agungan</h2>
+                  <p class="feature-text">
+                    Dilengkapi dengan perhitungan hari pasaran (Legi, Pahing, Pon, Wage, Kliwon), wuku, pranata mangsa, serta rangkuman petung Jawa atau primbon tradisional.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="carousel-item">
+              <div class="row feature-slide-content justify-content-center">
+                <div class="col-md-5 text-center">
+                  <div class="tilted-phone">
+                    <div class="tilted-phone-header">3 Metode Hijriah</div>
+                    <div class="tilted-phone-body">
+                      <!-- Ganti bagian ini dengan <img> screenshot fitur 3 -->
+                      <span class="arabic fs-3 text-success mb-2">التقويم الهجري</span>
+                      <ul class="list-unstyled small text-start w-100 px-2">
+                        <li class="mb-1">✓ Rukyatul Hilal</li>
+                        <li class="mb-1">✓ Wujudul Hilal</li>
+                        <li>✓ KHGT</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <h2 class="feature-title">Kalender Hijriah Multi-Metode</h2>
+                  <p class="feature-text">
+                    Tanggal Hijriah memberikan informasi komparatif berdasarkan metode Rukyatul Hilal, Wujudul Hilal, dan Kalender Hijriah Global Tunggal (KHGT).
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 4 -->
+            <div class="carousel-item">
+              <div class="row feature-slide-content justify-content-center">
+                <div class="col-md-5 text-center">
+                  <div class="tilted-phone">
+                    <div class="tilted-phone-header">Jadwal Sholat</div>
+                    <div class="tilted-phone-body">
+                      <!-- Ganti bagian ini dengan <img> screenshot fitur 4 -->
+                      <div class="w-100 text-start small">
+                        <div class="d-flex justify-content-between py-1 border-bottom"><span>Subuh</span><strong>04:13</strong></div>
+                        <div class="d-flex justify-content-between py-1 border-bottom"><span>Dzuhur</span><strong>11:45</strong></div>
+                        <div class="d-flex justify-content-between py-1 border-bottom"><span>Ashar</span><strong>15:05</strong></div>
+                        <div class="d-flex justify-content-between py-1 border-bottom"><span>Maghrib</span><strong>17:52</strong></div>
+                        <div class="d-flex justify-content-between py-1"><span>Isya</span><strong>19:04</strong></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <h2 class="feature-title">Jadwal Sholat</h2>
+                  <p class="feature-text">
+                    Memudahkan untuk mengetahui waktu sholat fardhu lima waktu berdasarkan metode penghitungan astronomis sesuai koordinat lokasi pengguna setiap harinya.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 5 -->
+            <div class="carousel-item">
+              <div class="row feature-slide-content justify-content-center">
+                <div class="col-md-5 text-center">
+                  <div class="tilted-phone">
+                    <div class="tilted-phone-header">Kalender Sunda</div>
+                    <div class="tilted-phone-body">
+                      <!-- Ganti bagian ini dengan <img> screenshot fitur 5 -->
+                      <span class="badge bg-success mb-2">Kala Sunda</span>
+                      <h5 class="fw-bold mb-1">Candra & Surya</h5>
+                      <p class="small text-muted">Pelestarian sistem penanggalan tradisional masyarakat Sunda.</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <h2 class="feature-title">Tanggal Kalender Sunda</h2>
+                  <p class="feature-text">
+                    Turut melengkapi khazanah penanggalan Nusantara dengan informasi tanggal berdasarkan sistem perhitungan Kala Ider Sunda: Kala Candra dan Kala Surya.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Indikator Titik di Bawah (Seperti Gambar 2) -->
+          <div class="carousel-indicators custom-indicators">
+            <button type="button" data-bs-target="#carouselFitur" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselFitur" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselFitur" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            <button type="button" data-bs-target="#carouselFitur" data-bs-slide-to="3" aria-label="Slide 4"></button>
+            <button type="button" data-bs-target="#carouselFitur" data-bs-slide-to="4" aria-label="Slide 5"></button>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="text-center py-4 bg-white border-top text-muted small">
+      &copy; 2026 Almanak. Hak Cipta Dilindungi.
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
-        // navbar title
-        $(document).ready(function() {
-          let items = $('.brand-item');
-          let currentIndex = 0;
+      // Animasi pergantian aksara pada brand navbar
+      $(document).ready(function() {
+        let items = $('.brand-item');
+        let currentIndex = 0;
 
-          function rotateDates() {
-            // 1. Sembunyikan item yang sedang tampil (FadeOut)
-            $(items[currentIndex]).fadeOut(1000, function() {
+        function rotateDates() {
+          $(items[currentIndex]).fadeOut(800, function() {
+            currentIndex = (currentIndex + 1) % items.length;
+            $(items[currentIndex]).fadeIn(800);
+          });
+        }
 
-              // 2. Hitung index berikutnya
-              currentIndex = (currentIndex + 1) % items.length;
-
-              // 3. Tampilkan item berikutnya (FadeIn)
-              $(items[currentIndex]).fadeIn(1000);
-            });
-          }
-
-          // Atur interval penggantian (misal: setiap 4 detik)
-          setInterval(rotateDates, 4000);
-        });
-
-        $(document).ready(function() {
-              $('a[href]').on('click', function(e) {
-                var href = $(this).attr('href');
-
-                if (!href || href.startsWith('#') || href.startsWith('javascript:') || $(this).attr('target') === '_blank' || e.ctrlKey || e.metaKey) {
-                  return;
-                }
-
-                $('#loading-overlay').removeClass('d-none').addClass('d-flex');
-              });
-
-              $(window).on('pageshow', function() {
-                $('#loading-overlay').addClass('d-none').removeClass('d-flex');
-              });
-        });
-
+        setInterval(rotateDates, 4000);
+      });
     </script>
-</body>
+  </body>
 </html>
