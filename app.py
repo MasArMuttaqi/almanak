@@ -84,7 +84,7 @@ def detail_kalender():
             "wuku": f"{jawa.get('wuku', '-')}",
             "sadwara": f"{jawa.get('sadwara', '-')}",
             "kala_surya_sunda": f"{kala_surya_sunda.get('tanggal_sunda', '-')}",
-            "kala_candra_sunda": f"{kala_candra_sunda.get('tanggal_caka', '-')}"
+            "kala_candra_sunda": f"{kala_candra_sunda.get('tanggal_caka_lengkap', '-')}"
         })
 
     except Exception as e:
@@ -179,6 +179,8 @@ def kalenderhijriah():
         lon=request.args.get("lon", type=float),
         tz=request.args.get("tz", type=float)
     )
+
+    # nama_lokasi = nama_lokasi_dari_koordinat(markaz["lat"], markaz["lon"])
 
 
     # ========================================================
