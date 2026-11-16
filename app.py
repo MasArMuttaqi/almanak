@@ -24,17 +24,26 @@ from hisab_wujud_hilal import set_markaz as set_markaz_wujud, hisab
 from hijriah_kgth import get_hijriah
 from surya_kala_sunda import *
 from kala_candra_sunda import kalacandra_sunda
-# from paririmbon_sunda import hitung_paririmbon_sunda
+from paririmbon_sunda import hitung_paririmbon_sunda
 from generate_version import write_version_file
 from jadwalsholat import Lokasi, ParameterSalat,hitung_jadwal
 
+from config import GA_MEASUREMENT_ID
 
 
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY", "default-secret") # ganti dengan key aman
+app.config["GA_MEASUREMENT_ID"] = GA_MEASUREMENT_ID
 
 ACCOUNTS_FILE = "accounts.json"
 FILE_JSON_KOREKSI_AWAL_BULAN_HIJRIAH = "data/koreksirukyah.json"
+
+@app.context_processor
+def inject_analytics():
+    return {
+        "ga_measurement_id":
+            app.config.get("GA_MEASUREMENT_ID", "")
+    }
 
 @app.route("/")
 def dashboard():
@@ -231,19 +240,16 @@ def kalendersunda():
     kala_surya_sunda = konversi_masehi_ke_sunda(tanggal.year, tanggal.month, tanggal.day)
     kala_candra_sunda = kalacandra_sunda(tanggal)
 
-    # data_paririmbon = {
-    #     "tanggal": kala_candra_sunda["tanggal"],
-    #     "bulan": kala_candra_sunda["bulan"],
-    #     "tahun": kala_candra_sunda["tahun"],
-    #     "paksa": kala_candra_sunda["tanggal_paksa"]["paksa"]
-    # }
+    saptawara = kala_candra_sunda["saptawara"]["hari"]
+    pancawara = kala_candra_sunda["pancawara"]["nama"]
+    nomor_tanggal_sasih = kala_candra_sunda["tanggal_caka"]
 
-    # paririmbon_sunda = hitung_paririmbon_sunda(data_paririmbon)
+    paririmbon_sunda = hitung_paririmbon_sunda(saptawara, pancawara, nomor_tanggal_sasih)
     
     with open("data/fasebulan.json", "r") as fasebulan_file:
         fasebulan = json.load(fasebulan_file)
     
-    nomor_tanggal = kala_candra_sunda["tanggal"]
+    nomor_tanggal = kala_candra_sunda["tanggal_caka"]
 
     fasebulan_hari_ini = [
         item for item in fasebulan
@@ -252,7 +258,7 @@ def kalendersunda():
 
 
 
-    return render_template("kalendersunda.html", tanggal_masehi=tanggal_masehi, kala_surya=kala_surya_sunda, kala_candra=kala_candra_sunda, fasebulan=fasebulan_hari_ini)
+    return render_template("kalendersunda.html", tanggal_masehi=tanggal_masehi, kala_surya=kala_surya_sunda, kala_candra=kala_candra_sunda, fasebulan=fasebulan_hari_ini,paririmbon_sunda=paririmbon_sunda)
 
 
 def nama_lokasi_dari_koordinat(lintang, bujur):

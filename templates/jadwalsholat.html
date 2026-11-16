@@ -745,7 +745,7 @@ function perbaruiCountdown() {
         // Menuju waktu salat berikutnya
         $label.text("Menuju " + target.nama);
 
-        $countdown.text(
+        $countdown.text("- " +
             formatCountdown(target.target - sekarang)
         );
     }

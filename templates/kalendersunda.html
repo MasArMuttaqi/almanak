@@ -54,7 +54,7 @@
                     <span class="text-secondary fw-medium">Kala Candra Sunda</span>
                     <span class="text-secondary fw-medium noto-sans-sundanese">ᮊᮜ ᮎᮔ᮪ᮓᮢ ᮞᮥᮔ᮪ᮓ</span>
                 </div>
-                <span class="fw-bold {{ 'text-success' if kala_candra.tanggal_paksa["paksa"] == 'Suklapaksa' else '' }}">{{kala_candra.tanggal_caka}}</span>
+                <span class="fw-bold {{ 'text-success' if kala_candra.tanggal_paksa["paksa"] == 'Suklapaksa' else '' }}">{{kala_candra.tanggal_caka_lengkap}}</span>
             </li>
             <li class="list-group-item bg-light py-2 text-center" style="border-top: 2px dashed #dee2e6; border-bottom: 2px dashed #dee2e6;">
                 <small class="fw-bold text-muted" style="letter-spacing: 1px;">Siklus Wewaran Candra Kala Sunda</small>
@@ -102,12 +102,12 @@
                 <div class="row g-3">
                     <div class="col-6 border-end">
                         <small class="text-muted d-block small">Dewataun</small>
-                        <span class="fw-bold">{{kala_candra.dewataun}}</span>
+                        <span class="fw-bold">{{kala_candra.windu["dewataun"]}}</span>
                     </div>
                     <div class="col-6 ps-3">
                         <small class="text-muted d-block small">Jenis taun</small>
-                        <span class="fw-bold">{{kala_candra.jenis_tahun}}</span>
-                        <small class="text-secondary">({{kala_candra.panjang_tahun}} hari)</small>
+                        <span class="fw-bold">{{kala_candra.tahun['jenis_tahun']}}</span>
+                        <small class="text-secondary">({{kala_candra.tahun['panjang_tahun']}} hari)</small>
                     </div>
                 </div>
             </li>
@@ -117,69 +117,65 @@
                     <div class="col-6 border-end">
                         <small class="text-muted d-block small">Windu</small>
                         <span class="fw-bold">{{kala_candra.windu["nama"]}}</span>
-                        <small class="text-secondary">({{kala_candra.windu["tahun_awal"]}} - {{kala_candra.windu["tahun_akhir"]}}, tunggul ke {{kala_candra.windu["nomor_tunggul"]}})</small> 
+                        <small class="text-secondary">(tahun {{kala_candra.windu["tahun_awal"]}} - {{kala_candra.windu["tahun_akhir"]}} Caka Sunda)</small> 
                     </div>
                     <div class="col-6 ps-3">
                         <small class="text-muted d-block small">Indung Poe</small>
                         <span class="fw-bold">{{kala_candra.indung_poe["indung_poe"]}}</span>
+                        <small class="text-secondary">tunggul/periode ke {{kala_candra.windu["nomor_tunggul"]}}</small>
                     </div>
                 </div>
             </li>
         </ul>
-
-        <!-- <span class="fw-bold mt-2">Poé-poé Hadé jeung Goréng</span>
+        
+        <span class="fw-bold mt-2">Poé-poé Hadé jeung Goréng</span>
         <small class="text-muted d-block small">
             Hari baik dan buruk (Poé-poé hadé jeung goréng) ditentukan berdasarkan perhitungan paririmbon (kalender tradisional) Caka Sunda yang dapat dijadikan rujukan dalam menjalani kehidupan sehari-hari, termasuk saat hendak melaksanakan berbagai hajat atau pekerjaan penting.
         </small>
+        
         <div class="border rounded-3 overflow-auto">
-        <table class="table table-striped mb-0" style="font-size: 0.8rem;">
+        <table class="table table-striped text-nowrap mb-0" style="font-size: 0.8rem;">
           <thead>
             <tr>
-              <th scope="col" colspan="2" class="text-center">Dawuh 1</th>
-              <th scope="col" colspan="2" class="text-center">Dawuh 2</th>
-              <th scope="col" colspan="2" class="text-center">Dawuh 3</th>
-              <th scope="col" colspan="2" class="text-center">Dawuh 4</th>
-              <th scope="col" colspan="2" class="text-center">Dawuh 5</th>
+              <th scope="col" class="text-center {{ 'table-info' if paririmbon_sunda.dawuh == 1 else '' }}">Dawuh 1</th>
+              <th scope="col" class="text-center {{ 'table-info' if paririmbon_sunda.dawuh == 2 else '' }}">Dawuh 2</th>
+              <th scope="col" class="text-center {{ 'table-info' if paririmbon_sunda.dawuh == 3 else '' }}">Dawuh 3</th>
+              <th scope="col" class="text-center {{ 'table-info' if paririmbon_sunda.dawuh == 4 else '' }}">Dawuh 4</th>
+              <th scope="col" class="text-center {{ 'table-info' if paririmbon_sunda.dawuh == 5 else '' }}">Dawuh 5</th>
+              <th scope="col" class="text-center">Poé Poé Hadé Goréng</th>
+              <th scope="col" class="text-center">Sipat</th>
+              <th scope="col" class="text-center">Interpretasi</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td class="text-center fw-medium">Salamet</td>
-              <td class="text-center fw-medium">Rejeki</td>
-              <td class="text-center fw-medium">Salamet</td>
-              <td class="text-center fw-medium">Rejeki</td>
-              <td class="text-center fw-medium">Salamet</td>
-              <td class="text-center fw-medium">Rejeki</td>
-              <td class="text-center fw-medium">Salamet</td>
-              <td class="text-center fw-medium">Rejeki</td>
-              <td class="text-center fw-medium">Salamet</td>
-              <td class="text-center fw-medium">Rejeki</td>
-            </tr>
-            <tr>
-              <td class="text-center">Salamet</td>
-              <td class="text-center">Rejeki</td>
-              <td class="text-center">Salamet</td>
-              <td class="text-center">Rejeki</td>
-              <td class="text-center">Salamet</td>
-              <td class="text-center">Rejeki</td>
-              <td class="text-center">Salamet</td>
-              <td class="text-center">Rejeki</td>
-              <td class="text-center">Salamet</td>
-              <td class="text-center">Rejeki</td>
+              <td class="text-center fw-medium {{ 'table-info' if paririmbon_sunda.dawuh == 1 else '' }}">05:36–06:12</td>
+              <td class="text-center fw-medium {{ 'table-info' if paririmbon_sunda.dawuh == 2 else '' }}">06:48–08:24</td>
+              <td class="text-center fw-medium {{ 'table-info' if paririmbon_sunda.dawuh == 3 else '' }}">09:12–11:36</td>
+              <td class="text-center fw-medium {{ 'table-info' if paririmbon_sunda.dawuh == 4 else '' }}">12:00–15:00</td>
+              <td class="text-center fw-medium {{ 'table-info' if paririmbon_sunda.dawuh == 5 else '' }}">15:12–17:00</td>
+              <td class="text-center fw-medium">
+                <div class="d-flex gap-2">
+                  <span>{{paririmbon_sunda.poehade}}</span>
+                  <i class="fi fi-br-arrow-right"></i>
+                  <span>{{paririmbon_sunda.poegoreng}}</span>
+                </div> 
+              </td>
+              <td class="text-center fw-medium">
+                <span class="badge text-bg-warning">{{paririmbon_sunda.sifat}}</span>
+              </td>
+              <td class="text-center fw-medium">
+                 <a href="" class="btn btn-sm btn-wuku" role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom"><i class="fi fi-br-arrow-up-right-from-square"></i></a>
+              </td>
             </tr>
           </tbody>
         </table>
         </div>
         
-        <div class="d-flex justify-content-center justify-content-center mt-3 gap-2">
-          <span class="badge text-bg-success">Poé Hadé</span>
-          <i class="fi fi-br-arrow-right"></i>
-          <span class="badge text-bg-warning">Poé Goréng</span>
-        </div>
 
         <small class="text-muted d-block small mt-3">
             Hal ini hanyalah sebatas pedoman dan tidak perlu dianggap sebagai sesuatu yang mutlak.
-        </small> -->
+        </small>
 
     </section>
 
@@ -351,6 +347,71 @@
     </table>
 
 </section>
+<!-- poe poe -->
+ <div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasBottom" aria-labelledby="offcanvasBottomLabel" style="height: 90%;">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasBottomLabel">Poé-poé Hadé jeung Goréng</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body small">
+    <span class="fw-bold">Ringkasan Fungsi 2 Watak:</span>
+    <p class="text-secondary">Memetakan energi utama (Hadé) untuk dimaksimalkan dan mengantisipasi potensi risiko (Goréng) melalui pemilihan waktu Dawuh yang tepat.</p>
+    <ol class="list-group list-group-flush list-group-numbered">
+      <li class="list-group-item d-flex justify-content-between align-items-start">
+        <div class="ms-2 me-auto">
+          <div class="fw-bold">Watak Utama (Hadé)</div>
+          Menyoroti potensi, keberuntungan, dan energi positif utama yang dominan pada hari tersebut untuk dimanfaatkan secara maksimal.
+        </div>
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-start">
+        <div class="ms-2 me-auto">
+          <div class="fw-bold">Watak Kadua (Goréng/Mitigasi)</div>
+          Mengidentifikasi potensi hambatan, risiko, atau sisi negatif yang perlu diwaspadai, serta cara mitigasinya melalui pemilihan jam harian (Dawuh 1 s.d. 5) yang tepat.
+        </div>
+      </li>
+    </ol>
+    <span class="fw-bold mt-3">Identifikasi Kegunaan untuk Kegiatan Masyarakat</span>
+    <p class="text-secondary">
+      Dalam kehidupan sosial dan kemasyarakatan Sunda tradisional, pemetaan 35 kombinasi ini dijadikan pedoman untuk beberapa kegiatan krusial
+    </p>
+    <ol class="list-group list-group-flush list-group-numbered">
+      <li class="list-group-item d-flex justify-content-between align-items-start">
+        <div class="ms-2 me-auto">
+          <div class="fw-bold">Hajatan, Pernikahan, dan Perayaan Keluarga</div>
+          <b>Acuan :</b> Memilih hari berkategori Poé Hadé (Jaya Semah, Manggih Harja, atau Pada Jaya) agar acara berjalan lancar, aman, dan mendatangkan keberkahan.<br>
+          <b>Pantangan :</b> Menghindari hari Pada Apes, Manggih Susah, atau Manggih Wirang/Pati.
+        </div>
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-start">
+        <div class="ms-2 me-auto">
+          <div class="fw-bold">Memulai Usaha, Niaga, dan Kerja Sama</div>
+          <b>Acuan :</b> Dipilih kombinasi Pada Jaya atau Jaya Semah untuk menjamin keberhasilan transaksi dan kerja sama bisnis.<br>
+          <b>Pantangan :</b> Menghindari Manggih Tuna (potensi rugi/omzet meleset).
+        </div>
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-start">
+        <div class="ms-2 me-auto">
+          <div class="fw-bold">Pembangunan, Pindah Rumah, dan Urusan Tempat Tinggal</div>
+          <b>Acuan :</b> Mengutamakan hari Jaya Pribumi (seperti Radite Kaliwon, Anggara Pahing, Budha Pon, Sukra Manis, Tumpek Wage) yang diyakini memberikan ketenangan dan ketahanan di daerah/domisili sendiri.
+        </div>
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-start">
+        <div class="ms-2 me-auto">
+          <div class="fw-bold">Perjalanan Jauh dan Mobilisasi</div>
+          <b>Acuan:</b> Menghindari hari berkategori Manggih Luput atau Pada Apes agar terhindar dari hambatan di jalan.
+        </div>
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-start">
+        <div class="ms-2 me-auto">
+          <div class="fw-bold">Penyelarasan Jam Operasional (Dawuh 1–5)</div>
+          Meskipun suatu hari berstatus Poé Hadé, pelaksanaan kegiatan tetap dipadukan dengan perhitungan jam harian (Dawuh 1 s.d. 5) dan fase bulan (Suklapaksa/Kresnapaksa) agar waktu eksekusi berada tepat pada puncak energi mujur.
+        </div>
+      </li>
+    </ol>
+
+  </div>
+</div>
+<!-- poe poe -->
 <!-- fase bulan -->
  <div class="modal fade" id="fasebulan" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
@@ -378,6 +439,7 @@
   </div>
 </div>
 <!-- fase bulan -->
+
 <script>
     $(document).ready(function() {
 
