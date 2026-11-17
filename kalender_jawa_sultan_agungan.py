@@ -450,8 +450,8 @@ def kalender_jawa(tanggal):
     ]
 
     PASARAN = [
-        ["Legi", "Umanis (Manis)"],
-        ["Pahing", "Paing (Jenar)"],
+        ["Legi", "Umanis"],
+        ["Pahing", "Jenar"],
         ["Pon", "Palguna"],
         ["Wage", "Cemengan"],
         ["Kliwon", "Kasih"]
