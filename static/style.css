@@ -268,6 +268,12 @@ td {
     border-spacing: 3px; /* Memberi jarak antar kotak/sel */
   }
 
+  .table-custom .sticky-col.mingguan{
+    padding: 10px 15px !important;
+    border: 1px solid #e0e0e0 !important;
+    border-radius: 5px;
+  }
+
   .table-custom td, .table-custom th {
     border: none;
     padding: 0; /* Padding diatur di .calendar-cell */
@@ -276,6 +282,7 @@ td {
 /* Mewarnai sel tertentu menggunakan class */
   .hari{
      font-family: "Montserrat", sans-serif;
+     font-weight: 600;
   }
   .hari-jawa{
       font-family: 'Rajdhani', sans-serif;
@@ -547,9 +554,10 @@ td {
         /* Styling saat tab aktif */
         .nav-custom-wrapper .nav-link.active {
             background-color: #ffffff !important;
-            color: #333 !important;
+            color: #184D47 !important;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* Shadow halus agar menonjol */
             margin: 0 4px;
+            font-weight: 600;
         }
 
         .tab-content {
@@ -558,14 +566,14 @@ td {
         
         .tab-content p, ol{
             font-size: 1rem !important;
-            font-family: "Rajdhani", sans-serif;
+            font-family: "Anek Bangla", sans-serif;
             text-align: justify;
             text-justify: inter-word;
         }
 
         .jadwalsholat{
             font-size: 1rem !important;
-            font-family: "Rajdhani", sans-serif;
+            font-family: "Anek Bangla", sans-serif;
             text-align: justify;
             text-justify: inter-word;
         }
@@ -651,7 +659,7 @@ td {
         background-color: transparent !important;
         color: inherit; /* Mengikuti warna teks bawaan pembungkusnya */
         font-size: 1rem !important;
-        font-family: "Rajdhani", sans-serif;
+        font-family: "Anek Bangla", sans-serif;
     }
 
     /* Menghilangkan efek background biru/putih saat accordion diklik/aktif */
@@ -965,7 +973,7 @@ td {
 
   .tentang p{
     font-size: 1rem !important;
-    font-family: "Rajdhani", sans-serif;
+    font-family: "Anek Bangla", sans-serif;
     text-align: justify;
     text-justify: inter-word;
   }
